@@ -1,0 +1,53 @@
+{
+  "manifest_sha256": "fd0253e0b15c4dadfb3384d28cc9d39849cd5a46bba99f82974dc9ce120dccda",
+  "files": [
+    {
+      "path": "data/raw/noaa/sci_xrsf-l2-avg1m_g16_d20240701_v2-2-1.nc",
+      "url": "https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/goes16/l2/data/xrsf-l2-avg1m_science/2024/07/sci_xrsf-l2-avg1m_g16_d20240701_v2-2-1.nc",
+      "bytes": 291751,
+      "sha256": "715f04fbd0a7a941d9c6681887c7f77178267a6779aa9ed2fcb698110faa0f7b",
+      "fetched": true,
+      "checked_utc": "2026-09-29T09:29:07.526795+00:00"
+    },
+    {
+      "path": "data/raw/noaa/sci_xrsf-l2-flsum_g16_d20240701_v2-2-1.nc",
+      "url": "https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/goes16/l2/data/xrsf-l2-flsum_science/2024/07/sci_xrsf-l2-flsum_g16_d20240701_v2-2-1.nc",
+      "bytes": 42633,
+      "sha256": "e0872b78d70df1aa665b1552df3dd6638115761aab3791f85bd9e6bcb31f17fd",
+      "fetched": true,
+      "checked_utc": "2026-09-29T09:29:09.096859+00:00"
+    },
+    {
+      "path": "data/raw/noaa/sci_xrsf-l2-avg1m_g16_d20240702_v2-2-1.nc",
+      "url": "https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/goes16/l2/data/xrsf-l2-avg1m_science/2024/07/sci_xrsf-l2-avg1m_g16_d20240702_v2-2-1.nc",
+      "bytes": 291557,
+      "sha256": "9d9cd313a4888b1385e7a2e938deb82bf641277a7c8497b06d14e321e4df347b",
+      "fetched": true,
+      "checked_utc": "2026-09-29T09:29:11.196893+00:00"
+    },
+    {
+      "path": "data/raw/noaa/sci_xrsf-l2-flsum_g16_d20240702_v2-2-1.nc",
+      "url": "https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/goes16/l2/data/xrsf-l2-flsum_science/2024/07/sci_xrsf-l2-flsum_g16_d20240702_v2-2-1.nc",
+      "bytes": 43183,
+      "sha256": "2d3456ba36e3cb683dc1c23f7ee5cf120986f20348bbb69d41c7805629beca09",
+      "fetched": true,
+      "checked_utc": "2026-09-29T09:29:12.767483+00:00"
+    },
+    {
+      "path": "data/raw/noaa/sci_xrsf-l2-avg1m_g16_d20240703_v2-2-1.nc",
+      "url": "https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/goes16/l2/data/xrsf-l2-avg1m_science/2024/07/sci_xrsf-l2-avg1m_g16_d20240703_v2-2-1.nc",
+      "bytes": 291598,
+      "sha256": "7742132b7d4f4682f4c6d7474fa9ee04a8b2d06dc4ad256b2f0fb31a400f5f1e",
+      "fetched": true,
+      "checked_utc": "2026-09-29T09:29:14.866134+00:00"
+    },
+    {
+      "path": "data/raw/noaa/sci_xrsf-l2-flsum_g16_d20240703_v2-2-1.nc",
+      "url": "https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/goes16/l2/data/xrsf-l2-flsum_science/2024/07/sci_xrsf-l2-flsum_g16_d20240703_v2-2-1.nc",
+      "bytes": 41863,
+      "sha256": "fc6e651f363be91ff5b5d0da65747046796892de43aa40d116deb4322e2ff1e4",
+      "fetched": true,
+      "checked_utc": "2026-09-29T09:29:16.501792+00:00"
+    }
+  ]
+}
