@@ -1,133 +1,317 @@
-# Solar forecasting implementation plan
+# SolarJEPA implementation plan
 
-**Goal:** establish auditable data feasibility, then progress to controlled
-forecasting experiments only after the user approves the research design.
-**Architecture:** separate acquisition, source-specific inspection/decoding,
-causal preparation, frozen window manifests, and later model/evaluation APIs.
-**Stack:** Python 3.11+, NumPy/pandas/xarray/NetCDF4/Parquet/matplotlib;
-Astropy/CDF inspection optional; no torch or LLM weights in the foundation.
-**Spec:** [RESEARCH_PLAN.md](RESEARCH_PLAN.md) and [EXPERIMENT_PLAN.md](EXPERIMENT_PLAN.md).
-**Execution:** foundation in this session; later phases await explicit approval.
+Reconciled with the project-state audit on **2026-10-01**.
+[PROJECT_STATUS.md](PROJECT_STATUS.md) is the canonical tracker for status,
+blockers, completion criteria and the next three tasks. This document describes
+execution using the **same Stages 0–10**. It does not authorize further work.
+[RESEARCH_PLAN.md](RESEARCH_PLAN.md) supplies scientific hypotheses;
+[EXPERIMENT_PLAN.md](EXPERIMENT_PLAN.md) supplies the proposed protocol.
 
-## Global constraints and review focus
+**Goal:** validate real Aditya data, construct a frozen benchmark, then perform
+fair, bounded forecasting experiments after the required approvals.
+**Architecture:** separate source acquisition/inspection/calibration, causal
+preparation, immutable windows/splits, model APIs, training and evaluation.
+**Current stack:** Python 3.11+ declaration; Python 3.13.3/macOS arm64 dependency
+pins; NumPy/pandas/xarray/NetCDF4/Parquet/matplotlib, optional Astropy/CDF.
+No torch, statistical-model fitting or LLM runtime is implemented in the
+foundation. Other environments and all training budgets remain unprofiled.
 
+## Existing work to preserve
+
+The repository, five commits, remote, research documents, bounded NOAA downloader,
+six pinned reference files, metadata inventory, NOAA preparation/EDA and tests
+already exist. Do not reinitialize Git, recreate this foundation, revert completed
+work, or treat generated NOAA artifacts as an Aditya corpus. Existing files are
+listed and verified in the tracker.
+
+The current audit verifies 26 passing tests and consistent raw/processed/EDA
+contents, but normal CLI imports fail because Python skips the hidden editable
+`.pth` file. The older validation checkpoint is not current installation proof.
+The original retrieval digest also corresponds to the pre-checksum manifest;
+preserve and explicitly document that historical transition. Both issues belong
+to Stage 9 maintenance before relying on the existing workflow.
+
+## Global constraints and gates
+
+- No code/environment repair, data acquisition, training or push in the audit.
+  The next work session must respect the user's requested approval boundaries.
 - No random time splits, future-fill, guessed instrument epochs or raw-data Git.
-- NOAA reference validation cannot be labeled Aditya validation.
-- Every downloader has finite byte limits and immutable source hashes.
-- Missing/bad/saturated flux is unknown, not zero or a negative flare label.
-- No model training or large acquisition in this phase.
-- Review truncated downloads, changed cached files, reordered/duplicate times,
-  missing quality fields, and derivatives across gaps; tests pin these cases.
+  Missing/bad/saturated targets are unknown, never zero or negative flare labels.
+- Source hashes, finite acquisition caps, exact calibration versions and source
+  rights are mandatory. Authentication uses the official registered route.
+- NOAA reference validation cannot be reported as Aditya validation. Counts
+  cannot receive GOES physical-flux classes without a justified separate mapping.
+- Baselines share the benchmark, information, eligible origins and tuning policy.
+  Self-supervised pretraining uses training support only, including future targets.
+- Evaluation development tests and run provenance are implemented early as
+  portions of Stages 7 and 9. Final test scoring waits for all chosen experiments,
+  thresholds and calibration decisions to freeze. Stage numbers are deliverables,
+  not a requirement to postpone cross-cutting infrastructure.
+- Profile an approved short pilot before repeated neural/LLM runs. The proposed
+  30 core/6 LLM GPU-hour ceilings and VRAM targets are caps, not measurements.
+- Do not add arbitrary smoothness/MHD/Neupert constraints. Physics, fusion and
+  generative terminology require the corresponding evidence gates.
 
-## Phase 0 — today's foundation
+## Stage 0 — Research question and scientific scope
 
-### Task 1: repository and research evidence
+Preserve existing research, novelty, literature, paper and experiment documents.
+Complete full-method review of mandatory JEPA/SSL and solar forecasting controls.
+Record approval of the SoLEXS-first continuous task, separate M+ onset warning,
+scope exclusions, event precision criteria and bounded pilot policy. Use real
+Stage 1 findings to finalize feasible channels, targets and claims.
 
-Files: README, LICENSE, .gitignore, pyproject, the seven requested docs, and
-this plan. Check source links, scope and assumptions. Initialize local main
-branch; no remote. Commit `chore: initialize research repository`, followed by
-`docs: add research and experiment plan`.
+Outputs: versioned scope/approval record and aligned research/experiment configs.
+Gate: the tracker's Stage 0 completion criteria; a provisional architecture or
+an abstract-level citation does not freeze the scientific design.
 
-### Task 2: bounded public acquisition
+## Stage 1 — Data acquisition and validation
 
-Files: `src/solar_flare_jepa/data/download.py`, `scripts/download_data.py`,
-`configs/data/noaa_sample.json`, `tests/test_download.py`.
-Interface: `download_manifest(manifest_path: Path, root: Path) -> list[dict]`.
-Consume explicit public NOAA URLs, destination relative paths, byte limits and
-optional initial/pinned hashes; produce verified files plus provenance JSON.
+Use [DATA_DOWNLOAD.md](DATA_DOWNLOAD.md) to acquire one permitted real interval,
+manuals and matching calibration through registered access. Record actual archive
+holdings/levels/versions/bytes without selecting only flare-rich periods. Preserve
+raw files outside Git; create a credential-free Aditya inventory. Assess STEPS
+and SWIS independently and record fusion inclusion or deferral.
 
-- [x] Write tests for HTTPS/host/path rejection, byte cap/truncation, NetCDF
-  magic, hash mismatch and cache corruption using fake network streams only.
-- [x] Run and observe missing implementation failures.
-- [x] Implement atomic bounded streams, no authenticated endpoints/redirects.
-- [x] Run tests; fetch six daily reference files; pin measured hashes/sizes.
-- [x] Commit `feat(data): add bounded public reference acquisition`.
+Only after reading actual metadata, add source-specific adapters under
+`src/solar_flare_jepa/data/solexs.py` and, if justified, `aspex.py`.
+Proposed common long-form schema:
 
-### Task 3: metadata and reference EDA
+```text
+time_start_utc, time_end_utc, instrument, detector, channel, value, unit,
+valid, quality, exposure, calibration_id, source_sha256
+```
 
-Files: `data/inspect.py`, `data/goes.py`, `data/eda.py` in the package,
-`scripts/inspect_data.py`, `scripts/preprocess.py`, `scripts/eda.py`,
-`configs/data/noaa_eda.json`, `tests/test_goes.py`.
-Interfaces: `inspect_file(path: Path) -> dict` (schema only);
-`read_goes(paths: list[Path]) -> pandas.DataFrame` (UTC indexed reference
-samples with raw values, masks, flags and source); `summarize(frame) -> dict`.
+Retain native clock/time-scale metadata, energy edges, uncertainty and documented
+availability. Fixtures must derive from permitted real metadata. Test clock/bin
+conversion, fill/quality flags, detector changes, response units, exposure/dead
+time and excluded channels. Compare a calibrated lightcurve against an official
+quicklook or documented numerical reference. Generic FITS/CDF inventory is not a
+science adapter. Report cadence, gaps, numerical ranges and unavailable fields.
 
-- [x] Test CF timestamps/interval metadata, required units/quality, valid masking,
-  unordered/duplicate times, positivity and gap-aware backward derivatives.
-- [x] Observe failures, implement only these source-specific behaviors.
-- [x] Inspect real sample before choosing metadata/quality mappings; retain flags.
-- [x] Produce Parquet and sidecar, JSON diagnostics and PNG flux/log/derivative/
-  cadence/event plots. No Aditya channel mapping without actual data.
-- [x] Report measured rows/bytes/coverage/gaps/event records and limitations.
-- [x] Run full tests and real-data smoke; check Git ignores and commit small units.
+Outputs: reviewed adapter, small calibrated Parquet/metadata, real-file validation
+report, acquisition inventory and feasible coverage/volume estimate.
+Gate: Stage 1 tested extraction and calibration criteria; broader acquisition
+requires the recorded approval and data-use review.
 
-STOP after Phase 0. The following are designs, not authorized implementation.
+## Stage 2 — Dataset construction, preprocessing and leakage-safe splits
 
-## Phase 1 — Aditya access and calibration validation
+Build on the existing reference preparation contract, with separate Aditya
+adapters. Planned modules: `features/causal.py`, `data/windows.py`,
+`data/splits.py`, `data/labels.py` under `src/solar_flare_jepa/`.
+Do not add hundreds of unexplained indicators. Start with calibrated bands,
+masks, observation age, log flux and justified trailing/rise-rate summaries.
+Use native particle cadence and causal joins if fusion survives Stage 1.
 
-Acquire one matched interval and official manuals using DATA_DOWNLOAD.md.
-New adapters `data/solexs.py` and `data/aspex.py` return a common long-form schema:
-`time_start_utc,time_end_utc,instrument,detector,channel,value,unit,valid,quality,
-exposure,calibration_id,source_sha256`. Retain original clock metadata.
+Each window records origin, full feature/history/target support interval, source
+hashes, masks, event IDs and label-availability/maturity time. Separate maximum
+threshold exceedance from new-onset labels whose eventual class may mature after
+the forecast horizon. Incomplete catalogue coverage cannot create negatives.
+Partition construction accepts explicit UTC boundaries and produces immutable
+IDs, never random splits. Freeze the primary history/horizon before formal model
+comparison; retain other combinations as development or sensitivity tasks.
 
-Before code: fixtures derived from permitted real-file metadata; tests for
-documented clock conversion, masks/fill values, detector changes, response units,
-dead time and bad channels. Compare extracted calibrated lightcurve against an
-official quicklook and spot-check counts/exposure. A generic FITS inventory is
-not this adapter. Gate: reviewer accepts physics/time correctness and provenance.
+Tests must verify no cross-partition support/event-cluster overlap; future-value
+perturbations leave past features unchanged; training-only scaler/imputation/
+response fitting; backward joins never consume later bins; gaps remain unknown;
+label maturity is purged; calibration versions are compatible; IDs/hashes are
+deterministic. Inspect event clusters and exclusions before freezing cutoffs.
 
-## Phase 2 — causal data and fixed benchmark
+Outputs: versioned dataset/features, train/tune/calibration/test and window/event
+manifests, coverage/exclusion/event-count report and precision assessment.
+Gate: Stage 2 criteria; proposal `null` dates/manifest must become evidence-backed
+values. A three-day engineering sample cannot be the full research benchmark.
 
-Files planned: `features/causal.py`, `data/windows.py`, `data/splits.py`,
-`data/labels.py`; versioned configs and split/window manifests.
-Interfaces: each window stores origin, support interval, source hashes,
-history/target masks, event IDs and label-availability time. Partition builder
-accepts explicit UTC boundaries and returns immutable IDs, never random splits.
+## Stage 3 — Classical/statistical baselines
 
-Tests: no overlap of support/event groups across partitions; perturb future
-values and confirm all earlier features unchanged; never fit scaler on tuning;
-backward joins cannot use later bins; target gaps remain unknown; future peak
-labels mature correctly; mismatched calibration versions rejected. Freeze exact
-periods and event-count precision analysis before model work. Gate: common-origin
-baseline dataset and reproducible byte-identical window manifests.
+Implement the shared forecast/data/run contract and the development portion of
+Stage 7 before tuning. Planned package: `models/statistical/`. Start with last
+valid persistence, trailing mean/EWMA and direct linear/ridge, then a small AR/
+ARIMA grid. Add climatology/activity/logistic warning controls on the same past
+information. Compare against persistence in physical and log units.
 
-## Phase 3 — baseline/evaluation harness
+Shared interface:
 
-Add `models/statistical/`, `models/deep_learning/`, `training/`, `evaluation/`,
-`scripts/train.py`, `scripts/evaluate.py` only here. Model contract:
-`predict(history, mask, horizon) -> Forecast` containing timestamps, units,
-quantiles or joint samples and optional nested risk probabilities.
+```text
+predict(history, mask, horizon) -> Forecast
+Forecast: timestamps, units, quantiles or declared joint samples,
+          optional separately defined nested warning probabilities
+```
 
-Implement persistence/ridge first, then AR/ARIMA/ARCH/GARCH and LSTM/TCN/
-supervised Transformer. Hand-computed metric tests, zero-event denominator
-tests, transform inversion checks, fixed-seed reproducibility and forecast
-origin alignment. Profiles precede full runs. Save resolved configs, environment,
-Git revision/dirty diff, manifests, seeds/RNG states, checkpoints and per-origin
-predictions/losses. Gate: baseline skill/variance diagnostics and runtime audit.
+For ARCH/GARCH, inspect training-only positive log-flux differences or mean-model
+residuals: ACF/PACF, stationarity with cautions, tails, residual/squared-residual
+autocorrelation, Ljung–Box and ARCH-LM. Fit the mean first. Compare AR+constant
+variance with ARCH and GARCH(1,1) only where meaningful; check parameters,
+convergence and regime sensitivity. Simulate conditional paths and invert the
+transform correctly for probabilistic flux scores. Variance is neither mean
+flux nor a flare probability; do not fit volatility models to integer classes.
+Document inadequacy rather than force an interpretation.
 
-## Phase 4 — plain JEPA and controlled SSL
+Test known forecasts, transform inversion, aligned origins and metric fixtures.
+Save development forecasts, diagnostics, costs and selected settings. No final
+test inspection during tuning. Gate: Stage 3 reproducible baseline/adequacy
+criteria, including an evidence-based applicability decision for ARCH/GARCH.
 
-Add `models/jepa/encoder.py`, `predictor.py`, `heads.py`, `training/pretrain.py`.
-Test stop-gradient on target, correct EMA update, absence of target inputs at
-inference, full train-only window support, output shapes/quantile order and
-collapse diagnostics. Use approved small 200-step profile then Stage B/C from
-experiment plan. Compare equal-backbone supervised/reconstruction controls.
-Gate: repeated baseline comparison and training/uncertainty stability.
+## Stage 4 — Supervised deep-learning baselines
 
-## Phase 5 — defensible additions
+Planned modules: `models/deep_learning/`, shared `training/`, runnable model/
+experiment configs, `scripts/train.py` and the development evaluator. Implement
+small LSTM, causal TCN and supervised patch Transformer; GRU is optional or a
+recorded substitution if resource evidence warrants it.
 
-Add measurement response module only after Phase 1 review. Hand-calculate folded
-counts for a documented response fixture; check units/exposure/energy-bin widths,
-nonnegative spectra and likelihood applicability. Add multiresolution with
-future-perturbation and equal-context tests. Run factorial and conventional
-physical control. Fusion requires matched-origin audit and causal arrival-time
-features. No speculative MHD losses. Gate: physical residual and ablation evidence.
+Reuse the forecast/mask/decoder contract. Test causality, missing-input behavior,
+output shapes, quantile order, transform inversion, fixed-seed behavior and
+checkpoint round trips. Profile parameters, memory and seconds/step on the chosen
+hardware before training. Use the bounded tuning policy and retain at least three
+seeds for selected controls. Store Stage 9 provenance and failures for every run.
+The supervised Transformer must supply the matched backbone for Stage 5/6.
 
-## Phase 6 — optional LLM and paper artifacts
+Outputs: trained retained controls, configs/checkpoints, common-origin development
+predictions and compute logs. Gate: Stage 4 criteria and approved measured budget.
 
-Add isolated `models/llm/` dependencies after runtime approval. Test serialization
-round trips, malformed outputs, tokenizer lengths and no label text leakage.
-Pin checkpoint/tokenizer revision; record invalid output rates and sample costs.
-Generate paper tables directly from immutable metrics, block CIs and manifests;
-verify every claim against measured output. Publish code/data instructions subject
-to source terms. No result or superiority text until those experiments exist.
+## Stage 5 — SolarJEPA implementation
+
+Planned modules: `models/jepa/encoder.py`, `predictor.py`, `heads.py` and reusable
+EMA/latent-loss utilities. Reuse the supervised patch backbone. Starting design:
+5-minute patches, width 128, 3 layers, 4 heads, 2-layer predictor; verify actual
+parameter count rather than asserting the target 1–3M range. Target encoder sees
+future training patches with stop-gradient; inference receives past context only.
+Decode predicted latents into ordered log-flux quantiles. A deterministic latent
+predictor with marginal quantiles is not a stochastic trajectory generator.
+
+Tests: target stop-gradient, correct EMA updates, train-only support, future-input
+absence at inference, mask/output shapes, ordered quantiles, serialization and
+latent-collapse diagnostic logging. Keep physics/risk weights off unless their
+own gates pass. Use only an approved bounded smoke/profile for verification.
+
+Outputs: runnable/tested plain JEPA, config and measured small profile.
+Gate: Stage 5 correctness criteria; full scientific training belongs to Stage 6.
+
+## Stage 6 — SolarJEPA pretraining/training
+
+Planned runner: `training/pretrain.py` plus the shared supervised/fine-tuning
+harness. Complete an approved profile of at most 200 optimizer steps before
+larger runs. Record RAM/VRAM, seconds/step and estimated total budget. T4 FP16 is
+the starting precision; do not assume BF16 support or CUDA quantization on Apple.
+
+Use training-period windows only. Compare no-pretraining, latent JEPA, frozen/
+fine-tuned heads and one retained reconstruction/TS2Vec control, with disclosed
+pretraining and tuning budgets. Complete the chosen single-seed tuning tier,
+freeze hyperparameters and then repeat retained comparisons with seeds
+`17,29,43` (five only if affordable). Track variance/effective rank, finite losses,
+convergence and all failed runs. Checkpoints include optimizer/EMA/RNG states and
+must resume correctly. Produce saved development predictions; keep test sealed.
+
+Outputs: run registry, checkpoints, resolved configs, learning/collapse plots,
+predictions and compute totals. Gate: Stage 6 stable repeated-training criteria;
+neither a pilot checkpoint nor one favorable score completes the stage.
+
+## Stage 7 — Forecasting evaluation and flare-warning evaluation
+
+Build `evaluation/` and `scripts/evaluate.py` in two parts: tested development
+metrics before Stages 3/4 tuning, and locked final evaluation after the retained
+Stage 8 choices are fixed. Tests use hand-computed forecast/label fixtures,
+including zero-event/undefined denominators and correct origin/units alignment.
+
+Implement MAE/RMSE, persistence skill, pinball, coverage/width, Brier/climatology
+skill, reliability, TSS/HSS2, precision/recall/F1, PR-AUC, confusion matrices,
+distinct FAR/FPR and event-level alarms/lead time. Use CRPS only for a declared
+distribution or adequate trajectory samples, not five quantiles presented as an
+exact full CDF. Keep onset and ongoing-event estimands separate.
+
+Lock thresholds on tuning and calibrators on a separate chronological block.
+Use identical origins for paired error comparisons; block/event-cluster CIs,
+per-seed scores and development-chosen dependence sensitivity. Do not bootstrap
+overlapping windows IID. Report exclusions, prevalence and independent events.
+Evaluate the untouched later/OOD periods only after protocol/model choices
+freeze; do not reuse final-test findings for tuning.
+
+Outputs: reproducible forecast/warning/probabilistic tables and figures with
+per-origin predictions, alarm records, paired CIs and complete denominators.
+Gate: Stage 7 accuracy/calibration/statistical reporting criteria, not superiority.
+
+## Stage 8 — Ablations, uncertainty and physics-informed experiments
+
+Integrate baseline quantile uncertainty from the start; this stage evaluates its
+calibration and the retained extensions. Run common-history/capacity controls
+for no-pretraining/SSL and multiresolution before claiming latent benefit. Fit
+any interval/probability calibration only on the chronological calibration block;
+adaptive updates wait for target/label maturity. Temporal dependence makes
+exchangeable conformal guarantees inapplicable without additional assumptions.
+
+Add a response-based measurement module only after Stage 1 calibration review.
+Hand-calculate folded counts from a documented response fixture; test response
+units, exposure, energy-bin widths, background and nonnegative spectra. Validate
+the appropriate observation likelihood and residuals, including dead-time/pile-up
+regimes. If defensible, run plain/physics/multiresolution/both and the same physical
+constraint on a strong conventional model. If not, record rejection and remove
+unsupported physical claims instead of inventing a loss.
+
+Fusion requires matched-origin quality/overlap audit and past particle arrival
+features; no shifting future arrivals backward. Marginal trajectory quantiles do
+not define `P(max flux > threshold)`. Use a separately tested risk head or, if
+approved, a coherent stochastic decoder before threshold-consistent sampled risks.
+
+Optional Qwen experiment: isolated `models/llm/` dependencies; pinned checkpoint/
+tokenizer/license; tested serialization/round trips, tokenizer lengths, malformed
+outputs and no label-text leakage; 4-bit LoRA only after hardware/runtime profile.
+Match a reduced numerical task and report invalid generations, calibration and
+sampling costs. It is not the default forecaster or a required core completion
+gate if scope explicitly defers it.
+
+Outputs: retained ablation/uncertainty results, physical applicability/residual
+report, inclusion/deferral decisions and costs. Freeze choices on development
+data before Stage 7 final scoring. Gate: Stage 8 evidence and fairness criteria.
+
+## Stage 9 — Reproducibility and robustness validation
+
+Start now with the existing foundation import failure and provenance transition;
+implement no fix during the audit. In the next authorized session, verify a normal
+import and all CLI commands outside pytest, then independently reproduce pinned
+reference preparation/EDA in a documented environment. Record warning disposition
+and prevent tests' `src` injection from being mistaken for installation success.
+Preserve historical retrieval facts rather than overwriting them with new times.
+
+For all later data and model runs, record resolved configs, source/split/window
+hashes, environment, Git revision/dirty diff, seeds/RNG state, checkpoints and
+per-origin predictions/logs. Use portable relative identifiers and declare exact
+bytes versus numerical tolerance. Verify resume and independent metric/figure
+reproduction. Add meaningful integration/CI checks and profile the selected T4/
+Colab/Kaggle environment before claiming platform support.
+
+Complete approved missingness/quality, timing, purge-buffer and temporally
+separated regime checks using frozen development-selected rules. Audit all tried
+configs/failures and final-test isolation. Output the reproduction/robustness
+record required by Stage 9; pins and passing unit tests alone are insufficient.
+
+## Stage 10 — Paper-ready results, figures and documentation
+
+Use [PAPER_PLAN.md](PAPER_PLAN.md); do not prewrite result claims. Generate final
+tables/figures from immutable Stage 7/8 outputs and uncertainty estimates, not
+hand-edited scores. Link every claim to a run/artifact and reviewed source. Report
+coverage/exclusions, independent-event limits, onset versus continuation, all
+mandatory controls, seed/block uncertainty, failures and measured compute.
+
+Finish dataset/method/reproduction documentation, full-method literature/novelty
+review and claim/data-rights checks. Narrow the title if physics or generation
+is unsupported; label underpowered findings a pilot. Outputs are a result-backed
+manuscript, regenerable figures/tables and independent reproduction evidence.
+Gate: Stage 10 minimum scientific evidence, with no venue/acceptance claim.
+Publishing, repository release and pushing require a separate user decision.
+
+## Historical numbering reconciliation
+
+| Former label | Current deliverables |
+|---|---|
+| Phase 0 — repository/reference foundation | Partial Stages 0, 1, 2, 9 and paper planning only; preserve existing work. |
+| Phase 1 — Aditya access/calibration | Stage 1. |
+| Phase 2 — causal benchmark | Stage 2. |
+| Phase 3 — baseline/evaluation harness | Stages 3–4; early development portion of Stage 7 and run provenance in 9. |
+| Phase 4 — JEPA/SSL | Stages 5–6; comparisons evaluated through 7–8. |
+| Phase 5 — physical/resolution/fusion additions | Stage 8, conditional on real-data gates. |
+| Phase 6 — optional LLM/paper artifacts | Optional Stage 8 experiment; Stage 10 paper outputs. |
+
+The old foundation stop remains a limit on work authorization, not evidence of
+global-stage completion. Experiment-plan labels A–D are **compute tiers** inside
+these deliverables; they do not compete with project Stages 0–10. All new status
+changes and priorities are recorded only in PROJECT_STATUS.md, with this plan
+kept aligned.

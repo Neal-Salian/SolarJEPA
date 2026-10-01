@@ -9,8 +9,15 @@ additional validated components.
 **Status (2026-10-01): investigation and small-data validation only. No models
 trained. Aditya-L1 files require registered PRADAN access and have not been
 obtained. NOAA GOES samples are external reference data, not substitute Aditya
-telemetry.** See [validation report](docs/VALIDATION_REPORT.md) for measured
-sample sizes, evidence, and remaining blockers.
+telemetry.** See the [canonical project tracker](docs/PROJECT_STATUS.md) for
+current stages, blockers and next tasks, and the
+[validation report](docs/VALIDATION_REPORT.md) for the historical foundation
+checkpoint and measured sample sizes.
+
+The current audit found that normal package/CLI imports fail in the existing
+local virtual environment while the 26 unit tests pass through pytest's `src`
+path configuration. The tracker records the installation cause and reproduction
+gate; no environment repair was performed during the documentation-only audit.
 
 ## Research decisions
 
