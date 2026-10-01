@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from solar_flare_jepa.data.download import download_manifest
+from solar_flare_jepa.data.download import download_manifest, verified_manifest_paths
 
 
 PAYLOAD = b'CDF\x01' + b'unit-test-only' * 3
@@ -72,3 +72,25 @@ def test_hash_mismatch_is_not_installed(tmp_path, monkeypatch):
     with pytest.raises(ValueError):
         download_manifest(manifest(tmp_path, sha256='0' * 64), tmp_path)
     assert not (tmp_path / 'data/raw/noaa/sample.nc').exists()
+
+
+def test_manifest_selection_ignores_extra_files_and_verifies_pinned_bytes(tmp_path):
+    directory = tmp_path / 'data/raw/noaa'
+    directory.mkdir(parents=True)
+    selected = directory / 'sci_xrsf-l2-avg1m_g16_d20240701_v2-2-1.nc'
+    selected.write_bytes(PAYLOAD)
+    (directory / 'sci_xrsf-l2-avg1m_g16_d20240704_v2-2-1.nc').write_bytes(PAYLOAD)
+    url = 'https://data.ngdc.noaa.gov/platforms/goes/l2/data/xrsf-l2-avg1m_science/2024/07/' + selected.name
+    p = manifest(tmp_path, path=str(selected.relative_to(tmp_path)), url=url, bytes=46)
+    assert verified_manifest_paths(p, tmp_path, 'avg1m') == [selected]
+    selected.write_bytes(b'CDF\x01' + b'x' * 42)
+    with pytest.raises(ValueError, match='SHA-256'):
+        verified_manifest_paths(p, tmp_path, 'avg1m')
+
+
+def test_manifest_selection_requires_product_and_pinned_hash(tmp_path):
+    p = manifest(tmp_path)
+    with pytest.raises(ValueError):
+        verified_manifest_paths(p, tmp_path, 'avg1m')
+    with pytest.raises(ValueError):
+        verified_manifest_paths(p, tmp_path, 'unknown')

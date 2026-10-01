@@ -57,6 +57,28 @@ def _check(path, entry):
     return size, digest
 
 
+def verified_manifest_paths(manifest_path: Path, root: Path, product: str) -> list[Path]:
+    """Select immutable local reference files; never scan or download extra dates."""
+    if product not in {'avg1m', 'flsum'}:
+        raise ValueError('Unsupported reference product')
+    root = Path(root).resolve()
+    spec = json.loads(Path(manifest_path).read_text())
+    entries = [e for e in spec['files']
+               if f'/xrsf-l2-{product}_science/' in urlsplit(e['url']).path]
+    if not entries:
+        raise ValueError(f'No {product} files in pinned manifest')
+    paths = []
+    for entry in entries:
+        if not entry.get('sha256') or entry.get('bytes') is None:
+            raise ValueError('Reference preparation requires pinned hashes and byte sizes')
+        path = _validate(entry, root)
+        _check(path, entry)
+        paths.append(path)
+    if len(set(paths)) != len(paths):
+        raise ValueError('Duplicate reference files in manifest')
+    return paths
+
+
 def download_manifest(manifest_path: Path, root: Path) -> list[dict]:
     manifest_path, root = Path(manifest_path), Path(root).resolve()
     spec = json.loads(manifest_path.read_text())

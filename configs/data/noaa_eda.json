@@ -1,0 +1,10 @@
+{
+  "dataset_role": "external_reference_validation_not_aditya",
+  "manifest": "configs/data/noaa_sample.json",
+  "processed_path": "data/processed/noaa_reference.parquet",
+  "results_dir": "results/noaa_reference",
+  "quality_policy": "strict_status_zero_and_channel_specific_electron_bits",
+  "cadence_seconds": 60,
+  "imputation": "none",
+  "normalization": "none"
+}
