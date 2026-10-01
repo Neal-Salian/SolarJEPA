@@ -41,7 +41,7 @@ def summarize(frame: pd.DataFrame) -> dict:
             derivative_quantiles_per_second={str(q):float(v) for q,v in derivative.quantile([0.01,0.5,0.99]).items()})
     good = frame[['xrsa_flux','xrsb_flux']].dropna()
     report['same_instrument_xrsa_xrsb_log_correlation'] = float(np.log10(good).corr().iloc[0,1]) if len(good)>1 else None
-    report['aditya_cross_instrument_alignment'] = 'unavailable: no SoLEXS or ASPEX files'
+    report['aditya_cross_instrument_alignment'] = 'not performed: this report contains GOES reference data only'
     report['threshold_minutes_not_event_counts'] = {
         'xrsb_ge_M1':int((frame.xrsb_flux >= 1e-5).sum()),
         'xrsb_ge_X1':int((frame.xrsb_flux >= 1e-4).sum())}

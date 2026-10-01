@@ -61,7 +61,8 @@ def _source(url):
 def _safe_member(name):
     path = PurePosixPath(name)
     if (not name or path.is_absolute() or '..' in path.parts or '\\' in name or ':' in name
-            or '\x00' in name):
+            or '\x00' in name or not path.parts
+            or name != path.as_posix() + ('/' if name.endswith('/') else '')):
         raise ValueError('Unsafe archive member name; no extraction was performed')
 
 
@@ -71,7 +72,9 @@ def _archive_listing(path):
     try:
         with zipfile.ZipFile(path) as archive:
             for info in archive.infolist():
-                _safe_member(info.filename)
+                _safe_member(info.orig_filename)
+                if info.filename != info.orig_filename:
+                    raise ValueError('Archive member name was normalized or truncated')
                 if stat.S_ISLNK(info.external_attr >> 16):
                     raise ValueError('Symbolic-link archive member is unsupported')
                 members.append(dict(path=info.filename, compressed_bytes=info.compress_size,
@@ -119,7 +122,7 @@ def validate_inventory(inventory: dict) -> None:
             identity = _identity(record['original_filename'])
             if any(record[key] != value for key, value in identity.items()):
                 raise ValueError('Archive identity conflicts with canonical path/filename')
-            paths.append(record['path'])
+            paths.append(record['path'].casefold())
             if (not isinstance(record['sha256'], str) or not re.fullmatch('[0-9a-f]{64}', record['sha256'])
                     or type(record['bytes']) is not int or record['bytes'] <= 0):
                 raise ValueError('Invalid archive hash or byte size')
@@ -167,6 +170,21 @@ def validate_inventory(inventory: dict) -> None:
         raise ValueError('Malformed inventory metadata') from exc
 
 
+def load_inventory(path: Path) -> dict:
+    """Load consistent provenance; duplicate JSON keys are ambiguous facts."""
+    def unique_object(pairs):
+        result = {}
+        for key, value in pairs:
+            if key in result:
+                raise ValueError(f'Duplicate JSON key in inventory: {key}')
+            result[key] = value
+        return result
+
+    inventory = json.loads(Path(path).read_text(), object_pairs_hook=unique_object)
+    validate_inventory(inventory)
+    return inventory
+
+
 def _observed(root, relative):
     path = root / relative
     identity = _identity(path.name)
@@ -174,6 +192,8 @@ def _observed(root, relative):
         raise ValueError('Archive path is not canonical for its filename')
     if not path.is_file():
         raise ValueError('Archive is not an available local file')
+    if path.name not in {entry.name for entry in path.parent.iterdir()}:
+        raise ValueError('Archive filename case must match its original directory entry')
     before = path.stat()
     digest = sha256_file(path)
     listing = _archive_listing(path)
@@ -205,9 +225,9 @@ def register_archives(root: Path, paths: list, *, inventory_path=Path('data/mani
     source = _source(source_url)
     acquired = _utc(acquired_utc) if acquired_utc is not None else None
     relative_inputs = [repository_relative_path(p, root) for p in paths]
-    if not relative_inputs or len(set(relative_inputs)) != len(relative_inputs):
+    if not relative_inputs or len({p.casefold() for p in relative_inputs}) != len(relative_inputs):
         raise ValueError('Supply distinct explicit archive paths')
-    inventory = (json.loads(output.read_text()) if output.exists() else
+    inventory = (load_inventory(output) if output.exists() else
                  dict(schema_version=1, dataset_role=ROLE, files=[], missing_coverage=[]))
     validate_inventory(inventory)
     records = {r['path']: r for r in inventory['files']}

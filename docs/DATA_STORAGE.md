@@ -45,8 +45,10 @@ Future approved SoLEXS archives follow:
 data/raw/aditya/solexs/<level>/<version>/archives/<YYYY>/<MM>/<original-filename>
 ```
 
-Normalize directory labels (`l1`, `v1.1`) while retaining original filename
-case. The current intake recognizes `AL1_SLX_L<level>_<YYYYMMDD>_v<version>.zip`;
+Normalize directory labels (`l1`, `v1.1`) while retaining the exact original
+filename spelling from its directory entry. Case aliases cannot create a second
+identity; inventory paths are unique under case folding for portability.
+The current intake recognizes `AL1_SLX_L<level>_<YYYYMMDD>_v<version>.zip`;
 this is a contract based on the acquired filenames, not a claim that every
 future PRADAN product uses it. Other naming schemes require review. Dates in
 filenames are nominal dates, not measured observation intervals.
@@ -86,7 +88,10 @@ registration commands: concurrent inventory writers are not supported.
 Repeat registration preserves original records and timestamps. Different
 bytes/listings or conflicting source/acquisition facts raise an error before
 replacing the inventory. Partial registration retains other registered files.
-Malformed or inconsistent metadata also fails before write. A changed product
+Malformed or inconsistent metadata, including duplicate JSON object keys at any
+depth, also fails before write and is rejected by `--verify`. Member names must
+retain their original decoded spelling; NULs, truncation and noncanonical dot/
+repeated-slash paths are rejected before registering declarations. A changed product
 must not replace an immutable source path: retain the old source and investigate
 the archive revision before approving a distinct identity/location.
 
@@ -144,6 +149,8 @@ Detailed generated schema snapshots/results and data sidecars stay ignored;
 small portable provenance and scientific definitions belong in tracked manifests
 and documentation. New NOAA metadata uses relative source identifiers; historical
 sidecars are preserved, and new EDA reports normalize their source identifiers.
+New EDA availability wording describes the GOES-only report scope, without
+claiming that separately registered Aditya archives are absent.
 
 Track code, tests, acquisition configs, filenames, versions, hashes, sizes,
 credential-free sources, known dates, definitions and lineage. Ignore all raw

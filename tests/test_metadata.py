@@ -61,6 +61,7 @@ def test_preprocess_and_eda_metadata_survive_repository_relocation(tmp_path):
         report = json.loads((directory / 'results/reference/summary.json').read_text())
         assert sidecar['sources'][0]['path'] == 'data/raw/noaa/' + flux.name
         assert report['event_sources'][0]['path'] == 'data/raw/noaa/' + events.name
+        assert report['aditya_cross_instrument_alignment'] == 'not performed: this report contains GOES reference data only'
         assert str(tmp_path) not in json.dumps([sidecar, report])
         return sidecar, report
 

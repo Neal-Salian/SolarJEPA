@@ -3,7 +3,7 @@ import argparse
 import json
 from pathlib import Path
 
-from solar_flare_jepa.data.storage import register_archives, repository_relative_path, verify_inventory
+from solar_flare_jepa.data.storage import load_inventory, register_archives, repository_relative_path, verify_inventory
 
 
 if __name__ == '__main__':
@@ -19,7 +19,7 @@ if __name__ == '__main__':
     config = json.loads(config_path.read_text())
     inventory_path = root / repository_relative_path(config['inventory_path'], root)
     if args.verify:
-        inventory = json.loads(inventory_path.read_text())
+        inventory = load_inventory(inventory_path)
         verify_inventory(inventory, root)
     else:
         inventory = register_archives(root, config['archives'], inventory_path=inventory_path,

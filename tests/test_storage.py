@@ -258,3 +258,77 @@ def test_registration_cli_from_other_directory_and_read_only_verification(tmp_pa
     assert json.loads(verified.stdout)['action'] == 'verified'
     assert (tmp_path / INVENTORY).read_bytes() == receipt
     assert archive.read_bytes() == before
+
+
+@pytest.mark.parametrize('duplicate', ['files', 'acquisition'])
+def test_duplicate_json_keys_cannot_discard_or_replace_provenance(tmp_path, duplicate):
+    artificial_archive(tmp_path)
+    first = storage().register_archives(tmp_path, [FIRST], acquired_utc='2026-10-01T00:00:00Z')
+    target = tmp_path / INVENTORY
+    text = json.dumps(first)
+    if duplicate == 'files':
+        text = text[:-1] + ', "files": []}'
+    else:
+        text = text.replace('"acquired_utc": "2026-10-01T00:00:00+00:00"',
+                            '"acquired_utc": "2026-09-30T00:00:00+00:00", "acquired_utc": "2026-10-01T00:00:00+00:00"')
+    target.write_text(text)
+    artificial_archive(tmp_path, SECOND)
+    with pytest.raises(ValueError, match='Duplicate JSON key'):
+        storage().register_archives(tmp_path, [SECOND])
+    assert target.read_text() == text
+
+
+def test_cli_verification_rejects_duplicate_json_keys(tmp_path):
+    from test_cli import clean_environment
+    artificial_archive(tmp_path)
+    inventory = storage().register_archives(tmp_path, [FIRST])
+    target = tmp_path / INVENTORY
+    text = json.dumps(inventory)[:-1] + ', "files": []}'
+    target.write_text(text)
+    config = tmp_path / 'sample.json'
+    config.write_text(json.dumps(dict(inventory_path=INVENTORY)))
+    result = subprocess.run([sys.executable, '-B', str(ROOT / 'scripts/register_aditya.py'),
+                             '--root', str(tmp_path), '--config', str(config), '--verify'],
+                            cwd=tmp_path.parent, env=clean_environment(), capture_output=True, text=True)
+    assert result.returncode != 0
+    assert 'Duplicate JSON key' in result.stderr
+    assert target.read_text() == text
+
+
+def test_case_aliases_cannot_duplicate_archive_identity(tmp_path):
+    archive = artificial_archive(tmp_path)
+    alias = archive.with_name(archive.name.lower())
+    if not alias.exists():
+        alias.hardlink_to(archive)
+    storage().register_archives(tmp_path, [FIRST])
+    before = (tmp_path / INVENTORY).read_bytes()
+    with pytest.raises(ValueError, match='case|Duplicate archive'):
+        storage().register_archives(tmp_path, [alias])
+    assert (tmp_path / INVENTORY).read_bytes() == before
+
+
+def test_inventory_identity_uniqueness_is_case_insensitive(tmp_path):
+    artificial_archive(tmp_path)
+    inventory = storage().register_archives(tmp_path, [FIRST])
+    duplicate = copy.deepcopy(inventory['files'][0])
+    duplicate['original_filename'] = duplicate['original_filename'].lower()
+    duplicate['path'] = duplicate['path'].lower()
+    inventory['files'].append(duplicate)
+    with pytest.raises(ValueError, match='Duplicate archive'):
+        storage().validate_inventory(inventory)
+
+
+@pytest.mark.parametrize('member', ['dir/./file.FITS', 'dir//file.FITS', './file.FITS'])
+def test_noncanonical_member_aliases_fail_without_extraction(tmp_path, member):
+    artificial_archive(tmp_path, members=[('dir/file.FITS', b'first'), (member, b'alias')])
+    with pytest.raises(ValueError, match='member'):
+        storage().register_archives(tmp_path, [FIRST])
+    assert not (tmp_path / INVENTORY).exists()
+
+
+def test_nul_truncated_member_name_is_not_reported_as_observed(tmp_path):
+    archive = artificial_archive(tmp_path, members=[('safeX../escape.FITS', b'artificial bytes')])
+    archive.write_bytes(archive.read_bytes().replace(b'safeX../escape.FITS', b'safe\x00../escape.FITS'))
+    with pytest.raises(ValueError, match='member'):
+        storage().register_archives(tmp_path, [FIRST])
+    assert not (tmp_path / INVENTORY).exists()

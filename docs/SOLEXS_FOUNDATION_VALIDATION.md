@@ -78,7 +78,7 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pip check
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider --tb=short
 ```
 
-**VERIFIED:** full suite **66 passed**, with one existing NetCDF4
+**VERIFIED:** final full suite **75 passed**, with one existing NetCDF4
 `numpy.ndarray size changed` RuntimeWarning (expected 16, got 96). `pip check`
 reports no broken requirements. No configured lint tool exists; Python AST and
 JSON parsing checks pass. No dependencies or machine-specific package config
@@ -114,14 +114,17 @@ refactor. Reinstall after package-source edits; the installed wheel is a snapsho
 **VERIFIED:** six raw GOES files retain their pinned SHA-256 and sizes totaling
 **1,002,585 bytes**. Fresh `read_goes` output matches all **4,320** saved Parquet
 rows via `pandas.testing.assert_frame_equal`. Fresh scientific summary fields
-and normalized event-catalogue summary equal the saved JSON. All **14** original
+and normalized event-catalogue summary equal the saved JSON, excluding the one
+intentionally corrected descriptive availability statement. All **14** original
 raw/Parquet/sidecar/schema/summary/PNG artifacts retain their pre-work bytes/hashes.
 The processed Parquet SHA-256 remains
 `cc197f8186e0ec15b8ababd5a8c5549349d10fd15112cf4320ca4f23c114c068`.
 
 The check was read-only; original historical sidecars/results were not regenerated
-or rewritten. The portable adjustment changes future source identifiers only,
-not GOES numerical preparation. Reproduction of real PNG bytes was not tested;
+or rewritten. Future source identifiers are portable; fresh EDA wording now
+states that the report contains only GOES references rather than falsely claiming
+SoLEXS files are absent. Neither adjustment changes GOES numerical preparation.
+Reproduction of real PNG bytes was not tested;
 their original identities were preserved. Historical availability text in saved
 reference outputs describes their original pre-Aditya context.
 
@@ -143,6 +146,7 @@ frame = read_goes(flux)
 pd.testing.assert_frame_equal(frame, pd.read_parquet("data/processed/noaa_reference.parquet"))
 saved = json.loads(Path("results/noaa_reference/summary.json").read_text())
 summary = summarize(frame)
+assert summary.pop("aditya_cross_instrument_alignment") == "not performed: this report contains GOES reference data only"
 assert {key: saved[key] for key in summary} == summary
 assert saved["catalogue"] == json.loads(json.dumps(summarize_events(read_event_records(events)), default=str))
 ```
@@ -183,9 +187,46 @@ individual outside-root data mounts are deliberately not implemented. Markdown
 links/documentation consistency and the whole-branch review are checked before
 the final stop; their final disposition is recorded below.
 
-Independent whole-branch review: **pending** at the documentation checkpoint.
+Independent whole-branch review inspected `278011c..3d96048` with fresh context
+and no source/data mutation. No Critical issues; three Important provenance
+defects and one Minor descriptive issue were identified. Each was reproduced
+with a failing synthetic regression before a single branch-local fix pass:
+
+| Finding | Correction and verification |
+|---|---|
+| Duplicate JSON keys could discard earlier records or acquisition facts. | Shared strict inventory loader rejects duplicate keys at every nesting depth in registration and verification; malformed source bytes remain unchanged. |
+| Case aliases could register one physical archive twice or claim a nonexistent filename spelling. | Exact on-disk basename spelling and case-folded identity uniqueness; aliases cannot replace/create conflicting historical facts. |
+| Normalized member paths and NUL truncation lost original identity. | Validate original decoded ZIP names; reject truncation, NULs, dot/repeated-slash aliases; equivalent checks apply to loaded member metadata. |
+| Fresh EDA repeated obsolete absence text. | Regraded as Important factual metadata: use GOES-only scope wording, preserve saved outputs and all numerical/catalogue values. |
+
+Nine new registration regressions failed before the fix and passed afterward;
+the existing CLI portability test also failed on the obsolete report statement
+before correction and passed afterward. Final suite: **75 passed, one known
+warning**. The installed package was refreshed and matches current source.
+No reviewer findings remain deferred as polish. The final fixes were verified
+by tests and preservation checks; no second independent review was performed.
+
+The reviewer additionally tested failure after a later corrupt batch member,
+coverage conflict and atomic replacement failure: original inventory bytes were
+preserved, with temporary-file cleanup on replacement failure.
+
+Workflow/review rulings and their practical limits:
+
+| Decision | Reason and limit |
+|---|---|
+| Use the approved existing checkout on its feature branch. | Preserves ignored user data; no extra checkout isolation from concurrent edits. |
+| Keep plan/ledger in ignored `.cache/solexs-foundation/`. | Avoids unrelated ignore changes; bookkeeping remains manual. |
+| Preserve that ignored evidence workspace. | Retains pre-work hashes and local checks; a small local scratch directory remains. |
+| Keep the branch and stop before integration. | Explicit user instruction overrides the finishing skill's default menu; integration stays pending. |
+| Correct fresh EDA's factual scope statement. | Scientific reporting must not assert absent archives; one descriptive field intentionally differs from historical reports. |
+| Defer payload/scientific suitability judgment. | Extraction/scientific work is outside authorization; unsuitable data may be discovered at the later gate. |
+| Keep portal/acquisition evidence reported or unknown. | No independent portal receipt; local hashes establish identity, not independent authenticity. |
+| Support serialized registration only. | No concurrency/hostile-filesystem contract; concurrent writers or input mutation invalidate that guarantee. |
+| Leave fresh environment/Linux/hidden-flag-origin judgment open. | Local installed checks pass; untested environments and the recurring flag cause remain unresolved. |
+| Defer extractor collision recovery/expansion limits. | No extractor exists; those safeguards must be implemented before future payload extraction. |
+
 Integration is not authorized by any test/review result. `main` stays at the stable
-base, and no commits are pushed.
+base, no commits are pushed, and the clean feature branch is retained for review.
 
 ## Not tested and next research gate
 
