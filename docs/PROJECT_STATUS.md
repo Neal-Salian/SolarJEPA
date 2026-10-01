@@ -1,9 +1,12 @@
 # SolarJEPA project status — canonical tracker
 
-Current update: **2026-10-01**, branch `data/solexs-ingestion`, based on stable
-`main` at `278011ce27796781db873cd8d40578e1584e81d3`.
+Current update: **2026-10-01**, local `main`, after approved fast-forward
+integration of `data/solexs-ingestion` at
+`351482dc11aa75d2140d521828d0a24702765ad6`.
+Pre-integration `main`: `278011ce27796781db873cd8d40578e1584e81d3`.
 Archive foundation: `6b8eb17`; metadata portability: `510f890`.
-Project root: `SolarJEPA` (formerly `isro`). No merge or push is authorized.
+Project root: `SolarJEPA` (formerly `isro`). Local integration was authorized;
+remote push still requires separate explicit approval.
 
 This file owns stage status, blockers, completion criteria and task priority.
 [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) uses the same stages and
@@ -107,8 +110,9 @@ not evidence of corrupted telemetry.
    compute limits to propose chronological partitions and acquisition scope.
    Neither all PRADAN holdings nor newer-year training/test roles are decided.
 
-Stop on the current feature branch after review and verification. Future tasks
-do not authorize downloads, extraction, training, merge, publication or push.
+Stop on local `main` after integration verification and keep `data/solexs-ingestion`.
+A remote push requires separate explicit approval. Future tasks do not authorize
+downloads, extraction, training, further integration, publication or push.
 
 ## Historical pre-storage audit evidence and discrepancies
 
