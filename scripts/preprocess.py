@@ -5,6 +5,7 @@ from pathlib import Path
 from solar_flare_jepa.data.goes import read_goes
 from solar_flare_jepa.data.inspect import write_json
 from solar_flare_jepa.data.download import sha256_file, verified_manifest_paths
+from solar_flare_jepa.data.storage import repository_relative_path
 
 if __name__ == '__main__':
     p = argparse.ArgumentParser(description=__doc__)
@@ -25,6 +26,6 @@ if __name__ == '__main__':
         manifest_sha256=sha256_file(Path(config['manifest'])),
         units={'flux':'W/m2', 'log10_flux':'log10(F / (1 W/m2))', 'dlog10_dt':'s^-1'},
         time_policy='GOES documented UTC convention neglecting leap seconds; index=bin start, available at time_end at earliest; operational latency unknown',
-        sources=[dict(path=str(p), sha256=sha256_file(p), bytes=p.stat().st_size) for p in paths],
+        sources=[dict(path=repository_relative_path(p, Path.cwd()), sha256=sha256_file(p), bytes=p.stat().st_size) for p in paths],
         processed_sha256=sha256_file(out)))
     print(f'Wrote {len(frame)} reference rows to {out}')
