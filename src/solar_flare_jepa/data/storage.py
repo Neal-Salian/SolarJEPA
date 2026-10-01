@@ -128,9 +128,11 @@ def validate_inventory(inventory: dict) -> None:
                 raise ValueError('Invalid archive hash or byte size')
             if record['source'] != _source(record['source']['url']):
                 raise ValueError('Inconsistent source provenance')
-            _utc(record['registered_utc'])
+            registered = datetime.fromisoformat(_utc(record['registered_utc']))
             if record['acquired_utc'] is not None:
-                _utc(record['acquired_utc'])
+                acquired = datetime.fromisoformat(_utc(record['acquired_utc']))
+                if acquired > registered:
+                    raise ValueError('Acquisition time cannot be later than registration')
             if record['metadata_evidence'] != _evidence(record['acquired_utc']):
                 raise ValueError('Inconsistent metadata evidence categories')
             if (record['detector'] is not None or record['observed_coverage'] is not None
@@ -159,9 +161,7 @@ def validate_inventory(inventory: dict) -> None:
         present = {r['nominal_observation_date'] for r in records}
         for row in missing:
             day = row['nominal_observation_date']
-            _missing([day])
-            if (row['instrument'] != 'SoLEXS' or row['status'] != 'missing_from_obtained_collection'
-                    or row['evidence'] != 'DOCUMENTED' or not row['statement'] or day in present):
+            if row != _missing([day])[0] or day in present:
                 raise ValueError('Inconsistent missing coverage record')
             dates.append(day)
         if len(set(dates)) != len(dates):

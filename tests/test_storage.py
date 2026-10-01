@@ -1,5 +1,6 @@
 """Artificial ZIPs exercise intake contracts; none contain satellite observations."""
 import copy
+from datetime import datetime, timezone
 import hashlib
 import importlib
 import importlib.util
@@ -332,3 +333,58 @@ def test_nul_truncated_member_name_is_not_reported_as_observed(tmp_path):
     with pytest.raises(ValueError, match='member'):
         storage().register_archives(tmp_path, [FIRST])
     assert not (tmp_path / INVENTORY).exists()
+
+
+@pytest.mark.parametrize('existing_inventory', [False, True])
+def test_acquisition_after_registration_cannot_write_inventory(tmp_path, monkeypatch, existing_inventory):
+    class RegistrationClock(datetime):
+        @classmethod
+        def now(cls, tz=None):
+            return datetime(2026, 10, 1, tzinfo=timezone.utc)
+
+    monkeypatch.setattr(storage(), 'datetime', RegistrationClock)
+    archive = artificial_archive(tmp_path)
+    selected = FIRST
+    if existing_inventory:
+        storage().register_archives(tmp_path, [FIRST])
+        archive = artificial_archive(tmp_path, SECOND)
+        selected = SECOND
+    target = tmp_path / INVENTORY
+    before = target.read_bytes() if target.exists() else None
+    raw_before = archive.read_bytes()
+    with pytest.raises(ValueError, match='Acquisition.*registration'):
+        storage().register_archives(tmp_path, [selected], acquired_utc='2026-10-02T00:00:00Z')
+    assert (target.read_bytes() if target.exists() else None) == before
+    assert archive.read_bytes() == raw_before
+
+
+def test_loaded_inventory_rejects_acquisition_after_registration(tmp_path):
+    artificial_archive(tmp_path)
+    inventory = storage().register_archives(tmp_path, [FIRST], acquired_utc='2000-01-02T00:00:00Z')
+    inventory['files'][0]['registered_utc'] = '2000-01-01T00:00:00Z'
+    target = tmp_path / INVENTORY
+    target.write_text(json.dumps(inventory))
+    before = target.read_bytes()
+    with pytest.raises(ValueError, match='Acquisition.*registration'):
+        storage().load_inventory(target)
+    with pytest.raises(ValueError, match='Acquisition.*registration'):
+        storage().verify_inventory(inventory, tmp_path)
+    assert target.read_bytes() == before
+
+
+@pytest.mark.parametrize('statement', [
+    'Confirmed absent from all mission observations and a zero-flare day.',
+    ['Missing data is not a negative scientific label'],
+])
+def test_missing_coverage_statement_cannot_contradict_fixed_scope(tmp_path, statement):
+    artificial_archive(tmp_path)
+    inventory = storage().register_archives(tmp_path, [FIRST], missing_dates=['2024-07-02'])
+    inventory['missing_coverage'][0]['statement'] = statement
+    target = tmp_path / INVENTORY
+    target.write_text(json.dumps(inventory))
+    before = target.read_bytes()
+    with pytest.raises(ValueError, match='missing coverage'):
+        storage().load_inventory(target)
+    with pytest.raises(ValueError, match='missing coverage'):
+        storage().verify_inventory(inventory, tmp_path)
+    assert target.read_bytes() == before

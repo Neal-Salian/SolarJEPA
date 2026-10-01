@@ -3,9 +3,79 @@
 Date: **2026-10-01**. Branch: `data/solexs-ingestion`.
 Stable base: `278011ce27796781db873cd8d40578e1584e81d3` (`main`).
 Registration foundation: `6b8eb17`; portable generated identifiers: `510f890`.
+The initial branch checkpoint was `7784d67`; the fresh pre-integration pass below
+supersedes its final verification/review disposition. The remaining sections
+preserve the initial checkpoint's evidence and limitations.
 This is an approved local storage milestone, not scientific SoLEXS validation.
 No downloads, member extraction, alignment, model training, merge or push occur.
 [VALIDATION_REPORT.md](VALIDATION_REPORT.md) remains the historical checkpoint.
+
+## Fresh pre-integration verification and corrections
+
+The user requested an independent pass on exact HEAD
+`7784d67f6679c8b2fce3c2631534b026deabedc1`. Verification derived correctness from
+current source/tests/config, Git objects/history, manifests, actual file hashes
+and executable behavior; documentation claims were not used as the verdict.
+
+The fresh full suite passed **75 tests**, one existing NetCDF4 warning, but a
+new independent review of `278011c..7784d67` found two genuine boundary issues:
+
+- **Important:** acquisition UTC could be later than registration UTC. Parsing
+  checked UTC syntax without comparing the two timestamps.
+- **Minor:** a truthy missing-coverage statement could contradict the fixed
+  collection-only schema or be a non-string value.
+
+Five focused regression cases failed before correction and passed afterward.
+The only implementation change compares parsed acquisition/registration times
+and requires canonical `_missing` records. Real provenance records remain
+byte-identical; no acquisition time or scientific field was added/invented.
+The focused reviewer follow-up independently passed 12 checks, including earlier/
+equal acquisition, new/partial rejection, loaded metadata, installed CLI failure
+paths and preserved source/inventory bytes. No review findings remain unresolved.
+
+Final corrected-source suite:
+
+```bash
+env -u PYTHONPATH PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider --tb=short
+```
+
+**80 passed, one existing RuntimeWarning**, 30.72 seconds. The local installed
+package was refreshed with `pip install --no-deps .`; no dependency configuration
+changed. Package/source identities and CLI checks are verified against the final
+commit before stopping.
+
+Additional independently executed evidence:
+
+- Seven installed package files matched Git source byte-for-byte. Normal import,
+  five CLI help commands and actual archive `--verify` worked from outside the
+  repository with `PYTHONPATH` removed.
+- Fresh SHA-256/size and ZIP central-directory comparisons matched both real
+  records. Registration using local inputs and a copied inventory in a relocated
+  temporary workspace was byte-idempotent; original records remained unchanged.
+- Real NOAA preprocess/EDA CLIs ran in that temporary workspace. All **4,320**
+  Parquet rows and Parquet bytes, numerical/catalogue summaries and all **four
+  PNG bytes** matched saved outputs. Generated source identifiers were relative,
+  with neither a host prefix nor the temporary root embedded in metadata.
+- All **14** artifacts matched the measured pre-work hash baseline. All **16**
+  original local inputs/artifacts (including the two ZIPs), plus the tracked
+  inventory, retained their bytes during this fresh execution.
+- Reachable Git-tree/path and blob scans found no raw science paths/products.
+  All reachable blobs were UTF-8 text; ZIP/FITS/gzip/NetCDF/Parquet signature checks
+  and common credential-signature checks found no matches. Actual ZIP/FITS ignore
+  checks and branch/staged whitespace checks passed.
+- Original GOES numerical code, pinned configs, retrieval receipt, dependency
+  files and historical validation report remain byte-identical to stable `main`.
+
+The fresh review deliberately leaves payload integrity/science semantics,
+independent portal receipts/authenticity, concurrency/hostile filesystem races,
+future extraction collisions/expansion controls, fresh environment/Linux/GPU
+support, the hidden-flag origin and dependency warning unresolved as scope limits.
+Filename-inferred dates are not used to assert acquisition-versus-observation
+chronology. Independent historical artifact preservation relies on the measured
+pre-work baseline; fresh regeneration independently checks current saved outputs.
+
+No merge, push, PR, branch deletion or next milestone is authorized. The corrected
+feature branch remains for the user's explicit integration decision.
 
 ## Locally observed archive identities
 
@@ -78,7 +148,7 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pip check
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider --tb=short
 ```
 
-**VERIFIED:** final full suite **75 passed**, with one existing NetCDF4
+**Initial checkpoint VERIFIED:** full suite **75 passed**, with one existing NetCDF4
 `numpy.ndarray size changed` RuntimeWarning (expected 16, got 96). `pip check`
 reports no broken requirements. No configured lint tool exists; Python AST and
 JSON parsing checks pass. No dependencies or machine-specific package config
@@ -124,7 +194,7 @@ The check was read-only; original historical sidecars/results were not regenerat
 or rewritten. Future source identifiers are portable; fresh EDA wording now
 states that the report contains only GOES references rather than falsely claiming
 SoLEXS files are absent. Neither adjustment changes GOES numerical preparation.
-Reproduction of real PNG bytes was not tested;
+At the initial checkpoint, reproduction of real PNG bytes was not tested;
 their original identities were preserved. Historical availability text in saved
 reference outputs describes their original pre-Aditya context.
 
@@ -187,7 +257,7 @@ individual outside-root data mounts are deliberately not implemented. Markdown
 links/documentation consistency and the whole-branch review are checked before
 the final stop; their final disposition is recorded below.
 
-Independent whole-branch review inspected `278011c..3d96048` with fresh context
+Initial independent whole-branch review inspected `278011c..3d96048` with fresh context
 and no source/data mutation. No Critical issues; three Important provenance
 defects and one Minor descriptive issue were identified. Each was reproduced
 with a failing synthetic regression before a single branch-local fix pass:
@@ -203,7 +273,7 @@ Nine new registration regressions failed before the fix and passed afterward;
 the existing CLI portability test also failed on the obsolete report statement
 before correction and passed afterward. Final suite: **75 passed, one known
 warning**. The installed package was refreshed and matches current source.
-No reviewer findings remain deferred as polish. The final fixes were verified
+No reviewer findings remained deferred as polish at that checkpoint. Its fixes were verified
 by tests and preservation checks; no second independent review was performed.
 
 The reviewer additionally tested failure after a later corrupt batch member,

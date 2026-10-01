@@ -98,7 +98,9 @@ the archive revision before approving a distinct identity/location.
 Supply `--acquired-utc` only when the original acquisition time is documented;
 it applies to the selected batch. Otherwise it remains JSON `null`. Registration
 time is measured independently in UTC. File modification times are never used
-as acquisition evidence. Correcting old provenance requires an explicit,
+as acquisition evidence. A known acquisition time cannot be later than its
+registration time; this relationship is checked on new and loaded records.
+Correcting old provenance requires an explicit,
 reviewed correction with evidence; repeat registration cannot silently enrich
 or replace historical acquisition facts.
 
@@ -130,6 +132,8 @@ July 2 is recorded as `missing_from_obtained_collection`, based on the user's
 report. This asserts neither portal-wide nor mission-wide unavailability and
 creates no observation, interpolation or negative scientific label. Nominal
 archive dates alone do not establish complete coverage on July 1 or July 3.
+The fixed inventory schema requires the canonical collection-only gap statement;
+contradictory or non-text prose is rejected rather than marked consistent.
 
 ## Extraction, derivation and Git policy
 
