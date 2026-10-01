@@ -6,7 +6,7 @@ The title is provisional: JEPA is a representation-learning method, not by
 itself a generative trajectory model; physics and generation claims require
 additional validated components.
 
-**Status (2026-09-29): investigation and small-data validation only. No models
+**Status (2026-10-01): investigation and small-data validation only. No models
 trained. Aditya-L1 files require registered PRADAN access and have not been
 obtained. NOAA GOES samples are external reference data, not substitute Aditya
 telemetry.** See [validation report](docs/VALIDATION_REPORT.md) for measured
@@ -29,8 +29,10 @@ Read [research design](docs/RESEARCH_PLAN.md), [experiments](docs/EXPERIMENT_PLA
 
 ## Reproduce the foundation
 
-Python 3.11+; the recorded environment is in `requirements-lock.txt` (Python
-version and validation commands in the report). No GPU required.
+The dependency ranges target Python 3.11+, while the recorded environment and
+`requirements-lock.txt` were validated on Python 3.13.3/macOS arm64. Use that
+Python version for the pinned reproduction below; other platforms remain
+unverified. No GPU required.
 
 ```bash
 python3 -m venv .venv
@@ -62,4 +64,4 @@ Model/training/evaluation packages will be added only after design approval;
 there are deliberately no misleading train/evaluate stubs.
 
 MIT applies to original code and documentation. Mission data retain their own
-terms. No remote repository or public release has been created.
+terms. An origin remote is configured; this session has not pushed or published.

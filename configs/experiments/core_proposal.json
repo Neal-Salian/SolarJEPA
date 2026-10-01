@@ -1,0 +1,15 @@
+{
+  "status": "blocked_on_aditya_validation_and_user_approval",
+  "history_minutes": 360,
+  "horizon_minutes": 60,
+  "stride_minutes": 10,
+  "seeds": [17, 29, 43],
+  "split": {"method": "chronological_purged_event_grouped", "utc_boundaries": null},
+  "data_manifest": null,
+  "features": ["calibrated_solexs_bands", "validity_mask", "observation_age"],
+  "primary_metric": "mean_pinball",
+  "secondary_metric": "m_plus_onset_brier_skill",
+  "training": {"max_epochs_pilot": 20, "patience": 5, "batch_size_initial": 32},
+  "gpu_hour_caps_proposed": {"core": 30, "llm": 6},
+  "outputs": ["resolved_config", "source_hashes", "split_manifest", "environment", "rng_states", "checkpoint", "per_origin_predictions", "metrics", "plots", "logs"]
+}

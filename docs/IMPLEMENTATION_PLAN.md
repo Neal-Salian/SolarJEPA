@@ -36,12 +36,12 @@ Interface: `download_manifest(manifest_path: Path, root: Path) -> list[dict]`.
 Consume explicit public NOAA URLs, destination relative paths, byte limits and
 optional initial/pinned hashes; produce verified files plus provenance JSON.
 
-- [ ] Write tests for HTTPS/host/path rejection, byte cap/truncation, NetCDF
+- [x] Write tests for HTTPS/host/path rejection, byte cap/truncation, NetCDF
   magic, hash mismatch and cache corruption using fake network streams only.
-- [ ] Run and observe missing implementation failures.
-- [ ] Implement atomic bounded streams, no authenticated endpoints/redirects.
-- [ ] Run tests; fetch six daily reference files; pin measured hashes/sizes.
-- [ ] Commit `feat(data): add bounded public reference acquisition`.
+- [x] Run and observe missing implementation failures.
+- [x] Implement atomic bounded streams, no authenticated endpoints/redirects.
+- [x] Run tests; fetch six daily reference files; pin measured hashes/sizes.
+- [x] Commit `feat(data): add bounded public reference acquisition`.
 
 ### Task 3: metadata and reference EDA
 
@@ -52,14 +52,14 @@ Interfaces: `inspect_file(path: Path) -> dict` (schema only);
 `read_goes(paths: list[Path]) -> pandas.DataFrame` (UTC indexed reference
 samples with raw values, masks, flags and source); `summarize(frame) -> dict`.
 
-- [ ] Test CF timestamps/interval metadata, required units/quality, valid masking,
+- [x] Test CF timestamps/interval metadata, required units/quality, valid masking,
   unordered/duplicate times, positivity and gap-aware backward derivatives.
-- [ ] Observe failures, implement only these source-specific behaviors.
-- [ ] Inspect real sample before choosing metadata/quality mappings; retain flags.
-- [ ] Produce Parquet and sidecar, JSON diagnostics and PNG flux/log/derivative/
+- [x] Observe failures, implement only these source-specific behaviors.
+- [x] Inspect real sample before choosing metadata/quality mappings; retain flags.
+- [x] Produce Parquet and sidecar, JSON diagnostics and PNG flux/log/derivative/
   cadence/event plots. No Aditya channel mapping without actual data.
-- [ ] Report measured rows/bytes/coverage/gaps/event records and limitations.
-- [ ] Run full tests and real-data smoke; check Git ignores and commit small units.
+- [x] Report measured rows/bytes/coverage/gaps/event records and limitations.
+- [x] Run full tests and real-data smoke; check Git ignores and commit small units.
 
 STOP after Phase 0. The following are designs, not authorized implementation.
 
