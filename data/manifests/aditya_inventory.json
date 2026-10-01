@@ -1,0 +1,209 @@
+{
+  "schema_version": 1,
+  "dataset_role": "initial_ingestion_validation_sample_not_training_dataset",
+  "files": [
+    {
+      "path": "data/raw/aditya/solexs/l1/v1.1/archives/2024/07/AL1_SLX_L1_20240701_v1.1.zip",
+      "original_filename": "AL1_SLX_L1_20240701_v1.1.zip",
+      "mission": "Aditya-L1",
+      "instrument": "SoLEXS",
+      "processing_level": "L1",
+      "product_version": "v1.1",
+      "nominal_observation_date": "2024-07-01",
+      "bytes": 6036792,
+      "sha256": "9d0cb2341c2eb6c4b25b6dd0b600042b750920ea433197e1d0def742c947b7e4",
+      "archive": {
+        "member_count": 7,
+        "file_count": 4,
+        "declared_uncompressed_bytes": 8843085,
+        "member_payloads_read": false,
+        "member_crc_verified": false,
+        "members": [
+          {
+            "path": "AL1_SLX_L1_20240701_v1.1/",
+            "compressed_bytes": 0,
+            "uncompressed_bytes": 0,
+            "crc32": "00000000",
+            "is_directory": true
+          },
+          {
+            "path": "AL1_SLX_L1_20240701_v1.1/SDD2/",
+            "compressed_bytes": 0,
+            "uncompressed_bytes": 0,
+            "crc32": "00000000",
+            "is_directory": true
+          },
+          {
+            "path": "AL1_SLX_L1_20240701_v1.1/SDD2/AL1_SOLEXS_20240701_SDD2_L1.gti.gz",
+            "compressed_bytes": 1055,
+            "uncompressed_bytes": 1055,
+            "crc32": "73cc3675",
+            "is_directory": false
+          },
+          {
+            "path": "AL1_SLX_L1_20240701_v1.1/SDD2/AL1_SOLEXS_20240701_SDD2_L1.lc.gz",
+            "compressed_bytes": 241786,
+            "uncompressed_bytes": 270003,
+            "crc32": "c4080bfb",
+            "is_directory": false
+          },
+          {
+            "path": "AL1_SLX_L1_20240701_v1.1/SDD2/AL1_SOLEXS_20240701_SDD2_L1.pi.gz",
+            "compressed_bytes": 5791399,
+            "uncompressed_bytes": 8571071,
+            "crc32": "39db338b",
+            "is_directory": false
+          },
+          {
+            "path": "AL1_SLX_L1_20240701_v1.1/SDD1/",
+            "compressed_bytes": 0,
+            "uncompressed_bytes": 0,
+            "crc32": "00000000",
+            "is_directory": true
+          },
+          {
+            "path": "AL1_SLX_L1_20240701_v1.1/SDD1/AL1_SOLEXS_20240701_SDD1_L1.gti.gz",
+            "compressed_bytes": 956,
+            "uncompressed_bytes": 956,
+            "crc32": "6ed79fa0",
+            "is_directory": false
+          }
+        ]
+      },
+      "source": {
+        "portal": "ISRO PRADAN",
+        "url": "https://pradan.issdc.gov.in/al1/",
+        "acquisition_method": "manual",
+        "evidence": "DOCUMENTED",
+        "statement": "User-reported official-portal acquisition; portal authenticity not independently checked."
+      },
+      "acquired_utc": null,
+      "registered_utc": "2026-10-01T16:20:52.638321+00:00",
+      "detector": null,
+      "observed_coverage": null,
+      "metadata_evidence": {
+        "mission": "DOCUMENTED",
+        "instrument": "DOCUMENTED",
+        "processing_level": "INFERRED",
+        "product_version": "INFERRED",
+        "nominal_observation_date": "INFERRED",
+        "original_filename": "OBSERVED",
+        "bytes": "OBSERVED",
+        "sha256": "OBSERVED",
+        "detector": "UNKNOWN",
+        "observed_coverage": "UNKNOWN",
+        "acquired_utc": "UNKNOWN",
+        "registered_utc": "OBSERVED",
+        "archive": "OBSERVED"
+      },
+      "processing_status": "archived",
+      "scientific_validation_status": "not_validated"
+    },
+    {
+      "path": "data/raw/aditya/solexs/l1/v1.1/archives/2024/07/AL1_SLX_L1_20240703_v1.1.zip",
+      "original_filename": "AL1_SLX_L1_20240703_v1.1.zip",
+      "mission": "Aditya-L1",
+      "instrument": "SoLEXS",
+      "processing_level": "L1",
+      "product_version": "v1.1",
+      "nominal_observation_date": "2024-07-03",
+      "bytes": 6216112,
+      "sha256": "b82ce974cd6195621e85e3c2773dc94202811c12c7b31e71df0c0353fe3af4bf",
+      "archive": {
+        "member_count": 7,
+        "file_count": 4,
+        "declared_uncompressed_bytes": 9025997,
+        "member_payloads_read": false,
+        "member_crc_verified": false,
+        "members": [
+          {
+            "path": "AL1_SLX_L1_20240703_v1.1/",
+            "compressed_bytes": 0,
+            "uncompressed_bytes": 0,
+            "crc32": "00000000",
+            "is_directory": true
+          },
+          {
+            "path": "AL1_SLX_L1_20240703_v1.1/SDD2/",
+            "compressed_bytes": 0,
+            "uncompressed_bytes": 0,
+            "crc32": "00000000",
+            "is_directory": true
+          },
+          {
+            "path": "AL1_SLX_L1_20240703_v1.1/SDD2/AL1_SOLEXS_20240703_SDD2_L1.pi.gz",
+            "compressed_bytes": 5968476,
+            "uncompressed_bytes": 8751033,
+            "crc32": "fd258690",
+            "is_directory": false
+          },
+          {
+            "path": "AL1_SLX_L1_20240703_v1.1/SDD2/AL1_SOLEXS_20240703_SDD2_L1.gti.gz",
+            "compressed_bytes": 1049,
+            "uncompressed_bytes": 1049,
+            "crc32": "d7ea3b04",
+            "is_directory": false
+          },
+          {
+            "path": "AL1_SLX_L1_20240703_v1.1/SDD2/AL1_SOLEXS_20240703_SDD2_L1.lc.gz",
+            "compressed_bytes": 244034,
+            "uncompressed_bytes": 272958,
+            "crc32": "15172c4d",
+            "is_directory": false
+          },
+          {
+            "path": "AL1_SLX_L1_20240703_v1.1/SDD1/",
+            "compressed_bytes": 0,
+            "uncompressed_bytes": 0,
+            "crc32": "00000000",
+            "is_directory": true
+          },
+          {
+            "path": "AL1_SLX_L1_20240703_v1.1/SDD1/AL1_SOLEXS_20240703_SDD1_L1.gti.gz",
+            "compressed_bytes": 957,
+            "uncompressed_bytes": 957,
+            "crc32": "6f690630",
+            "is_directory": false
+          }
+        ]
+      },
+      "source": {
+        "portal": "ISRO PRADAN",
+        "url": "https://pradan.issdc.gov.in/al1/",
+        "acquisition_method": "manual",
+        "evidence": "DOCUMENTED",
+        "statement": "User-reported official-portal acquisition; portal authenticity not independently checked."
+      },
+      "acquired_utc": null,
+      "registered_utc": "2026-10-01T16:20:52.650274+00:00",
+      "detector": null,
+      "observed_coverage": null,
+      "metadata_evidence": {
+        "mission": "DOCUMENTED",
+        "instrument": "DOCUMENTED",
+        "processing_level": "INFERRED",
+        "product_version": "INFERRED",
+        "nominal_observation_date": "INFERRED",
+        "original_filename": "OBSERVED",
+        "bytes": "OBSERVED",
+        "sha256": "OBSERVED",
+        "detector": "UNKNOWN",
+        "observed_coverage": "UNKNOWN",
+        "acquired_utc": "UNKNOWN",
+        "registered_utc": "OBSERVED",
+        "archive": "OBSERVED"
+      },
+      "processing_status": "archived",
+      "scientific_validation_status": "not_validated"
+    }
+  ],
+  "missing_coverage": [
+    {
+      "instrument": "SoLEXS",
+      "nominal_observation_date": "2024-07-02",
+      "status": "missing_from_obtained_collection",
+      "evidence": "DOCUMENTED",
+      "statement": "User reports this date missing from the obtained collection; not a mission-wide availability claim."
+    }
+  ]
+}

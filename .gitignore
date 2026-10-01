@@ -7,9 +7,9 @@ data/processed/**
 !data/processed/.gitkeep
 results/**
 !results/.gitkeep
-*.fits
-*.fit
-*.fts
+*.[fF][iI][tT][sS]
+*.[fF][iI][tT]
+*.[fF][tT][sS]
 *.cdf
 *.nc
 *.parquet
@@ -17,7 +17,7 @@ results/**
 *.hdf5
 *.npy
 *.npz
-*.zip
+*.[zZ][iI][pP]
 *.tar*
 *.gz
 *.pt
