@@ -1,15 +1,24 @@
 # SolarJEPA project status — canonical tracker
 
-Audit date: **2026-10-01**. Project root: `SolarJEPA` (formerly `isro`).
-Audited revision: `0f1265c047f0c2c6b5749b17b396cea4caa3c6c8`, branch `main`.
-The working tree was clean before this documentation-only audit.
+Current update: **2026-10-01**, branch `data/solexs-ingestion`, based on stable
+`main` at `278011ce27796781db873cd8d40578e1584e81d3`.
+Archive foundation: `6b8eb17`; metadata portability: `510f890`.
+Project root: `SolarJEPA` (formerly `isro`). No merge or push is authorized.
 
 This file owns stage status, blockers, completion criteria and task priority.
 [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) uses the same stages and
 describes how to execute them. [EXPERIMENT_PLAN.md](EXPERIMENT_PLAN.md) owns
 the proposed experimental protocol. [VALIDATION_REPORT.md](VALIDATION_REPORT.md)
-is the historical foundation checkpoint; newer observations here supersede its
-claims about the **current** environment, without rewriting past results.
+is the historical foundation checkpoint. Current storage evidence is in
+[SOLEXS_FOUNDATION_VALIDATION.md](SOLEXS_FOUNDATION_VALIDATION.md); it supersedes
+the prior import failure and archive absence without rewriting past results.
+
+Two user-acquired L1 v1.1 SoLEXS ZIPs for July 1 and 3, 2024 are registered by
+local size/hash and central-directory listing. July 2 is missing from the obtained
+collection, not asserted unavailable mission-wide. These are intake samples,
+not the training dataset. Scientific headers, cadence, quality and calibration
+remain unvalidated. Normal installed imports and five CLI help checks now pass;
+the original GOES files and saved artifacts remain unchanged.
 
 ## Status rules and audit boundary
 
@@ -23,26 +32,29 @@ claims about the **current** environment, without rewriting past results.
   documented reproduction verifies them. Claims must match the tested scope.
   Optional experiments may be omitted only through a recorded scope decision.
 
-No whole stage is COMPLETE in this audit. The existing reference-data functions
+No whole stage is COMPLETE. The existing reference-data functions
 and artifacts have useful verified evidence, but they do not constitute the
-proposed Aditya benchmark or a currently working end-to-end CLI installation.
+proposed Aditya benchmark or an independently reproduced research pipeline.
 Stages are research deliverables, not percentages of files written. Stage 9 is
 cross-cutting and starts early; the Stage 7 development evaluator must be ready
 before baseline tuning, even though final evaluation occurs later.
 
-The audit read all tracked project files, the five-commit history, and relevant
+The preceding documentation-only audit read all tracked project files, the five-commit history, and relevant
 ignored local data, metadata and EDA artifacts. Third-party virtual-environment
 contents were excluded except for installation diagnostics. No archive access
 was retested, no data were downloaded, and no models were trained. The recorded
 PRADAN access check and literature screening remain dated **2026-09-29**.
-Only this tracker, the implementation plan and README are changed by the audit.
+Only this tracker, the implementation plan and README changed in that audit.
+The subsequent approved storage milestone adds local registration, installation
+repair, portable generated identifiers and tests; no member payloads are read,
+no data are acquired, and no model work is performed.
 
 ## Stage table
 
 | Stage | Research deliverable | Status | Evidence and remaining gate |
 |---|---|---|---|
 | 0 | Research question and scientific scope | IN PROGRESS | Research, literature, novelty and experiment proposals exist; scope/protocol approval and full-method review remain. |
-| 1 | Data acquisition and validation | BLOCKED | Six verified NOAA reference files; zero Aditya files or local mission manuals/calibration products. |
+| 1 | Data acquisition and validation | BLOCKED | Six verified NOAA files and two identity-registered SoLEXS ZIPs; mission definitions/calibration and scientific extraction remain unvalidated. |
 | 2 | Dataset construction, preprocessing and leakage-safe splits | IN PROGRESS | NOAA preparation and causal derivative tests exist; no Aditya dataset, forecasting windows, labels or frozen splits. |
 | 3 | Classical/statistical baselines | NOT STARTED | Candidates and ARCH/GARCH rationale documented; no fits, diagnostics or predictions. |
 | 4 | Supervised deep-learning baselines | NOT STARTED | LSTM/TCN/Transformer proposed; no implementations, profiles or trained controls. |
@@ -50,7 +62,7 @@ Only this tracker, the implementation plan and README are changed by the audit.
 | 6 | SolarJEPA pretraining/training | NOT STARTED | No training runner, checkpoints, run manifests or learning curves. |
 | 7 | Forecasting evaluation and flare-warning evaluation | NOT STARTED | Metric/split protocol documented; EDA event counts are not prediction evaluation. |
 | 8 | Ablations, uncertainty and physics-informed experiments | NOT STARTED | Conditional protocols exist; no ablation runs, calibration or validated physical constraint. |
-| 9 | Reproducibility and robustness validation | IN PROGRESS | Tests, dependency pins and hashes exist; current CLI import failure, provenance transition and independent reproduction remain. |
+| 9 | Reproducibility and robustness validation | IN PROGRESS | Normal installed imports/CLI checks and portable generated metadata now pass; independent environment reproduction and dependency warning remain. |
 | 10 | Paper-ready results, figures and documentation | NOT STARTED | Paper outline and reference EDA figures exist; no research results or result-backed manuscript. |
 
 ## CURRENT_STAGE, NEXT_STAGE, BLOCKERS, NEXT 3 TASKS
@@ -69,10 +81,10 @@ the documented workflow, rather than a move directly to model development.
 
 | ID | Blocker | Affected work | Resolution evidence required |
 |---|---|---|---|
-| B1 | No locally acquired SoLEXS products, mission manuals or calibration bundle; registered PRADAN holdings remain unverified. | Stages 1–8, Aditya-specific parts of 9–10 | Permitted small sample plus credential-free inventory, official definitions and terms. |
+| B1 | Sample/archive inventory now exists; official local mission definitions/calibration, data-use review and broader holdings remain unverified. | Stages 1–8, Aditya-specific parts of 9–10 | Official definitions/calibration and terms; reviewed bounded acquisition selection after scientific sample validation. |
 | B2 | Actual Aditya clocks, units, flags, response semantics and calibrated extraction are unvalidated. | Stages 1–2; physical/fusion extensions | Tested real-file adapter and comparison with documented calibration/official quicklook; explicit unavailable fields. |
 | B3 | Research scope, target definitions, acquisition expansion and training budget have not received the requested next approval; dates and event sufficiency cannot yet be frozen. | Completion of Stage 0; dataset/model/training gates | Recorded scope decision, coverage/event precision audit, exact split manifest and approved bounded pilot. |
-| B4 | The current editable installation is skipped by Python; normal CLI imports fail despite passing pytest. | End-to-end foundation reproduction; Stage 9 | Normal package import and CLI smoke pass without pytest path injection or ad hoc `PYTHONPATH`; independent reproduction logged. |
+| B4 (local symptom resolved) | Hidden editable `.pth` recurred; a normal non-editable installation removes that dependency. Its recurring flag origin remains unknown. | Local CLI gate resolved; independent reproduction remains Stage 9 work. | Installed imports and five CLI help tests pass without `PYTHONPATH`; fresh independent environment still required. |
 
 Conditional gates are not blockers to a narrower SoLEXS-only study: ASPEX overlap,
 valid response-based physics, X+ event sufficiency and a Qwen compute profile are
@@ -80,30 +92,30 @@ all missing. Drop or defer those claims if their evidence fails. The provenance
 transition and dependency warning below are reproducibility gaps to resolve,
 not evidence of corrupted telemetry.
 
-**NEXT 3 TASKS — proposed future work, not executed by this audit**
+**NEXT 3 TASKS — proposed future scientific work, separately gated**
 
-1. **Restore and verify the existing reference workflow (Stage 9).** Diagnose
-   recurrence of the hidden `.pth` flag, repair the installation in a subsequent
-   authorized work session, and verify package import plus all four CLI entry
-   points outside pytest. Preserve the original retrieval record and document
-   its pre-pinning manifest relationship. Deliver a reproduction log with the
-   six hashes, preparation/EDA checks and environment limitations.
-2. **Close the scope/access gate and obtain a small real sample (Stages 0–1).**
-   Record approval of SoLEXS-first continuous forecasting plus separately defined
-   M+ onset warning and bounded compute. Through registered manual access, obtain
-   the official manuals, a modest SoLEXS interval and matching calibration; add
-   `data/manifests/aditya_inventory.json` without credentials. Inventory ASPEX
-   overlap only if usable products are available; do not expand acquisition yet.
-3. **Validate that actual SoLEXS interval (Stage 1, enabling Stage 2).** Implement
-   a reviewed adapter only after reading its real schema. Test clock/bin edges,
-   quality, exposure and calibration; extract Parquet with provenance and compare
-   with an official reference. Report cadence, gaps and label availability, then
-   decide whether the calibrated-flux task is feasible before building splits.
+1. **Review official definitions and a bounded real-file sample (Stages 0–1).**
+   Obtain manuals/calibration/terms; review nested gzip/product semantics,
+   clocks, units, cadence, GTI/quality and full expansion size. Current ZIP
+   filenames and declared sizes cannot establish those properties.
+2. **Validate scientifically usable extraction (Stage 1, enabling Stage 2).**
+   After a separate approved plan, test a reviewed adapter, timing, exposure and
+   calibration against an official reference. Report usable coverage and GOES
+   overlap without filling the July 2 collection gap.
+3. **Approve a bounded larger selection and dataset contract (Stages 0–2).**
+   Use measured coverage/activity, prediction-window requirements and storage/
+   compute limits to propose chronological partitions and acquisition scope.
+   Neither all PRADAN holdings nor newer-year training/test roles are decided.
 
-Stop after this audit. These tasks do not authorize implementation, training,
-large downloads, commits, publication or a push in this turn.
+Stop on the current feature branch after review and verification. Future tasks
+do not authorize downloads, extraction, training, merge, publication or push.
 
-## Audited evidence and discrepancies
+## Historical pre-storage audit evidence and discrepancies
+
+The following audit describes revision
+`0f1265c047f0c2c6b5749b17b396cea4caa3c6c8` before the storage milestone.
+Its archive absence/import failures are historical; current evidence is linked
+above. Original reference measurements and retrieval facts are preserved.
 
 ### Repository and history
 
@@ -227,18 +239,23 @@ The processed sidecar already matches the current pinned manifest.
 
 - **What already exists:** manual registered-acquisition instructions; bounded,
   tested public NOAA downloader; pinned six-file sample and retrieval record;
-  NetCDF/FITS/CDF metadata inventory; real NOAA extraction and EDA.
+  NetCDF/FITS/CDF metadata inventory; real NOAA extraction and EDA; canonical
+  SoLEXS archive storage and two locally verified ZIP identity/listing records.
 - **Evidence/files:** [DATA_DOWNLOAD.md](DATA_DOWNLOAD.md),
   [DATASET_CARD.md](DATASET_CARD.md), [VALIDATION_REPORT.md](VALIDATION_REPORT.md),
   [download.py](../src/solar_flare_jepa/data/download.py),
   [inspect.py](../src/solar_flare_jepa/data/inspect.py),
+  [storage.py](../src/solar_flare_jepa/data/storage.py),
+  [DATA_STORAGE.md](DATA_STORAGE.md),
+  [aditya_inventory.json](../data/manifests/aditya_inventory.json),
   [test_download.py](../tests/test_download.py), pinned manifests and local
   artifacts enumerated above. FITS/CDF inspection is metadata-only.
-- **What is missing:** actual SoLEXS files/manuals/responses, calibrated adapter,
-  authenticated archive inventory and data terms review, usable coverage/bytes/
+- **What is missing:** official manuals/responses, scientifically validated
+  product contents and calibrated adapter, authenticated broader holdings and
+  data terms review, usable coverage/fully expanded bytes/
   cadence/gap statistics; matching ASPEX products if retained. No anonymous
   Aditya API or sample was verified in the previous investigation.
-- **Dependencies/blockers:** B1, B2 and B4; broad acquisition remains gated by B3.
+- **Dependencies/blockers:** B1 and B2; broad acquisition remains gated by B3.
   Authentication must be completed through the official route, never bypassed.
 - **Exact completion criteria:** obtain a permitted modest real interval and
   official definitions/calibration; version a credential-free inventory with
@@ -248,7 +265,7 @@ The processed sidecar already matches the current pinned manifest.
   enumerate feasible larger holdings with estimated volume. Record ASPEX
   inclusion or evidence-based deferral. Reproduction from supplied raw products
   must succeed without guessing fields, clocks or counts-to-flux conversion.
-- **Next actions:** obtain manuals and small products, inspect actual metadata,
+- **Next actions:** obtain manuals/calibration, review the current small products,
   validate SoLEXS first, then assess matched ASPEX and coverage expansion.
 
 ## Stage 2 — Dataset construction, preprocessing and leakage-safe splits
@@ -438,16 +455,17 @@ The processed sidecar already matches the current pinned manifest.
 
 - **What already exists:** package metadata, macOS dependency pins, source hashes,
   bounded acquisition, tests, reproducible in-memory reference extraction,
-  ignored artifacts and documented environment/known warning.
+  ignored artifacts and documented environment/known warning; installed import/
+  CLI regressions, SoLEXS registration tests and relocated-root metadata checks.
 - **Evidence/files:** [pyproject.toml](../pyproject.toml),
   [requirements-lock.txt](../requirements-lock.txt), [.gitignore](../.gitignore),
-  all tests, manifests, sidecar and current verification above. Proposal run
+  all tests, manifests, sidecar and current foundation verification. Proposal run
   outputs are a list, not an implemented run registry.
-- **What is missing:** working normal CLI installation, clean independent
-  reproduction/CI, explicit manifest transition, portable artifact identifiers,
+- **What is missing:** clean independent environment reproduction/CI,
   executable run/seed/RNG/checkpoint provenance and approved robustness results.
-  Sidecar source paths are machine-specific, although source content hashes match.
-- **Dependencies/blockers:** B4 now; B1–B3 for real-data/model robustness. The
+  Historical sidecar identifiers remain machine-specific to preserve validated
+  artifacts; future generated sidecars/EDA use repository-relative identifiers.
+- **Dependencies/blockers:** B1–B3 for real-data/model robustness. The
   dependency RuntimeWarning needs assessment, not silent suppression. Linux/T4
   support and proposed VRAM/GPU-hour budgets are unmeasured.
 - **Exact completion criteria:** from a fresh documented environment, normal
@@ -462,7 +480,7 @@ The processed sidecar already matches the current pinned manifest.
   without adapting on held-out outcomes. Exact bytes or numerical tolerances
   must be declared for each artifact; data and seeds alone do not guarantee
   bitwise GPU determinism.
-- **Next actions:** restore the reference CLI and record provenance first; build
+- **Next actions:** retain the verified local CLI/provenance foundation; build
   integration/independent-environment checks before model experiments, then
   extend the same evidence contract to every run.
 

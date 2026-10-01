@@ -1,6 +1,6 @@
 # SolarJEPA implementation plan
 
-Reconciled with the project-state audit on **2026-10-01**.
+Reconciled with the storage-foundation update on **2026-10-01**.
 [PROJECT_STATUS.md](PROJECT_STATUS.md) is the canonical tracker for status,
 blockers, completion criteria and the next three tasks. This document describes
 execution using the **same Stages 0–10**. It does not authorize further work.
@@ -18,23 +18,28 @@ foundation. Other environments and all training budgets remain unprofiled.
 
 ## Existing work to preserve
 
-The repository, five commits, remote, research documents, bounded NOAA downloader,
+The existing repository/history, remote, research documents, bounded NOAA downloader,
 six pinned reference files, metadata inventory, NOAA preparation/EDA and tests
 already exist. Do not reinitialize Git, recreate this foundation, revert completed
 work, or treat generated NOAA artifacts as an Aditya corpus. Existing files are
 listed and verified in the tracker.
 
-The current audit verifies 26 passing tests and consistent raw/processed/EDA
-contents, but normal CLI imports fail because Python skips the hidden editable
-`.pth` file. The older validation checkpoint is not current installation proof.
+The approved `data/solexs-ingestion` milestone adds two locally registered ZIPs,
+normal installed import/CLI checks and portable future source identifiers.
+It preserves the stable `main` revision, raw files and saved GOES outputs. See
+[DATA_STORAGE.md](DATA_STORAGE.md) and
+[SOLEXS_FOUNDATION_VALIDATION.md](SOLEXS_FOUNDATION_VALIDATION.md) for evidence.
+A normal installation avoids the recurring hidden editable `.pth`; the origin
+of the repeated filesystem flag remains unknown. Source changes require reinstall.
 The original retrieval digest also corresponds to the pre-checksum manifest;
-preserve and explicitly document that historical transition. Both issues belong
-to Stage 9 maintenance before relying on the existing workflow.
+preserve that historical transition. Independent environment reproduction and
+the known NetCDF4 warning remain Stage 9 gaps.
 
 ## Global constraints and gates
 
-- No code/environment repair, data acquisition, training or push in the audit.
-  The next work session must respect the user's requested approval boundaries.
+- The current authorization covers only the storage foundation on its feature
+  branch. Scientific extraction, acquisition expansion, model work, integration
+  and pushing require their own approvals. Passing checks do not authorize merge.
 - No random time splits, future-fill, guessed instrument epochs or raw-data Git.
   Missing/bad/saturated targets are unknown, never zero or negative flare labels.
 - Source hashes, finite acquisition caps, exact calibration versions and source
@@ -66,10 +71,12 @@ an abstract-level citation does not freeze the scientific design.
 
 ## Stage 1 — Data acquisition and validation
 
-Use [DATA_DOWNLOAD.md](DATA_DOWNLOAD.md) to acquire one permitted real interval,
-manuals and matching calibration through registered access. Record actual archive
+Preserve the two registered intake archives; use [DATA_DOWNLOAD.md](DATA_DOWNLOAD.md)
+for future approved manuals and matching calibration through registered access.
+Record actual archive
 holdings/levels/versions/bytes without selecting only flare-rich periods. Preserve
-raw files outside Git; create a credential-free Aditya inventory. Assess STEPS
+raw files outside Git; extend the existing credential-free inventory only for an
+approved selection. July 2 remains missing from the obtained collection. Assess STEPS
 and SWIS independently and record fusion inclusion or deferral.
 
 Only after reading actual metadata, add source-specific adapters under
@@ -264,10 +271,9 @@ data before Stage 7 final scoring. Gate: Stage 8 evidence and fairness criteria.
 
 ## Stage 9 — Reproducibility and robustness validation
 
-Start now with the existing foundation import failure and provenance transition;
-implement no fix during the audit. In the next authorized session, verify a normal
-import and all CLI commands outside pytest, then independently reproduce pinned
-reference preparation/EDA in a documented environment. Record warning disposition
+Local import/CLI checks, registration and metadata portability now have regression
+coverage. Preserve those checks, then independently reproduce pinned reference
+preparation/EDA in a fresh documented environment. Record warning disposition
 and prevent tests' `src` injection from being mistaken for installation success.
 Preserve historical retrieval facts rather than overwriting them with new times.
 

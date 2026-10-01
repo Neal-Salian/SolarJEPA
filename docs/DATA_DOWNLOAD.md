@@ -1,6 +1,14 @@
 # Data acquisition
 
-Checked 2026-09-29. Do not commit raw files or login credentials.
+Portal route checked 2026-09-29; local intake updated 2026-10-01. Do not commit
+raw files or login credentials. This update performs no new portal acquisition.
+See [storage policy](DATA_STORAGE.md) and [foundation verification](SOLEXS_FOUNDATION_VALIDATION.md).
+
+Two user-acquired SoLEXS L1 v1.1 ZIPs for July 1 and 3, 2024 are registered in
+`data/manifests/aditya_inventory.json`. July 2 is missing from the obtained
+collection; portal/mission-wide availability is unknown. These are initial
+ingestion samples, not a final training dataset. Scientific validation and
+approval of a larger acquisition selection remain outstanding.
 
 ## Aditya-L1: registered manual route
 
@@ -40,17 +48,23 @@ Checked 2026-09-29. Do not commit raw files or login credentials.
 8. Place untouched products in:
 
    ```text
-   data/raw/aditya/solexs/<level>/<version>/
-   data/raw/aditya/aspex_steps/<level>/<version>/
-   data/raw/aditya/aspex_swis/<level>/<version>/
+   data/raw/aditya/solexs/<level>/<version>/archives/<YYYY>/<MM>/
+   data/raw/aditya/aspex_steps/<level>/<version>/archives/<YYYY>/<MM>/
+   data/raw/aditya/aspex_swis/<level>/<version>/archives/<YYYY>/<MM>/
    ```
 
-9. Inspect files: `python scripts/inspect_data.py <files> --output results/aditya_schema.json`.
+9. Register the current explicit ZIP selection without extraction:
+   `python scripts/register_aditya.py --config configs/data/solexs_storage.json`.
+   Recheck identities using the same command with `--verify`.
+   For later approved unpacked FITS/CDF files, use
+   `python scripts/inspect_data.py <files> --output results/aditya_schema.json`.
    FITS and CDF support is metadata-only until real product mappings are
-   reviewed. Install optional dependencies with `pip install -e '.[aditya]'`.
+   reviewed. Install optional dependencies with `pip install '.[aditya]'`.
 10. Record filename, SHA-256, byte size, product ID, source page, download UTC,
     processing/calibration version, level, native time scale, units, quality
-    rules and terms in `data/manifests/aditya_inventory.json`. Exclude tokens
+    rules and terms where verified; otherwise explicitly unknown/null. The
+    current registration schema intentionally leaves scientific fields unvalidated.
+    Acquisition time is not registration time or filesystem time. Exclude tokens
     and personally identifying account details. Ask the POC if epoch, counts,
     dead-time correction or response semantics are unclear; do not infer them.
 
@@ -95,3 +109,9 @@ missingness, checksums, calibration compatibility and extracted series on the
 small sample. Then enumerate all eligible periods and estimated total bytes.
 Approve expansion and freeze a split manifest before accessing held-out outcomes.
 An archive update creates a new dataset version, never an unnoticed replacement.
+The current ZIP listings still contain gzip members; their ZIP-declared expanded
+size is not the fully decompressed science-data volume. Before a larger selection,
+validate actual variables/product semantics, GTI/quality, cadence, calibration,
+usable coverage, GOES overlap, activity distribution, prediction windows,
+chronological partitions and storage/compute requirements. No automatic download
+of all holdings, or preference for newer years, is authorized by this foundation.

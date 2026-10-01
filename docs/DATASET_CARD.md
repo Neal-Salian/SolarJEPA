@@ -1,7 +1,17 @@
 # Dataset card — provisional
 
-Created 2026-09-29. This describes a **proposed Aditya dataset** and a distinct
-NOAA engineering sample. It is not a claim that Aditya has been downloaded.
+Created 2026-09-29; intake update 2026-10-01. This describes a **proposed Aditya
+research dataset**, two locally registered SoLEXS ingestion ZIPs, and a distinct
+NOAA engineering sample. The two ZIPs are not the final training dataset;
+archive identity verification is not scientific validation.
+
+The [inventory](../data/manifests/aditya_inventory.json) pins July 1 and 3, 2024
+L1 v1.1 archives with observed sizes/hashes/member listings. July 2 is missing
+from the obtained collection, based on the user's report; no mission-wide
+availability claim or gap filling is made. Nominal dates/levels/versions are
+filename inferences. Actual coverage, header-verified detectors, cadence, units,
+GTI/quality and calibration remain unknown. See [storage policy](DATA_STORAGE.md)
+and [foundation verification](SOLEXS_FOUNDATION_VALIDATION.md).
 
 | Product | Evidence-backed properties | Still unknown locally |
 |---|---|---|

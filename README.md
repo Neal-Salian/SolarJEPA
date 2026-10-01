@@ -6,18 +6,20 @@ The title is provisional: JEPA is a representation-learning method, not by
 itself a generative trajectory model; physics and generation claims require
 additional validated components.
 
-**Status (2026-10-01): investigation and small-data validation only. No models
-trained. Aditya-L1 files require registered PRADAN access and have not been
-obtained. NOAA GOES samples are external reference data, not substitute Aditya
-telemetry.** See the [canonical project tracker](docs/PROJECT_STATUS.md) for
+**Status (2026-10-01): data foundation and small-sample validation only. Two
+manually acquired SoLEXS L1 v1.1 ZIPs (July 1 and 3, 2024) are locally registered;
+their scientific contents remain unvalidated. July 2 is missing from the obtained
+collection. These are ingestion samples, not the final training dataset. No models
+trained. NOAA GOES samples remain external reference data.** See the [canonical project tracker](docs/PROJECT_STATUS.md) for
 current stages, blockers and next tasks, and the
 [validation report](docs/VALIDATION_REPORT.md) for the historical foundation
 checkpoint and measured sample sizes.
 
-The current audit found that normal package/CLI imports fail in the existing
-local virtual environment while the 26 unit tests pass through pytest's `src`
-path configuration. The tracker records the installation cause and reproduction
-gate; no environment repair was performed during the documentation-only audit.
+The local editable installation's hidden `.pth` flag recurred between commands.
+A normal package installation now passes import/CLI checks without `PYTHONPATH`;
+the process reapplying the hidden flag remains unknown. See
+[storage/provenance policy](docs/DATA_STORAGE.md) and
+[foundation verification](docs/SOLEXS_FOUNDATION_VALIDATION.md).
 
 ## Research decisions
 
@@ -45,7 +47,7 @@ unverified. No GPU required.
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements-lock.txt
-python -m pip install --no-deps -e .
+python -m pip install --no-deps .
 python -m pytest
 python scripts/download_data.py --manifest configs/data/noaa_sample.json
 python scripts/inspect_data.py data/raw/noaa/*.nc --output results/schema.json
@@ -59,6 +61,20 @@ refuses changed existing files, and records provenance. Run from repository root
 For manually acquired Aditya files, `inspect_data.py` inventories FITS/CDF
 metadata without guessing units, calibration, quality definitions, or epochs.
 An inventory is not a validated instrument parser.
+
+Register and verify the explicitly configured local SoLEXS ZIPs without extraction:
+
+```bash
+python scripts/register_aditya.py --config configs/data/solexs_storage.json
+python scripts/register_aditya.py --config configs/data/solexs_storage.json --verify
+```
+
+Original ZIPs live under
+`data/raw/aditya/solexs/<level>/<version>/archives/<YYYY>/<MM>/`.
+The current compressed member suffixes are `.gti.gz`, `.lc.gz`, and `.pi.gz`;
+the existing FITS/CDF inspector does not automatically unpack or interpret them.
+After package-source edits, reinstall the package before checking installed CLIs;
+pytest's source-path configuration alone does not establish installation success.
 
 ## Layout and scope
 
