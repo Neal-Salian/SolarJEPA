@@ -1,0 +1,112 @@
+{
+  "accepted_for_calibration_application": false,
+  "accepted_for_product_clock_conversion": false,
+  "access_date": "2026-10-02",
+  "inputs": {
+    "arf": "data/raw/aditya/calibration/solexs/tools-1.1-24693af/arf/solexs_arf_SDD2_v1.arf",
+    "arf_pi": "data/raw/aditya/calibration/solexs/tools-current-51403b0/arf/solexs_arf_pi_SDD2_v1.arf",
+    "bounds": "data/raw/aditya/calibration/solexs/tools-1.1-24693af/ebounds/energy_bins_out_SDD2_v1.dat",
+    "rmf": "data/raw/aditya/calibration/solexs/tools-current-51403b0/response/rmf/solexs_gaussian_SDD2_v1.rmf"
+  },
+  "previous_manifest": "data/manifests/solexs_guidance_sources.json",
+  "purpose": "Phase D reproducible investigation; candidate sources never approve mission clock or calibration policy",
+  "schema_version": 1,
+  "sources": [
+    {
+      "accepted_for_application": false,
+      "bytes": 11520,
+      "git_blob_sha1": "6b1cf70c47fae6924e4dc1eb27b2f514d7a1eb4b",
+      "path": "data/raw/aditya/calibration/solexs/tools-current-51403b0/arf/solexs_arf_pi_SDD2_v1.arf",
+      "sha256": "a07eec19cfee37bc0f840e77f0eeaea7a232940f034a20ca04c6c5ca1dec6257",
+      "source_commit": "51403b02fbb7ae2eb0b4eb539e881ffd56c1c772",
+      "source_path": "solexs_tools/CALDB/arf/solexs_arf_pi_SDD2_v1.arf",
+      "url": "https://raw.githubusercontent.com/abhilash-sw/solexs_tools/51403b02fbb7ae2eb0b4eb539e881ffd56c1c772/solexs_tools/CALDB/arf/solexs_arf_pi_SDD2_v1.arf"
+    },
+    {
+      "accepted_for_application": false,
+      "bytes": 6168960,
+      "git_blob_sha1": "555801317966556fb50d187e244b496740201ff7",
+      "path": "data/raw/aditya/calibration/solexs/tools-current-51403b0/response/rmf/solexs_gaussian_SDD2_v1.rmf",
+      "sha256": "fc8ab03f15bb21ff066426cd6047519d57ffe017bb776bb88a5a65136deb63db",
+      "source_commit": "51403b02fbb7ae2eb0b4eb539e881ffd56c1c772",
+      "source_path": "solexs_tools/CALDB/response/rmf/solexs_gaussian_SDD2_v1.rmf",
+      "url": "https://raw.githubusercontent.com/abhilash-sw/solexs_tools/51403b02fbb7ae2eb0b4eb539e881ffd56c1c772/solexs_tools/CALDB/response/rmf/solexs_gaussian_SDD2_v1.rmf"
+    },
+    {
+      "accepted_for_application": false,
+      "bytes": 1797753,
+      "commit": "d7453029cfac574c0cf444ca47d2ce97fcc17245",
+      "path": "data/raw/aditya/documentation/isro-esa-2026/SoLEXS_Tools_Guide.ipynb",
+      "sha256": "5435872a84331ea039cb285e1519e8fa8a2642c35027a3d6401b207bf61400a6",
+      "url": "https://raw.githubusercontent.com/ISRO-ESA-Heliophysics-Workshop/hands-on-materials/d7453029cfac574c0cf444ca47d2ce97fcc17245/aditya-l1/solexs/SoLEXS_Tools_Guide.ipynb"
+    },
+    {
+      "accepted_for_application": false,
+      "bytes": 660729,
+      "commit": "d7453029cfac574c0cf444ca47d2ce97fcc17245",
+      "path": "data/raw/aditya/documentation/isro-esa-2026/SoLEXS_Workshop-Data-Introduction.ipynb",
+      "sha256": "63900c3839a4e29776f820c96a9fc380641c966d0508f382fe2ee53e4d6c798d",
+      "url": "https://raw.githubusercontent.com/ISRO-ESA-Heliophysics-Workshop/hands-on-materials/d7453029cfac574c0cf444ca47d2ce97fcc17245/aditya-l1/solexs/SoLEXS_Workshop-Data-Introduction.ipynb"
+    },
+    {
+      "accepted_for_application": false,
+      "accepted_for_calibration_application": false,
+      "accepted_for_product_clock_conversion": false,
+      "authority": "official standard or NOAA documentation",
+      "bytes": 1140821,
+      "path": "data/raw/aditya/documentation/phase-d-reference/FITS-Standard-4.0.pdf",
+      "sha256": "5624dca15659caf54c56127b4df9af05fd930c8f6d997fcb4bea2b1a5c1bc573",
+      "url": "https://fits.gsfc.nasa.gov/standard40/fits_standard40aa-le.pdf",
+      "version": "FITS standard 4.0, updated 2016-07-22; language-edited edition 2018-08-13"
+    },
+    {
+      "accepted_for_application": false,
+      "accepted_for_calibration_application": false,
+      "accepted_for_product_clock_conversion": false,
+      "authority": "official standard or NOAA documentation",
+      "bytes": 3159163,
+      "path": "data/raw/aditya/documentation/phase-d-reference/GOES-R-XRS-L2-Users-Guide.pdf",
+      "sha256": "5736ef81e8a34aef8a0672c14193ed641f846f4d8008c66ee80ec12e243f3cee",
+      "url": "https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/goes16/l2/docs/GOES-R_XRS_L2_Data_Users_Guide.pdf",
+      "version": "2025-12-15"
+    },
+    {
+      "accepted_for_application": false,
+      "accepted_for_calibration_application": false,
+      "accepted_for_product_clock_conversion": false,
+      "authority": "official standard or NOAA documentation",
+      "bytes": 374187,
+      "path": "data/raw/aditya/documentation/phase-d-reference/OGIP-CAL-GEN-92-002.pdf",
+      "sha256": "e648509cd5cd9fd1cdacc588a8fa4a458a31b726c7c1d7521e7bffd458775f25",
+      "url": "https://heasarc.gsfc.nasa.gov/docs/heasarc/caldb/docs/memos/cal_gen_92_002/cal_gen_92_002.pdf",
+      "version": "CAL/GEN/92-002, version 2020-12-08; 2022 URL edits"
+    },
+    {
+      "accepted_for_application": false,
+      "authority": "Author repository tree; resource names and sizes, not mission compatibility",
+      "bytes": 6461,
+      "path": "data/raw/aditya/documentation/phase-d-reference/solexs-tools-1.6-tree.json",
+      "sha256": "67a21b524b62eb501426a68318573cb808c22f141d75a2ada36e4c2efd5079ed",
+      "source_commit": "51403b02fbb7ae2eb0b4eb539e881ffd56c1c772",
+      "url": "https://api.github.com/repos/abhilash-sw/solexs_tools/git/trees/51403b02fbb7ae2eb0b4eb539e881ffd56c1c772?recursive=1"
+    },
+    {
+      "accepted_for_application": false,
+      "bytes": 10649,
+      "git_blob_sha1": "fbf1a61ce12a0f077f3dd5031731e76c8a15598b",
+      "path": "data/raw/aditya/documentation/solexs-tools-source/51403b02fbb7ae2eb0b4eb539e881ffd56c1c772/solexs_tools/genlc.py",
+      "sha256": "c77df94831058d6c20e2e89b5464596c807289cfa1594818c10680952d859918",
+      "source_commit": "51403b02fbb7ae2eb0b4eb539e881ffd56c1c772",
+      "source_path": "solexs_tools/genlc.py",
+      "url": "https://raw.githubusercontent.com/abhilash-sw/solexs_tools/51403b02fbb7ae2eb0b4eb539e881ffd56c1c772/solexs_tools/genlc.py"
+    }
+  ],
+  "version_applicability": {
+    "author_tools": "tools1.1/1.3/1.6 are distinct from data/pipeline versions; authenticated PRADAN byte equivalence and backward compatibility unknown",
+    "manual": "v1.0 January 2025; generic definitions, predates pipeline-1.1 data re-release",
+    "noaa": "2025-12-15 guide; local July2024 v2-2-1 files created2025-12-05 agree on UTC/start/leap-neglect convention",
+    "standards": "FITS4.0 and CAL/GEN/92-002 contextual definitions are not mission repair authority",
+    "updates": "2026-06-09; explicitly July-September 2024 data1.1/pipeline1.1; no exact precedence rule",
+    "workshop": "pinned d7453029; tools1.3 examples and pipeline2.0-beta.1 headers do not define pipeline1.1 semantics"
+  }
+}
