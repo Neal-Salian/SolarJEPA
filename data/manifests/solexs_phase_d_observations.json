@@ -1,0 +1,1066 @@
+{
+  "archives": [
+    {
+      "archive": "data/raw/aditya/solexs/l1/v1.1/archives/2024/07/AL1_SLX_L1_20240701_v1.1.zip",
+      "band_and_response_comparison": {
+        "all_channel_sum": {
+          "equal_rows": 0,
+          "maximum_absolute_difference": 695.0
+        },
+        "exposure_all_one": true,
+        "finite_compared_rows": 86272,
+        "inclusive_upper_control": {
+          "equal_rows": 86258,
+          "maximum_absolute_difference": 1.0
+        },
+        "mapping_validated": false,
+        "pi_channel_first_last": [
+          0,
+          339
+        ],
+        "pi_channel_labels_constant": true,
+        "pi_channel_labels_equal_rmf": false,
+        "pi_nan_mask_equals_lc": true,
+        "pi_nan_rows": 128,
+        "rows": 86400,
+        "telapse_all_one": true,
+        "tool_slice": {
+          "equal_rows": 86253,
+          "maximum_absolute_difference": 1.0
+        }
+      },
+      "bytes": 6036792,
+      "gti_exposure_card": "86272.0",
+      "identity_evidence": {
+        "archive": "OBSERVED",
+        "archive_bytes": "OBSERVED",
+        "archive_sha256": "OBSERVED",
+        "nominal_observation_date": "INFERRED",
+        "product_version": "INFERRED"
+      },
+      "integrity": "verified",
+      "lc_extra_cards": {
+        "CLOCKAPP": null,
+        "NUMBAND": "4",
+        "TIERABSO": null,
+        "TIERRELA": null,
+        "TIMEOFFS": null,
+        "TIMEPIXR": null,
+        "TREFPOS": null
+      },
+      "nominal_date": "2024-07-01",
+      "pi_correction_cards": {
+        "ANCRFILE": null,
+        "DTCORR": null,
+        "GAINAPP": null,
+        "RESPFILE": null
+      },
+      "products": [
+        {
+          "columns": [
+            {
+              "dtype": ">i2",
+              "format": "I",
+              "name": "START",
+              "shape": [
+                0
+              ],
+              "unit": null
+            },
+            {
+              "dtype": ">i2",
+              "format": "I",
+              "name": "STOP",
+              "shape": [
+                0
+              ],
+              "unit": null
+            }
+          ],
+          "detector": {
+            "evidence": "INFERRED",
+            "source": "member_name",
+            "value": "SDD1"
+          },
+          "expanded_bytes": 5760,
+          "fits_sha256": "05106ffb348426f58b058cc9a910aeec09064057d4e507175349f29b0bd50079",
+          "gti_native": {
+            "adjacent_overlaps": 0,
+            "continuous_exposure": null,
+            "endpoint_policy": "UNKNOWN_NOT_APPLIED",
+            "intervals_native": [],
+            "intervals_truncated": false,
+            "invalid_intervals": 0,
+            "nonfinite_intervals": 0,
+            "sum_stop_minus_start_native": 0,
+            "unordered_starts": 0
+          },
+          "kind": "gti",
+          "rows": 0,
+          "table_bytes": 0,
+          "time_metadata": {
+            "CLOCKAPP": null,
+            "DATE-END": null,
+            "DATE-OBS": null,
+            "MJDREF": null,
+            "MJDREFF": null,
+            "MJDREFI": null,
+            "TASSIGN": null,
+            "TIMEDEL": null,
+            "TIMEREF": null,
+            "TIMESYS": null,
+            "TIMEUNIT": null,
+            "TIMEZERO": null,
+            "TIMZERO": null,
+            "TSTART": null,
+            "TSTOP": null
+          },
+          "warnings": [
+            "UTC_CONVERSION_NOT_APPLIED",
+            "GTI_FILTERING_NOT_APPLIED",
+            "CALIBRATION_NOT_APPLIED",
+            "TIME_REFERENCE_MISSING",
+            "GTI_ENDPOINT_EXPOSURE_POLICY_UNKNOWN"
+          ]
+        },
+        {
+          "columns": [
+            {
+              "dtype": ">f8",
+              "format": "D",
+              "name": "START",
+              "shape": [
+                4
+              ],
+              "unit": null
+            },
+            {
+              "dtype": ">f8",
+              "format": "D",
+              "name": "STOP",
+              "shape": [
+                4
+              ],
+              "unit": null
+            }
+          ],
+          "detector": {
+            "evidence": "INFERRED",
+            "source": "member_name",
+            "value": "SDD2"
+          },
+          "expanded_bytes": 8640,
+          "fits_sha256": "e5f2ece74c3b3a70908a42fb6c69fcad20cf13a6e602de5b9e3b7cddb83f432c",
+          "gti_native": {
+            "adjacent_overlaps": 0,
+            "continuous_exposure": null,
+            "endpoint_policy": "UNKNOWN_NOT_APPLIED",
+            "intervals_native": [
+              [
+                1719792000.0,
+                1719792004.0
+              ],
+              [
+                1719792131.0,
+                1719815131.0
+              ],
+              [
+                1719815133.0,
+                1719815137.0
+              ],
+              [
+                1719815139.0,
+                1719878399.0
+              ]
+            ],
+            "intervals_truncated": false,
+            "invalid_intervals": 0,
+            "nonfinite_intervals": 0,
+            "sum_stop_minus_start_native": 86268.0,
+            "unordered_starts": 0
+          },
+          "kind": "gti",
+          "rows": 4,
+          "table_bytes": 64,
+          "time_metadata": {
+            "CLOCKAPP": null,
+            "DATE-END": null,
+            "DATE-OBS": null,
+            "MJDREF": null,
+            "MJDREFF": null,
+            "MJDREFI": null,
+            "TASSIGN": null,
+            "TIMEDEL": null,
+            "TIMEREF": null,
+            "TIMESYS": null,
+            "TIMEUNIT": null,
+            "TIMEZERO": null,
+            "TIMZERO": null,
+            "TSTART": null,
+            "TSTOP": null
+          },
+          "warnings": [
+            "UTC_CONVERSION_NOT_APPLIED",
+            "GTI_FILTERING_NOT_APPLIED",
+            "CALIBRATION_NOT_APPLIED",
+            "TIME_REFERENCE_MISSING",
+            "GTI_ENDPOINT_EXPOSURE_POLICY_UNKNOWN"
+          ]
+        },
+        {
+          "columns": [
+            {
+              "dtype": ">f8",
+              "format": "D",
+              "name": "TIME",
+              "shape": [
+                86400
+              ],
+              "unit": null
+            },
+            {
+              "dtype": ">f8",
+              "format": "D",
+              "name": "COUNTS",
+              "shape": [
+                86400
+              ],
+              "unit": null
+            }
+          ],
+          "detector": {
+            "evidence": "OBSERVED",
+            "source": "FILTER",
+            "value": "SDD2"
+          },
+          "expanded_bytes": 1391040,
+          "fits_sha256": "8db1592fe86c59093a5d0ae2308da5db9848e408df00387b525bfbf411820cdb",
+          "gti_point_diagnostic": {
+            "continuous_exposure": null,
+            "coordinate_policy": "inclusive_point_membership_diagnostic",
+            "evidence": "OBSERVED",
+            "filter_applied": false,
+            "finite_inside": 86272,
+            "finite_outside": 0,
+            "nan_inside": 0,
+            "nan_outside": 128,
+            "status": "checked_native_coordinates_only"
+          },
+          "kind": "lc",
+          "native_counts_quality": {
+            "finite": 86272,
+            "max": 1554.0,
+            "min": 3.0,
+            "nan": 128,
+            "negative": 0,
+            "negative_infinity": 0,
+            "noninteger_finite": 0,
+            "positive_infinity": 0,
+            "values": 86400,
+            "zero": 0
+          },
+          "native_timing": {
+            "converted_utc": null,
+            "duplicate_values": 0,
+            "epoch_interpretation": "UNKNOWN_NOT_APPLIED",
+            "first_native": 1719792000.0,
+            "last_native": 1719878399.0,
+            "max_native": 1719878399.0,
+            "min_native": 1719792000.0,
+            "nonmonotonic_steps": 0,
+            "positive_steps_not_one": 0,
+            "step_max": 1.0,
+            "step_min": 1.0,
+            "zero_steps": 0
+          },
+          "rows": 86400,
+          "table_bytes": 1382400,
+          "time_metadata": {
+            "CLOCKAPP": null,
+            "DATE-END": "2024-07-02 05:29:59",
+            "DATE-OBS": "2024-07-01 05:30:00",
+            "MJDREF": null,
+            "MJDREFF": 0.22916666651,
+            "MJDREFI": 40587,
+            "TASSIGN": null,
+            "TIMEDEL": 1,
+            "TIMEREF": "LOCAL",
+            "TIMESYS": "UTC",
+            "TIMEUNIT": "s",
+            "TIMEZERO": null,
+            "TIMZERO": 0,
+            "TSTART": 1719792000.0,
+            "TSTOP": 1719878399.0
+          },
+          "warnings": [
+            "UTC_CONVERSION_NOT_APPLIED",
+            "GTI_FILTERING_NOT_APPLIED",
+            "CALIBRATION_NOT_APPLIED",
+            "TIME_REFERENCE_CONFLICT",
+            "LC_BIN_POSITION_UNKNOWN"
+          ]
+        },
+        {
+          "columns": [
+            {
+              "dtype": ">f8",
+              "format": "D",
+              "name": "TSTART",
+              "shape": [
+                86400
+              ],
+              "unit": "s"
+            },
+            {
+              "dtype": ">f8",
+              "format": "D",
+              "name": "TELAPSE",
+              "shape": [
+                86400
+              ],
+              "unit": "s"
+            },
+            {
+              "dtype": ">i4",
+              "format": "J",
+              "name": "SPEC_NUM",
+              "shape": [
+                86400
+              ],
+              "unit": null
+            },
+            {
+              "dtype": ">i8",
+              "format": "340K",
+              "name": "CHANNEL",
+              "shape": [
+                86400,
+                340
+              ],
+              "unit": null
+            },
+            {
+              "dtype": ">f8",
+              "format": "340D",
+              "name": "COUNTS",
+              "shape": [
+                86400,
+                340
+              ],
+              "unit": null
+            },
+            {
+              "dtype": ">f8",
+              "format": "D",
+              "name": "EXPOSURE",
+              "shape": [
+                86400
+              ],
+              "unit": "s"
+            }
+          ],
+          "detector": {
+            "evidence": "OBSERVED",
+            "source": "FILTER",
+            "value": "SDD2"
+          },
+          "expanded_bytes": 472443840,
+          "fits_sha256": "9a1146d04541a15aa75c0a5ceeaf8fec1617e2b802ba7d2574abccd3379e573d",
+          "kind": "pi",
+          "native_spectral_quality": {
+            "all_nan_rows": 128,
+            "channel_axis_constant": true,
+            "channel_max": 339,
+            "channel_min": 0,
+            "energy_mapping": null,
+            "exposure_equals_telapse_rows": 86400,
+            "nan_count_cells": 43520,
+            "negative_count_cells": 0,
+            "noninteger_finite_count_cells": 0,
+            "nonpositive_exposure_rows": 0,
+            "partially_nan_rows": 0,
+            "spec_num_duplicate_values": 0
+          },
+          "native_timing": {
+            "converted_utc": null,
+            "duplicate_values": 0,
+            "epoch_interpretation": "UNKNOWN_NOT_APPLIED",
+            "first_native": 1719792000.0,
+            "last_native": 1719878399.0,
+            "max_native": 1719878399.0,
+            "min_native": 1719792000.0,
+            "nonmonotonic_steps": 0,
+            "positive_steps_not_one": 0,
+            "step_max": 1.0,
+            "step_min": 1.0,
+            "zero_steps": 0
+          },
+          "rows": 86400,
+          "table_bytes": 472435200,
+          "time_metadata": {
+            "CLOCKAPP": null,
+            "DATE-END": null,
+            "DATE-OBS": null,
+            "MJDREF": null,
+            "MJDREFF": null,
+            "MJDREFI": null,
+            "TASSIGN": null,
+            "TIMEDEL": null,
+            "TIMEREF": null,
+            "TIMESYS": null,
+            "TIMEUNIT": null,
+            "TIMEZERO": null,
+            "TIMZERO": null,
+            "TSTART": null,
+            "TSTOP": null
+          },
+          "warnings": [
+            "UTC_CONVERSION_NOT_APPLIED",
+            "GTI_FILTERING_NOT_APPLIED",
+            "CALIBRATION_NOT_APPLIED",
+            "TIME_REFERENCE_MISSING",
+            "CHANNEL_ENERGY_MAPPING_NOT_APPLIED",
+            "EXPOSURE_CORRECTION_STATE_UNKNOWN"
+          ]
+        }
+      ],
+      "sha256": "9d0cb2341c2eb6c4b25b6dd0b600042b750920ea433197e1d0def742c947b7e4"
+    },
+    {
+      "archive": "data/raw/aditya/solexs/l1/v1.1/archives/2024/07/AL1_SLX_L1_20240703_v1.1.zip",
+      "band_and_response_comparison": {
+        "all_channel_sum": {
+          "equal_rows": 0,
+          "maximum_absolute_difference": 661.0
+        },
+        "exposure_all_one": true,
+        "finite_compared_rows": 86398,
+        "inclusive_upper_control": {
+          "equal_rows": 86393,
+          "maximum_absolute_difference": 1.0
+        },
+        "mapping_validated": false,
+        "pi_channel_first_last": [
+          0,
+          339
+        ],
+        "pi_channel_labels_constant": true,
+        "pi_channel_labels_equal_rmf": false,
+        "pi_nan_mask_equals_lc": true,
+        "pi_nan_rows": 2,
+        "rows": 86400,
+        "telapse_all_one": true,
+        "tool_slice": {
+          "equal_rows": 86383,
+          "maximum_absolute_difference": 1.0
+        }
+      },
+      "bytes": 6216112,
+      "gti_exposure_card": "86398.0",
+      "identity_evidence": {
+        "archive": "OBSERVED",
+        "archive_bytes": "OBSERVED",
+        "archive_sha256": "OBSERVED",
+        "nominal_observation_date": "INFERRED",
+        "product_version": "INFERRED"
+      },
+      "integrity": "verified",
+      "lc_extra_cards": {
+        "CLOCKAPP": null,
+        "NUMBAND": "4",
+        "TIERABSO": null,
+        "TIERRELA": null,
+        "TIMEOFFS": null,
+        "TIMEPIXR": null,
+        "TREFPOS": null
+      },
+      "nominal_date": "2024-07-03",
+      "pi_correction_cards": {
+        "ANCRFILE": null,
+        "DTCORR": null,
+        "GAINAPP": null,
+        "RESPFILE": null
+      },
+      "products": [
+        {
+          "columns": [
+            {
+              "dtype": ">i2",
+              "format": "I",
+              "name": "START",
+              "shape": [
+                0
+              ],
+              "unit": null
+            },
+            {
+              "dtype": ">i2",
+              "format": "I",
+              "name": "STOP",
+              "shape": [
+                0
+              ],
+              "unit": null
+            }
+          ],
+          "detector": {
+            "evidence": "INFERRED",
+            "source": "member_name",
+            "value": "SDD1"
+          },
+          "expanded_bytes": 5760,
+          "fits_sha256": "d6818c43285303bf94e0b66c36f756ec736ae22f495241e020ca615871cdeed9",
+          "gti_native": {
+            "adjacent_overlaps": 0,
+            "continuous_exposure": null,
+            "endpoint_policy": "UNKNOWN_NOT_APPLIED",
+            "intervals_native": [],
+            "intervals_truncated": false,
+            "invalid_intervals": 0,
+            "nonfinite_intervals": 0,
+            "sum_stop_minus_start_native": 0,
+            "unordered_starts": 0
+          },
+          "kind": "gti",
+          "rows": 0,
+          "table_bytes": 0,
+          "time_metadata": {
+            "CLOCKAPP": null,
+            "DATE-END": null,
+            "DATE-OBS": null,
+            "MJDREF": null,
+            "MJDREFF": null,
+            "MJDREFI": null,
+            "TASSIGN": null,
+            "TIMEDEL": null,
+            "TIMEREF": null,
+            "TIMESYS": null,
+            "TIMEUNIT": null,
+            "TIMEZERO": null,
+            "TIMZERO": null,
+            "TSTART": null,
+            "TSTOP": null
+          },
+          "warnings": [
+            "UTC_CONVERSION_NOT_APPLIED",
+            "GTI_FILTERING_NOT_APPLIED",
+            "CALIBRATION_NOT_APPLIED",
+            "TIME_REFERENCE_MISSING",
+            "GTI_ENDPOINT_EXPOSURE_POLICY_UNKNOWN"
+          ]
+        },
+        {
+          "columns": [
+            {
+              "dtype": ">f8",
+              "format": "D",
+              "name": "START",
+              "shape": [
+                3
+              ],
+              "unit": null
+            },
+            {
+              "dtype": ">f8",
+              "format": "D",
+              "name": "STOP",
+              "shape": [
+                3
+              ],
+              "unit": null
+            }
+          ],
+          "detector": {
+            "evidence": "INFERRED",
+            "source": "member_name",
+            "value": "SDD2"
+          },
+          "expanded_bytes": 8640,
+          "fits_sha256": "a28dd62ba7033dca3548f0bfe4908d51a46da6e134cbff6b14e4fc67fd3c26d6",
+          "gti_native": {
+            "adjacent_overlaps": 0,
+            "continuous_exposure": null,
+            "endpoint_policy": "UNKNOWN_NOT_APPLIED",
+            "intervals_native": [
+              [
+                1719964800.0,
+                1719982832.0
+              ],
+              [
+                1719982834.0,
+                1719982838.0
+              ],
+              [
+                1719982840.0,
+                1720051199.0
+              ]
+            ],
+            "intervals_truncated": false,
+            "invalid_intervals": 0,
+            "nonfinite_intervals": 0,
+            "sum_stop_minus_start_native": 86395.0,
+            "unordered_starts": 0
+          },
+          "kind": "gti",
+          "rows": 3,
+          "table_bytes": 48,
+          "time_metadata": {
+            "CLOCKAPP": null,
+            "DATE-END": null,
+            "DATE-OBS": null,
+            "MJDREF": null,
+            "MJDREFF": null,
+            "MJDREFI": null,
+            "TASSIGN": null,
+            "TIMEDEL": null,
+            "TIMEREF": null,
+            "TIMESYS": null,
+            "TIMEUNIT": null,
+            "TIMEZERO": null,
+            "TIMZERO": null,
+            "TSTART": null,
+            "TSTOP": null
+          },
+          "warnings": [
+            "UTC_CONVERSION_NOT_APPLIED",
+            "GTI_FILTERING_NOT_APPLIED",
+            "CALIBRATION_NOT_APPLIED",
+            "TIME_REFERENCE_MISSING",
+            "GTI_ENDPOINT_EXPOSURE_POLICY_UNKNOWN"
+          ]
+        },
+        {
+          "columns": [
+            {
+              "dtype": ">f8",
+              "format": "D",
+              "name": "TIME",
+              "shape": [
+                86400
+              ],
+              "unit": null
+            },
+            {
+              "dtype": ">f8",
+              "format": "D",
+              "name": "COUNTS",
+              "shape": [
+                86400
+              ],
+              "unit": null
+            }
+          ],
+          "detector": {
+            "evidence": "OBSERVED",
+            "source": "FILTER",
+            "value": "SDD2"
+          },
+          "expanded_bytes": 1391040,
+          "fits_sha256": "f3baf21aadb2328701ede746a819b9bf65ed6dc8113fd07905b44814da8c5639",
+          "gti_point_diagnostic": {
+            "continuous_exposure": null,
+            "coordinate_policy": "inclusive_point_membership_diagnostic",
+            "evidence": "OBSERVED",
+            "filter_applied": false,
+            "finite_inside": 86398,
+            "finite_outside": 0,
+            "nan_inside": 0,
+            "nan_outside": 2,
+            "status": "checked_native_coordinates_only"
+          },
+          "kind": "lc",
+          "native_counts_quality": {
+            "finite": 86398,
+            "max": 943.0,
+            "min": 2.0,
+            "nan": 2,
+            "negative": 0,
+            "negative_infinity": 0,
+            "noninteger_finite": 0,
+            "positive_infinity": 0,
+            "values": 86400,
+            "zero": 0
+          },
+          "native_timing": {
+            "converted_utc": null,
+            "duplicate_values": 0,
+            "epoch_interpretation": "UNKNOWN_NOT_APPLIED",
+            "first_native": 1719964800.0,
+            "last_native": 1720051199.0,
+            "max_native": 1720051199.0,
+            "min_native": 1719964800.0,
+            "nonmonotonic_steps": 0,
+            "positive_steps_not_one": 0,
+            "step_max": 1.0,
+            "step_min": 1.0,
+            "zero_steps": 0
+          },
+          "rows": 86400,
+          "table_bytes": 1382400,
+          "time_metadata": {
+            "CLOCKAPP": null,
+            "DATE-END": "2024-07-04 05:29:59",
+            "DATE-OBS": "2024-07-03 05:30:00",
+            "MJDREF": null,
+            "MJDREFF": 0.22916666651,
+            "MJDREFI": 40587,
+            "TASSIGN": null,
+            "TIMEDEL": 1,
+            "TIMEREF": "LOCAL",
+            "TIMESYS": "UTC",
+            "TIMEUNIT": "s",
+            "TIMEZERO": null,
+            "TIMZERO": 0,
+            "TSTART": 1719964800.0,
+            "TSTOP": 1720051199.0
+          },
+          "warnings": [
+            "UTC_CONVERSION_NOT_APPLIED",
+            "GTI_FILTERING_NOT_APPLIED",
+            "CALIBRATION_NOT_APPLIED",
+            "TIME_REFERENCE_CONFLICT",
+            "LC_BIN_POSITION_UNKNOWN"
+          ]
+        },
+        {
+          "columns": [
+            {
+              "dtype": ">f8",
+              "format": "D",
+              "name": "TSTART",
+              "shape": [
+                86400
+              ],
+              "unit": "s"
+            },
+            {
+              "dtype": ">f8",
+              "format": "D",
+              "name": "TELAPSE",
+              "shape": [
+                86400
+              ],
+              "unit": "s"
+            },
+            {
+              "dtype": ">i4",
+              "format": "J",
+              "name": "SPEC_NUM",
+              "shape": [
+                86400
+              ],
+              "unit": null
+            },
+            {
+              "dtype": ">i8",
+              "format": "340K",
+              "name": "CHANNEL",
+              "shape": [
+                86400,
+                340
+              ],
+              "unit": null
+            },
+            {
+              "dtype": ">f8",
+              "format": "340D",
+              "name": "COUNTS",
+              "shape": [
+                86400,
+                340
+              ],
+              "unit": null
+            },
+            {
+              "dtype": ">f8",
+              "format": "D",
+              "name": "EXPOSURE",
+              "shape": [
+                86400
+              ],
+              "unit": "s"
+            }
+          ],
+          "detector": {
+            "evidence": "OBSERVED",
+            "source": "FILTER",
+            "value": "SDD2"
+          },
+          "expanded_bytes": 472443840,
+          "fits_sha256": "5c9fdadfb642b225c6105cc9b1d32b4c9440fd2cee834a789b9f10ae82899473",
+          "kind": "pi",
+          "native_spectral_quality": {
+            "all_nan_rows": 2,
+            "channel_axis_constant": true,
+            "channel_max": 339,
+            "channel_min": 0,
+            "energy_mapping": null,
+            "exposure_equals_telapse_rows": 86400,
+            "nan_count_cells": 680,
+            "negative_count_cells": 0,
+            "noninteger_finite_count_cells": 0,
+            "nonpositive_exposure_rows": 0,
+            "partially_nan_rows": 0,
+            "spec_num_duplicate_values": 0
+          },
+          "native_timing": {
+            "converted_utc": null,
+            "duplicate_values": 0,
+            "epoch_interpretation": "UNKNOWN_NOT_APPLIED",
+            "first_native": 1719964800.0,
+            "last_native": 1720051199.0,
+            "max_native": 1720051199.0,
+            "min_native": 1719964800.0,
+            "nonmonotonic_steps": 0,
+            "positive_steps_not_one": 0,
+            "step_max": 1.0,
+            "step_min": 1.0,
+            "zero_steps": 0
+          },
+          "rows": 86400,
+          "table_bytes": 472435200,
+          "time_metadata": {
+            "CLOCKAPP": null,
+            "DATE-END": null,
+            "DATE-OBS": null,
+            "MJDREF": null,
+            "MJDREFF": null,
+            "MJDREFI": null,
+            "TASSIGN": null,
+            "TIMEDEL": null,
+            "TIMEREF": null,
+            "TIMESYS": null,
+            "TIMEUNIT": null,
+            "TIMEZERO": null,
+            "TIMZERO": null,
+            "TSTART": null,
+            "TSTOP": null
+          },
+          "warnings": [
+            "UTC_CONVERSION_NOT_APPLIED",
+            "GTI_FILTERING_NOT_APPLIED",
+            "CALIBRATION_NOT_APPLIED",
+            "TIME_REFERENCE_MISSING",
+            "CHANNEL_ENERGY_MAPPING_NOT_APPLIED",
+            "EXPOSURE_CORRECTION_STATE_UNKNOWN"
+          ]
+        }
+      ],
+      "sha256": "b82ce974cd6195621e85e3c2773dc94202811c12c7b31e71df0c0353fe3af4bf"
+    }
+  ],
+  "band_hypothesis": {
+    "control_slice_start_inclusive_stop_exclusive": [
+      41,
+      314
+    ],
+    "mapping_validated": false,
+    "nominal_thresholds_from_manual": [
+      2,
+      22
+    ],
+    "text_table_encoded_unit": null,
+    "tool_slice_start_inclusive_stop_exclusive": [
+      41,
+      313
+    ]
+  },
+  "candidate_response": {
+    "accepted_for_application": false,
+    "arf_incident_grid_comparison": "EXACT_VALUES_AND_ENCODED_UNITS",
+    "arf_pi_channel_grid_comparison": "EXACT_VALUES_AND_ENCODED_UNITS",
+    "hdus": {
+      "arf": {
+        "PRIMARY": {
+          "cards": {
+            "CHANTYPE": null,
+            "CREATOR": null,
+            "DETCHANS": null,
+            "FILTER": null,
+            "TLMIN1": null
+          },
+          "rows": null,
+          "units": {}
+        },
+        "SPECRESP": {
+          "cards": {
+            "CHANTYPE": null,
+            "CREATOR": "solexs_pipeline-1.0",
+            "DETCHANS": null,
+            "FILTER": null,
+            "TLMIN1": null
+          },
+          "rows": 2250,
+          "units": {
+            "ENERG_HI": "keV",
+            "ENERG_LO": "keV",
+            "SPECRESP": "cm2"
+          }
+        }
+      },
+      "arf_pi": {
+        "PRIMARY": {
+          "cards": {
+            "CHANTYPE": null,
+            "CREATOR": null,
+            "DETCHANS": null,
+            "FILTER": null,
+            "TLMIN1": null
+          },
+          "rows": null,
+          "units": {}
+        },
+        "SPECRESP": {
+          "cards": {
+            "CHANTYPE": null,
+            "CREATOR": null,
+            "DETCHANS": null,
+            "FILTER": null,
+            "TLMIN1": null
+          },
+          "rows": 340,
+          "units": {
+            "ENERG_HI": "keV",
+            "ENERG_LO": "keV",
+            "SPECRESP": "cm2"
+          }
+        }
+      },
+      "rmf": {
+        "EBOUNDS": {
+          "cards": {
+            "CHANTYPE": "PI",
+            "CREATOR": "solexs_pipeline-1.0",
+            "DETCHANS": null,
+            "FILTER": null,
+            "TLMIN1": 1
+          },
+          "rows": 340,
+          "units": {
+            "CHANNEL": null,
+            "E_MAX": "keV",
+            "E_MIN": "keV"
+          }
+        },
+        "MATRIX": {
+          "cards": {
+            "CHANTYPE": "PI",
+            "CREATOR": "solexs_pipeline-1.0",
+            "DETCHANS": 340,
+            "FILTER": "",
+            "TLMIN1": null
+          },
+          "rows": 2250,
+          "units": {
+            "ENERG_HI": "keV",
+            "ENERG_LO": "keV",
+            "F_CHAN": null,
+            "MATRIX": null,
+            "N_CHAN": null,
+            "N_GRP": null
+          }
+        },
+        "PRIMARY": {
+          "cards": {
+            "CHANTYPE": null,
+            "CREATOR": null,
+            "DETCHANS": null,
+            "FILTER": null,
+            "TLMIN1": null
+          },
+          "rows": null,
+          "units": {}
+        }
+      }
+    },
+    "matrix_array_bytes": 6120000,
+    "matrix_negative_cells": 0,
+    "matrix_nonfinite_cells": 0,
+    "matrix_shape": [
+      2250,
+      340
+    ],
+    "response_channel_first_last": [
+      1,
+      340
+    ]
+  },
+  "evidence": "OBSERVED",
+  "evidence_scope": "Registered sample identity, encoded metadata, native numerical diagnostics, and candidate response structure; no accepted timing/calibration semantics",
+  "final_verification_date": "2026-10-03",
+  "final_verification_date_timezone": "Asia/Kolkata",
+  "generated_artifact_identities": [
+    {
+      "bytes": 100275,
+      "path": "results/solexs_timing_calibration/native_report.json",
+      "sha256": "70241bdde078c8e0986bb23117c6543a262fe1846bfd81e64d4b49380f43eb8a"
+    },
+    {
+      "bytes": 22739,
+      "path": "results/solexs_timing_calibration/readiness_probe.json",
+      "sha256": "3df12394d6e9f4f4fe94b7adb787c9a8cb9af41bb460b7dbe21cd2436f4df174"
+    },
+    {
+      "bytes": 5155,
+      "path": "results/solexs_timing_calibration/goes_readiness_probe.json",
+      "sha256": "c52809dee136194c5ed9a37aa5ac730f5171317677581f738a08851a3e324912"
+    }
+  ],
+  "goes_alignment_performed": false,
+  "goes_native_readiness": {
+    "end_exclusive": "2024-07-04T00:00:00+00:00",
+    "rows": 4320,
+    "start": "2024-07-01T00:00:00+00:00",
+    "xrsa_valid_rows": 2267,
+    "xrsb_valid_rows": 4318
+  },
+  "observation_date": "2026-10-02",
+  "phase": "D",
+  "policies": {
+    "absolute_utc_conversion": "UNKNOWN_NOT_APPLIED",
+    "calibration": "UNKNOWN_NOT_APPLIED",
+    "exposure_correction": "UNKNOWN_NOT_APPLIED",
+    "gap_filling": "NOT_APPLIED",
+    "gti_filtering": "UNKNOWN_NOT_APPLIED",
+    "instrument_alignment": "NOT_PERFORMED"
+  },
+  "probe_code_revision": "a70ba40f0003162daaddb59e2f3a3e0004128641",
+  "schema_version": 1,
+  "sources_manifest": "data/manifests/solexs_phase_d_sources.json",
+  "storage": {
+    "additional_rmf_and_arf_pi_bytes": 6180480,
+    "final_repeat_measurement": {
+      "measurement": "macOS /usr/bin/time -l; the two read-only CLI processes ran concurrently",
+      "native_cli_elapsed_seconds": 11.25,
+      "native_cli_max_rss_bytes": 565592064,
+      "readiness_probe_elapsed_seconds": 10.6,
+      "readiness_probe_max_rss_bytes": 565084160,
+      "scope": "Observed process peaks, not a guaranteed memory bound or portable speed benchmark"
+    },
+    "fits_total_bytes": 947698560,
+    "gzip_payload_total_bytes": 17869082,
+    "measured_native_cli_elapsed_seconds": 7.28,
+    "measured_native_cli_max_rss_bytes_macos": 583712768,
+    "measured_phase_d_probe_elapsed_seconds": 7.18,
+    "measured_phase_d_probe_max_rss_bytes_macos": 569425920,
+    "pi_chunk_1024_array_bytes": 5599232,
+    "pi_fits_bytes_per_day": 472443840,
+    "pi_table_bytes_per_day": 472435200,
+    "response_matrix_array_bytes": 6120000,
+    "zip_total_bytes": 12252904
+  },
+  "unsupported_interpretations": [
+    "pipeline1.1_clock_precedence",
+    "accepted_solexs_absolute_utc",
+    "LC_bin_position",
+    "continuous_GTI_exposure",
+    "calibration_version_compatibility",
+    "response_channel_renumbering",
+    "physical_flux",
+    "instrument_alignment",
+    "LC_NUMBAND_generation_policy",
+    "HK_version_mode_clock_compatibility",
+    "full_correction_state",
+    "SDD1_date_specific_absence_cause"
+  ]
+}

@@ -1,18 +1,18 @@
 # SolarJEPA project status — canonical tracker
 
-Current update: **2026-10-02**, Phase C native scientific validation on
-`data/solexs-science-validation`, based on verified synchronized main
-`4ce0257ca02000fcd6e8207e30b8194440d4cee7`. The branch is published with upstream
-tracking. The user selected authority-first investigation and supplied the official
-manual/release notes. Both complete samples now have verified integrity, native
-structure/timing/quality and bounded reusable access. See
-[the scientific findings](SOLEXS_SCIENTIFIC_VALIDATION.md) and
-[authority reconciliation](SOLEXS_PHASE_C_AUTHORITY.md). Phase C native validation
-is ready after final verification and independent whole-branch review; final
-feature publication/ref verification and the user's integration decision follow.
-The broader Stage 1 remains gated by clock-card precedence, LC bins,
-GTI filtering and compatible calibration/HK. No Aditya dataset, model or UI work
-has started. Existing NOAA reference preprocessing remains preserved.
+Current update: **2026-10-03** (Asia/Kolkata), Phase D timing/calibration/readiness investigation
+on `data/solexs-timing-calibration`, created and published from clean synchronized
+main `f9a0d2b7e266680234f70a9130edf83a45c04a13`. Git verifies the user-managed
+Phase C merge and its unchanged native foundation. The official manual/release
+notes, product headers/data, pinned author resources and GOES sources were
+reconciled without inventing timing/correction policies. See the
+[Phase D gate report](SOLEXS_PHASE_D_GATE_REPORT.md),
+[portable observations](../data/manifests/solexs_phase_d_observations.json) and
+[PRADAN prerequisite plan](../data/manifests/solexs_phase_e_requirements.json).
+Phase E historical acquisition is **BLOCKED** by pipeline-1.1 absolute clock,
+LC bin/continuous-GTI/exposure policy and approved correction/HK/response
+compatibility. Phase D feature integration remains the user's decision.
+No Aditya dataset, model, full alignment or UI work has started; GOES is preserved.
 
 Previous storage update: **2026-10-01**, local `main`, after approved fast-forward
 integration of `data/solexs-ingestion` at
@@ -38,7 +38,10 @@ not the training dataset. Bounded Phase C inspection establishes all eight compl
 gzip/FITS products, sixteen HDU DATASUM checks, native LC/PI cadence/missingness
 and GTI correspondence. Official product/Unix definitions are documented;
 absolute clock precedence, LC bin/GTI policy and correction/response applicability
-remain unresolved. Normal installed imports and six CLI help checks pass;
+remain unresolved. Phase D observes a 0-based PI / 1-based candidate RMF channel
+discrepancy and residual LC-band differences; no candidate is approved or applied.
+The user's July 2 authenticated catalogue search returned "File not found";
+mission availability/reason remain UNKNOWN. Normal installed imports and seven CLI help checks pass;
 the original GOES files and saved artifacts remain unchanged.
 
 ## Status rules and audit boundary
@@ -102,8 +105,8 @@ the documented workflow, rather than a move directly to model development.
 
 | ID | Blocker | Affected work | Resolution evidence required |
 |---|---|---|---|
-| B1 | Sample inventory, official manual/release notes and small candidate calibration identities exist; complete compatible responses/HK, data-use review and broader holdings remain unresolved. | Stages 1–8, Aditya-specific parts of 9–10 | Version-compatible correction/response evidence and terms; separately reviewed bounded acquisition selection. |
-| B2 | Native Aditya structure/units/missingness are validated, but conflicting clock-card precedence, LC bins, continuous GTI quality/exposure and calibrated quantities are unresolved. | Stages 1–2; physical/fusion extensions | Explicit version-applicable policies, matching calibration/HK and numerical comparison with official reference products. |
+| B1 | Samples, official guidance and pinned candidate RMF/ARF/correction resources exist; mission compatibility, HK, data-use review and holdings remain unresolved. | Stages 1–8, Aditya-specific parts of 9–10 | Approved tools/CALDB compatibility, channel-index rule and correction workflow; matching HK if required; separately reviewed historical acquisition. |
+| B2 | Native structure/missingness is validated, but clock-card precedence, LC bins/NUMBAND, continuous GTI/exposure and physical quantities are unresolved. | Stages 1–2; physical/fusion extensions | Version-applicable timing/quality/exposure policies and numerical validation against approved corrected reference products. |
 | B3 | Research scope, target definitions, acquisition expansion and training budget have not received the requested next approval; dates and event sufficiency cannot yet be frozen. | Completion of Stage 0; dataset/model/training gates | Recorded scope decision, coverage/event precision audit, exact split manifest and approved bounded pilot. |
 | B4 (local symptom resolved) | Hidden editable `.pth` recurred; a normal non-editable installation removes that dependency. Its recurring flag origin remains unknown. | Local CLI gate resolved; independent reproduction remains Stage 9 work. | Installed imports and six CLI help tests pass without `PYTHONPATH`; fresh independent environment still required. |
 
@@ -115,23 +118,25 @@ not evidence of corrupted telemetry.
 
 **NEXT 3 TASKS — current scientific decisions and separately gated future work**
 
-1. **Resolve remaining scientific policy before dataset construction (Stage 1).**
-   Official guidance establishes definitions/UTC update lineage but no exact old
-   header repair, LC bin or continuous GTI rule. Obtain applicable mission guidance
-   and matching HK/response/correction evidence; preserve unknowns meanwhile.
-2. **Review the Phase C branch and its exact next-phase boundary (Stage 1).**
-   Native loading/inspection is verified; choose integration and any next milestone
-   separately. Do not construct a training dataset, fill July 2, apply unverified
-   corrections or perform full GOES alignment.
-3. **Approve a bounded larger selection and dataset contract (Stages 0–2).**
-   Use measured coverage/activity, prediction-window requirements and storage/
-   compute limits to propose chronological partitions and acquisition scope.
-   Neither all PRADAN holdings nor newer-year training/test roles are decided.
+1. **Obtain version-applicable mission guidance and authenticated resource inventory.**
+   Resolve 1.1 clock/date/MJD precedence, LC bin/NUMBAND and continuous GTI/exposure
+   rules; identify an approved tools/CALDB and correction-state policy. Use the
+   Phase D prerequisite plan; official sizes and legacy HK availability are UNKNOWN.
+2. **Validate a bounded compatible correction/calibration pilot after that evidence.**
+   If the approved workflow requires HK, obtain matching July 1/3 SDD2 HK and
+   coefficients; resolve PI/response channel indexing, gain provenance, units,
+   quality/missingness and numerical reference agreement. Do not substitute
+   filename/date agreement for compatibility.
+3. **Review Phase D and decide integration and subsequent acquisition separately.**
+   Historical acquisition is BLOCKED until the scientific gates pass. Then review
+   a bounded paired selection, catalogue gaps, storage and a dataset contract.
+   No July 2 filling, full alignment, final dataset or model work is authorized now.
 
 The October 1 storage checkpoint stopped on local `main` after integration
 verification, preserving `data/solexs-ingestion`, with remote approval pending
-at that time. That is historical; Phase C now uses the published science branch.
-Its authority-first decision and official-source reconciliation are recorded.
+at that time. That is historical; Phase C is now merged and its science branch
+is preserved. Phase D uses its own published milestone branch. Phase C's
+authority-first decision and official-source reconciliation are recorded.
 Remaining scientific policies and later acquisition/dataset/training
 tasks and integration into main remain separately gated.
 

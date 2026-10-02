@@ -6,17 +6,16 @@ The title is provisional: JEPA is a representation-learning method, not by
 itself a generative trajectory model; physics and generation claims require
 additional validated components.
 
-**Status (2026-10-02): Phase C native scientific foundation verified. Both
-SoLEXS L1 v1.1 samples (July 1 and 3, 2024) have complete FITS/integrity, structure,
-native timing and quality inspection. Clock-card precedence, LC bins, GTI filtering
-and compatible calibration remain scientific gates. July 2 is missing from the
-obtained collection. These are validation samples, not a training dataset. No
-models trained. NOAA GOES samples remain external reference data.** See the
-[SoLEXS scientific findings](docs/SOLEXS_SCIENTIFIC_VALIDATION.md),
-[canonical project tracker](docs/PROJECT_STATUS.md) for
-current stages, blockers and next tasks, and the
-[validation report](docs/VALIDATION_REPORT.md) for the historical foundation
-checkpoint and measured sample sizes.
+**Status (2026-10-03): Phase C is merged into verified main `f9a0d2b`.
+Phase D timing/calibration investigation is on `data/solexs-timing-calibration`.
+Historical acquisition remains BLOCKED by pipeline-1.1 clock/bin/GTI/exposure
+policy and approved correction/HK/response compatibility.** The July 1/3, 2024
+L1 v1.1 products remain native validation samples; July 2 availability is UNKNOWN.
+No final dataset or models exist. NOAA GOES remains external reference data.
+See the [Phase D scientific gate report](docs/SOLEXS_PHASE_D_GATE_REPORT.md),
+[PRADAN prerequisite plan](data/manifests/solexs_phase_e_requirements.json),
+[Phase C findings](docs/SOLEXS_SCIENTIFIC_VALIDATION.md), and
+[canonical project tracker](docs/PROJECT_STATUS.md).
 
 The local editable installation's hidden `.pth` flag recurred between commands.
 A normal package installation now passes import/CLI checks without `PYTHONPATH`;
@@ -87,6 +86,21 @@ stages one temporary FITS product at a time, and writes portable metadata under
 ignored `results/solexs_science_validation/`. It applies no clock conversion,
 GTI filtering or calibration. The [access contract](docs/SOLEXS_SCIENCE_CONTRACT.md)
 describes readonly native LC/GTI copies and chunked PI access.
+Phase D adds an offline diagnostic probe for explicitly pinned, unapproved
+calibration candidates and exact native row comparisons:
+
+```bash
+mkdir -p results/solexs_timing_calibration
+python scripts/probe_solexs_readiness.py \
+  > results/solexs_timing_calibration/readiness_probe.json
+```
+
+Place the identity-matching candidate inputs at the ignored relative paths in the
+[source manifest](data/manifests/solexs_phase_d_sources.json) first; the probe does
+not download them. Equality or a valid FITS structure does not approve UTC, GTI,
+correction or physical flux policies. The gate report explains the evidence and
+unsupported interpretations. The shown output target is an ignored report;
+never redirect output to source data.
 After package-source edits, reinstall the package before checking installed CLIs;
 pytest's source-path configuration alone does not establish installation success.
 

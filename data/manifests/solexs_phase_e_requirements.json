@@ -1,0 +1,635 @@
+{
+  "acquisition_sequence": [
+    "Resolve version-applicable guidance and obtain authenticated software/CALDB inventory and immutable identities.",
+    "Obtain matching July 1/3 HK only once a compatible HK-dependent workflow is identified; obtain mission-approved response/correction resources and reference validation output.",
+    "Validate clock, bin/GTI/exposure, response indexing/units, correction state, quality and missingness against the immutable samples.",
+    "Review a bounded paired science/HK historical selection, actual catalogue coverage and storage budget with the user after those scientific gates pass."
+  ],
+  "final_gate": "BLOCKED \u2014 version-specific timing/GTI/exposure policy, correction/HK compatibility and response/channel/calibration applicability remain unresolved",
+  "final_verification_date": "2026-10-03",
+  "final_verification_date_timezone": "Asia/Kolkata",
+  "gate": "BLOCKED",
+  "gate_requirements": [
+    "Mission-applicable pipeline-1.1 absolute clock, LC bin and continuous GTI/exposure policy",
+    "Approved correction state/workflow and matching HK/parameters if that workflow requires HK",
+    "Approved response/channel-energy indexing, gain provenance and date/software compatibility"
+  ],
+  "july_2": {
+    "date": "2024-07-02",
+    "evidence": "UNKNOWN",
+    "finding": "C_AVAILABILITY_UNKNOWN",
+    "gap_filling": "NOT_AUTHORIZED_NOT_APPLIED",
+    "interpretation": "Current search result does not prove observations never existed or that no applicable product can exist. Reason and authoritative availability remain UNKNOWN.",
+    "local_observation": "Missing from currently obtained collection",
+    "user_report": {
+      "independently_verified": false,
+      "level": null,
+      "matching_hk_or_calibration_found_by_this_search": false,
+      "product_name": null,
+      "query": "Authenticated PRADAN SoLEXS catalogue for 2024-07-02",
+      "query_time": null,
+      "result": "File not found",
+      "size_bytes": null,
+      "version": null
+    }
+  },
+  "missingness_policy": "Preserve NaNs, empty GTIs and locally absent dates; no interpolation or inferred global nonavailability",
+  "phase": "D",
+  "recorded_date": "2026-10-02",
+  "required_artifacts": [
+    {
+      "applicable_versions": {
+        "approved_tools": "UNKNOWN",
+        "data": "1.1",
+        "processing": "1.1"
+      },
+      "condition": null,
+      "date_compatibility": "Must explicitly cover July-September 2024 re-released data 1.1 / processing 1.1, including these two archive identities.",
+      "evidence": [
+        "manual \u00a7\u00a72.1-2.2 and 3.3",
+        "updates sections 1-3",
+        "native LC/PI/GTI clock conflict"
+      ],
+      "expected_size": {
+        "evidence": "UNKNOWN",
+        "observed_local_candidate_bytes": [],
+        "official_bytes": null
+      },
+      "id": "pipeline_1_1_timing_policy",
+      "local": {
+        "approved_for_application": false,
+        "candidates": []
+      },
+      "name_evidence": "UNKNOWN",
+      "name_scope": "UNKNOWN",
+      "pradan": {
+        "authenticated_access_required": "UNKNOWN",
+        "availability": "UNKNOWN"
+      },
+      "product_resource_name": null,
+      "purpose": "Obtain an exact mission rule for TIME versus MJDREF/date cards, LC bin position, GTI endpoints/exposure, clock/leap handling and version-specific correction state.",
+      "requirement": "REQUIRED",
+      "requirement_category": "REQUIRED",
+      "unresolved": "Existing manual and release notes are local but do not supply the repair/precedence policy. Ask PRADAN/SoLEXS support for applicable errata or written guidance; no exact resource filename is established."
+    },
+    {
+      "applicable_versions": {
+        "approved_tools": "UNKNOWN",
+        "data": "1.1",
+        "processing": "1.1"
+      },
+      "condition": null,
+      "date_compatibility": "Mission must identify which tools/CALDB release supports July 2024 data 1.1 / pipeline 1.1. Matching version numbers alone are insufficient.",
+      "evidence": [
+        "manual \u00a7\u00a72.4 and 3.2",
+        "updates section 2",
+        "pradan_access",
+        "author_tools"
+      ],
+      "expected_size": {
+        "evidence": "UNKNOWN",
+        "observed_local_candidate_bytes": [],
+        "official_bytes": null
+      },
+      "id": "approved_tools_caldb_bundle",
+      "local": {
+        "approved_for_application": false,
+        "candidates": []
+      },
+      "name_evidence": "INFERRED",
+      "name_scope": "INFERRED_PACKAGE_PATTERN_AND_RELEASE_VERSION; PROBED_URL_ONLY",
+      "pradan": {
+        "authenticated_access_required": "YES_OBSERVED_PROTECTED_ROUTE",
+        "availability": "Manual documents the tools resource family; this candidate URL redirected to login. Exact current official filename/payload/version/size UNKNOWN."
+      },
+      "product_resource_name": "solexs_tools-1.1.tar.gz",
+      "purpose": "Obtain the official processing/correction software and complete version-compatible CALDB with release instructions and checksums.",
+      "requirement": "REQUIRED",
+      "requirement_category": "REQUIRED",
+      "unresolved": "The requested basename follows the manual package pattern and documented tools-1.1 release; no authenticated catalogue/link contents established it. Public author tools 1.1/1.3/1.6 sources are local candidates; official bundle byte equivalence and backwards compatibility are unverified. Obtain the mission-approved bundle name/version, including an approved alternative if applicable."
+    },
+    {
+      "applicable_versions": {
+        "approved_tools": "UNKNOWN",
+        "data": "1.1",
+        "processing": "1.1"
+      },
+      "condition": null,
+      "date_compatibility": "Begin with matching 2024-07-01 and 2024-07-03. Require compatible detector, pipeline, integration coordinates, clock, gaps, schema/units and correction modes; equal row counts are insufficient.",
+      "evidence": [
+        "workshop HK example",
+        "author_tools tools 1.3/1.6 deadtime.py",
+        "native absent HK and DTCORR"
+      ],
+      "expected_size": {
+        "evidence": "UNKNOWN",
+        "observed_local_candidate_bytes": [],
+        "official_bytes": null
+      },
+      "id": "matching_sdd2_housekeeping",
+      "local": {
+        "approved_for_application": false,
+        "candidates": []
+      },
+      "name_evidence": "DOCUMENTED",
+      "name_scope": "DOCUMENTED_WORKSHOP_TEMPLATE_ONLY",
+      "pradan": {
+        "authenticated_access_required": "UNKNOWN_RESOURCE_ROUTE; catalogue requires login",
+        "availability": "UNKNOWN; not found in user-reported July 2 search, which does not establish July 1/3 availability"
+      },
+      "product_resource_name": "AL1_SOLEXS_YYYYMMDD_SDD2_L1.hk.gz",
+      "purpose": "Supply detector fast/slow counts and correction-mode/health information needed by the observed newer deadtime workflow.",
+      "requirement": "REQUIRED_FOR_HK_DEPENDENT_CORRECTION",
+      "requirement_category": "CONDITIONAL",
+      "unresolved": "Exact July 2024 names/versions/sizes are UNKNOWN; none in inspected local repository inputs. Resolve mission-approved correction workflow first. If it depends on HK, obtain paired HK for every subsequently selected science day."
+    },
+    {
+      "applicable_versions": {
+        "approved_tools": "UNKNOWN",
+        "data": "1.1",
+        "processing": "1.1"
+      },
+      "condition": "This named JSON is required only if the chosen approved workflow uses it. Selection/date-validity/content-identity metadata remain required generally and may be provided by equivalent official guidance.",
+      "date_compatibility": "Require explicit applicability to the selected data/pipeline/detector and observing dates; an open-ended 2024-01-01 start in the public index is not a compatibility certificate.",
+      "evidence": [
+        "author_tools tools 1.6 caldb_utils.py and CALDB/caldb_index.json",
+        "author_tools tools 1.1 solexs_genspec.py direct ARF/RMF selection",
+        "manual \u00a72.4 CALDB family"
+      ],
+      "expected_size": {
+        "evidence": "UNKNOWN",
+        "observed_local_candidate_bytes": [
+          1145
+        ],
+        "official_bytes": null
+      },
+      "id": "caldb_index",
+      "local": {
+        "approved_for_application": false,
+        "candidates": [
+          {
+            "bytes": 1145,
+            "path": "data/raw/aditya/documentation/solexs-tools-source/51403b02fbb7ae2eb0b4eb539e881ffd56c1c772/solexs_tools/CALDB/caldb_index.json",
+            "sha256": "912778dc4b5bfc192cbdb79444ff8872117a5ab7f71bf7bb06315f5dd5db7e66"
+          }
+        ]
+      },
+      "name_evidence": "OBSERVED",
+      "name_scope": "OBSERVED_AUTHOR_RESOURCE",
+      "pradan": {
+        "authenticated_access_required": "YES_FOR_OBSERVED_TOOLS_ROUTE",
+        "availability": "CALDB family documented in tools bundle; exact current index UNKNOWN"
+      },
+      "product_resource_name": "caldb_index.json",
+      "purpose": "Obtain the chosen workflow's authoritative resource selection/date-validity/identity metadata; tools 1.6 implements this through caldb_index.json.",
+      "requirement": "CONDITIONAL",
+      "requirement_category": "CONDITIONAL",
+      "unresolved": "Public tools 1.6 uses this index and lists SDD2 resources with null SDD1 entries; tools 1.1 selects files directly. The mission-approved workflow may use an equivalent selection policy. Exact official index/bundle compatibility remains UNKNOWN."
+    },
+    {
+      "applicable_versions": {
+        "approved_tools": "UNKNOWN",
+        "data": "1.1",
+        "processing": "1.1"
+      },
+      "condition": null,
+      "date_compatibility": "Require SDD2 / pipeline-1.1 compatibility, calibration validity range and exact PI-to-response channel indexing rule.",
+      "evidence": [
+        "manual \u00a72.4 and \u00a74.5",
+        "author_tools",
+        "native candidate_response and PI channels"
+      ],
+      "expected_size": {
+        "evidence": "UNKNOWN",
+        "observed_local_candidate_bytes": [
+          6168960
+        ],
+        "official_bytes": null
+      },
+      "id": "sdd2_redistribution",
+      "local": {
+        "approved_for_application": false,
+        "candidates": [
+          {
+            "bytes": 6168960,
+            "path": "data/raw/aditya/calibration/solexs/tools-current-51403b0/response/rmf/solexs_gaussian_SDD2_v1.rmf",
+            "sha256": "fc8ab03f15bb21ff066426cd6047519d57ffe017bb776bb88a5a65136deb63db"
+          }
+        ]
+      },
+      "name_evidence": "OBSERVED",
+      "name_scope": "OBSERVED_AUTHOR_RESOURCE",
+      "pradan": {
+        "authenticated_access_required": "YES_FOR_OBSERVED_TOOLS_ROUTE",
+        "availability": "RMF family documented in tools CALDB; exact approved file UNKNOWN"
+      },
+      "product_resource_name": "solexs_gaussian_SDD2_v1.rmf",
+      "purpose": "Supply detector redistribution for scientifically valid spectral inference; do not equate PI index with incident energy.",
+      "requirement": "REQUIRED_FOR_PHYSICAL_SPECTRAL_ANALYSIS",
+      "requirement_category": "CONDITIONAL",
+      "unresolved": "Local candidate has CHANNEL 1..340 and CREATOR pipeline-1.0; sample PI has 0..339. No channel renumbering or response application is approved."
+    },
+    {
+      "applicable_versions": {
+        "approved_tools": "UNKNOWN",
+        "data": "1.1",
+        "processing": "1.1"
+      },
+      "condition": null,
+      "date_compatibility": "Require detector, calibration epoch and pipeline compatibility; incident-energy grid must agree with approved RMF.",
+      "evidence": [
+        "manual \u00a72.4",
+        "author_tools",
+        "native candidate_response"
+      ],
+      "expected_size": {
+        "evidence": "UNKNOWN",
+        "observed_local_candidate_bytes": [
+          34560
+        ],
+        "official_bytes": null
+      },
+      "id": "sdd2_effective_area",
+      "local": {
+        "approved_for_application": false,
+        "candidates": [
+          {
+            "bytes": 34560,
+            "path": "data/raw/aditya/calibration/solexs/tools-1.1-24693af/arf/solexs_arf_SDD2_v1.arf",
+            "sha256": "0f08199b3ef2f346979c58e0df83451fa23ae72a39fcaaa3d85bfe66b4b5bdc7"
+          }
+        ]
+      },
+      "name_evidence": "OBSERVED",
+      "name_scope": "OBSERVED_AUTHOR_RESOURCE",
+      "pradan": {
+        "authenticated_access_required": "YES_FOR_OBSERVED_TOOLS_ROUTE",
+        "availability": "ARF family documented in tools CALDB; exact approved file UNKNOWN"
+      },
+      "product_resource_name": "solexs_arf_SDD2_v1.arf",
+      "purpose": "Supply effective area paired with the approved RMF.",
+      "requirement": "REQUIRED_FOR_PHYSICAL_SPECTRAL_ANALYSIS",
+      "requirement_category": "CONDITIONAL",
+      "unresolved": "Local legacy candidate is byte-identical to the public tools-1.6 resource, and grid/units agree with candidate RMF. Neither fact approves mission applicability."
+    },
+    {
+      "applicable_versions": {
+        "approved_tools": "UNKNOWN",
+        "data": "1.1",
+        "processing": "1.1"
+      },
+      "condition": null,
+      "date_compatibility": "Require correct detector, grouping/index convention, units, gain/energy-calibration provenance and valid observing epoch.",
+      "evidence": [
+        "manual \u00a7\u00a72.1.3 and 4.5.1",
+        "author_tools",
+        "native band hypothesis and response channel mismatch"
+      ],
+      "expected_size": {
+        "evidence": "UNKNOWN",
+        "observed_local_candidate_bytes": [
+          6423
+        ],
+        "official_bytes": null
+      },
+      "id": "pi_energy_bounds",
+      "local": {
+        "approved_for_application": false,
+        "candidates": [
+          {
+            "bytes": 6423,
+            "path": "data/raw/aditya/calibration/solexs/tools-1.1-24693af/ebounds/energy_bins_out_SDD2_v1.dat",
+            "sha256": "684f916612003706062d509ab805ae2cda763f99a83f85ce81028a94aea0949e"
+          }
+        ]
+      },
+      "name_evidence": "OBSERVED",
+      "name_scope": "OBSERVED_AUTHOR_RESOURCE",
+      "pradan": {
+        "authenticated_access_required": "UNKNOWN_SEPARATE_RESOURCE; official tools route protected",
+        "availability": "UNKNOWN for separate table; candidate present in author CALDB"
+      },
+      "product_resource_name": "energy_bins_out_SDD2_v1.dat",
+      "purpose": "Define the PI channel-energy labels and authorized use of response EBOUNDS; retain original PI channel labels.",
+      "requirement": "REQUIRED_MAPPING_OR_EQUIVALENT_APPROVED_EBOUNDS",
+      "requirement_category": "CONDITIONAL",
+      "unresolved": "Text table has 340 rows and no encoded unit. An approved RMF EBOUNDS plus official index rule may suffice; this particular .dat file is not automatically mandatory. LC NUMBAND and exact generation policy remain unresolved."
+    },
+    {
+      "applicable_versions": {
+        "approved_tools": "UNKNOWN",
+        "data": "1.1",
+        "processing": "1.1"
+      },
+      "condition": null,
+      "date_compatibility": "Must match detector, correction mode, schema, observing epoch and chosen tools release; identical basename v1 does not imply identical content.",
+      "evidence": [
+        "author_tools tools 1.3/1.6 deadtime.py and parameter FITS",
+        "calibration_paper",
+        "manual \u00a72.1.3"
+      ],
+      "expected_size": {
+        "evidence": "UNKNOWN",
+        "observed_local_candidate_bytes": [
+          8640,
+          8640
+        ],
+        "official_bytes": null
+      },
+      "id": "deadtime_parameters",
+      "local": {
+        "approved_for_application": false,
+        "candidates": [
+          {
+            "bytes": 8640,
+            "path": "data/raw/aditya/calibration/solexs/tools-1.3-a2db6a9/deadtime/solexs_deadtime_params_SDD2_v1.fits",
+            "sha256": "cdc51ad0dc8ca313cd8136ddb1fd7a8335d2b89d94a93f0c0721d841af62da8b"
+          },
+          {
+            "bytes": 8640,
+            "path": "data/raw/aditya/calibration/solexs/tools-current-51403b0/deadtime/solexs_deadtime_params_SDD2_v1.fits",
+            "sha256": "445174f5ece890233690ec1a9faeba9c53f762117474d124aa3f706e24c205e1"
+          }
+        ]
+      },
+      "name_evidence": "OBSERVED",
+      "name_scope": "OBSERVED_AUTHOR_RESOURCE",
+      "pradan": {
+        "authenticated_access_required": "UNKNOWN_SEPARATE_RESOURCE; official tools route protected",
+        "availability": "UNKNOWN exact approved file; candidate CALDB resources observed publicly"
+      },
+      "product_resource_name": "solexs_deadtime_params_SDD2_v1.fits",
+      "purpose": "Provide fast/spectral-chain correction coefficients and units appropriate to approved correction software.",
+      "requirement": "REQUIRED_FOR_OBSERVED_DEADTIME_WORKFLOW",
+      "requirement_category": "CONDITIONAL",
+      "unresolved": "Local versions differ in schema and offsets despite the same basename; no coefficient units are encoded. Do not choose by name or date-start alone."
+    },
+    {
+      "applicable_versions": {
+        "approved_tools": "UNKNOWN",
+        "data": "1.1",
+        "processing": "1.1"
+      },
+      "condition": "Only if the mission approves this band-flux workflow for the intended representation.",
+      "date_compatibility": "Must be paired with an approved corrected PI representation, compatible channel mapping, software release and observing epoch.",
+      "evidence": [
+        "author_tools tools 1.6 genlc.py",
+        "native candidate_response"
+      ],
+      "expected_size": {
+        "evidence": "UNKNOWN",
+        "observed_local_candidate_bytes": [
+          11520
+        ],
+        "official_bytes": null
+      },
+      "id": "pi_grid_effective_area",
+      "local": {
+        "approved_for_application": false,
+        "candidates": [
+          {
+            "bytes": 11520,
+            "path": "data/raw/aditya/calibration/solexs/tools-current-51403b0/arf/solexs_arf_pi_SDD2_v1.arf",
+            "sha256": "a07eec19cfee37bc0f840e77f0eeaea7a232940f034a20ca04c6c5ca1dec6257"
+          }
+        ]
+      },
+      "name_evidence": "OBSERVED",
+      "name_scope": "OBSERVED_AUTHOR_RESOURCE",
+      "pradan": {
+        "authenticated_access_required": "UNKNOWN_SEPARATE_RESOURCE; official tools route protected",
+        "availability": "UNKNOWN exact official availability; public candidate observed"
+      },
+      "product_resource_name": "solexs_arf_pi_SDD2_v1.arf",
+      "purpose": "Provide PI-grid area for the observed newer author-tools band-flux algorithm, distinct from RMF incident-grid ARF.",
+      "requirement": "CONDITIONAL",
+      "requirement_category": "CONDITIONAL",
+      "unresolved": "Local candidate has 340 rows with exact candidate EBOUNDS grids. Current source requires DTCORR and replaces nonfinite channel flux with zero; missingness behavior needs scientific validation before use."
+    },
+    {
+      "applicable_versions": {
+        "approved_tools": "UNKNOWN",
+        "data": "1.1",
+        "processing": "1.1"
+      },
+      "condition": "Acquire separate coefficients only if the mission-approved workflow requires them.",
+      "date_compatibility": "Any coefficient or calibration resource must explicitly support the detector/temperature/epoch/data-pipeline version.",
+      "evidence": [
+        "manual \u00a72.1.3 energy-resolved calibrated PI",
+        "calibration_paper",
+        "native absent GAINAPP"
+      ],
+      "expected_size": {
+        "evidence": "UNKNOWN",
+        "observed_local_candidate_bytes": [],
+        "official_bytes": null
+      },
+      "id": "gain_temperature_provenance",
+      "local": {
+        "approved_for_application": false,
+        "candidates": []
+      },
+      "name_evidence": "UNKNOWN",
+      "name_scope": "UNKNOWN",
+      "pradan": {
+        "authenticated_access_required": "UNKNOWN",
+        "availability": "UNKNOWN"
+      },
+      "product_resource_name": null,
+      "purpose": "Establish which gain/temperature/energy calibration was already applied to the L1 PI and whether further compatible products are required.",
+      "requirement": "CONDITIONAL",
+      "requirement_category": "CONDITIONAL",
+      "unresolved": "No standalone gain file name, size or version requirement is established. The manual describes PI as already energy-calibrated; do not recalibrate it automatically."
+    },
+    {
+      "applicable_versions": {
+        "approved_tools": "UNKNOWN",
+        "data": "1.1",
+        "processing": "1.1"
+      },
+      "condition": "Specific products depend on the mission-defined workflow; background subtraction is not automatically required.",
+      "date_compatibility": "Must cover the same detector/day, product/pipeline version and correction chain; native GTI and missing rows must remain traceable.",
+      "evidence": [
+        "manual \u00a7\u00a72.1.1 and 4.5",
+        "calibration_paper",
+        "native absent quality/DTCORR and empty SDD1 GTI"
+      ],
+      "expected_size": {
+        "evidence": "UNKNOWN",
+        "observed_local_candidate_bytes": [],
+        "official_bytes": null
+      },
+      "id": "quality_background_and_correction_reference",
+      "local": {
+        "approved_for_application": false,
+        "candidates": []
+      },
+      "name_evidence": "UNKNOWN",
+      "name_scope": "UNKNOWN",
+      "pradan": {
+        "authenticated_access_required": "UNKNOWN",
+        "availability": "UNKNOWN"
+      },
+      "product_resource_name": null,
+      "purpose": "Obtain any required saturation/pile-up/background/health criteria, correction-state record and reference corrected product for numerical validation.",
+      "requirement": "CONDITIONAL",
+      "requirement_category": "CONDITIONAL",
+      "unresolved": "GTIs already exist locally in both archives. Additional quality/reason codes, background files and official reference products are UNKNOWN; do not invent flags or replace NaNs with zero."
+    },
+    {
+      "applicable_versions": {
+        "approved_tools": "UNKNOWN",
+        "data": "Depends on chosen alignment convention",
+        "processing": "Mission-compatible"
+      },
+      "condition": "Only after selecting a common observer/time-reference policy; not a default UTC repair requirement.",
+      "date_compatibility": "If needed, require July 2024 coverage, mission-approved kernels and clock/attitude/reference-frame compatibility.",
+      "evidence": [
+        "pradan_faq SPICE resources",
+        "updates processing-1.4 missing SPICE handling"
+      ],
+      "expected_size": {
+        "evidence": "UNKNOWN",
+        "observed_local_candidate_bytes": [],
+        "official_bytes": null
+      },
+      "id": "observer_reference_spice",
+      "local": {
+        "approved_for_application": false,
+        "candidates": []
+      },
+      "name_evidence": "DOCUMENTED",
+      "name_scope": "DOCUMENTED_RESOURCE_FAMILY_ONLY",
+      "pradan": {
+        "authenticated_access_required": "UNKNOWN_SPECIFIC_ROUTE; protected downloads observed",
+        "availability": "DOCUMENTED family in PRADAN SPICE/Other Downloads; exact July 2024 files and current availability UNKNOWN"
+      },
+      "product_resource_name": "Previous-month optimal monthly SPK/CK kernels, XML labels, and applicable clock/generic kernels",
+      "purpose": "Support a defined spacecraft/observer-distance/light-time convention for cross-instrument timing when required by scientific precision.",
+      "requirement": "CONDITIONAL",
+      "requirement_category": "CONDITIONAL",
+      "unresolved": "No matching local repository kernels. Exact filenames and sizes UNKNOWN; no fixed light-travel shift is approved."
+    },
+    {
+      "applicable_versions": {
+        "approved_tools": "UNKNOWN",
+        "data": "UNKNOWN pending mission selection",
+        "processing": "UNKNOWN pending mission selection"
+      },
+      "baseline_context": "Current samples are data 1.1 (nominal archive/release association), with observed processing creator 1.1; these are not the assumed versions of any alternate pilot.",
+      "condition": "Only if official guidance cannot validate the existing sample version.",
+      "date_compatibility": "Require release lineage and approved clock/correction/calibration policy; do not silently substitute another version or start historical acquisition.",
+      "evidence": [
+        "updates",
+        "native timing conflicts"
+      ],
+      "expected_size": {
+        "evidence": "UNKNOWN",
+        "observed_local_candidate_bytes": [],
+        "official_bytes": null
+      },
+      "id": "alternate_validated_science_pilot",
+      "local": {
+        "approved_for_application": false,
+        "candidates": []
+      },
+      "name_evidence": "UNKNOWN",
+      "name_scope": "UNKNOWN",
+      "pradan": {
+        "authenticated_access_required": "YES_FOR_OBSERVED_SCIENCE_CATALOGUE",
+        "availability": "UNKNOWN applicable replacement version/file"
+      },
+      "product_resource_name": null,
+      "purpose": "Obtain a small mission-recommended replacement/reference sample if the existing pipeline-1.1 clock or calibration cannot be validated.",
+      "requirement": "CONDITIONAL",
+      "requirement_category": "CONDITIONAL",
+      "unresolved": "Two original ZIPs remain immutable. Any new sample acquisition beyond a small prerequisite pilot needs a bounded user-approved selection."
+    },
+    {
+      "applicable_versions": {
+        "approved_tools": "UNKNOWN",
+        "data": "1.1",
+        "processing": "1.1"
+      },
+      "condition": null,
+      "date_compatibility": "Require date-specific July 1/3 detector-status evidence, rather than generic 2024 saturation statements.",
+      "evidence": [
+        "manual \u00a7\u00a72.1.1, 2.3 and 4.5.3",
+        "native empty SDD1 GTI"
+      ],
+      "expected_size": {
+        "evidence": "UNKNOWN",
+        "observed_local_candidate_bytes": [],
+        "official_bytes": null
+      },
+      "id": "sdd1_coverage_reason",
+      "local": {
+        "approved_for_application": false,
+        "candidates": []
+      },
+      "name_evidence": "UNKNOWN",
+      "name_scope": "UNKNOWN",
+      "pradan": {
+        "authenticated_access_required": "UNKNOWN",
+        "availability": "UNKNOWN"
+      },
+      "product_resource_name": null,
+      "purpose": "Explain whether the observed empty SDD1 GTIs reflect saturation, pointing, health, operational status or another cause.",
+      "requirement": "OPTIONAL",
+      "requirement_category": "OPTIONAL",
+      "unresolved": "SDD2-only study may proceed once its own gates pass; absence of SDD1 is not automatically a reason to acquire new detector science data."
+    }
+  ],
+  "schema_version": 1,
+  "scope": "Prerequisite acquisition specification only; no permission to download a historical corpus or construct a dataset",
+  "sources": {
+    "author_tools": {
+      "applicability": "Author code/resources are observed implementation evidence; compatibility with July 2024 pipeline-1.1 products remains UNKNOWN",
+      "classification": "OBSERVED",
+      "commits": {
+        "tools_1_1": "24693afeeab5f67ce0277fe84de059bbe54223cb",
+        "tools_1_3": "a2db6a92da6399fb3abafc115a430e9be08ddce1",
+        "tools_1_6": "51403b02fbb7ae2eb0b4eb539e881ffd56c1c772"
+      },
+      "path": "data/manifests/solexs_phase_d_sources.json",
+      "previous_manifest": "data/manifests/solexs_guidance_sources.json"
+    },
+    "calibration_paper": {
+      "applicability": "Instrument/calibration context; not a product-version compatibility certificate",
+      "classification": "DOCUMENTED",
+      "url": "https://arxiv.org/html/2509.26292v2",
+      "version": "arXiv:2509.26292v2, 2025-11-03"
+    },
+    "manual": {
+      "classification": "DOCUMENTED",
+      "path": "data/raw/aditya/documentation/pradan-official/SoLEXS-UserManual.pdf",
+      "provenance": "User-supplied official PRADAN download; identity pinned in Phase C source manifest",
+      "version": "v1.0, January 2025"
+    },
+    "native": {
+      "classification": "OBSERVED",
+      "path": "data/manifests/solexs_phase_d_observations.json"
+    },
+    "pradan_access": {
+      "classification": "OBSERVED",
+      "scope": "Anonymous protected-page/download requests redirected to ISSDC login; individual resource existence and authenticated contents not verified",
+      "url": "https://pradan1.issdc.gov.in/al1/protected/miscDownloads.xhtml"
+    },
+    "pradan_faq": {
+      "classification": "DOCUMENTED",
+      "scope": "SPICE resource families and public access instructions; no July 2024 filenames or sizes verified",
+      "url": "https://pradan1.issdc.gov.in/al1/faq.xhtml"
+    },
+    "updates": {
+      "classification": "DOCUMENTED",
+      "path": "data/raw/aditya/documentation/pradan-official/SoLEXS_Release_Updates.txt",
+      "version": "Updated 2026-06-09"
+    },
+    "workshop": {
+      "applicability": "Tools-1.3 and pipeline-2.0-beta.1 examples; not pipeline-1.1 authority",
+      "classification": "DOCUMENTED",
+      "commit": "d7453029cfac574c0cf444ca47d2ce97fcc17245",
+      "url": "https://github.com/ISRO-ESA-Heliophysics-Workshop/hands-on-materials/tree/d7453029cfac574c0cf444ca47d2ce97fcc17245/aditya-l1/solexs"
+    }
+  }
+}
