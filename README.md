@@ -6,11 +6,14 @@ The title is provisional: JEPA is a representation-learning method, not by
 itself a generative trajectory model; physics and generation claims require
 additional validated components.
 
-**Status (2026-10-01): data foundation and small-sample validation only. Two
-manually acquired SoLEXS L1 v1.1 ZIPs (July 1 and 3, 2024) are locally registered;
-their scientific contents remain unvalidated. July 2 is missing from the obtained
-collection. These are ingestion samples, not the final training dataset. No models
-trained. NOAA GOES samples remain external reference data.** See the [canonical project tracker](docs/PROJECT_STATUS.md) for
+**Status (2026-10-02): Phase C native scientific foundation verified. Both
+SoLEXS L1 v1.1 samples (July 1 and 3, 2024) have complete FITS/integrity, structure,
+native timing and quality inspection. Clock-card precedence, LC bins, GTI filtering
+and compatible calibration remain scientific gates. July 2 is missing from the
+obtained collection. These are validation samples, not a training dataset. No
+models trained. NOAA GOES samples remain external reference data.** See the
+[SoLEXS scientific findings](docs/SOLEXS_SCIENTIFIC_VALIDATION.md),
+[canonical project tracker](docs/PROJECT_STATUS.md) for
 current stages, blockers and next tasks, and the
 [validation report](docs/VALIDATION_REPORT.md) for the historical foundation
 checkpoint and measured sample sizes.
@@ -73,6 +76,17 @@ Original ZIPs live under
 `data/raw/aditya/solexs/<level>/<version>/archives/<YYYY>/<MM>/`.
 The current compressed member suffixes are `.gti.gz`, `.lc.gz`, and `.pi.gz`;
 the existing FITS/CDF inspector does not automatically unpack or interpret them.
+Use the separate UI-independent SoLEXS science layer for bounded native inspection:
+
+```bash
+python scripts/validate_solexs.py --config configs/data/solexs_storage.json
+```
+
+This offline CLI verifies registered bytes and every compressed scientific member,
+stages one temporary FITS product at a time, and writes portable metadata under
+ignored `results/solexs_science_validation/`. It applies no clock conversion,
+GTI filtering or calibration. The [access contract](docs/SOLEXS_SCIENCE_CONTRACT.md)
+describes readonly native LC/GTI copies and chunked PI access.
 After package-source edits, reinstall the package before checking installed CLIs;
 pytest's source-path configuration alone does not establish installation success.
 
@@ -87,4 +101,5 @@ Model/training/evaluation packages will be added only after design approval;
 there are deliberately no misleading train/evaluate stubs.
 
 MIT applies to original code and documentation. Mission data retain their own
-terms. An origin remote is configured; this session has not pushed or published.
+terms. Milestone branches are published to origin. Main integration and the next
+scientific milestone require the user's separate decision.

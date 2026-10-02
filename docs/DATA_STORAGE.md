@@ -2,8 +2,11 @@
 
 Established on `data/solexs-ingestion`, 2026-10-01. This milestone registers two
 real SoLEXS ZIPs as an **initial ingestion/validation sample**, not the final
-SolarJEPA training dataset. No scientific SoLEXS adapter, calibration, temporal
-alignment, model-ready dataset, acquisition expansion or training is implemented.
+SolarJEPA training dataset. Phase C now adds a bounded native scientific inspection
+layer; see [the scientific validation](SOLEXS_SCIENTIFIC_VALIDATION.md). Calibration,
+absolute time conversion, GTI filtering, temporal alignment, model-ready datasets,
+acquisition expansion and training remain gated. Historical storage validation
+and the acquisition inventory remain unchanged.
 
 ## Storage layers
 
@@ -17,7 +20,7 @@ The existing GOES layout and reference configurations retain their locations.
 | `data/raw/aditya/documentation/` | Original mission manuals/product definitions, when obtained. |
 | `data/raw/aditya/calibration/<instrument>/<calibration-id>/` | Original external calibration/response products, when obtained. |
 | `data/interim/aditya/solexs/<level>/<version>/extracted/<archive-sha256>/` | Future regenerable unpacked raw-product cache, preserving archive hierarchy. |
-| `.cache/aditya/solexs/` | Future temporary extraction/processing staging. |
+| `.cache/aditya/solexs/` | Current unique temporary gzip/FITS staging; product scratch is removed on success/failure. |
 | `data/interim/aditya/<instrument>/<processing-id>/` | Future intermediates; never confused with validated calibrated data. |
 | `data/processed/aditya/<instrument>/<processing-id>/` | Future validated processed data, with calibration/QC lineage and masks. |
 | `data/processed/aligned/solexs_goes/<alignment-id>/` | Future aligned products with explicit timing, masks and source identities. |
@@ -25,8 +28,9 @@ The existing GOES layout and reference configurations retain their locations.
 | `data/manifests/aditya_inventory.json` | Tracked, small acquisition/identity inventory. |
 | `data/manifests/datasets/<dataset-id>.json` | Future tracked derivation/source-selection records. |
 
-Only the archive directory, inventory and current config are required now.
-Create subsequent directories when their stages actually begin. Instrument
+Registration requires only the archive directory, inventory and current config.
+Phase C creates disposable cache/report directories as needed. Create subsequent
+processing/dataset directories when their stages actually begin. Instrument
 names such as `solexs`, `aspex_steps` and `aspex_swis` preserve the documented
 mission prefix; each future payload needs its own reviewed identity adapter.
 
@@ -122,11 +126,15 @@ path, processing status, scientific-validation status and member declarations.
   observation volume. Unknown fields remain null or explicitly unvalidated.
 
 Both archive listings expose directory labels `SDD1` and `SDD2`. Each lists
-SDD2 `.gti.gz`, `.lc.gz`, `.pi.gz` and SDD1 `.gti.gz`; those are observed names,
-not validated detector/product semantics. `detector` remains null.
+SDD2 `.gti.gz`, `.lc.gz`, `.pi.gz` and SDD1 `.gti.gz`. The registration record
+treats these as observed names and asserts no detector/product semantics;
+`detector` remains null. Scientific associations are recorded separately in the
+Phase C findings and native inspection report.
 Declared ZIP uncompressed sizes describe ZIP member bytes, which still include
-gzip files. They are not fully decompressed FITS sizes. Member payloads, CRCs,
-gzip integrity and scientific headers have not been read/verified.
+gzip files. They are not fully decompressed FITS sizes. Registration records
+deliberately retain their original scope: they do not assert payload/CRC/science
+validity. Phase C separately verifies full members and records portable inspection
+reports, without rewriting acquisition facts.
 
 July 2 is recorded as `missing_from_obtained_collection`, based on the user's
 report. This asserts neither portal-wide nor mission-wide unavailability and
@@ -138,7 +146,9 @@ contradictory or non-text prose is rejected rather than marked consistent.
 ## Extraction, derivation and Git policy
 
 Retain original ZIPs independently of disposable caches and back them up
-outside Git. A future extractor must preserve member hierarchy/bytes, reject
+outside Git. The current native inspector never uses member names as extraction
+paths and stages one bounded FITS payload in a unique temporary directory. A
+future persistent extractor must preserve member hierarchy/bytes, reject
 unsafe paths and links, enforce measured expansion limits, verify member
 integrity, stage partial work separately and publish a cache only after success.
 It must handle the observed nested gzip layer explicitly after format review.

@@ -45,7 +45,9 @@ Interfaces are exactly the five functions and `AccessLimits` in the contract.
   schema/quality/time summaries, then implement those behaviors and run the suite.
 - [x] Add and exercise the offline CLI with synthetic relocated roots and explicit
   config inputs; verify normal installation outside the repository.
-- [ ] Commit/push a focused native-foundation checkpoint after raw-data/index checks.
+- [x] Commit/push a focused native-foundation checkpoint after raw-data/index checks:
+  `931d033`. A subsequent source-protection regression was reproduced RED and
+  fixed GREEN with atomic report publication in `e016cf5`.
 
 ## Task 3 — final real-sample verification and downstream scientific gate
 
@@ -58,12 +60,15 @@ machine-readable report and separate measured memory artifact.
   separating mapped-file size, copied-array size, RSS and projections.
 - [x] Document all sixteen success questions with evidence/unknowns and the exact
   native representation the subsequent phase may access; retain scientific gates.
-- [ ] Fresh targeted/full suite, import/CLI, pip check, GOES artifact/data regression,
+- [x] Fresh targeted/full suite, import/CLI, pip check, GOES artifact/data regression,
   raw hashes, ignore/index/reachable-history scan, portability and diff checks.
-- [ ] Independent whole-branch review; reproduce/fix material findings with tests,
+- [x] Independent whole-branch review; reproduce/fix material findings with tests,
   rerun affected/final verification and review the result.
-- [ ] Final feature-only commit/push; fetch/verify local and remote feature HEADs,
-  main refs and clean status. Stop for the user's integration/next-phase decision.
+
+Final Git gate, performed after the documentation commit: push only the feature
+branch, fetch/verify local and remote feature HEADs, main refs and clean status.
+Record those final refs in the handoff and stop for the user's decision. No
+integration or subsequent-phase work is authorized.
 
 Progress/check evidence belongs here and in the final report; no workflow may
 convert an unresolved scientific policy into an implementation assumption.
@@ -71,8 +76,13 @@ convert an unresolved scientific policy into an implementation assumption.
 Executed TDD includes the initial 13 RED tests before implementation, PI/summary/
 CLI RED→GREEN cases, and independently reproduced review regressions for cached
 column lifetime, identities/processing level, variable-length arrays and integer/
-mixed precision. Latest full suite: 143 passed with the existing dependency warning.
+mixed precision, and hard-linked report publication. Latest targeted suite:
+70 passed; full suite: 144 passed with the existing dependency warning.
 Actual repeat/relocation report SHA-256:
 `70241bdde078c8e0986bb23117c6543a262fe1846bfd81e64d4b49380f43eb8a`.
 Both PI summaries agree with the separate pre-implementation probe. All original
 ZIPs, official originals, GOES files/artifacts and protected infrastructure agree.
+Final independent whole-branch review found no remaining Critical/Important
+issue. It separately ran the 70 targeted tests, pip check and source/report/data
+protection checks. Final bookkeeping corrections are included in this plan and
+the current tracker/findings; the final publication gate is recorded above.

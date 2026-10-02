@@ -5,7 +5,9 @@
 The user selected the recommended authority-first path and subsequently supplied
 the official PRADAN manual and release/update notes. This follow-up reconciles
 those documents, versioned primary tool sources and complete sample products.
-No timestamp/correction policy is applied. **Phase C implementation is in progress.**
+No timestamp/correction policy is applied. The completed native access foundation
+and its scientific limits are recorded in the
+[Phase C findings](SOLEXS_SCIENTIFIC_VALIDATION.md).
 
 ## What the primary sources establish
 
@@ -59,9 +61,9 @@ The public pre-launch `solexs_pipeline_old3` repository is version 0.0.4 from
   not evidence of the actual processing host timezone or a validated conversion.
 - **UNKNOWN:** whether pipeline-1.1 used the same writer; whether a mission
   correction notice authorizes treating its numeric LC/PI/GTI times as Unix UTC
-  while disregarding the conflicting LC reference/date cards; timestamp bin
-  LC bin start/centre/end and continuous GTI exposure conventions. No UTC coordinate or
-  repaired FITS header has been produced.
+  while disregarding the conflicting LC reference/date cards; LC bin
+  start/centre/end and continuous GTI exposure conventions. No UTC coordinate
+  or repaired FITS header has been produced.
 
 The obtained LC files have creation-date cards `2025-01-29`, a temporal proximity
 to the legacy sources, not proof of processing lineage. The SDD2 GTI envelope
