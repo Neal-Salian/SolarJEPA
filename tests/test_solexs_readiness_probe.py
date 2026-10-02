@@ -1,5 +1,6 @@
 """Artificial arrays/responses test diagnostic boundaries, not mission policy."""
 import importlib.util
+import gzip
 import hashlib
 import json
 from pathlib import Path
@@ -108,6 +109,16 @@ def test_integer_counts_are_refused_before_an_overflowing_sum():
         probe().compare_native_rows(lc, iter([rows]), (1, 3), np.arange(5))
 
 
+@pytest.mark.parametrize('pi_counts,lc_count', [([1e308]*5, 1.),
+                                              ([0., 1e308, 0., 0., 0.], -1e308)])
+def test_nonfinite_count_arithmetic_is_refused_before_publishing_a_comparison(pi_counts, lc_count):
+    rows = {k:v[:1] for k,v in native_rows().items()}
+    rows['COUNTS'] = np.array([pi_counts])
+    lc = {'TIME': np.array([100.]), 'COUNTS': np.array([lc_count])}
+    with pytest.raises(ValueError, match='arithmetic'):
+        probe().compare_native_rows(lc, iter([rows]), (1, 3), np.arange(5))
+
+
 def response_fixture(root, area_unit='keV'):
     low, high = [1., 2.], [2., 3.]
     ebounds = fits.BinTableHDU.from_columns([
@@ -152,6 +163,18 @@ def test_response_input_size_is_bounded_before_fits_access(tmp_path):
     paths = response_fixture(tmp_path)
     with pytest.raises(ValueError, match='byte limit'):
         probe().inspect_candidate_response(paths, max_bytes=1024)
+
+
+def test_compressed_candidate_cannot_bypass_the_uncompressed_fits_byte_limit(tmp_path):
+    paths = response_fixture(tmp_path)
+    compressed = {}
+    for name, path in paths.items():
+        target = path.with_suffix(path.suffix + '.gz')
+        target.write_bytes(gzip.compress(path.read_bytes(), mtime=0))
+        assert target.stat().st_size < 2048 < path.stat().st_size
+        compressed[name] = target
+    with pytest.raises(ValueError, match='uncompressed FITS'):
+        probe().inspect_candidate_response(compressed, max_bytes=2048)
 
 
 def probe_fixture(root):

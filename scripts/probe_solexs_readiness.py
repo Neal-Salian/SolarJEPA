@@ -85,15 +85,20 @@ def compare_native_rows(lc, spectra, band, response_channels):
         telapse_one &= bool(np.all(columns['TELAPSE'] == 1))
         valid = np.isfinite(counts[selection]) & np.isfinite(pi).all(axis=1)
         compared += int(valid.sum())
-        for key, total in [('tool_slice', pi[:, first:stop].sum(axis=1)),
-                           ('inclusive_upper_control', pi[:, first:stop + 1].sum(axis=1)),
-                           ('all_channel_sum', pi.sum(axis=1))]:
-            difference = total[valid] - counts[selection][valid]
-            summaries[key]['equal_rows'] += int((difference == 0).sum())
-            if difference.size:
-                previous = summaries[key]['maximum_absolute_difference']
-                summaries[key]['maximum_absolute_difference'] = max(
-                    previous or 0, float(np.abs(difference).max()))
+        finite_pi, finite_lc = pi[valid], counts[selection][valid]
+        try:
+            with np.errstate(over='raise', invalid='raise'):
+                for key, values in [('tool_slice', finite_pi[:, first:stop]),
+                                    ('inclusive_upper_control', finite_pi[:, first:stop + 1]),
+                                    ('all_channel_sum', finite_pi)]:
+                    difference = values.sum(axis=1) - finite_lc
+                    summaries[key]['equal_rows'] += int((difference == 0).sum())
+                    if difference.size:
+                        previous = summaries[key]['maximum_absolute_difference']
+                        summaries[key]['maximum_absolute_difference'] = max(
+                            previous or 0, float(np.abs(difference).max()))
+        except FloatingPointError as exc:
+            raise ValueError('Native count arithmetic exceeds the finite range') from exc
         offset += n
     if offset != len(time):
         raise ValueError('Native LC/PI lengths differ; positional comparison refused')
@@ -113,6 +118,11 @@ def inspect_candidate_response(paths, *, max_bytes=16 * 1024**2):
         path = Path(paths[name])
         if path.stat().st_size > max_bytes:
             raise ValueError('Candidate response byte limit exceeded')
+        # Astropy accepts compressed FITS transparently. Restrict this probe to
+        # standard uncompressed FITS so stat size also bounds the payload read.
+        with path.open('rb') as stream:
+            if not stream.read(80).startswith(b'SIMPLE  ='):
+                raise ValueError('Candidate must be an uncompressed FITS file')
         with warnings.catch_warnings():
             warnings.simplefilter('error', fits.verify.VerifyWarning)
             with fits.open(path, mode='readonly', memmap=True, lazy_load_hdus=False) as opened:
