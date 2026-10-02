@@ -1,7 +1,9 @@
 """Inspect explicit registered SoLEXS samples offline; retain native scientific values."""
 import argparse
 import json
+import os
 from pathlib import Path
+import tempfile
 
 from solar_flare_jepa.data.inspect import write_json
 from solar_flare_jepa.data.solexs import AccessLimits, inspect_solexs_archive
@@ -41,6 +43,16 @@ if __name__ == '__main__':
                   archives=[inspect_solexs_archive(root, records[p], limits=limits,
                                                   chunk_rows=args.chunk_rows) for p in sorted(requested)])
     # Build/verify every member before publishing a complete metadata-only report.
-    write_json(root / output, report)
+    destination = root / output
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    # Replace the report pathname atomically. Writing an existing report inode
+    # could modify a source archive if a user had hard-linked the two paths.
+    with tempfile.NamedTemporaryFile(dir=destination.parent, suffix='.tmp', delete=False) as stream:
+        temporary = Path(stream.name)
+    try:
+        write_json(temporary, report)
+        os.replace(temporary, destination)
+    finally:
+        temporary.unlink(missing_ok=True)
     print(json.dumps(dict(report=output, archives=len(report['archives']),
                           products=sum(len(a['products']) for a in report['archives']))))

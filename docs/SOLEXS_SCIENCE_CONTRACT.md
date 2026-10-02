@@ -48,6 +48,8 @@ GOES changes, UI, network access or calibration execution are needed.
 - `scripts/validate_solexs.py` consumes the existing explicit storage config and
   inventory; it writes the ignored report under `results/`. It performs no network
   access or acquisition. Installed CLI behavior must work outside the checkout.
+  Publish reports by atomic replacement so a hard-linked report cannot overwrite
+  an original archive; failed validation preserves an existing report.
 
 Documented Unix/UTC conventions, LC band/rate, PI integration start and GTI criteria
 are evidence definitions in the scientific report. Encoded FITS metadata and

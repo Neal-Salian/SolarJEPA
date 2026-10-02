@@ -670,3 +670,18 @@ def test_spectral_partial_missingness_varying_channels_and_duplicate_ids_remain_
         assert np.isnan(native.columns['COUNTS'][0, 0])
         np.testing.assert_array_equal(native.columns['CHANNEL'][2], [1, 2, 3])
         np.testing.assert_array_equal(native.columns['SPEC_NUM'], [1, 1, 3])
+
+
+def test_science_cli_report_hardlink_cannot_modify_the_original_archive(tmp_path):
+    archive_fixture(tmp_path)
+    (tmp_path / 'config.json').write_text(json.dumps({'inventory_path': 'data/manifests/aditya_inventory.json',
+                                                    'archives': [ARCHIVE]}))
+    original = tmp_path / ARCHIVE
+    before = original.read_bytes()
+    output = tmp_path / 'results/native.json'
+    output.parent.mkdir()
+    os.link(original, output)
+    result = cli(tmp_path, 'results/native.json', tmp_path)
+    assert result.returncode == 0, result.stderr
+    assert original.read_bytes() == before
+    assert json.loads(output.read_text())['schema_version'] == 1
