@@ -1,12 +1,27 @@
 # SolarJEPA project status — canonical tracker
 
-Current update: **2026-10-01**, local `main`, after approved fast-forward
+Current update: **2026-10-02**, Phase C native scientific validation on
+`data/solexs-science-validation`, based on verified synchronized main
+`4ce0257ca02000fcd6e8207e30b8194440d4cee7`. The branch is published with upstream
+tracking. The user selected authority-first investigation and supplied the official
+manual/release notes. Both complete samples now have verified integrity, native
+structure/timing/quality and bounded reusable access. See
+[the scientific findings](SOLEXS_SCIENTIFIC_VALIDATION.md) and
+[authority reconciliation](SOLEXS_PHASE_C_AUTHORITY.md). Phase C native validation
+is ready after final verification and independent whole-branch review; final
+feature publication/ref verification and the user's integration decision follow.
+The broader Stage 1 remains gated by clock-card precedence, LC bins,
+GTI filtering and compatible calibration/HK. No Aditya dataset, model or UI work
+has started. Existing NOAA reference preprocessing remains preserved.
+
+Previous storage update: **2026-10-01**, local `main`, after approved fast-forward
 integration of `data/solexs-ingestion` at
 `351482dc11aa75d2140d521828d0a24702765ad6`.
 Pre-integration `main`: `278011ce27796781db873cd8d40578e1584e81d3`.
 Archive foundation: `6b8eb17`; metadata portability: `510f890`.
 Project root: `SolarJEPA` (formerly `isro`). Local integration was authorized;
-remote push still requires separate explicit approval.
+remote approval was pending at that checkpoint. The October 2 fetch observes
+that state and the user-managed AGENTS.md PR already integrated on origin/main.
 
 This file owns stage status, blockers, completion criteria and task priority.
 [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) uses the same stages and
@@ -19,8 +34,11 @@ the prior import failure and archive absence without rewriting past results.
 Two user-acquired L1 v1.1 SoLEXS ZIPs for July 1 and 3, 2024 are registered by
 local size/hash and central-directory listing. July 2 is missing from the obtained
 collection, not asserted unavailable mission-wide. These are intake samples,
-not the training dataset. Scientific headers, cadence, quality and calibration
-remain unvalidated. Normal installed imports and five CLI help checks now pass;
+not the training dataset. Bounded Phase C inspection establishes all eight complete
+gzip/FITS products, sixteen HDU DATASUM checks, native LC/PI cadence/missingness
+and GTI correspondence. Official product/Unix definitions are documented;
+absolute clock precedence, LC bin/GTI policy and correction/response applicability
+remain unresolved. Normal installed imports and six CLI help checks pass;
 the original GOES files and saved artifacts remain unchanged.
 
 ## Status rules and audit boundary
@@ -57,7 +75,7 @@ no data are acquired, and no model work is performed.
 | Stage | Research deliverable | Status | Evidence and remaining gate |
 |---|---|---|---|
 | 0 | Research question and scientific scope | IN PROGRESS | Research, literature, novelty and experiment proposals exist; scope/protocol approval and full-method review remain. |
-| 1 | Data acquisition and validation | BLOCKED | Six verified NOAA files and two identity-registered SoLEXS ZIPs; mission definitions/calibration and scientific extraction remain unvalidated. |
+| 1 | Data acquisition and validation | BLOCKED | Six verified NOAA files and two completely inspected SoLEXS ZIPs; official product definitions and native adapter verified, absolute timing/QC/calibration remain gated. |
 | 2 | Dataset construction, preprocessing and leakage-safe splits | IN PROGRESS | NOAA preparation and causal derivative tests exist; no Aditya dataset, forecasting windows, labels or frozen splits. |
 | 3 | Classical/statistical baselines | NOT STARTED | Candidates and ARCH/GARCH rationale documented; no fits, diagnostics or predictions. |
 | 4 | Supervised deep-learning baselines | NOT STARTED | LSTM/TCN/Transformer proposed; no implementations, profiles or trained controls. |
@@ -84,10 +102,10 @@ the documented workflow, rather than a move directly to model development.
 
 | ID | Blocker | Affected work | Resolution evidence required |
 |---|---|---|---|
-| B1 | Sample/archive inventory now exists; official local mission definitions/calibration, data-use review and broader holdings remain unverified. | Stages 1–8, Aditya-specific parts of 9–10 | Official definitions/calibration and terms; reviewed bounded acquisition selection after scientific sample validation. |
-| B2 | Actual Aditya clocks, units, flags, response semantics and calibrated extraction are unvalidated. | Stages 1–2; physical/fusion extensions | Tested real-file adapter and comparison with documented calibration/official quicklook; explicit unavailable fields. |
+| B1 | Sample inventory, official manual/release notes and small candidate calibration identities exist; complete compatible responses/HK, data-use review and broader holdings remain unresolved. | Stages 1–8, Aditya-specific parts of 9–10 | Version-compatible correction/response evidence and terms; separately reviewed bounded acquisition selection. |
+| B2 | Native Aditya structure/units/missingness are validated, but conflicting clock-card precedence, LC bins, continuous GTI quality/exposure and calibrated quantities are unresolved. | Stages 1–2; physical/fusion extensions | Explicit version-applicable policies, matching calibration/HK and numerical comparison with official reference products. |
 | B3 | Research scope, target definitions, acquisition expansion and training budget have not received the requested next approval; dates and event sufficiency cannot yet be frozen. | Completion of Stage 0; dataset/model/training gates | Recorded scope decision, coverage/event precision audit, exact split manifest and approved bounded pilot. |
-| B4 (local symptom resolved) | Hidden editable `.pth` recurred; a normal non-editable installation removes that dependency. Its recurring flag origin remains unknown. | Local CLI gate resolved; independent reproduction remains Stage 9 work. | Installed imports and five CLI help tests pass without `PYTHONPATH`; fresh independent environment still required. |
+| B4 (local symptom resolved) | Hidden editable `.pth` recurred; a normal non-editable installation removes that dependency. Its recurring flag origin remains unknown. | Local CLI gate resolved; independent reproduction remains Stage 9 work. | Installed imports and six CLI help tests pass without `PYTHONPATH`; fresh independent environment still required. |
 
 Conditional gates are not blockers to a narrower SoLEXS-only study: ASPEX overlap,
 valid response-based physics, X+ event sufficiency and a Qwen compute profile are
@@ -95,24 +113,27 @@ all missing. Drop or defer those claims if their evidence fails. The provenance
 transition and dependency warning below are reproducibility gaps to resolve,
 not evidence of corrupted telemetry.
 
-**NEXT 3 TASKS — proposed future scientific work, separately gated**
+**NEXT 3 TASKS — current scientific decisions and separately gated future work**
 
-1. **Review official definitions and a bounded real-file sample (Stages 0–1).**
-   Obtain manuals/calibration/terms; review nested gzip/product semantics,
-   clocks, units, cadence, GTI/quality and full expansion size. Current ZIP
-   filenames and declared sizes cannot establish those properties.
-2. **Validate scientifically usable extraction (Stage 1, enabling Stage 2).**
-   After a separate approved plan, test a reviewed adapter, timing, exposure and
-   calibration against an official reference. Report usable coverage and GOES
-   overlap without filling the July 2 collection gap.
+1. **Resolve remaining scientific policy before dataset construction (Stage 1).**
+   Official guidance establishes definitions/UTC update lineage but no exact old
+   header repair, LC bin or continuous GTI rule. Obtain applicable mission guidance
+   and matching HK/response/correction evidence; preserve unknowns meanwhile.
+2. **Review the Phase C branch and its exact next-phase boundary (Stage 1).**
+   Native loading/inspection is verified; choose integration and any next milestone
+   separately. Do not construct a training dataset, fill July 2, apply unverified
+   corrections or perform full GOES alignment.
 3. **Approve a bounded larger selection and dataset contract (Stages 0–2).**
    Use measured coverage/activity, prediction-window requirements and storage/
    compute limits to propose chronological partitions and acquisition scope.
    Neither all PRADAN holdings nor newer-year training/test roles are decided.
 
-Stop on local `main` after integration verification and keep `data/solexs-ingestion`.
-A remote push requires separate explicit approval. Future tasks do not authorize
-downloads, extraction, training, further integration, publication or push.
+The October 1 storage checkpoint stopped on local `main` after integration
+verification, preserving `data/solexs-ingestion`, with remote approval pending
+at that time. That is historical; Phase C now uses the published science branch.
+Its authority-first decision and official-source reconciliation are recorded.
+Remaining scientific policies and later acquisition/dataset/training
+tasks and integration into main remain separately gated.
 
 ## Historical pre-storage audit evidence and discrepancies
 
@@ -245,19 +266,23 @@ The processed sidecar already matches the current pinned manifest.
   tested public NOAA downloader; pinned six-file sample and retrieval record;
   NetCDF/FITS/CDF metadata inventory; real NOAA extraction and EDA; canonical
   SoLEXS archive storage and two locally verified ZIP identity/listing records.
+  Phase C adds complete member inspection, native LC/GTI/PI access and official
+  definition/release reconciliation, with explicit unresolved policy states.
 - **Evidence/files:** [DATA_DOWNLOAD.md](DATA_DOWNLOAD.md),
   [DATASET_CARD.md](DATASET_CARD.md), [VALIDATION_REPORT.md](VALIDATION_REPORT.md),
   [download.py](../src/solar_flare_jepa/data/download.py),
   [inspect.py](../src/solar_flare_jepa/data/inspect.py),
   [storage.py](../src/solar_flare_jepa/data/storage.py),
+  [solexs.py](../src/solar_flare_jepa/data/solexs.py),
+  [SOLEXS_SCIENTIFIC_VALIDATION.md](SOLEXS_SCIENTIFIC_VALIDATION.md),
   [DATA_STORAGE.md](DATA_STORAGE.md),
   [aditya_inventory.json](../data/manifests/aditya_inventory.json),
   [test_download.py](../tests/test_download.py), pinned manifests and local
   artifacts enumerated above. FITS/CDF inspection is metadata-only.
-- **What is missing:** official manuals/responses, scientifically validated
-  product contents and calibrated adapter, authenticated broader holdings and
-  data terms review, usable coverage/fully expanded bytes/
-  cadence/gap statistics; matching ASPEX products if retained. No anonymous
+- **What is missing:** product-compatible full responses/HK, accepted absolute
+  clock/GTI/bin policy and calibrated adapter, authenticated broader holdings and
+  data terms review; matching ASPEX products if retained. Native coverage/expanded
+  bytes/cadence/gap statistics are now measured. No anonymous
   Aditya API or sample was verified in the previous investigation.
 - **Dependencies/blockers:** B1 and B2; broad acquisition remains gated by B3.
   Authentication must be completed through the official route, never bypassed.
@@ -269,8 +294,8 @@ The processed sidecar already matches the current pinned manifest.
   enumerate feasible larger holdings with estimated volume. Record ASPEX
   inclusion or evidence-based deferral. Reproduction from supplied raw products
   must succeed without guessing fields, clocks or counts-to-flux conversion.
-- **Next actions:** obtain manuals/calibration, review the current small products,
-  validate SoLEXS first, then assess matched ASPEX and coverage expansion.
+- **Next actions:** review Phase C; resolve the explicit scientific policy and
+  calibration requirements before separately authorizing dataset/acquisition work.
 
 ## Stage 2 — Dataset construction, preprocessing and leakage-safe splits
 
