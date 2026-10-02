@@ -1,12 +1,23 @@
 # SolarJEPA project status — canonical tracker
 
-Current update: **2026-10-01**, local `main`, after approved fast-forward
+Current update: **2026-10-02**, Phase C read-only reconnaissance on
+`data/solexs-science-validation`, based on verified synchronized main
+`4ce0257ca02000fcd6e8207e30b8194440d4cee7`. The branch is published with upstream
+tracking. **Scientific implementation stopped at the user's scope-change gate:**
+LC clock metadata conflicts with instrument-team Unix-time examples, and the
+obtained archives lack HK/response inputs for the current documented correction
+workflow. See [the evidence and decision](SOLEXS_PHASE_C_RECONNAISSANCE.md).
+Phase C and Stage 1 remain incomplete; no Aditya dataset, model or UI work has
+started in Phase C. Existing NOAA reference preprocessing remains preserved.
+
+Previous storage update: **2026-10-01**, local `main`, after approved fast-forward
 integration of `data/solexs-ingestion` at
 `351482dc11aa75d2140d521828d0a24702765ad6`.
 Pre-integration `main`: `278011ce27796781db873cd8d40578e1584e81d3`.
 Archive foundation: `6b8eb17`; metadata portability: `510f890`.
 Project root: `SolarJEPA` (formerly `isro`). Local integration was authorized;
-remote push still requires separate explicit approval.
+remote approval was pending at that checkpoint. The October 2 fetch observes
+that state and the user-managed AGENTS.md PR already integrated on origin/main.
 
 This file owns stage status, blockers, completion criteria and task priority.
 [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) uses the same stages and
@@ -19,8 +30,10 @@ the prior import failure and archive absence without rewriting past results.
 Two user-acquired L1 v1.1 SoLEXS ZIPs for July 1 and 3, 2024 are registered by
 local size/hash and central-directory listing. July 2 is missing from the obtained
 collection, not asserted unavailable mission-wide. These are intake samples,
-not the training dataset. Scientific headers, cadence, quality and calibration
-remain unvalidated. Normal installed imports and five CLI help checks now pass;
+not the training dataset. Bounded Phase C inspection now establishes LC/GTI
+FITS structure, raw LC cadence/NaNs and initial PI headers, while absolute clock,
+complete PI integrity, quality policy and calibration remain unresolved.
+Normal installed imports and five CLI help checks pass;
 the original GOES files and saved artifacts remain unchanged.
 
 ## Status rules and audit boundary
@@ -95,24 +108,26 @@ all missing. Drop or defer those claims if their evidence fails. The provenance
 transition and dependency warning below are reproducibility gaps to resolve,
 not evidence of corrupted telemetry.
 
-**NEXT 3 TASKS — proposed future scientific work, separately gated**
+**NEXT 3 TASKS — current scientific decisions and separately gated future work**
 
-1. **Review official definitions and a bounded real-file sample (Stages 0–1).**
-   Obtain manuals/calibration/terms; review nested gzip/product semantics,
-   clocks, units, cadence, GTI/quality and full expansion size. Current ZIP
-   filenames and declared sizes cannot establish those properties.
-2. **Validate scientifically usable extraction (Stage 1, enabling Stage 2).**
-   After a separate approved plan, test a reviewed adapter, timing, exposure and
-   calibration against an official reference. Report usable coverage and GOES
-   overlap without filling the July 2 collection gap.
+1. **Resolve the Phase C scientific scope gate (Stage 1).**
+   Choose the authority-first path or the conservative raw-only inspection
+   contract described in [the checkpoint](SOLEXS_PHASE_C_RECONNAISSANCE.md).
+   Version-applicable clock, correction-input and GTI/bin policies are unresolved.
+2. **Complete the authorized Phase C foundation after that decision (Stage 1).**
+   Build and test only scientifically justified reusable inspection/loading.
+   Validate the complete samples and report remaining unknowns; do not construct
+   a training dataset, fill July 2 or perform full GOES alignment.
 3. **Approve a bounded larger selection and dataset contract (Stages 0–2).**
    Use measured coverage/activity, prediction-window requirements and storage/
    compute limits to propose chronological partitions and acquisition scope.
    Neither all PRADAN holdings nor newer-year training/test roles are decided.
 
-Stop on local `main` after integration verification and keep `data/solexs-ingestion`.
-A remote push requires separate explicit approval. Future tasks do not authorize
-downloads, extraction, training, further integration, publication or push.
+The October 1 storage checkpoint stopped on local `main` after integration
+verification, preserving `data/solexs-ingestion`, with remote approval pending
+at that time. That is historical; Phase C now uses the published science branch.
+Its scientific scope decision is pending. Later acquisition/dataset/training
+tasks and integration into main remain separately gated.
 
 ## Historical pre-storage audit evidence and discrepancies
 
