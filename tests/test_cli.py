@@ -26,6 +26,7 @@ def test_normal_installed_import_outside_repository(tmp_path):
 
 @pytest.mark.parametrize('script', [
     'download_data.py', 'inspect_data.py', 'preprocess.py', 'eda.py', 'register_aditya.py',
+    'validate_solexs.py',
 ])
 def test_existing_cli_help_without_pythonpath(tmp_path, script):
     result = subprocess.run(
