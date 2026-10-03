@@ -1,17 +1,21 @@
 # SolarJEPA project status — canonical tracker
 
-Current update: **2026-10-03** (Asia/Kolkata), Phase D timing/calibration/readiness investigation
-on `data/solexs-timing-calibration`, created and published from clean synchronized
-main `f9a0d2b7e266680234f70a9130edf83a45c04a13`. Git verifies the user-managed
-Phase C merge and its unchanged native foundation. The official manual/release
-notes, product headers/data, pinned author resources and GOES sources were
-reconciled without inventing timing/correction policies. See the
-[Phase D gate report](SOLEXS_PHASE_D_GATE_REPORT.md),
-[portable observations](../data/manifests/solexs_phase_d_observations.json) and
-[PRADAN prerequisite plan](../data/manifests/solexs_phase_e_requirements.json).
-Phase E historical acquisition is **BLOCKED** by pipeline-1.1 absolute clock,
-LC bin/continuous-GTI/exposure policy and approved correction/HK/response
-compatibility. Phase D feature integration remains the user's decision.
+Current update: **2026-10-03** (Asia/Kolkata), Phase D.1 authoritative evidence and
+calibration acquisition on `data/solexs-authoritative-evidence`, created and
+immediately published from clean synchronized main
+`e1cfa8546b92d60aed5f187714a7aa304f3e1864`. Git verifies the user-managed Phase D
+merge and its unchanged C/D foundation. The official PRADAN Tools-1.1 archive is
+now obtained, hash/integrity checked and boundedly inspected; its selected source
+and three CALDB products match pinned public candidates. This establishes source
+identity, not compatibility with the generating pipeline. See the
+[D.1 evidence report](SOLEXS_PHASE_D1_REPORT.md),
+[fourteen-resource audit](../data/manifests/solexs_phase_d1_requirements.json),
+[official source/member provenance](../data/manifests/solexs_phase_d1_evidence.json)
+and [next exact clarification request](SOLEXS_PHASE_D1_AUTHORITY_REQUEST.md).
+Phase E historical acquisition remains **BLOCKED** by pipeline-1.1 absolute
+clock, LC bin/continuous-GTI/exposure policy and approved correction/HK/response
+compatibility. D.1 is an evidence checkpoint awaiting authoritative clarification;
+its main integration remains the user's decision.
 No Aditya dataset, model, full alignment or UI work has started; GOES is preserved.
 
 Previous storage update: **2026-10-01**, local `main`, after approved fast-forward
@@ -41,8 +45,13 @@ absolute clock precedence, LC bin/GTI policy and correction/response applicabili
 remain unresolved. Phase D observes a 0-based PI / 1-based candidate RMF channel
 discrepancy and residual LC-band differences; no candidate is approved or applied.
 The user's July 2 authenticated catalogue search returned "File not found";
-mission availability/reason remain UNKNOWN. Normal installed imports and seven CLI help checks pass;
-the original GOES files and saved artifacts remain unchanged.
+mission availability/reason remain UNKNOWN. The July 1 catalogue search returned
+one AL1_SLX daily ZIP and no separate HK; its accompanying-downloads route shows
+only tools/manual/updates, with no HK. These are attributed observations of those
+searches/routes, not global HK absence or a clock repair policy. Normal installed
+imports and seven CLI help checks pass; the original GOES files and saved artifacts
+remain unchanged. A user-installed untracked Paperclip skill is preserved outside
+the D.1 commit; it is not a scientific or milestone dependency.
 
 ## Status rules and audit boundary
 

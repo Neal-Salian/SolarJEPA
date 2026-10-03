@@ -1,0 +1,723 @@
+{
+  "accepted_for_calibration_application": false,
+  "accepted_for_product_clock_conversion": false,
+  "base_commit": "e1cfa8546b92d60aed5f187714a7aa304f3e1864",
+  "branch": "data/solexs-authoritative-evidence",
+  "external_tools_installed_or_executed": false,
+  "gate": "BLOCKED_FOR_PHASE_E",
+  "milestone_state": "IN_PROGRESS",
+  "official_archive": {
+    "archive_original_unchanged": true,
+    "bytes": 19730838,
+    "declared_file_bytes": 25543346,
+    "gzip_expanded_bytes": 25630720,
+    "gzip_integrity": "PASS",
+    "member_count": 45,
+    "members": [
+      {
+        "bytes": 0,
+        "duplicate": false,
+        "kind": "directory",
+        "linkname": null,
+        "mode": "0o755",
+        "name": "solexs_tools-1.1",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [],
+        "bytes": 2066,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/.gitignore",
+        "sha256": "f2f4c8bd3be2cbf7121a0867f99d5e6a5c1464e154f0f93fd22c12a8c968381e",
+        "unsafe_path": false
+      },
+      {
+        "bytes": 0,
+        "duplicate": false,
+        "kind": "directory",
+        "linkname": null,
+        "mode": "0o755",
+        "name": "solexs_tools-1.1/CALDB",
+        "unsafe_path": false
+      },
+      {
+        "bytes": 0,
+        "duplicate": false,
+        "kind": "directory",
+        "linkname": null,
+        "mode": "0o755",
+        "name": "solexs_tools-1.1/CALDB/arf",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [
+          "data/raw/aditya/calibration/solexs/tools-1.1-24693af/arf/solexs_arf_SDD2_v1.arf"
+        ],
+        "bytes": 34560,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/CALDB/arf/solexs_arf_SDD2_v1.arf",
+        "sha256": "0f08199b3ef2f346979c58e0df83451fa23ae72a39fcaaa3d85bfe66b4b5bdc7",
+        "unsafe_path": false
+      },
+      {
+        "bytes": 0,
+        "duplicate": false,
+        "kind": "directory",
+        "linkname": null,
+        "mode": "0o755",
+        "name": "solexs_tools-1.1/CALDB/ebounds",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [
+          "data/raw/aditya/calibration/solexs/tools-1.1-24693af/ebounds/energy_bins_out_SDD2_v1.dat"
+        ],
+        "bytes": 6423,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/CALDB/ebounds/energy_bins_out_SDD2_v1.dat",
+        "sha256": "684f916612003706062d509ab805ae2cda763f99a83f85ce81028a94aea0949e",
+        "unsafe_path": false
+      },
+      {
+        "bytes": 0,
+        "duplicate": false,
+        "kind": "directory",
+        "linkname": null,
+        "mode": "0o755",
+        "name": "solexs_tools-1.1/CALDB/response",
+        "unsafe_path": false
+      },
+      {
+        "bytes": 0,
+        "duplicate": false,
+        "kind": "directory",
+        "linkname": null,
+        "mode": "0o755",
+        "name": "solexs_tools-1.1/CALDB/response/rmf",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [
+          "data/raw/aditya/calibration/solexs/tools-current-51403b0/response/rmf/solexs_gaussian_SDD2_v1.rmf"
+        ],
+        "bytes": 6168960,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/CALDB/response/rmf/solexs_gaussian_SDD2_v1.rmf",
+        "sha256": "fc8ab03f15bb21ff066426cd6047519d57ffe017bb776bb88a5a65136deb63db",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [],
+        "bytes": 280,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/MANIFEST.in",
+        "sha256": "26f6ebf52c1cce9e1ebf57776456a20f90b0ba90496a61893f4e71783fa9a39d",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [],
+        "bytes": 383,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/PKG-INFO",
+        "sha256": "dde55ff42037a77094e63933c202522cb55cd06724ab6ef73ac9155774d3a683",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [
+          "data/raw/aditya/documentation/solexs-tools-source/24693afeeab5f67ce0277fe84de059bbe54223cb/README.md"
+        ],
+        "bytes": 4974,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/README.md",
+        "sha256": "0a16de0d28ebeb8ffdbdd5a729dc47456900cd88c9e11366c95b3f8bb93bf515",
+        "unsafe_path": false
+      },
+      {
+        "bytes": 0,
+        "duplicate": false,
+        "kind": "directory",
+        "linkname": null,
+        "mode": "0o755",
+        "name": "solexs_tools-1.1/dist",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [],
+        "bytes": 870873,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/dist/solexs_tools-0.1.tar.gz",
+        "sha256": "fa217a2357a0bd53e21fdcb695a6d225927fe135f0131e6993715e8b996d514d",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [],
+        "bytes": 870670,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/dist/solexs_tools-0.2.tar.gz",
+        "sha256": "cc82022f16a8b8337d0c25727ed7a1435384408f1f043e39c0709a8513488791",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [],
+        "bytes": 40493,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/dist/solexs_tools-0.3.tar.gz",
+        "sha256": "20bc46bc3caad052956fc51b87e65295e3a1fa3fe18131d2cea57ede7d86cfda",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [],
+        "bytes": 779093,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/dist/solexs_tools-0.4.tar.gz",
+        "sha256": "d683e49fe785fc0fc542514638c6623b300f6f6fa5e2b7981bbe506420381658",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [],
+        "bytes": 779102,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/dist/solexs_tools-0.5.tar.gz",
+        "sha256": "2d0b48cf85145c0a7bba0326cd40b9aa98203f8f494ec8712ba798948826fecd",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [],
+        "bytes": 672214,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/dist/solexs_tools-0.6.tar.gz",
+        "sha256": "a75ac3b4c4c0bbf1908363a9716d28e5ff42f3e3491366f0d4e8843396f4bb81",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [],
+        "bytes": 672018,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/dist/solexs_tools-0.7.tar.gz",
+        "sha256": "07e708cf53ec69e256581b5c8018c6c4e2055a652527adf1bbf10ea281780df7",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [],
+        "bytes": 676604,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/dist/solexs_tools-0.8.tar.gz",
+        "sha256": "5bb1c2205afca9c2dafcbd1669c8334add9ae49e445526c153d69b6e5b78d80c",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [],
+        "bytes": 676604,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/dist/solexs_tools-0.9.tar.gz",
+        "sha256": "6d61591514fe7f1f5bd8943829410ce33f68bd4d39d3faaadce131c459f47ebf",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [],
+        "bytes": 676663,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/dist/solexs_tools-0.91.tar.gz",
+        "sha256": "34f1bf25f027a0be07e1b2330df206540beaf8a77a11079434105f4254360505",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [],
+        "bytes": 676687,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/dist/solexs_tools-0.92.tar.gz",
+        "sha256": "272e04c5a5b282de6642608208067e9f4e61d8687553ac90b9db9d3f3789cc99",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [],
+        "bytes": 676709,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/dist/solexs_tools-0.93.tar.gz",
+        "sha256": "931335869a1f12d04b35213e9ce6552d3aef3b4807139512237e843eff82f641",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [],
+        "bytes": 676712,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/dist/solexs_tools-0.94.tar.gz",
+        "sha256": "fd175943c7c07451c7cf6841f8d31b9cb797ea7a34447039b21728730b3e1b60",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [],
+        "bytes": 676818,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/dist/solexs_tools-1.0.tar.gz",
+        "sha256": "30e5658a20d0e589136747633346e76dcda6082ef1889851892ffd15c25ed3ba",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [],
+        "bytes": 9871276,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/dist/solexs_tools-1.1.tar.gz",
+        "sha256": "401f29a26e6fb163e7a81f021233537b196ccb09da5ce135d31f6f22e393825c",
+        "unsafe_path": false
+      },
+      {
+        "bytes": 0,
+        "duplicate": false,
+        "kind": "directory",
+        "linkname": null,
+        "mode": "0o755",
+        "name": "solexs_tools-1.1/notebooks",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [
+          "data/raw/aditya/documentation/solexs-tools-source/24693afeeab5f67ce0277fe84de059bbe54223cb/notebooks/SoLEXS_Spectral_Analysis_with_XSPEC.ipynb"
+        ],
+        "bytes": 6034,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/notebooks/SoLEXS_Spectral_Analysis_with_XSPEC.ipynb",
+        "sha256": "ac1c52b57e25650fb7ee9817ec01fd121fd6953b28e5eeb13a2b2382774d386b",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [],
+        "bytes": 38,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/setup.cfg",
+        "sha256": "1c473cbaee8da5fc46e7f0158794af5cea4414c34a3cf3f180c2001f5e38bd3e",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [
+          "data/raw/aditya/documentation/solexs-tools-source/24693afeeab5f67ce0277fe84de059bbe54223cb/setup.py"
+        ],
+        "bytes": 1773,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/setup.py",
+        "sha256": "befbebcca681a644fda9066c1968b6e3550e52f962796f84a85b6f62dc4aca60",
+        "unsafe_path": false
+      },
+      {
+        "bytes": 0,
+        "duplicate": false,
+        "kind": "directory",
+        "linkname": null,
+        "mode": "0o755",
+        "name": "solexs_tools-1.1/solexs_tools",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [
+          "data/raw/aditya/documentation/solexs-tools-source/24693afeeab5f67ce0277fe84de059bbe54223cb/solexs_tools/__init__.py"
+        ],
+        "bytes": 345,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/solexs_tools/__init__.py",
+        "sha256": "6a4c02d1818a1cc6f91e8c223d41636c60ecac3f95a1d5ae49f6af22fbcde453",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [
+          "data/raw/aditya/documentation/solexs-tools-source/24693afeeab5f67ce0277fe84de059bbe54223cb/solexs_tools/solexs_genlc.py"
+        ],
+        "bytes": 7181,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/solexs_tools/solexs_genlc.py",
+        "sha256": "f6a3dd900e482fb88283189c9cb40aa60eddb50583cba7cabe364b591b38bb92",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [
+          "data/raw/aditya/documentation/solexs-tools-source/24693afeeab5f67ce0277fe84de059bbe54223cb/solexs_tools/solexs_genspec.py"
+        ],
+        "bytes": 13924,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/solexs_tools/solexs_genspec.py",
+        "sha256": "265b0741e2aa902ff5df208d2ba1aabf58861b23778ae31d647722882d90ee7f",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [
+          "data/raw/aditya/documentation/solexs-tools-source/24693afeeab5f67ce0277fe84de059bbe54223cb/solexs_tools/time_utils.py"
+        ],
+        "bytes": 2135,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/solexs_tools/time_utils.py",
+        "sha256": "8d4ce3352aadd9cd9cf38a70b59369dac51c9b298a52e130421d1c45bdd7ca10",
+        "unsafe_path": false
+      },
+      {
+        "bytes": 0,
+        "duplicate": false,
+        "kind": "directory",
+        "linkname": null,
+        "mode": "0o755",
+        "name": "solexs_tools-1.1/solexs_tools.egg-info",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [],
+        "bytes": 383,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/solexs_tools.egg-info/PKG-INFO",
+        "sha256": "5701366d8694f53fa1a0a06b00286b3951c0d32b76b0cbb75988cbe5e9f3941b",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [],
+        "bytes": 984,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/solexs_tools.egg-info/SOURCES.txt",
+        "sha256": "72ac07865056de39c5e703db58aaf467dd692a916773a0aefe7be3bb2f49392e",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [],
+        "bytes": 1,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/solexs_tools.egg-info/dependency_links.txt",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [],
+        "bytes": 339,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/solexs_tools.egg-info/entry_points.txt",
+        "sha256": "c7ad38d98b6795dbd530935a9a95a786a31c4380301ae8e67a49493313d8ddcd",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [],
+        "bytes": 14,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/solexs_tools.egg-info/requires.txt",
+        "sha256": "7439404f24e0e174e66436004434e7bd6c57af6c90d68f859fb40cd6dde66866",
+        "unsafe_path": false
+      },
+      {
+        "byte_identical_existing_sources": [],
+        "bytes": 13,
+        "duplicate": false,
+        "kind": "file",
+        "linkname": null,
+        "mode": "0o644",
+        "name": "solexs_tools-1.1/solexs_tools.egg-info/top_level.txt",
+        "sha256": "2d8ebc7671494bc4ca69a32313cb23cc1af74395d88b4b2c60b7fb2c8a12344c",
+        "unsafe_path": false
+      }
+    ],
+    "path": "data/raw/aditya/documentation/pradan-official/solexs_tools-1.1.tar.gz",
+    "reconnaissance_limits": {
+      "expanded_bytes": 536870912,
+      "members": 4096
+    },
+    "sha256": "348014aefa50ade556ec4a160a3cfe0b08095bde84b4650a27d6b5d3bf7fa2d3"
+  },
+  "official_caldb_observations": {
+    "accepted_for_calibration_application": false,
+    "arf_area_unit": "cm2",
+    "arf_creator": "solexs_pipeline-1.0",
+    "arf_energy_unit": "keV",
+    "arf_grid_equals_rmf_incident_grid": true,
+    "arf_rows": 2250,
+    "matrix_bytes": 6120000,
+    "matrix_f_chan_values": [
+      1
+    ],
+    "matrix_finite_nonnegative": true,
+    "matrix_n_chan_values": [
+      340
+    ],
+    "matrix_n_grp_values": [
+      1
+    ],
+    "matrix_shape": [
+      2250,
+      340
+    ],
+    "pi_to_response_mapping_validated": false,
+    "rmf_channel_count": 340,
+    "rmf_channel_first_last": [
+      1,
+      340
+    ],
+    "rmf_creator": "solexs_pipeline-1.0",
+    "rmf_ebounds_channel_tlmin": 1,
+    "rmf_f_chan_tlmin": 1
+  },
+  "parent_sources": [
+    {
+      "bytes": 11290,
+      "path": "data/manifests/solexs_guidance_sources.json",
+      "sha256": "553bad889cfc40c0dd97d8fb999b5300441e645810ef6d125b731bbf69eea438"
+    },
+    {
+      "bytes": 6790,
+      "path": "data/manifests/solexs_phase_d_sources.json",
+      "sha256": "d37303d0f180c50c570b8daa78eaa1b15b42e70f1e3e672477857215461abf21"
+    }
+  ],
+  "pending_user_action": {
+    "action": "Await and validate the official response to docs/SOLEXS_PHASE_D1_AUTHORITY_REQUEST.md. No further download is justified before an exact resource/workflow is identified.",
+    "contact_source": "https://pradan1.issdc.gov.in/al1/contacts.xhtml",
+    "external_message_sent_by_agent": false,
+    "resource": "pipeline_1_1_timing_policy",
+    "status": "AWAITING_AUTHORITATIVE_REPLY",
+    "user_report": {
+      "attribution": "USER_REPORTED_ACTION",
+      "evidence": "OBSERVED",
+      "independently_verified": false,
+      "official_response_available": false,
+      "request_sent_to_official_contact": true,
+      "send_time_utc": null
+    }
+  },
+  "phase": "D.1",
+  "public_research": {
+    "date_context": "D.1 investigation recorded 2026-10-03 Asia/Kolkata; exact query execution UTC time not recorded",
+    "date_utc": null,
+    "queries": [
+      "site:issdc.gov.in SoLEXS \"TIME\" \"1.1\"",
+      "site:ursc.gov.in SoLEXS housekeeping calibration UTC",
+      "site:isro.gov.in SoLEXS \"GTI\""
+    ],
+    "result_scope": "The bounded returned sources did not establish a pipeline-1.1 clock/correction/index policy; not proof that authoritative guidance does not exist."
+  },
+  "recorded_date": "2026-10-03",
+  "recorded_date_timezone": "Asia/Kolkata",
+  "reproduced_scientific_artifacts": [
+    {
+      "bytes": 100275,
+      "path": "results/solexs_authoritative_evidence/native_report.json",
+      "sha256": "70241bdde078c8e0986bb23117c6543a262fe1846bfd81e64d4b49380f43eb8a"
+    },
+    {
+      "bytes": 22739,
+      "path": "results/solexs_authoritative_evidence/readiness_probe.json",
+      "sha256": "3df12394d6e9f4f4fe94b7adb787c9a8cb9af41bb460b7dbe21cd2436f4df174"
+    }
+  ],
+  "schema_version": 1,
+  "selected_members": [
+    {
+      "bytes": 4974,
+      "cache_path": ".cache/aditya/solexs/phase_d1/official-tools-348014ae/README.md",
+      "member": "solexs_tools-1.1/README.md",
+      "parent_archive_sha256": "348014aefa50ade556ec4a160a3cfe0b08095bde84b4650a27d6b5d3bf7fa2d3",
+      "sha256": "0a16de0d28ebeb8ffdbdd5a729dc47456900cd88c9e11366c95b3f8bb93bf515"
+    },
+    {
+      "bytes": 383,
+      "cache_path": ".cache/aditya/solexs/phase_d1/official-tools-348014ae/PKG-INFO",
+      "member": "solexs_tools-1.1/PKG-INFO",
+      "parent_archive_sha256": "348014aefa50ade556ec4a160a3cfe0b08095bde84b4650a27d6b5d3bf7fa2d3",
+      "sha256": "dde55ff42037a77094e63933c202522cb55cd06724ab6ef73ac9155774d3a683"
+    },
+    {
+      "bytes": 1773,
+      "cache_path": ".cache/aditya/solexs/phase_d1/official-tools-348014ae/setup.py",
+      "member": "solexs_tools-1.1/setup.py",
+      "parent_archive_sha256": "348014aefa50ade556ec4a160a3cfe0b08095bde84b4650a27d6b5d3bf7fa2d3",
+      "sha256": "befbebcca681a644fda9066c1968b6e3550e52f962796f84a85b6f62dc4aca60"
+    },
+    {
+      "bytes": 345,
+      "cache_path": ".cache/aditya/solexs/phase_d1/official-tools-348014ae/solexs_tools/__init__.py",
+      "member": "solexs_tools-1.1/solexs_tools/__init__.py",
+      "parent_archive_sha256": "348014aefa50ade556ec4a160a3cfe0b08095bde84b4650a27d6b5d3bf7fa2d3",
+      "sha256": "6a4c02d1818a1cc6f91e8c223d41636c60ecac3f95a1d5ae49f6af22fbcde453"
+    },
+    {
+      "bytes": 2135,
+      "cache_path": ".cache/aditya/solexs/phase_d1/official-tools-348014ae/solexs_tools/time_utils.py",
+      "member": "solexs_tools-1.1/solexs_tools/time_utils.py",
+      "parent_archive_sha256": "348014aefa50ade556ec4a160a3cfe0b08095bde84b4650a27d6b5d3bf7fa2d3",
+      "sha256": "8d4ce3352aadd9cd9cf38a70b59369dac51c9b298a52e130421d1c45bdd7ca10"
+    },
+    {
+      "bytes": 7181,
+      "cache_path": ".cache/aditya/solexs/phase_d1/official-tools-348014ae/solexs_tools/solexs_genlc.py",
+      "member": "solexs_tools-1.1/solexs_tools/solexs_genlc.py",
+      "parent_archive_sha256": "348014aefa50ade556ec4a160a3cfe0b08095bde84b4650a27d6b5d3bf7fa2d3",
+      "sha256": "f6a3dd900e482fb88283189c9cb40aa60eddb50583cba7cabe364b591b38bb92"
+    },
+    {
+      "bytes": 13924,
+      "cache_path": ".cache/aditya/solexs/phase_d1/official-tools-348014ae/solexs_tools/solexs_genspec.py",
+      "member": "solexs_tools-1.1/solexs_tools/solexs_genspec.py",
+      "parent_archive_sha256": "348014aefa50ade556ec4a160a3cfe0b08095bde84b4650a27d6b5d3bf7fa2d3",
+      "sha256": "265b0741e2aa902ff5df208d2ba1aabf58861b23778ae31d647722882d90ee7f"
+    },
+    {
+      "bytes": 6034,
+      "cache_path": ".cache/aditya/solexs/phase_d1/official-tools-348014ae/notebooks/SoLEXS_Spectral_Analysis_with_XSPEC.ipynb",
+      "member": "solexs_tools-1.1/notebooks/SoLEXS_Spectral_Analysis_with_XSPEC.ipynb",
+      "parent_archive_sha256": "348014aefa50ade556ec4a160a3cfe0b08095bde84b4650a27d6b5d3bf7fa2d3",
+      "sha256": "ac1c52b57e25650fb7ee9817ec01fd121fd6953b28e5eeb13a2b2382774d386b"
+    },
+    {
+      "bytes": 34560,
+      "cache_path": ".cache/aditya/solexs/phase_d1/official-tools-348014ae/CALDB/arf/solexs_arf_SDD2_v1.arf",
+      "member": "solexs_tools-1.1/CALDB/arf/solexs_arf_SDD2_v1.arf",
+      "parent_archive_sha256": "348014aefa50ade556ec4a160a3cfe0b08095bde84b4650a27d6b5d3bf7fa2d3",
+      "sha256": "0f08199b3ef2f346979c58e0df83451fa23ae72a39fcaaa3d85bfe66b4b5bdc7"
+    },
+    {
+      "bytes": 6423,
+      "cache_path": ".cache/aditya/solexs/phase_d1/official-tools-348014ae/CALDB/ebounds/energy_bins_out_SDD2_v1.dat",
+      "member": "solexs_tools-1.1/CALDB/ebounds/energy_bins_out_SDD2_v1.dat",
+      "parent_archive_sha256": "348014aefa50ade556ec4a160a3cfe0b08095bde84b4650a27d6b5d3bf7fa2d3",
+      "sha256": "684f916612003706062d509ab805ae2cda763f99a83f85ce81028a94aea0949e"
+    },
+    {
+      "bytes": 6168960,
+      "cache_path": ".cache/aditya/solexs/phase_d1/official-tools-348014ae/CALDB/response/rmf/solexs_gaussian_SDD2_v1.rmf",
+      "member": "solexs_tools-1.1/CALDB/response/rmf/solexs_gaussian_SDD2_v1.rmf",
+      "parent_archive_sha256": "348014aefa50ade556ec4a160a3cfe0b08095bde84b4650a27d6b5d3bf7fa2d3",
+      "sha256": "fc8ab03f15bb21ff066426cd6047519d57ffe017bb776bb88a5a65136deb63db"
+    }
+  ],
+  "sources": [
+    {
+      "acquisition_time_utc": null,
+      "approved_for_science_application": false,
+      "authority": "User-supplied official PRADAN software package",
+      "bytes": 19730838,
+      "caldb_version": "1",
+      "catalogue_url": "https://pradan1.issdc.gov.in/al1/protected/miscDownloads.xhtml",
+      "download_url": null,
+      "path": "data/raw/aditya/documentation/pradan-official/solexs_tools-1.1.tar.gz",
+      "sha256": "348014aefa50ade556ec4a160a3cfe0b08095bde84b4650a27d6b5d3bf7fa2d3",
+      "source_provenance": "User reports intact authenticated PRADAN download; local identity/integrity observed. No independent portal checksum supplied.",
+      "tools_version": "1.1"
+    },
+    {
+      "accepted_for_calibration_application": false,
+      "accepted_for_pipeline_1_1_clock_conversion": false,
+      "access_date_utc": "2026-10-02",
+      "applicability": "Instrument capabilities and publication references; no pipeline-1.1 timing/correction/index compatibility policy found in this page",
+      "authority": "URSC/ISRO public instrument page",
+      "bytes": 42462,
+      "path": "data/raw/aditya/documentation/phase-d1-reference/URSC-SoLEXS-2026-06-22.html",
+      "sha256": "11f68147a243b1b50aa417606f7416223f45ad9d0a553100ff7b549674d1fc1d",
+      "url": "https://www.ursc.gov.in/SoLEXS.jsp",
+      "version": "Page states last updated 2026-06-22"
+    },
+    {
+      "accepted_for_calibration_application": false,
+      "accepted_for_pipeline_1_1_clock_conversion": false,
+      "access_date_utc": "2026-10-03",
+      "applicability": "Official contact route only, not a scientific compatibility policy",
+      "authority": "Official ISSDC/PRADAN contacts page",
+      "bytes": 17135,
+      "path": "data/raw/aditya/documentation/phase-d1-reference/PRADAN-Contacts-2026-10-03.html",
+      "sha256": "30133fdca7ec7040402bf767a0f6743a0c2c15132b5f884ee132fbaef283c401",
+      "url": "https://pradan1.issdc.gov.in/al1/contacts.xhtml",
+      "version": "Undated page; snapshot 2026-10-03 UTC"
+    }
+  ]
+}
