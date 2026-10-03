@@ -31,6 +31,8 @@ def evaluate_events(outcomes,valid_mask,mature_mask,origin_ids,event_definition,
     invented decision threshold. This function establishes no real event
     semantics, event-level alarm matching, operational calibration or skill.
     """
+    if not isinstance(origin_ids, (list, tuple)):
+        raise ValueError('origin_ids require an explicit ordered list or tuple')
     ids = tuple(origin_ids)
     n = len(ids)
     if (len(set(ids)) != n or any(not isinstance(x,str) or not x.strip() for x in ids)):

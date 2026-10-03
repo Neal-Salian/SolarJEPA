@@ -300,9 +300,11 @@ class TimeSeriesDataset:
 
 def _origins(obj):
     issues = _times(obj.issue_times_ns, ndim=1)
+    if not isinstance(obj.origin_ids, (list, tuple)):
+        raise ValueError('Origins require an explicit ordered list or tuple')
     ids = tuple(obj.origin_ids)
     if (len(ids) != len(issues) or len(set(ids)) != len(ids)
-            or any(not isinstance(x, str) or not x for x in ids)
+            or any(not isinstance(x, str) or not x.strip() for x in ids)
             or any(int(a) >= int(b) for a,b in zip(issues,issues[1:]))):
         raise ValueError('Origins must be ordered, unique and explicitly identified')
     _identity(obj.dataset_fingerprint)

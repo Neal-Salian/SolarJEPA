@@ -23,6 +23,12 @@ def value(cell):
     return cell['value']
 
 
+@pytest.mark.parametrize('ids', ['ab', {'a':'ignored','b':'ignored'}, {'a','b'}])
+def test_event_origin_ids_require_an_explicit_ordered_collection(ids):
+    with pytest.raises(ValueError, match='origin_ids'):
+        evaluate([0,1], [0,1], origin_ids=ids)
+
+
 def test_complete_confusion_table_and_hand_derived_metrics_far_differs_from_fpr():
     # TP=2, FP=1, FN=1, TN=4.
     result=evaluate([1,1,1,0,0,0,0,0],[1,1,0,1,0,0,0,0],

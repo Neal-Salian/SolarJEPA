@@ -222,3 +222,11 @@ def test_quantile_predictions_obey_the_declared_target_domain():
 def test_earliest_availability_bound_cannot_be_labeled_actual_delivery():
     with pytest.raises(ValueError, match='availability'):
         replace(dataset(), availability_policy='bin_end_earliest')
+
+
+@pytest.mark.parametrize('ids', ['x', {'x':'ignored'}, {'x'}])
+def test_origins_require_an_explicit_ordered_collection(ids):
+    context, grid = context_and_grid()
+    for obj in (context, grid):
+        with pytest.raises(ValueError, match='Origins'):
+            replace(obj, origin_ids=ids)
