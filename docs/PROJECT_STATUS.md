@@ -1,20 +1,26 @@
 # SolarJEPA project status — canonical tracker
 
-Current checkpoint: **2026-10-03** (Asia/Kolkata). Git fetch verifies D.1 merged
+Current checkpoint: **2026-10-04** (Asia/Kolkata). Git fetch verifies D.1 merged
 on synchronized main `1a4991da4dda9676caeb1d7e35a03408528c3188` (PR #4).
 `research/experiment-evaluation-foundation` was created and published from that
-main before milestone edits. The [P1 audit](P1_REPOSITORY_AUDIT.md),
+main before milestone edits. Checkpoint `805f1c3` is frozen and unchanged.
+The [P1 audit](P1_REPOSITORY_AUDIT.md),
 [Paperclip reconnaissance](P1_LITERATURE_RECONNAISSANCE.md), and
 [proposed design](P1_PROPOSED_DESIGN.md) are a research/design checkpoint;
-**P1 implementation is NOT STARTED and awaits explicit user approval.**
-Fresh verification found 166 passing tests, preserved source/data identities,
-and no executable baseline/evaluation/experiment packages. The sole untracked
-Paperclip pointer is preserved outside the scientific/design commit.
+approved P1 infrastructure is now implemented on the separate published
+`feat/p1-experiment-evaluation-foundation` branch from `805f1c3`. Primary
+verification: **240 new tests / 406 total tests passed**, one existing dependency
+warning, installed CLI smokes and deterministic synthetic/pinned-GOES reruns,
+109 starting artifact/config/skill identities unchanged. Fresh scientific and
+reproducibility reviews passed after regression-backed fixes. See the
+[P1 implementation checkpoint](P1_IMPLEMENTATION_REPORT.md). P1 is technically
+ready for user review; no integration or next-phase work is authorized. Main
+and the research branch remain unchanged. The Paperclip pointer remains untracked.
 
 **Phase E remains BLOCKED_FOR_PHASE_E pending authoritative SoLEXS evidence.**
-The official request is user-reported as sent; no reply is available. P1 can
-develop instrument-independent mechanics on synthetic/existing GOES reference
-data after approval, while the scientific dataset/acquisition/training gates
+The official request is user-reported as sent; no reply is available. P1
+implements instrument-independent mechanics on synthetic/existing GOES reference
+data, while the scientific dataset/acquisition/training gates
 remain in force. Historical D.1 manifests and reports retain their original
 checkpoint states; their old integration wording does not override observed Git.
 
@@ -107,14 +113,14 @@ no data are acquired, and no model work is performed.
 |---|---|---|---|
 | 0 | Research question and scientific scope | IN PROGRESS | Research, literature, novelty and experiment proposals exist; scope/protocol approval and full-method review remain. |
 | 1 | Data acquisition and validation | BLOCKED | Six verified NOAA files and two completely inspected SoLEXS ZIPs; official product definitions and native adapter verified, absolute timing/QC/calibration remain gated. |
-| 2 | Dataset construction, preprocessing and leakage-safe splits | IN PROGRESS | NOAA preparation and causal derivative tests exist; no Aditya dataset, forecasting windows, labels or frozen splits. |
-| 3 | Classical/statistical baselines | NOT STARTED | Candidates and ARCH/GARCH rationale documented; no fits, diagnostics or predictions. |
+| 2 | Dataset construction, preprocessing and leakage-safe splits | IN PROGRESS | P1 contracts, causal windows/support purging and split manifests tested on synthetic/reference data; final Aditya dataset, labels and benchmark splits remain gated. |
+| 3 | Classical/statistical baselines | IN PROGRESS | Six fixed point comparators and training-only fits verified by P1 infrastructure smokes; real benchmark and ARCH/GARCH diagnostics remain deferred. |
 | 4 | Supervised deep-learning baselines | NOT STARTED | LSTM/TCN/Transformer proposed; no implementations, profiles or trained controls. |
 | 5 | SolarJEPA implementation | NOT STARTED | Proposal JSON and design only; no encoder, predictor, EMA target or decoder. |
 | 6 | SolarJEPA pretraining/training | NOT STARTED | No training runner, checkpoints, run manifests or learning curves. |
-| 7 | Forecasting evaluation and flare-warning evaluation | NOT STARTED | Metric/split protocol documented; EDA event counts are not prediction evaluation. |
+| 7 | Forecasting evaluation and flare-warning evaluation | IN PROGRESS | P1 trajectory and supplied-label event metrics have hand-calculated tests; scientific labels, calibration and final benchmark evaluation remain gated. |
 | 8 | Ablations, uncertainty and physics-informed experiments | NOT STARTED | Conditional protocols exist; no ablation runs, calibration or validated physical constraint. |
-| 9 | Reproducibility and robustness validation | IN PROGRESS | Normal installed imports/CLI checks and portable generated metadata now pass; independent environment reproduction and dependency warning remain. |
+| 9 | Reproducibility and robustness validation | IN PROGRESS | P1 portable identities, code/package parity, deterministic reruns and exclusive atomic records verified; independent environment reproduction and dependency warning remain. |
 | 10 | Paper-ready results, figures and documentation | NOT STARTED | Paper outline and reference EDA figures exist; no research results or result-backed manuscript. |
 
 ## CURRENT_STAGE, NEXT_STAGE, BLOCKERS, NEXT 3 TASKS
@@ -146,6 +152,10 @@ not evidence of corrupted telemetry.
 
 **NEXT 3 TASKS — current scientific decisions and separately gated future work**
 
+Immediate checkpoint action: user review of P1 on its preserved feature branch.
+Integration requires explicit authorization. The following scientific work
+remains separately gated; P1 does not resolve its evidence requirements.
+
 1. **Obtain version-applicable mission guidance and authenticated resource inventory.**
    Resolve 1.1 clock/date/MJD precedence, LC bin/NUMBAND and continuous GTI/exposure
    rules; identify an approved tools/CALDB and correction-state policy. Use the
@@ -155,7 +165,7 @@ not evidence of corrupted telemetry.
    coefficients; resolve PI/response channel indexing, gain provenance, units,
    quality/missingness and numerical reference agreement. Do not substitute
    filename/date agreement for compatibility.
-3. **Review Phase D and decide integration and subsequent acquisition separately.**
+3. **Review subsequent acquisition separately after authoritative gates pass.**
    Historical acquisition is BLOCKED until the scientific gates pass. Then review
    a bounded paired selection, catalogue gaps, storage and a dataset contract.
    No July 2 filling, full alignment, final dataset or model work is authorized now.
@@ -332,18 +342,21 @@ The processed sidecar already matches the current pinned manifest.
 
 ## Stage 2 — Dataset construction, preprocessing and leakage-safe splits
 
-**Status: IN PROGRESS** — reference preprocessing only.
+**Status: IN PROGRESS** — reference preprocessing and P1 mechanical contracts.
 
 - **What already exists:** NOAA quality-aware Parquet preparation with masks,
   source identifiers, bin start/end, log flux and gap-aware backward derivative;
-  sidecar hashes, descriptive event grouping, chronology/purge design.
+  sidecar hashes, descriptive event grouping, chronology/purge design; P1
+  immutable contracts, raw-first partitions, causal windows/lookback/maturity
+  support and synthetic supplied-group purging with retained/excluded manifests.
 - **Evidence/files:** [goes.py](../src/solar_flare_jepa/data/goes.py),
   [preprocess.py](../scripts/preprocess.py), [test_goes.py](../tests/test_goes.py),
   [test_eda.py](../tests/test_eda.py), [noaa_eda.json](../configs/data/noaa_eda.json),
-  local Parquet/sidecar; split/target sections in experiment plan.
+  local Parquet/sidecar; [P1 checkpoint](P1_IMPLEMENTATION_REPORT.md) and
+  `forecasting/contracts.py`, `splitting.py`, `windows.py` with adversarial tests.
 - **What is missing:** calibrated Aditya dataset, causal synchronization,
-  training-only transforms, general feature/window/label/split builders,
-  partition/window/event manifests, label maturity and common-origin rules.
+  approved real-data feature/label definitions, transformations and adapters,
+  scientific event groups and frozen benchmark support/partition choices.
   `core_proposal.json` has `data_manifest: null` and `utc_boundaries: null`.
 - **Dependencies/blockers:** Stage 0 protocol and Stage 1 extraction gates;
   B1–B3. Catalogue state readers do not implement warning labels.
@@ -356,22 +369,22 @@ The processed sidecar already matches the current pinned manifest.
   gap/unknown-target handling, train-only fitted transforms, no support/event
   leakage and deterministic manifest hashes. Publish coverage/exclusions and
   event-precision assessment without examining held-out model performance.
-- **Next actions:** build this contract only after real-file validation; select
+- **Next actions:** approve a real-data adapter/contract after authoritative validation; select
   primary history/horizon through cheap development-only screening, then freeze
   the benchmark before any learned model sees its data.
 
 ## Stage 3 — Classical/statistical baselines
 
-**Status: NOT STARTED**
+**Status: IN PROGRESS** — P1 mechanics only.
 
-- **What already exists:** mathematical formulation and candidate list for
-  persistence, moving mean/EWMA, linear/ridge, AR/ARIMA and AR+ARCH/GARCH.
-- **Evidence/files:** baseline and volatility sections of
-  [EXPERIMENT_PLAN.md](EXPERIMENT_PLAN.md); validation report explicitly says no
-  ARCH/GARCH fit or diagnostic has run. No statistical-model package exists.
-- **What is missing:** baseline implementations, train-only diagnostics/fits,
-  forecast contracts, matched-origin predictions, convergence/runtime logs and
-  constant-variance probabilistic controls.
+- **What already exists:** fixed persistence, unique-training-period mean,
+  causal trailing mean, drift, AR(1) with intercept and direct ridge; explicit
+  transform/fit/predict contracts and matched synthetic/reference predictions.
+- **Evidence/files:** [P1 checkpoint](P1_IMPLEMENTATION_REPORT.md),
+  `forecasting/baselines.py`, `test_baselines.py`; baseline/volatility rationale
+  remains in [EXPERIMENT_PLAN.md](EXPERIMENT_PLAN.md). ARCH/GARCH has not been fit.
+- **What is missing:** approved real benchmark, training-only adequacy/residual
+  diagnostics, conditional-variance comparisons and probabilistic controls.
 - **Dependencies/blockers:** Stage 2 frozen benchmark, approval of pilot compute,
   Stage 7 tested development metrics and Stage 9 run provenance.
 - **Exact completion criteria:** all mandatory cheap baselines produce saved
@@ -382,8 +395,8 @@ The processed sidecar already matches the current pinned manifest.
   parameter adequacy and path-based probabilistic scores. A documented failed
   applicability gate is acceptable evidence, not a forced flare-class fit.
   Record costs and chosen settings; leave final test sealed until Stage 7.
-- **Next actions:** implement persistence/ridge and hand-checked metric controls
-  first; add the small statistical grid and ARCH/GARCH diagnostic decision.
+- **Next actions:** review P1, then approve benchmark/diagnostic decisions
+  after the scientific data gates. ARCH/GARCH remains secondary variance work.
 
 ## Stage 4 — Supervised deep-learning baselines
 
@@ -455,15 +468,19 @@ The processed sidecar already matches the current pinned manifest.
 
 ## Stage 7 — Forecasting evaluation and flare-warning evaluation
 
-**Status: NOT STARTED**
+**Status: IN PROGRESS** — P1 evaluators, scientific benchmark pending.
 
 - **What already exists:** metric/estimand definitions, onset versus continuation
   distinction, common origins, event alarms, calibration-block and paired-block
-  statistical protocol. EDA only counts observed catalogue states/peaks.
+  statistical protocol. P1 implements hand-checked native MAE/RMSE, persistence
+  skill, training-scaled MASE, diagnostic correlation and actual-quantile pinball;
+  separate supplied-label confusion/precision/POD/FAR/F1/TSS/HSS2/Brier scoring.
+  EDA continues to count observed catalogue states/peaks only.
 - **Evidence/files:** metric/split/inference sections of experiment plan,
   [DATASET_CARD.md](DATASET_CARD.md); [eda.py](../src/solar_flare_jepa/data/eda.py)
-  explicitly performs no fitting, forecasting or training-label evaluation.
-- **What is missing:** tested evaluators, warning-label implementation, forecasts,
+  explicitly performs no fitting, forecasting or training-label evaluation;
+  [P1 checkpoint](P1_IMPLEMENTATION_REPORT.md) and tested `evaluation/` package.
+- **What is missing:** scientific warning-label implementation and benchmark forecasts,
   calibration artifacts, locked thresholds, untouched-period/OOD scores, paired
   confidence intervals and reliable independent-event sample size.
 - **Dependencies/blockers:** Stage 2 frozen labels/splits and saved predictions
@@ -477,7 +494,7 @@ The processed sidecar already matches the current pinned manifest.
   alarms per day, regime/horizon results, seed variability and paired dependent-
   data CIs. Evaluate the untouched later/OOD periods without tuning and state
   event-count limits. CRPS requires a declared distribution or suitable samples.
-- **Next actions:** implement/test development metrics with cheap baselines;
+- **Next actions:** review the P1 mechanics; approve real definitions/protocol;
   after all protocol choices freeze, evaluate the final test once and save
   per-origin outputs sufficient to recompute every score.
 
@@ -518,13 +535,15 @@ The processed sidecar already matches the current pinned manifest.
 - **What already exists:** package metadata, macOS dependency pins, source hashes,
   bounded acquisition, tests, reproducible in-memory reference extraction,
   ignored artifacts and documented environment/known warning; installed import/
-  CLI regressions, SoLEXS registration tests and relocated-root metadata checks.
+  CLI regressions, SoLEXS registration tests and relocated-root metadata checks;
+  P1 finite configuration, dataset/config/split/source hashes, actual Git/package
+  provenance, indexed atomic records and same-environment deterministic reruns.
 - **Evidence/files:** [pyproject.toml](../pyproject.toml),
   [requirements-lock.txt](../requirements-lock.txt), [.gitignore](../.gitignore),
-  all tests, manifests, sidecar and current foundation verification. Proposal run
-  outputs are a list, not an implemented run registry.
+  all tests, manifests, sidecar and [P1 verification](P1_IMPLEMENTATION_REPORT.md).
+  `experiments/` is an executable bounded registry; older proposal configs remain proposals.
 - **What is missing:** clean independent environment reproduction/CI,
-  executable run/seed/RNG/checkpoint provenance and approved robustness results.
+  neural optimizer/EMA/RNG/checkpoint resume provenance and approved robustness results.
   Historical sidecar identifiers remain machine-specific to preserve validated
   artifacts; future generated sidecars/EDA use repository-relative identifiers.
 - **Dependencies/blockers:** B1–B3 for real-data/model robustness. The

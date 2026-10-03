@@ -6,16 +6,19 @@ The title is provisional: JEPA is a representation-learning method, not by
 itself a generative trajectory model; physics and generation claims require
 additional validated components.
 
-**Status (2026-10-03): Phase D.1 is merged into verified synchronized main
-`1a4991d`. P1 literature reconnaissance and a proposed experiment/evaluation
-foundation are on `research/experiment-evaluation-foundation`, awaiting the
-user's checkpoint approval before implementation. The original official
+**Status (2026-10-04): Phase D.1 remains merged on synchronized main
+`1a4991d`. Approved P1 experiment/evaluation infrastructure is implemented on
+`feat/p1-experiment-evaluation-foundation`, with 240 new tests and 406 total tests
+passing. The frozen research checkpoint `805f1c3` is preserved on
+`research/experiment-evaluation-foundation`. P1 awaits user review and separate
+integration approval. The original official
 Tools-1.1 bundle is verified; its compatibility with pipeline-1.1 samples remains
 unresolved.
 Historical acquisition remains BLOCKED by clock/bin/GTI/exposure policy and
 approved correction/HK/response compatibility.** The July 1/3, 2024
 L1 v1.1 products remain native validation samples; July 2 availability is UNKNOWN.
-No final dataset or models exist. NOAA GOES remains external reference data.
+No final Aditya dataset or SolarJEPA model exists. NOAA GOES remains external reference data.
+See the [P1 implementation checkpoint](docs/P1_IMPLEMENTATION_REPORT.md).
 See the [P1 starting-state audit](docs/P1_REPOSITORY_AUDIT.md),
 [Paperclip literature reconnaissance](docs/P1_LITERATURE_RECONNAISSANCE.md), and
 [proposed P1 design](docs/P1_PROPOSED_DESIGN.md).
@@ -72,6 +75,31 @@ refuses changed existing files, and records provenance. Run from repository root
 For manually acquired Aditya files, `inspect_data.py` inventories FITS/CDF
 metadata without guessing units, calibration, quality definitions, or epochs.
 An inventory is not a validated instrument parser.
+
+## P1 experiment/evaluation foundation
+
+After installing the matching checkout, run from a clean tracked Git state:
+
+```bash
+python scripts/run_experiment.py --root . --config configs/experiments/p1_synthetic.json
+python scripts/run_experiment.py --root . --config configs/experiments/p1_goes_reference.json
+```
+
+The GOES command requires the already pinned raw sample and its existing
+verified Parquet/sidecar. P1 reads these artifacts without acquisition or
+rewriting. Its reference run uses XRS-B and `retrospective_bin_end`; actual
+operational latency remains UNKNOWN. Synthetic channels have artificial units.
+Both outputs are labelled `foundation_smoke_not_scientific_skill`.
+
+Each execution creates a new ignored `results/experiments/<execution_id>`
+directory containing resolved configuration, dataset/split/code provenance,
+baseline parameters, aligned predictions, metrics, failures and a SHA-256
+artifact index. Existing destinations are refused. Semantic experiment IDs
+remain stable on repeat execution; execution IDs and timestamps change.
+The six fixed point baselines share training-only fitting and the same eligible
+origins. Supplied-label event evaluation is a separate API; real event
+definitions and ARCH/GARCH fitting remain deferred. See the checkpoint report
+for contracts, exact verification, limitations and review findings.
 
 Register and verify the explicitly configured local SoLEXS ZIPs without extraction:
 
