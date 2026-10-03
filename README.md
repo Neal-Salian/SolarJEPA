@@ -6,14 +6,19 @@ The title is provisional: JEPA is a representation-learning method, not by
 itself a generative trajectory model; physics and generation claims require
 additional validated components.
 
-**Status (2026-10-03): Phase D is merged into verified main `e1cfa85`.
-Phase D.1 authoritative evidence/acquisition is on
-`data/solexs-authoritative-evidence`. The original official Tools-1.1 bundle is
-verified; its compatibility with pipeline-1.1 samples remains unresolved.
+**Status (2026-10-03): Phase D.1 is merged into verified synchronized main
+`1a4991d`. P1 literature reconnaissance and a proposed experiment/evaluation
+foundation are on `research/experiment-evaluation-foundation`, awaiting the
+user's checkpoint approval before implementation. The original official
+Tools-1.1 bundle is verified; its compatibility with pipeline-1.1 samples remains
+unresolved.
 Historical acquisition remains BLOCKED by clock/bin/GTI/exposure policy and
 approved correction/HK/response compatibility.** The July 1/3, 2024
 L1 v1.1 products remain native validation samples; July 2 availability is UNKNOWN.
 No final dataset or models exist. NOAA GOES remains external reference data.
+See the [P1 starting-state audit](docs/P1_REPOSITORY_AUDIT.md),
+[Paperclip literature reconnaissance](docs/P1_LITERATURE_RECONNAISSANCE.md), and
+[proposed P1 design](docs/P1_PROPOSED_DESIGN.md).
 See the [D.1 evidence checkpoint](docs/SOLEXS_PHASE_D1_REPORT.md),
 [fourteen-resource audit](data/manifests/solexs_phase_d1_requirements.json),
 [next authoritative clarification](docs/SOLEXS_PHASE_D1_AUTHORITY_REQUEST.md),

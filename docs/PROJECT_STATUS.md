@@ -1,6 +1,25 @@
 # SolarJEPA project status — canonical tracker
 
-Current update: **2026-10-03** (Asia/Kolkata), Phase D.1 authoritative evidence and
+Current checkpoint: **2026-10-03** (Asia/Kolkata). Git fetch verifies D.1 merged
+on synchronized main `1a4991da4dda9676caeb1d7e35a03408528c3188` (PR #4).
+`research/experiment-evaluation-foundation` was created and published from that
+main before milestone edits. The [P1 audit](P1_REPOSITORY_AUDIT.md),
+[Paperclip reconnaissance](P1_LITERATURE_RECONNAISSANCE.md), and
+[proposed design](P1_PROPOSED_DESIGN.md) are a research/design checkpoint;
+**P1 implementation is NOT STARTED and awaits explicit user approval.**
+Fresh verification found 166 passing tests, preserved source/data identities,
+and no executable baseline/evaluation/experiment packages. The sole untracked
+Paperclip pointer is preserved outside the scientific/design commit.
+
+**Phase E remains BLOCKED_FOR_PHASE_E pending authoritative SoLEXS evidence.**
+The official request is user-reported as sent; no reply is available. P1 can
+develop instrument-independent mechanics on synthetic/existing GOES reference
+data after approval, while the scientific dataset/acquisition/training gates
+remain in force. Historical D.1 manifests and reports retain their original
+checkpoint states; their old integration wording does not override observed Git.
+
+Previous update (before the D.1 PR merge): **2026-10-03**, Phase D.1 authoritative
+evidence and
 calibration acquisition on `data/solexs-authoritative-evidence`, created and
 immediately published from clean synchronized main
 `e1cfa8546b92d60aed5f187714a7aa304f3e1864`. Git verifies the user-managed Phase D
