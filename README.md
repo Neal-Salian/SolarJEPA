@@ -6,14 +6,18 @@ The title is provisional: JEPA is a representation-learning method, not by
 itself a generative trajectory model; physics and generation claims require
 additional validated components.
 
-**Status (2026-10-03): Phase C is merged into verified main `f9a0d2b`.
-Phase D timing/calibration investigation is on `data/solexs-timing-calibration`.
-Historical acquisition remains BLOCKED by pipeline-1.1 clock/bin/GTI/exposure
-policy and approved correction/HK/response compatibility.** The July 1/3, 2024
+**Status (2026-10-03): Phase D is merged into verified main `e1cfa85`.
+Phase D.1 authoritative evidence/acquisition is on
+`data/solexs-authoritative-evidence`. The original official Tools-1.1 bundle is
+verified; its compatibility with pipeline-1.1 samples remains unresolved.
+Historical acquisition remains BLOCKED by clock/bin/GTI/exposure policy and
+approved correction/HK/response compatibility.** The July 1/3, 2024
 L1 v1.1 products remain native validation samples; July 2 availability is UNKNOWN.
 No final dataset or models exist. NOAA GOES remains external reference data.
-See the [Phase D scientific gate report](docs/SOLEXS_PHASE_D_GATE_REPORT.md),
-[PRADAN prerequisite plan](data/manifests/solexs_phase_e_requirements.json),
+See the [D.1 evidence checkpoint](docs/SOLEXS_PHASE_D1_REPORT.md),
+[fourteen-resource audit](data/manifests/solexs_phase_d1_requirements.json),
+[next authoritative clarification](docs/SOLEXS_PHASE_D1_AUTHORITY_REQUEST.md),
+[historical Phase D gate report](docs/SOLEXS_PHASE_D_GATE_REPORT.md),
 [Phase C findings](docs/SOLEXS_SCIENTIFIC_VALIDATION.md), and
 [canonical project tracker](docs/PROJECT_STATUS.md).
 
@@ -101,6 +105,10 @@ not download them. Equality or a valid FITS structure does not approve UTC, GTI,
 correction or physical flux policies. The gate report explains the evidence and
 unsupported interpretations. The shown output target is an ignored report;
 never redirect output to source data.
+D.1 pins the user-supplied official tools archive and its selected-member byte
+equivalence in a separate [evidence manifest](data/manifests/solexs_phase_d1_evidence.json).
+Read-only bundle verification is reproduced in the checkpoint report; no external
+tools installation, HK substitution or timestamp/channel repair is performed.
 After package-source edits, reinstall the package before checking installed CLIs;
 pytest's source-path configuration alone does not establish installation success.
 
