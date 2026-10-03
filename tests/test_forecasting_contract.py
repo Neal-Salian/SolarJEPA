@@ -230,3 +230,66 @@ def test_origins_require_an_explicit_ordered_collection(ids):
     for obj in (context, grid):
         with pytest.raises(ValueError, match='Origins'):
             replace(obj, origin_ids=ids)
+
+
+@pytest.mark.parametrize('extra', [dict(feature_lookback_steps=1), dict(label_maturity_steps=1)])
+def test_public_training_slice_checks_full_declared_window_support(extra):
+    ctx, grid = context_and_grid(spec(**extra))
+    data = dataset()
+    fmask, tmask = data.feature_mask[:4].copy(), data.target_mask[:4].copy()
+    if extra.get('feature_lookback_steps'):
+        fmask[0] = False
+    if extra.get('label_maturity_steps'):
+        tmask[-1] = False
+    target = ForecastTargets(np.array([[[3.],[4.]]]), np.ones((1,2,1),bool), grid)
+    with pytest.raises(ValueError, match='support'):
+        TrainingSlice(ctx, target, data.starts_ns[:4], data.ends_ns[:4], data.features[:4],
+                      fmask, data.targets[:4], tmask, 0, 4*MINUTE, 'invalid_full_support')
+
+
+@pytest.mark.parametrize('kind', ['features','targets'])
+def test_public_training_slice_cannot_reenable_raw_cells_with_outside_dependencies(kind):
+    from test_forecasting_windows import build, dataset as raw_dataset, spec as raw_spec
+    data=raw_dataset()
+    training=build(data, raw_spec(feature_lookback_steps=1,label_maturity_steps=2)).training_slice
+    values=data.features[:10,:1] if kind=='features' else data.targets[:10,:1]
+    key='raw_feature_mask' if kind=='features' else 'raw_target_mask'
+    with pytest.raises(ValueError, match='support'):
+        replace(training, **{f'raw_{kind}':values, key:np.ones((10,1),bool)})
+
+
+@pytest.mark.parametrize('kind,tick', [('features',5), ('targets',3)])
+def test_public_training_slice_cannot_reenable_raw_cells_bridging_dependency_gaps(kind,tick):
+    from test_forecasting_windows import build, dataset as raw_dataset, spec as raw_spec, NS
+    data=raw_dataset(omitted=(4,))
+    training=build(data, raw_spec(feature_lookback_steps=1,label_maturity_steps=1),end=12).training_slice
+    index=int(np.flatnonzero(training.raw_starts_ns==tick*NS)[0])
+    key='raw_feature_mask' if kind=='features' else 'raw_target_mask'
+    values=np.array(getattr(training,f'raw_{kind}'))
+    mask=np.array(getattr(training,key))
+    values[index,0]=1.
+    mask[index,0]=True
+    with pytest.raises(ValueError, match='support'):
+        replace(training, **{f'raw_{kind}':values, key:mask})
+
+
+@pytest.mark.parametrize('lookback,issue',[(1,7),(0,2)])
+def test_public_training_windows_cannot_bridge_missing_extra_dependency_support(lookback,issue):
+    from test_forecasting_windows import build, dataset as raw_dataset, spec as raw_spec, NS
+    data=raw_dataset(omitted=(4,))
+    task=raw_spec(feature_lookback_steps=lookback,label_maturity_steps=1)
+    training=build(data,task,end=12).training_slice
+    rows={int(tick//NS):i for i,tick in enumerate(data.starts_ns)}
+    cr=[rows[tick] for tick in range(issue-2,issue)]
+    tr=[rows[tick] for tick in range(issue,issue+2)]
+    ids=(f'origin:{issue*NS}',)
+    # Every nominal context/target bin exists. Only the separately declared
+    # extra lookback or maturity bin is missing; masks on raw cells stay safe.
+    context=ForecastContext(data.features[cr,:1][None],data.feature_mask[cr,:1][None],
+        data.starts_ns[cr][None],data.ends_ns[cr][None],np.array([issue*NS]),ids,task,
+        data.fingerprint,data.availability_ns[cr,:1][None])
+    grid=FutureGrid(data.starts_ns[tr][None],data.ends_ns[tr][None],context.issue_times_ns,
+                    ids,task,data.fingerprint)
+    targets=ForecastTargets(data.targets[tr,:1][None],data.target_mask[tr,:1][None],grid)
+    with pytest.raises(ValueError,match='support'):
+        replace(training,context=context,targets=targets)

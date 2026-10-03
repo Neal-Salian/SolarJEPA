@@ -121,7 +121,7 @@ def validate_config(config):
     for model in cfg['baselines']:
         _keys(model, ('name','parameters'))
         name,parameters = model['name'],model['parameters']
-        if name not in allowed or name in seen:
+        if not isinstance(name,str) or name not in allowed or name in seen:
             raise ValueError('Unsupported or duplicate baseline; ARCH/GARCH fitting is deferred')
         seen.add(name)
         _keys(parameters, allowed[name])
@@ -139,11 +139,12 @@ def validate_config(config):
     _keys(cfg['metrics'], ('lead_weights','target_weights'))
     cfg['metrics']['lead_weights'] = _weights(cfg['metrics']['lead_weights'],spec.horizon_steps)
     cfg['metrics']['target_weights'] = _weights(cfg['metrics']['target_weights'],len(spec.target_names))
-    if (not isinstance(cfg['seeds'],list) or not cfg['seeds']
-            or len(set(cfg['seeds'])) != len(cfg['seeds'])):
+    if not isinstance(cfg['seeds'],list) or not cfg['seeds']:
         raise ValueError('Seeds must be a nonempty unique list')
     for seed in cfg['seeds']:
         _positive_int(seed, minimum=0)
+    if len(set(cfg['seeds'])) != len(cfg['seeds']):
+        raise ValueError('Seeds must be a nonempty unique list')
     return cfg
 
 

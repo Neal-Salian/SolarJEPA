@@ -154,6 +154,8 @@ class ForecastSpec:
             raise ValueError('Unsupported transform')
         for name, count in [('feature_reference', len(self.feature_names)),
                             ('target_reference', len(self.target_names))]:
+            if not isinstance(getattr(self, name), (list, tuple)):
+                raise ValueError('Reference scales require an explicit ordered list or tuple')
             refs = tuple(_number(x) for x in getattr(self, name))
             if self.transform == 'log10' and len(refs) != count:
                 raise ValueError('Log transforms require explicit dimensional references')
@@ -161,6 +163,8 @@ class ForecastSpec:
                          or min(refs) <= 0):
                 raise ValueError('References must be finite, positive and dimensioned')
             object.__setattr__(self, name, tuple(float(x) for x in refs))
+        if not isinstance(self.target_minimum, (list, tuple)):
+            raise ValueError('Target minima require an explicit ordered list or tuple')
         minima = tuple(None if x is None else _number(x) for x in self.target_minimum) or (None,) * len(self.target_names)
         if len(minima) != len(self.target_names) or any(
                 x is not None and not np.isfinite(x) for x in minima):
@@ -471,11 +475,31 @@ class TrainingSlice:
                 or (self.context.starts_ns < self.partition_start_ns).any()
                 or (self.targets.grid.ends_ns > self.partition_end_ns).any()):
             raise ValueError('Training support must be unique and within its raw partition')
+        if (any(int(row[0])-spec.feature_lookback_steps*spec.cadence_ns < self.partition_start_ns
+                for row in self.context.starts_ns)
+                or any(int(row[-1])+spec.label_maturity_steps*spec.cadence_ns > self.partition_end_ns
+                       for row in self.targets.grid.ends_ns)):
+            raise ValueError('Full training window support exceeds its raw partition')
         object.__setattr__(self, 'raw_starts_ns', starts)
         object.__setattr__(self, 'raw_ends_ns', ends)
+        observed = set(map(int, starts))
+        for context_start, target_end in zip(self.context.starts_ns[:,0], self.targets.grid.ends_ns[:,-1]):
+            start = int(context_start)-spec.feature_lookback_steps*spec.cadence_ns
+            end = int(target_end)+spec.label_maturity_steps*spec.cadence_ns
+            if any(tick not in observed for tick in range(start, end, spec.cadence_ns)):
+                raise ValueError('Full training window support bridges a raw cadence gap')
         for vn, mn, count in [('raw_features', 'raw_feature_mask', len(spec.feature_names)),
                               ('raw_targets', 'raw_target_mask', len(spec.target_names))]:
             values, mask = _values_mask(getattr(self, vn), getattr(self, mn), (len(starts), count))
+            for row in np.flatnonzero(mask.any(axis=1)):
+                start, end = int(starts[row]), int(ends[row])
+                if vn == 'raw_features':
+                    start -= spec.feature_lookback_steps*spec.cadence_ns
+                else:
+                    end += spec.label_maturity_steps*spec.cadence_ns
+                if (start < self.partition_start_ns or end > self.partition_end_ns
+                        or any(tick not in observed for tick in range(start, end, spec.cadence_ns))):
+                    raise ValueError('Valid raw training support exceeds bounds or bridges a cadence gap')
             object.__setattr__(self, vn, values)
             object.__setattr__(self, mn, mask)
 

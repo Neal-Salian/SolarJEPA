@@ -49,7 +49,7 @@ def training(raw=(1, 2, 3, 4, 5, 6, 7), s=None, *, windows=None, future=None,
     context, grid = context_grid(windows, s, issue=s.context_steps, mask=window_mask)
     if future is None:
         future = raw[s.context_steps:s.context_steps+s.horizon_steps][None]
-    future = np.asarray(future, float).reshape(len(context.origin_ids), s.horizon_steps, -1)
+    future = np.asarray(future, float).reshape(len(context.origin_ids), s.horizon_steps, len(s.target_names))
     targets = ForecastTargets(future, np.ones_like(future, bool) if target_mask is None else target_mask, grid)
     times = np.arange(len(raw), dtype=np.int64) if raw_times is None else np.asarray(raw_times, np.int64)
     starts = times * SECOND
@@ -105,6 +105,9 @@ def test_ar_pairs_never_bridge_masked_rows_or_time_gaps():
     # Only (1,3), (3,7), (20,41), (41,83) are adjacent valid pairs.
     train = training([1, 3, 7, 999, 20, 41, 83],
                      raw_times=[0, 1, 2, 3, 5, 6, 7],
+                     # Neither contiguous run spans L+H; AR fits raw pairs,
+                     # so no fictional supervised window bridges the gap.
+                     windows=np.empty((0,3,1)), future=np.empty((0,2,1)),
                      raw_mask=np.array([[1], [1], [1], [0], [1], [1], [1]], bool))
     ctx, grid = context_grid([20, 41, 83])
     np.testing.assert_allclose(baseline('ar1').fit(train).predict(ctx, grid).values, [[[167], [335]]], rtol=1e-12)
@@ -276,7 +279,8 @@ def test_ridge_fit_uses_only_complete_declared_lags_and_full_targets():
     future = [[[1], [2]], [[3], [5]], [[5], [8]], [[1e200], [np.nan]]]
     wm = np.array([[[0], [0], [1]], [[0], [0], [1]], [[0], [0], [1]], [[1], [1], [1]]], bool)
     tm = np.array([[[1], [1]], [[1], [1]], [[1], [1]], [[1], [0]]], bool)
-    train = training(windows=windows, future=future, window_mask=wm, target_mask=tm)
+    # Four origins require raw coordinate coverage through tick 7.
+    train = training(raw=[1,2,3,4,5,6,7,8], windows=windows, future=future, window_mask=wm, target_mask=tm)
     ctx, grid = context_grid([np.nan, np.nan, 4], mask=np.array([[[0], [0], [1]]], bool))
     model = baseline('direct_ridge', lag_steps=1, alpha=0).fit(train)
     np.testing.assert_allclose(model.predict(ctx, grid).values, [[[9], [14]]], atol=1e-12)
@@ -295,7 +299,7 @@ def test_training_fits_are_in_fixed_dimensioned_log_space(name, want):
 
 def test_ridge_transforms_features_and_targets_with_their_own_references():
     s = spec(transform='log10', feature_reference=(100,), target_reference=(10,))
-    train = training([10, 100, 1000, 10000, 100000], s,
+    train = training([10, 100, 1000, 10000, 100000, 1000000, 10000000], s,
                      windows=[[[10], [10], [100]], [[10], [10], [1000]], [[10], [10], [10000]]],
                      future=[[[10], [100]], [[100], [10000]], [[1000], [1000000]]])
     ctx, grid = context_grid([10, 10, 100000], s)

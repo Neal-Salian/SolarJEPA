@@ -106,9 +106,11 @@ def test_common_mask_is_preserved_and_nonfinite_predictions_are_failures():
 
 
 def test_training_scale_uses_only_valid_adjacent_unique_observations_without_gaps():
-    args = fixture(raw=[[0.],[2.],[100.],[104.],[999.],[106.]],
-                   raw_mask=np.array([[True],[True],[True],[True],[False],[True]]),
-                   raw_starts=np.array([0,1,3,4,5,6])*SECOND)
+    # The gap is outside the nominal training window [0,3), whose coverage is
+    # complete. Raw pairs remain exactly 0->2 and 100->104.
+    args = fixture(raw=[[0.],[2.],[999.],[100.],[104.],[999.],[106.]],
+                   raw_mask=np.array([[True],[True],[False],[True],[True],[False],[True]]),
+                   raw_starts=np.array([0,1,2,4,5,6,7])*SECOND)
     result = evaluate(*args)
     # Only 0->2 and 100->104 count, not gap 2->100 or masked neighbors.
     assert value(result['training_scales']['x0']) == 3.

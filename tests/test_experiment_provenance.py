@@ -159,6 +159,26 @@ def test_config_rejects_mapping_in_place_of_ordered_channel_list():
         validate_config(cfg)
 
 
+@pytest.mark.parametrize('field',['feature_reference','target_reference','target_minimum'])
+@pytest.mark.parametrize('container',[{},''])
+def test_empty_reference_or_domain_metadata_cannot_be_silently_coerced(field,container):
+    cfg=config()
+    cfg['forecast'][field]=container
+    with pytest.raises(ValueError):
+        validate_config(cfg)
+
+
+@pytest.mark.parametrize('bad_field',['seeds','model_name'])
+def test_malformed_config_collections_fail_with_a_clear_value_error(bad_field):
+    cfg=config()
+    if bad_field=='seeds':
+        cfg['seeds']=[{}]
+    else:
+        cfg['baselines'][0]['name']={}
+    with pytest.raises(ValueError):
+        validate_config(cfg)
+
+
 def test_config_rejects_overflowing_weight_sum():
     cfg = config()
     cfg['metrics']['lead_weights'] = [1e308,1e308]
