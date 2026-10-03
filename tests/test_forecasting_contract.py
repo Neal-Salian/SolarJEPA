@@ -217,3 +217,8 @@ def test_quantile_predictions_obey_the_declared_target_domain():
     with pytest.raises(ValueError, match='domain'):
         ForecastPrediction(np.ones((1,2,1)), grid, 'toy', (.1,.9),
                            np.array([[[[-1.,2.]], [[-1.,2.]]]]))
+
+
+def test_earliest_availability_bound_cannot_be_labeled_actual_delivery():
+    with pytest.raises(ValueError, match='availability'):
+        replace(dataset(), availability_policy='bin_end_earliest')

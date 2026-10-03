@@ -61,6 +61,8 @@ def _values_mask(values, mask, shape):
 
 
 def _names(value, *, unique=True):
+    if not isinstance(value, (list, tuple)):
+        raise ValueError('Names/units require an explicit ordered list or tuple')
     values = tuple(value)
     if not values or any(not isinstance(x, str) or not x.strip() for x in values):
         raise ValueError('Names/units must be nonempty strings')
@@ -267,6 +269,8 @@ class TimeSeriesDataset:
             if self.availability_policy == 'explicit':
                 raise ValueError('Explicit availability cannot be unknown')
         else:
+            if self.availability_policy != 'explicit':
+                raise ValueError('Earliest availability bounds cannot stand for actual delivery times')
             available = _times(self.availability_ns, ndim=2)
             if (available.shape != self.features.shape
                     or (available[self.feature_mask] < np.broadcast_to(ends[:, None], available.shape)[self.feature_mask]).any()):
