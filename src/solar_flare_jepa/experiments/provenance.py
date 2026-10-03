@@ -2,7 +2,7 @@
 import ctypes
 import errno
 import importlib
-from importlib.metadata import version, PackageNotFoundError
+from importlib.metadata import distribution, version, PackageNotFoundError
 import json
 import os
 from pathlib import Path, PurePosixPath, PureWindowsPath
@@ -76,17 +76,32 @@ def code_provenance(root, *, require_clean=True, require_installed_match=True):
         raise ValueError('Reproducible execution requires clean tracked source and tracked P1 inputs')
     source = source_fingerprint(root)
     imported = []
+    package = importlib.import_module('solar_flare_jepa')
+    package_root = Path(package.__file__).resolve().parent
+    try:
+        installed_root = Path(distribution('solar-flare-jepa').locate_file('solar_flare_jepa')).resolve()
+    except PackageNotFoundError:
+        installed_root = None
     for item in source['files']:
         if item['path'].startswith('src/solar_flare_jepa/') and item['path'].endswith('.py'):
             relative = item['path'][4:-3].replace('/','.')
             name = relative[:-9] if relative.endswith('.__init__') else relative
-            module = importlib.import_module(name)
-            actual = Path(module.__file__)
+            # Inspect unused module files without executing optional scientific
+            # readers. Already loaded modules must match their actual location.
+            module = sys.modules.get(name)
+            actual = (Path(module.__file__).resolve() if module is not None else
+                      package_root/item['path'].removeprefix('src/solar_flare_jepa/'))
+            if not actual.is_file():
+                raise ValueError(f'Execution-package source identity mismatch: missing {name}')
             digest = sha256_file(actual)
             matches = digest == item['sha256']
             if require_installed_match and not matches:
                 raise ValueError(f'Imported/checkout source identity mismatch: {name}')
-            imported.append(dict(module=name,sha256=digest,checkout_match=matches))
+            location = ('checkout' if actual.is_relative_to(root/'src'/'solar_flare_jepa') else
+                        'installed_distribution' if installed_root is not None
+                        and actual.is_relative_to(installed_root) else 'external_matching_source')
+            imported.append(dict(module=name,sha256=digest,checkout_match=matches,location=location,
+                inspection='loaded_module_file' if module is not None else 'package_file_not_imported'))
     packages = {}
     for name in ('solar-flare-jepa','numpy','pandas','xarray','netCDF4','pyarrow'):
         try:
