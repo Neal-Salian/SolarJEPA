@@ -160,7 +160,10 @@ def build_partition_windows(dataset: TimeSeriesDataset, spec: ForecastSpec,
             return np.zeros(len(targets), bool)
         return dataset.target_mask[row, targets].copy()
 
-    raw_fmask = np.array([feature_eligibility(i, partition.end_ns)[0] for i in raw_rows], bool).reshape(-1, len(features))
+    raw_feature_support = [feature_eligibility(i, partition.end_ns) for i in raw_rows]
+    raw_fmask = np.array([mask for mask, _ in raw_feature_support], bool).reshape(-1, len(features))
+    raw_available = (None if dataset.availability_ns is None else
+                     np.array([available for _, available in raw_feature_support], np.int64).reshape(-1, len(features)))
     raw_tmask = np.array([target_eligibility(i) for i in raw_rows], bool).reshape(-1, len(targets))
     raw_fvalues = np.where(raw_fmask, dataset.features[np.ix_(raw_rows, features)], np.nan)
     raw_tvalues = np.where(raw_tmask, dataset.targets[np.ix_(raw_rows, targets)], np.nan)
@@ -265,5 +268,5 @@ def build_partition_windows(dataset: TimeSeriesDataset, spec: ForecastSpec,
         training = TrainingSlice(context, forecast_targets, dataset.starts_ns[raw_rows],
                                  dataset.ends_ns[raw_rows], raw_fvalues, raw_fmask,
                                  raw_tvalues, raw_tmask, partition.start_ns, partition.end_ns,
-                                 fingerprint_payload(manifest))
+                                 fingerprint_payload(manifest), raw_availability_ns=raw_available)
     return WindowedPartition(context, forecast_targets, training, manifest_json)

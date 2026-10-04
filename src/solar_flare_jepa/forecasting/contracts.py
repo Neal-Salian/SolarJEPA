@@ -3,7 +3,7 @@
 Intervals are half-open. Values are in declared native units; transforms are
 fixed, dimensioned operations applied by a forecaster, never fitted here.
 """
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 import hashlib
 import json
 
@@ -444,6 +444,13 @@ class ForecastPrediction:
 
 @dataclass(frozen=True, eq=False)
 class TrainingSlice:
+    """Canonical raw train support with exactly validated derived windows.
+
+    Raw feature masks are dependency eligibility by partition end, and optional
+    raw availability is actual availability of that entire dependency. Context
+    eligibility applies the earlier issue deadline to this canonical support.
+    Declared dataset/split labels are separate from the computed fitting identity.
+    """
     context: ForecastContext
     targets: ForecastTargets
     raw_starts_ns: np.ndarray
@@ -456,10 +463,17 @@ class TrainingSlice:
     partition_end_ns: int
     split_fingerprint: str
     partition_name: str = 'train'
+    raw_availability_ns: np.ndarray | None = None
 
     def __post_init__(self):
         if self.partition_name != 'train':
             raise ValueError('Fitting accepts a train partition only')
+        if not isinstance(self.context, ForecastContext) or not isinstance(self.targets, ForecastTargets):
+            raise ValueError('Training windows require ForecastContext and ForecastTargets')
+        # Reconstruct nested contracts too: deepcopy/pickle may restore writable
+        # buffers without calling their validators. No values are corrected.
+        object.__setattr__(self, 'context', replace(self.context))
+        object.__setattr__(self, 'targets', replace(self.targets, grid=replace(self.targets.grid)))
         validate_alignment(self.context, self.targets.grid)
         _identity(self.split_fingerprint)
         object.__setattr__(self, 'partition_start_ns', _time_scalar(self.partition_start_ns))
@@ -503,6 +517,55 @@ class TrainingSlice:
             object.__setattr__(self, vn, values)
             object.__setattr__(self, mn, mask)
 
+        available = self.raw_availability_ns
+        if available is None:
+            if spec.availability_mode == 'operational' or self.context.availability_ns is not None:
+                raise ValueError('Canonical raw training availability is required')
+        else:
+            available = _times(available, ndim=2)
+            if (available.shape != self.raw_features.shape
+                    or (available[self.raw_feature_mask] < np.broadcast_to(ends[:, None], available.shape)[self.raw_feature_mask]).any()
+                    or (available[self.raw_feature_mask] > self.partition_end_ns).any()):
+                raise ValueError('Raw training availability contradicts eligible support')
+            object.__setattr__(self, 'raw_availability_ns', available)
+
+        # The coverage checks above guarantee these coordinates exist exactly.
+        context_rows = np.searchsorted(starts, self.context.starts_ns)
+        target_rows = np.searchsorted(starts, self.targets.grid.starts_ns)
+        context_mask = self.raw_feature_mask[context_rows]
+        if available is not None:
+            context_available = available[context_rows]
+            if (self.context.availability_ns is None
+                    or not np.array_equal(self.context.availability_ns, context_available)):
+                raise ValueError('Context availability contradicts canonical raw training support')
+            context_mask = context_mask & (context_available <= self.context.issue_times_ns[:, None, None])
+        for window, raw_values, rows, mask in (
+                (self.context, self.raw_features, context_rows, context_mask),
+                (self.targets, self.raw_targets, target_rows, self.raw_target_mask[target_rows])):
+            if not np.array_equal(window.mask, mask):
+                raise ValueError('Training window mask contradicts canonical raw training support')
+            expected = np.where(mask, raw_values[rows], np.nan)
+            if not np.array_equal(window.values, expected, equal_nan=True):
+                raise ValueError('Training window values contradict canonical raw training support')
+
     @property
     def spec(self):
         return self.context.spec
+
+    @property
+    def fingerprint(self):
+        """Observed effective training content, independent of declared labels.
+
+        Windows are determined by validated canonical support and retained
+        origins. Full-dataset/split labels are excluded so future-only changes
+        do not change the identity of identical effective fitting information.
+        """
+        return fingerprint_payload(dict(schema_version=1, spec_fingerprint=self.spec.fingerprint,
+            partition_name=self.partition_name, partition_start_ns=self.partition_start_ns,
+            partition_end_ns=self.partition_end_ns, origin_ids=self.context.origin_ids,
+            issue_times_ns=logical_array(self.context.issue_times_ns),
+            **{name: logical_array(getattr(self, name)) for name in
+               ('raw_starts_ns', 'raw_ends_ns', 'raw_features', 'raw_feature_mask',
+                'raw_targets', 'raw_target_mask')},
+            raw_availability_ns=None if self.raw_availability_ns is None
+                else logical_array(self.raw_availability_ns)))

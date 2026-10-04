@@ -33,22 +33,24 @@ def fixture(values=None, mask=None, predictions=None, raw=None, raw_mask=None,
     predictions = np.asarray(predictions if predictions is not None
                              else [[[1.], [1.]], [[5.], [3.]]])
     prediction = ForecastPrediction(predictions, grid, 'toy')
-    train_issues = np.array([SECOND], np.int64)
-    context = ForecastContext(np.ones((1,1,k)), np.ones((1,1,k), bool),
-                              np.array([[0]], np.int64), np.array([[SECOND]], np.int64),
-                              train_issues, ('train-origin',), spec, 'synthetic-dataset',
-                              np.full((1,1,k), SECOND, np.int64))
+    # MASE needs unique raw training pairs, not invented supervised observations.
+    train_issues = np.empty(0, np.int64)
+    context = ForecastContext(np.empty((0,1,k)), np.empty((0,1,k), bool),
+                              np.empty((0,1), np.int64), np.empty((0,1), np.int64),
+                              train_issues, (), spec, 'synthetic-dataset',
+                              np.empty((0,1,k), np.int64))
     train_starts = train_issues[:,None]+np.arange(h,dtype=np.int64)[None]*SECOND
     train_grid = FutureGrid(train_starts, train_starts+SECOND, train_issues,
-                            ('train-origin',), spec, 'synthetic-dataset')
-    train_targets = ForecastTargets(np.ones((1,h,k)), np.ones((1,h,k), bool), train_grid)
+                            (), spec, 'synthetic-dataset')
+    train_targets = ForecastTargets(np.empty((0,h,k)), np.empty((0,h,k), bool), train_grid)
     raw = np.asarray(raw if raw is not None else np.tile([[0.],[2.],[6.],[8.]], (1,k)))
     raw_starts = np.asarray(raw_starts if raw_starts is not None
                             else np.arange(len(raw))*SECOND, np.int64)
     training = TrainingSlice(context, train_targets, raw_starts, raw_starts+SECOND,
                              raw, np.ones_like(raw,bool), raw,
                              np.ones_like(raw,bool) if raw_mask is None else raw_mask,
-                             0, max(int(raw_starts[-1]+SECOND), (h+1)*SECOND), 'split')
+                             0, max(int(raw_starts[-1]+SECOND), (h+1)*SECOND), 'split',
+                             raw_availability_ns=np.broadcast_to(raw_starts[:,None]+SECOND, raw.shape))
     return targets, prediction, training
 
 
@@ -106,8 +108,7 @@ def test_common_mask_is_preserved_and_nonfinite_predictions_are_failures():
 
 
 def test_training_scale_uses_only_valid_adjacent_unique_observations_without_gaps():
-    # The gap is outside the nominal training window [0,3), whose coverage is
-    # complete. Raw pairs remain exactly 0->2 and 100->104.
+    # Raw pairs remain exactly 0->2 and 100->104, independent of windows.
     args = fixture(raw=[[0.],[2.],[999.],[100.],[104.],[999.],[106.]],
                    raw_mask=np.array([[True],[True],[False],[True],[True],[False],[True]]),
                    raw_starts=np.array([0,1,2,4,5,6,7])*SECOND)

@@ -156,7 +156,8 @@ def test_training_slice_rejects_nontraining_role_and_outside_raw_support():
                   raw_ends_ns=data.ends_ns[:4], raw_features=data.features[:4],
                   raw_feature_mask=data.feature_mask[:4], raw_targets=data.targets[:4],
                   raw_target_mask=data.target_mask[:4], partition_start_ns=0,
-                  partition_end_ns=4*MINUTE, split_fingerprint='split')
+                  partition_end_ns=4*MINUTE, split_fingerprint='split',
+                  raw_availability_ns=data.availability_ns[:4])
     train = TrainingSlice(**kwargs)
     assert len(train.raw_targets) == 4
     with pytest.raises(ValueError, match='train'):

@@ -65,6 +65,30 @@ def test_deterministic_semantic_reruns_have_distinct_execution_ids(tmp_path):
     assert first['deferred']['arch_garch'] == 'deferred_pending_residual_diagnostics'
 
 
+def test_semantic_experiment_ids_and_models_record_effective_training_identity(tmp_path):
+    from solar_flare_jepa.experiments.fixtures import synthetic_fixture
+    from solar_flare_jepa.experiments.config import utc_ns
+    from solar_flare_jepa.forecasting.contracts import ForecastSpec, fingerprint_payload
+    from solar_flare_jepa.forecasting.splitting import TemporalPartition
+    from solar_flare_jepa.forecasting.windows import build_partition_windows
+    cfg = prototype()
+    root, path = repository(tmp_path, cfg)
+    output = runner().run_experiment(path, root)
+    result = json.loads((output / 'result.json').read_text())
+    assert isinstance(result['fingerprints'].get('training'), str)
+    boundary = cfg['splits'][0]
+    train = build_partition_windows(synthetic_fixture(cfg), ForecastSpec(**cfg['forecast']),
+        TemporalPartition('train', utc_ns(boundary['start_utc']), utc_ns(boundary['end_utc']))).training_slice
+    assert result['fingerprints']['training'] == train.fingerprint
+    for record in json.loads((output / 'model_parameters.json').read_text()):
+        assert record['parameters']['training_fingerprint'] == train.fingerprint
+    for experiment in result['experiment_ids']:
+        payload = dict(**result['fingerprints'], seed=experiment['seed'])
+        assert experiment['fingerprint'] == fingerprint_payload(payload)
+        payload['training'] = 'changed-effective-training-data'
+        assert experiment['fingerprint'] != fingerprint_payload(payload)
+
+
 def test_full_window_fit_prediction_chain_is_invariant_to_huge_future_changes():
     module=runner()
     from solar_flare_jepa.experiments.fixtures import synthetic_fixture

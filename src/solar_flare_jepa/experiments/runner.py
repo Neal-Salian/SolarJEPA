@@ -91,7 +91,8 @@ def run_experiment(config_path, root, *, output_dir=None):
     training = windows['train'].training_slice
     manifests = dict(schema_version=1, partitions=[windows[p.name].manifest() for p in partitions])
     identities = dict(config=config_fingerprint(config), dataset=dataset_fingerprint(dataset),
-                      split=split_fingerprint(manifests), source=provenance['source']['fingerprint'])
+                      split=split_fingerprint(manifests), source=provenance['source']['fingerprint'],
+                      training=training.fingerprint)
     experiment_ids = [dict(seed=seed, fingerprint=fingerprint_payload(dict(**identities, seed=seed)))
                       for seed in config['seeds']]
     parameters, predictions, metrics, failures = [], [], [], []

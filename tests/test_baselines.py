@@ -25,11 +25,11 @@ def spec(**changes):
     return ForecastSpec(**(defaults | changes))
 
 
-def context_grid(values, s=None, *, issue=20, mask=None, identity='dataset'):
+def context_grid(values, s=None, *, issue=20, issue_step=1, mask=None, identity='dataset'):
     s = s or spec()
     values = np.asarray(values, float).reshape(-1, s.context_steps, len(s.feature_names))
     n = len(values)
-    issues = (issue + np.arange(n, dtype=np.int64)) * SECOND
+    issues = (issue + np.arange(n, dtype=np.int64) * issue_step) * SECOND
     starts = issues[:, None] + np.arange(-s.context_steps, 0, dtype=np.int64) * SECOND
     ends = starts + SECOND
     context = ForecastContext(values, np.ones_like(values, bool) if mask is None else mask,
@@ -44,24 +44,50 @@ def training(raw=(1, 2, 3, 4, 5, 6, 7), s=None, *, windows=None, future=None,
              raw_mask=None, raw_times=None, window_mask=None, target_mask=None):
     s = s or spec()
     raw = np.asarray(raw, float).reshape(-1, len(s.target_names))
-    if windows is None:
-        windows = raw[:s.context_steps].reshape(1, s.context_steps, -1)
-    context, grid = context_grid(windows, s, issue=s.context_steps, mask=window_mask)
-    if future is None:
-        future = raw[s.context_steps:s.context_steps+s.horizon_steps][None]
-    future = np.asarray(future, float).reshape(len(context.origin_ids), s.horizon_steps, len(s.target_names))
-    targets = ForecastTargets(future, np.ones_like(future, bool) if target_mask is None else target_mask, grid)
-    times = np.arange(len(raw), dtype=np.int64) if raw_times is None else np.asarray(raw_times, np.int64)
-    starts = times * SECOND
     raw_features = np.zeros((len(raw), len(s.feature_names)))
     for i, name in enumerate(s.feature_names):
         if name in s.target_names:
             raw_features[:, i] = raw[:, s.target_names.index(name)]
+    raw_mask = np.ones_like(raw, bool) if raw_mask is None else raw_mask
+    if windows is None:
+        windows = raw_features[:s.context_steps].reshape(1, s.context_steps, -1)
+    context, grid = context_grid(windows, s, issue=s.context_steps, mask=window_mask)
+    if future is None:
+        future = raw[s.context_steps:s.context_steps+s.horizon_steps][None]
+    future = np.asarray(future, float).reshape(len(context.origin_ids), s.horizon_steps, len(s.target_names))
+    times = np.arange(len(raw), dtype=np.int64) if raw_times is None else np.asarray(raw_times, np.int64)
+    starts = times * SECOND
+    if target_mask is None:
+        target_mask = raw_mask[np.searchsorted(starts, grid.starts_ns)]
+    targets = ForecastTargets(np.where(target_mask, future, np.nan), target_mask, grid)
     return TrainingSlice(context, targets, starts, starts+SECOND, raw_features,
-                         np.ones_like(raw_features, bool), raw,
-                         np.ones_like(raw, bool) if raw_mask is None else raw_mask,
+                         np.ones_like(raw_features, bool), raw, raw_mask,
                          0, max(int(times[-1])+1, s.context_steps+s.horizon_steps+len(context.origin_ids))*SECOND,
-                         'split')
+                         'split', raw_availability_ns=np.broadcast_to(starts[:, None]+SECOND, raw_features.shape))
+
+
+def ridge_training(windows, future, s=None, *, window_mask=None, target_mask=None):
+    """Independent literal rows with disjoint support, backed by one raw grid.
+
+    Separate context+target blocks avoid fabricating conflicting overlapping
+    observations when testing prescribed multi-lead linear maps.
+    """
+    s = s or spec()
+    windows, future = np.asarray(windows, float), np.asarray(future, float)
+    wm = np.ones_like(windows, bool) if window_mask is None else window_mask
+    tm = np.ones_like(future, bool) if target_mask is None else target_mask
+    context, grid = context_grid(np.where(wm, windows, np.nan), s,
+        issue=s.context_steps, issue_step=s.context_steps+s.horizon_steps, mask=wm)
+    size = len(windows) * (s.context_steps+s.horizon_steps)
+    starts = np.arange(size, dtype=np.int64) * SECOND
+    features, targets = np.ones((size, len(s.feature_names))), np.ones((size, len(s.target_names)))
+    fm, raw_tm = np.ones_like(features, bool), np.ones_like(targets, bool)
+    cr, tr = context.starts_ns // SECOND, grid.starts_ns // SECOND
+    features[cr], fm[cr] = np.where(wm, windows, np.nan), wm
+    targets[tr], raw_tm[tr] = np.where(tm, future, np.nan), tm
+    return TrainingSlice(context, ForecastTargets(np.where(tm, future, np.nan), tm, grid),
+        starts, starts+SECOND, features, fm, targets, raw_tm, 0, size*SECOND, 'split',
+        raw_availability_ns=starts[:, None]+SECOND)
 
 
 @pytest.mark.parametrize('name,parameters,context,want', [
@@ -114,7 +140,7 @@ def test_ar_pairs_never_bridge_masked_rows_or_time_gaps():
 
 
 def test_direct_ridge_recovers_two_lead_linear_map_with_intercept():
-    train = training(windows=[[[0], [0], [0]], [[0], [0], [1]], [[0], [0], [2]]],
+    train = ridge_training(windows=[[[0], [0], [0]], [[0], [0], [1]], [[0], [0], [2]]],
                      future=[[[1], [2]], [[3], [5]], [[5], [8]]])
     ctx, grid = context_grid([100, 100, 4])
     prediction = baseline('direct_ridge', lag_steps=1, alpha=0).fit(train).predict(ctx, grid)
@@ -122,7 +148,7 @@ def test_direct_ridge_recovers_two_lead_linear_map_with_intercept():
 
 
 def test_ridge_regularizes_slopes_but_not_intercept():
-    train = training(windows=[[[0], [0], [0]], [[0], [0], [1]], [[0], [0], [2]]],
+    train = ridge_training(windows=[[[0], [0], [0]], [[0], [0], [1]], [[0], [0], [2]]],
                      future=[[[1], [2]], [[3], [5]], [[5], [8]]])
     ctx, grid = context_grid([0, 0, 4])
     np.testing.assert_allclose(baseline('direct_ridge', lag_steps=1, alpha=2).fit(train).predict(ctx, grid).values,
@@ -266,7 +292,7 @@ def test_insufficient_training_fit_samples_fail_clearly():
     for name in ('training_mean', 'ar1'):
         with pytest.raises(ValueError, match='valid|sample|pair'):
             baseline(name).fit(train)
-    train = training(target_mask=np.zeros((1, 2, 1), bool))
+    train = training(raw_mask=np.zeros((7, 1), bool))
     with pytest.raises(ValueError, match='valid|sample|window'):
         baseline('direct_ridge', lag_steps=1, alpha=1).fit(train)
 
@@ -279,8 +305,7 @@ def test_ridge_fit_uses_only_complete_declared_lags_and_full_targets():
     future = [[[1], [2]], [[3], [5]], [[5], [8]], [[1e200], [np.nan]]]
     wm = np.array([[[0], [0], [1]], [[0], [0], [1]], [[0], [0], [1]], [[1], [1], [1]]], bool)
     tm = np.array([[[1], [1]], [[1], [1]], [[1], [1]], [[1], [0]]], bool)
-    # Four origins require raw coordinate coverage through tick 7.
-    train = training(raw=[1,2,3,4,5,6,7,8], windows=windows, future=future, window_mask=wm, target_mask=tm)
+    train = ridge_training(windows=windows, future=future, window_mask=wm, target_mask=tm)
     ctx, grid = context_grid([np.nan, np.nan, 4], mask=np.array([[[0], [0], [1]]], bool))
     model = baseline('direct_ridge', lag_steps=1, alpha=0).fit(train)
     np.testing.assert_allclose(model.predict(ctx, grid).values, [[[9], [14]]], atol=1e-12)
@@ -299,7 +324,7 @@ def test_training_fits_are_in_fixed_dimensioned_log_space(name, want):
 
 def test_ridge_transforms_features_and_targets_with_their_own_references():
     s = spec(transform='log10', feature_reference=(100,), target_reference=(10,))
-    train = training([10, 100, 1000, 10000, 100000, 1000000, 10000000], s,
+    train = ridge_training(s=s,
                      windows=[[[10], [10], [100]], [[10], [10], [1000]], [[10], [10], [10000]]],
                      future=[[[10], [100]], [[100], [10000]], [[1000], [1000000]]])
     ctx, grid = context_grid([10, 10, 100000], s)
