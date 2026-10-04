@@ -1,5 +1,16 @@
 # P1 implementation checkpoint
 
+**Later checkpoint, 2026-10-04:** this historical report describes the original
+implementation. The [independent integration audit](P1_INTEGRATION_READINESS_AUDIT.md)
+returned NOT_READY_FOR_INTEGRATION at `11b72bb` because public TrainingSlice
+windows could contradict raw support. The [focused remediation](P1_TRAININGSLICE_REMEDIATION.md)
+at final code commit `8ba57aa58242facf7614e805695fe9e71406ea3c` validates canonical
+values, masks and dependency availability, revalidates every baseline's fitting
+snapshot, and records computed training fingerprints. Verification is now
+294 targeted / 460 full tests, with the existing dependency warning preserved.
+The original results and conclusions below remain historical evidence; a fresh
+integration-readiness audit is required. Phase E remains blocked.
+
 Recorded: **2026-10-04, Asia/Kolkata**. **Technically ready for user review**
 within the approved infrastructure scope. **Phase E: BLOCKED_FOR_PHASE_E.**
 No integration, next phase, acquisition, SoLEXS interpretation or neural training

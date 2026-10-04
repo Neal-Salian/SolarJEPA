@@ -8,14 +8,19 @@ The [P1 audit](P1_REPOSITORY_AUDIT.md),
 [Paperclip reconnaissance](P1_LITERATURE_RECONNAISSANCE.md), and
 [proposed design](P1_PROPOSED_DESIGN.md) are a research/design checkpoint;
 approved P1 infrastructure is now implemented on the separate published
-`feat/p1-experiment-evaluation-foundation` branch from `805f1c3`. Primary
-verification: **240 new tests / 406 total tests passed**, one existing dependency
-warning, installed CLI smokes and deterministic synthetic/pinned-GOES reruns,
-109 starting artifact/config/skill identities unchanged. Fresh scientific and
-reproducibility reviews passed after regression-backed fixes. See the
-[P1 implementation checkpoint](P1_IMPLEMENTATION_REPORT.md). P1 is technically
-ready for user review; no integration or next-phase work is authorized. Main
-and the research branch remain unchanged. The Paperclip pointer remains untracked.
+`feat/p1-experiment-evaluation-foundation` branch from `805f1c3`. The preserved
+[integration audit](P1_INTEGRATION_READINESS_AUDIT.md) returned
+**NOT_READY_FOR_INTEGRATION** at `11b72bb`: window values/masks could contradict
+canonical raw TrainingSlice support. Focused [remediation](P1_TRAININGSLICE_REMEDIATION.md)
+at final code commit `8ba57aa58242facf7614e805695fe9e71406ea3c` now validates this
+relationship and records effective training identities. Verification:
+**294 P1 targeted / 460 total tests passed**, one existing dependency warning,
+installed imports/CLI and deterministic synthetic/pinned-GOES acceptance pairs,
+109 starting artifact/config/skill identities unchanged. The historical
+[P1 implementation checkpoint](P1_IMPLEMENTATION_REPORT.md) remains preserved.
+The next step is a fresh integration-readiness audit; no integration or
+next-phase work is authorized. Main and the research branch remain unchanged.
+The Paperclip pointer remains untracked.
 
 **Phase E remains BLOCKED_FOR_PHASE_E pending authoritative SoLEXS evidence.**
 The official request is user-reported as sent; no reply is available. P1
@@ -152,7 +157,8 @@ not evidence of corrupted telemetry.
 
 **NEXT 3 TASKS — current scientific decisions and separately gated future work**
 
-Immediate checkpoint action: user review of P1 on its preserved feature branch.
+Immediate checkpoint action: fresh integration-readiness audit of corrected P1
+on its preserved feature branch.
 Integration requires explicit authorization. The following scientific work
 remains separately gated; P1 does not resolve its evidence requirements.
 

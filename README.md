@@ -8,10 +8,12 @@ additional validated components.
 
 **Status (2026-10-04): Phase D.1 remains merged on synchronized main
 `1a4991d`. Approved P1 experiment/evaluation infrastructure is implemented on
-`feat/p1-experiment-evaluation-foundation`, with 240 new tests and 406 total tests
-passing. The frozen research checkpoint `805f1c3` is preserved on
-`research/experiment-evaluation-foundation`. P1 awaits user review and separate
-integration approval. The original official
+`feat/p1-experiment-evaluation-foundation`. A failed integration audit found a
+TrainingSlice consistency defect; focused remediation now has 294 P1 targeted
+tests and 460 total tests passing, with the existing dependency warning retained.
+The frozen research checkpoint `805f1c3` is preserved on
+`research/experiment-evaluation-foundation`. P1 requires a fresh integration
+audit before human integration review. The original official
 Tools-1.1 bundle is verified; its compatibility with pipeline-1.1 samples remains
 unresolved.
 Historical acquisition remains BLOCKED by clock/bin/GTI/exposure policy and
@@ -19,6 +21,8 @@ approved correction/HK/response compatibility.** The July 1/3, 2024
 L1 v1.1 products remain native validation samples; July 2 availability is UNKNOWN.
 No final Aditya dataset or SolarJEPA model exists. NOAA GOES remains external reference data.
 See the [P1 implementation checkpoint](docs/P1_IMPLEMENTATION_REPORT.md).
+See the preserved [failed integration audit](docs/P1_INTEGRATION_READINESS_AUDIT.md)
+and [TrainingSlice remediation](docs/P1_TRAININGSLICE_REMEDIATION.md).
 See the [P1 starting-state audit](docs/P1_REPOSITORY_AUDIT.md),
 [Paperclip literature reconnaissance](docs/P1_LITERATURE_RECONNAISSANCE.md), and
 [proposed P1 design](docs/P1_PROPOSED_DESIGN.md).
