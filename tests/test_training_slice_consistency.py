@@ -1,12 +1,14 @@
 """Adversarial raw/window consistency and effective fitting identity regressions."""
 from copy import deepcopy
-from dataclasses import replace
+from dataclasses import fields, replace
 
 import numpy as np
 import pytest
 
 from solar_flare_jepa.forecasting.baselines import make_baseline
-from solar_flare_jepa.forecasting.contracts import ForecastSpec, TimeSeriesDataset
+from solar_flare_jepa.forecasting.contracts import (
+    ForecastContext, ForecastSpec, ForecastTargets, FutureGrid, TimeSeriesDataset, TrainingSlice,
+)
 from solar_flare_jepa.forecasting.splitting import TemporalPartition
 from solar_flare_jepa.forecasting.windows import build_partition_windows
 
@@ -14,6 +16,10 @@ NS = 1_000_000_000
 MODELS = [('persistence', {}), ('training_mean', {}),
           ('trailing_mean', {'lookback_steps': 2}), ('drift', {'lookback_steps': 2}),
           ('ar1', {}), ('direct_ridge', {'lag_steps': 1, 'alpha': .1})]
+
+
+def declared_fields(value, contract):
+    return {field.name: getattr(value, field.name) for field in fields(contract)}
 
 
 def dataset():
@@ -189,6 +195,71 @@ def test_every_fit_revalidates_copied_training_before_consumption(name, paramete
         copied.targets.values[0, 0, 0] = np.nan
     with pytest.raises(ValueError, match='raw|canonical|consistent'):
         make_baseline(name, parameters).fit(copied)
+
+
+@pytest.mark.parametrize('name,parameters', MODELS)
+def test_every_fit_uses_canonical_validator_even_for_training_subclasses(name, parameters):
+    class CustomTraining(TrainingSlice):
+        def __post_init__(self):
+            pass  # A custom hook must not disable the common fitting boundary.
+
+    train = training()
+    arguments = declared_fields(train, TrainingSlice)
+    arguments['context'] = replace(train.context, values=train.context.values + 1000.)
+    corrupt = CustomTraining(**arguments)
+    assert corrupt.fingerprint == train.fingerprint
+    with pytest.raises(ValueError, match='raw|canonical|consistent'):
+        make_baseline(name, parameters).fit(corrupt)
+
+
+def test_nested_subclass_hooks_cannot_bypass_origin_grid_validation():
+    class CustomContext(ForecastContext):
+        def __post_init__(self):
+            pass
+
+    class CustomGrid(FutureGrid):
+        def __post_init__(self):
+            pass
+
+    train = training()
+    context = CustomContext(**(declared_fields(train.context, ForecastContext) |
+                              {'issue_times_ns': train.context.issue_times_ns + NS}))
+    grid = CustomGrid(**(declared_fields(train.targets.grid, FutureGrid) |
+                         {'issue_times_ns': train.targets.grid.issue_times_ns + NS}))
+    with pytest.raises(ValueError, match='grid|past|issue'):
+        replace(train, context=context, targets=replace(train.targets, grid=grid))
+
+
+@pytest.mark.parametrize('part', ['context', 'targets'])
+def test_nested_subclass_hooks_cannot_bypass_boolean_mask_validation(part):
+    contract = ForecastContext if part == 'context' else ForecastTargets
+
+    class CustomWindow(contract):
+        def __post_init__(self):
+            pass
+
+    train = training()
+    window = getattr(train, part)
+    corrupt = CustomWindow(**(declared_fields(window, contract) |
+                              {'mask': window.mask.astype(np.int64)}))
+    with pytest.raises(ValueError, match='boolean'):
+        replace(train, **{part: corrupt})
+
+
+def test_spec_subclass_cannot_change_declared_fixed_transform_at_fit():
+    class CustomSpec(ForecastSpec):
+        def transform_features(self, values):
+            return super().transform_features(values) + 1000.
+
+    train = training()
+    spec = CustomSpec(**declared_fields(train.spec, ForecastSpec))
+    extended = replace(train, context=replace(train.context, spec=spec),
+                       targets=replace(train.targets, grid=replace(train.targets.grid, spec=spec)))
+    models = [make_baseline('direct_ridge', {'lag_steps': 1, 'alpha': .1}).fit(t)
+              for t in (train, extended)]
+    # Fixed transform semantics come from canonical declared fields, not hooks
+    # outside the recorded package source/spec identity.
+    assert models[0].parameters == models[1].parameters
 
 
 @pytest.mark.parametrize('name,parameters,want', [

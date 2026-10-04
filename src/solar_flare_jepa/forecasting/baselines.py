@@ -6,7 +6,7 @@ Masked prediction support is never turned into model-specific origin dropping.
 """
 from copy import deepcopy
 from collections.abc import Mapping
-from dataclasses import replace
+from dataclasses import fields
 
 import numpy as np
 
@@ -60,7 +60,8 @@ class _Baseline:
         self._spec = None
         # Fit and record identity from the same validated immutable snapshot,
         # including reconstructed nested windows; no model-specific bypass.
-        training = replace(training)
+        training = TrainingSlice(**{field.name: getattr(training, field.name)
+                                    for field in fields(TrainingSlice)})
         spec = training.spec
         steps = getattr(self, 'lookback_steps', getattr(self, 'lag_steps', None))
         if steps is not None and steps > spec.context_steps:

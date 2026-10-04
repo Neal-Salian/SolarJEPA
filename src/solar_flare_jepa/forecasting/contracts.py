@@ -3,7 +3,7 @@
 Intervals are half-open. Values are in declared native units; transforms are
 fixed, dimensioned operations applied by a forecaster, never fitted here.
 """
-from dataclasses import asdict, dataclass, replace
+from dataclasses import asdict, dataclass, fields
 import hashlib
 import json
 
@@ -470,10 +470,22 @@ class TrainingSlice:
             raise ValueError('Fitting accepts a train partition only')
         if not isinstance(self.context, ForecastContext) or not isinstance(self.targets, ForecastTargets):
             raise ValueError('Training windows require ForecastContext and ForecastTargets')
-        # Reconstruct nested contracts too: deepcopy/pickle may restore writable
-        # buffers without calling their validators. No values are corrected.
-        object.__setattr__(self, 'context', replace(self.context))
-        object.__setattr__(self, 'targets', replace(self.targets, grid=replace(self.targets.grid)))
+        if (not isinstance(self.context.spec, ForecastSpec)
+                or not isinstance(self.targets.grid, FutureGrid)
+                or not isinstance(self.targets.grid.spec, ForecastSpec)):
+            raise ValueError('Training windows require explicit forecast specs and a future grid')
+        # Use canonical constructors, not dynamically dispatched subclass hooks.
+        # Copied buffers and declarative specs receive the same fixed semantics
+        # and validators as builder output; no window values are corrected.
+        context = {field.name: getattr(self.context, field.name) for field in fields(ForecastContext)}
+        context['spec'] = ForecastSpec(**{field.name: getattr(self.context.spec, field.name)
+                                         for field in fields(ForecastSpec)})
+        grid = {field.name: getattr(self.targets.grid, field.name) for field in fields(FutureGrid)}
+        grid['spec'] = ForecastSpec(**{field.name: getattr(self.targets.grid.spec, field.name)
+                                      for field in fields(ForecastSpec)})
+        object.__setattr__(self, 'context', ForecastContext(**context))
+        object.__setattr__(self, 'targets', ForecastTargets(self.targets.values, self.targets.mask,
+                                                          FutureGrid(**grid)))
         validate_alignment(self.context, self.targets.grid)
         _identity(self.split_fingerprint)
         object.__setattr__(self, 'partition_start_ns', _time_scalar(self.partition_start_ns))
