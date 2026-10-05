@@ -20,6 +20,24 @@ def fingerprint_payload(value) -> str:
     return hashlib.sha256(canonical_json(value).encode('utf-8')).hexdigest()
 
 
+def _canonical_fields(value, contract):
+    """Read base declarations with primitive string semantics, without subtype hooks.
+
+    Nested contracts are reconstructed explicitly by their caller. Their array
+    fields are copied and validated by the exact base constructors, not here.
+    """
+    def primitive(item):
+        if isinstance(item, str):
+            return str.__str__(item)
+        if isinstance(item, tuple):
+            return tuple(primitive(part) for part in item)
+        if isinstance(item, list):
+            return [primitive(part) for part in item]
+        return item
+
+    return {field.name: primitive(getattr(value, field.name)) for field in fields(contract)}
+
+
 def logical_array(value):
     """JSON content with explicit nulls for masked NaNs, never nonfinite JSON."""
     array = np.asarray(value)
@@ -477,12 +495,10 @@ class TrainingSlice:
         # Use canonical constructors, not dynamically dispatched subclass hooks.
         # Copied buffers and declarative specs receive the same fixed semantics
         # and validators as builder output; no window values are corrected.
-        context = {field.name: getattr(self.context, field.name) for field in fields(ForecastContext)}
-        context['spec'] = ForecastSpec(**{field.name: getattr(self.context.spec, field.name)
-                                         for field in fields(ForecastSpec)})
-        grid = {field.name: getattr(self.targets.grid, field.name) for field in fields(FutureGrid)}
-        grid['spec'] = ForecastSpec(**{field.name: getattr(self.targets.grid.spec, field.name)
-                                      for field in fields(ForecastSpec)})
+        context = _canonical_fields(self.context, ForecastContext)
+        context['spec'] = ForecastSpec(**_canonical_fields(self.context.spec, ForecastSpec))
+        grid = _canonical_fields(self.targets.grid, FutureGrid)
+        grid['spec'] = ForecastSpec(**_canonical_fields(self.targets.grid.spec, ForecastSpec))
         object.__setattr__(self, 'context', ForecastContext(**context))
         object.__setattr__(self, 'targets', ForecastTargets(self.targets.values, self.targets.mask,
                                                           FutureGrid(**grid)))

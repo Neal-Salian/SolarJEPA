@@ -6,13 +6,12 @@ Masked prediction support is never turned into model-specific origin dropping.
 """
 from copy import deepcopy
 from collections.abc import Mapping
-from dataclasses import fields
 
 import numpy as np
 
 from .contracts import (
-    ForecastContext, ForecastPrediction, FutureGrid, TrainingSlice,
-    validate_alignment,
+    ForecastContext, ForecastPrediction, ForecastSpec, FutureGrid, TrainingSlice,
+    _canonical_fields, validate_alignment,
 )
 
 
@@ -60,8 +59,7 @@ class _Baseline:
         self._spec = None
         # Fit and record identity from the same validated immutable snapshot,
         # including reconstructed nested windows; no model-specific bypass.
-        training = TrainingSlice(**{field.name: getattr(training, field.name)
-                                    for field in fields(TrainingSlice)})
+        training = TrainingSlice(**_canonical_fields(training, TrainingSlice))
         spec = training.spec
         steps = getattr(self, 'lookback_steps', getattr(self, 'lag_steps', None))
         if steps is not None and steps > spec.context_steps:
@@ -104,6 +102,19 @@ class _Baseline:
             raise ValueError('Model must be successfully fitted before prediction')
         if not isinstance(context, ForecastContext) or not isinstance(future_grid, FutureGrid):
             raise ValueError('predict requires ForecastContext and FutureGrid')
+        if (not isinstance(context.spec, ForecastSpec)
+                or not isinstance(future_grid.spec, ForecastSpec)):
+            raise ValueError('Prediction inputs require explicit forecast specs')
+        # Copies, deserialization and subclasses need not preserve constructor
+        # invariants. Validate and consume the same detached exact-base snapshot.
+        # Reconstruct each declared spec independently; do not substitute the fit
+        # spec, repair future support or invoke caller-supplied subtype methods.
+        context_fields = _canonical_fields(context, ForecastContext)
+        context_fields['spec'] = ForecastSpec(**_canonical_fields(context.spec, ForecastSpec))
+        grid_fields = _canonical_fields(future_grid, FutureGrid)
+        grid_fields['spec'] = ForecastSpec(**_canonical_fields(future_grid.spec, ForecastSpec))
+        context = ForecastContext(**context_fields)
+        future_grid = FutureGrid(**grid_fields)
         validate_alignment(context, future_grid)
         if (context.dataset_fingerprint != self._dataset_fingerprint
                 or context.spec.fingerprint != self._spec.fingerprint):
