@@ -327,7 +327,8 @@ def make_baseline(name, parameters):
     if not isinstance(parameters, Mapping):
         raise ValueError('Baseline parameters must be a mapping')
     try:
-        parameters = _canonical_strings(dict(parameters))
+        parameters = _canonical_strings(parameters if isinstance(parameters, dict)
+                                        else dict(parameters))
         return _BASELINES[name](**parameters)
     except TypeError as error:
         raise ValueError(f'Invalid parameters for baseline {name!r}: {error}') from error

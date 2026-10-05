@@ -103,6 +103,14 @@ class SelfCopyDict(dict):
         return self
 
 
+class RedirectingParameterDict(dict):
+    def __iter__(self):
+        return dict.__iter__(self)
+
+    def __getitem__(self, key):
+        return dict.__getitem__(self, {'alpha': 'lag_steps', 'lag_steps': 'alpha'}.get(key, key))
+
+
 class NumericFieldKey(int):
     """A JSON number whose mapping lookup impersonates a declared field."""
     def __new__(cls, meaning):
@@ -584,6 +592,22 @@ def test_factory_retains_supported_readonly_mapping_parameters(name, parameters)
     _, train, test = fixture()
     model = make_baseline(name, MappingProxyType(parameters)).fit(train)
     canonical = make_baseline(name, parameters).fit(train)
+    assert model.parameters == canonical.parameters
+    np.testing.assert_array_equal(model.predict(test.context, test.targets.grid).values,
+                                  canonical.predict(test.context, test.targets.grid).values)
+
+
+@pytest.mark.parametrize('route', ['original', 'copy', 'deepcopy', 'pickle'])
+def test_factory_dict_hooks_cannot_redirect_canonical_parameter_capture(route):
+    raw = RedirectingParameterDict(lag_steps=2, alpha=1)
+    raw = {'original': lambda x: x, 'copy': copy, 'deepcopy': deepcopy,
+           'pickle': lambda x: pickle.loads(pickle.dumps(x))}[route](raw)
+    model = make_baseline('direct_ridge', raw)
+    assert model.lag_steps == 2
+    assert model.alpha == 1.
+    _, train, test = fixture()
+    model.fit(train)
+    canonical = make_baseline('direct_ridge', {'lag_steps': 2, 'alpha': 1}).fit(train)
     assert model.parameters == canonical.parameters
     np.testing.assert_array_equal(model.predict(test.context, test.targets.grid).values,
                                   canonical.predict(test.context, test.targets.grid).values)
