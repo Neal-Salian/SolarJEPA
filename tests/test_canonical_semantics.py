@@ -102,6 +102,34 @@ class SelfCopyDict(dict):
         return self
 
 
+class NumericFieldKey(int):
+    """A JSON number whose mapping lookup impersonates a declared field."""
+    def __new__(cls, meaning):
+        instance = int.__new__(cls, 0)
+        instance.meaning = meaning
+        return instance
+
+    def __eq__(self, other):
+        return other == self.meaning if isinstance(other, str) else self is other
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+    def __hash__(self):
+        return hash(self.meaning)
+
+    def __lt__(self, other):
+        return False if isinstance(other, str) else int.__lt__(self, other)
+
+    def __gt__(self, other):
+        return True if isinstance(other, str) else int.__gt__(self, other)
+
+
+class NumericPath(NumericCategory):
+    def __fspath__(self):
+        return self.actual_path
+
+
 class UncheckedSpec(ForecastSpec):
     def __post_init__(self):
         pass
@@ -468,3 +496,55 @@ def test_valid_transform_and_availability_semantics_have_different_effective_ids
     means = [make_baseline('training_mean', {}).fit(t) for t in (train, log_train)]
     assert means[0].parameters['mean'] != means[1].parameters['mean']
     assert means[0].parameters['training_fingerprint'] != means[1].parameters['training_fingerprint']
+
+
+@pytest.mark.parametrize('location', ['dataset', 'metrics'])
+@pytest.mark.parametrize('swapped', [False, True])
+@pytest.mark.parametrize('route', ['original', 'copy', 'deepcopy', 'pickle'])
+def test_numeric_field_aliases_cannot_change_consumed_config_under_same_json(location, swapped, route):
+    cfg = config()
+    if location == 'dataset':
+        for name in ('rows', 'fixture_seed'):
+            del cfg['dataset'][name]
+        first, second = ('fixture_seed', 'rows') if swapped else ('rows', 'fixture_seed')
+        cfg['dataset'][NumericFieldKey(first)] = 1200
+        cfg['dataset'][NumericFieldKey(second)] = 2400
+    else:
+        cfg['forecast']['horizon_steps'] = 2
+        first, second = ('target_weights', 'lead_weights') if swapped else ('lead_weights', 'target_weights')
+        cfg['metrics'] = {NumericFieldKey(first): [1, 0], NumericFieldKey(second): [0, 1]}
+    cfg = {'original': lambda x: x, 'copy': copy, 'deepcopy': deepcopy,
+           'pickle': lambda x: pickle.loads(pickle.dumps(x))}[route](cfg)
+    with pytest.raises(ValueError):
+        validate_config(cfg)
+    with pytest.raises(ValueError):
+        config_fingerprint(cfg)
+
+
+@pytest.mark.parametrize('field', ['manifest', 'prepared_config', 'sidecar'])
+@pytest.mark.parametrize('representation', ['numeric_path', 'object'])
+def test_pinned_goes_paths_require_actual_strings_before_equality_or_path_use(field, representation):
+    cfg = json.loads(Path('configs/experiments/p1_goes_reference.json').read_text())
+    expected = cfg['dataset'][field]
+    token = NumericPath(0, expected) if representation == 'numeric_path' else ObjectCategory(expected)
+    token.actual_path = 'configs/another_file.json'
+    cfg['dataset'][field] = token
+    with pytest.raises(ValueError):
+        validate_config(cfg)
+
+
+def test_config_mapping_keys_normalize_string_content_before_field_lookup():
+    cfg = config()
+    cfg['metrics'] = {StringCategory('lead_weights', 'target_weights'): cfg['metrics']['lead_weights'],
+                      StringCategory('target_weights', 'lead_weights'): cfg['metrics']['target_weights']}
+    resolved = validate_config(cfg)
+    assert all(type(key) is str for key in resolved['metrics'])
+    assert config_fingerprint(resolved) == config_fingerprint(config())
+
+
+def test_duplicate_primitive_config_keys_are_rejected_before_fingerprinting():
+    cfg = config()
+    cfg['metrics'] = {StringCategory('lead_weights', 'lead_weights'): [1] * 5,
+                      StringCategory('lead_weights', 'target_weights'): [1] * 2}
+    with pytest.raises(ValueError):
+        validate_config(cfg)
