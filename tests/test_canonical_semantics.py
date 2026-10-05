@@ -1,5 +1,6 @@
 """N1 regressions: declared, validated, hashed and consumed semantics agree."""
 from copy import copy, deepcopy
+from types import MappingProxyType
 from dataclasses import fields, replace
 from enum import Enum, IntEnum, StrEnum
 import json
@@ -548,3 +549,41 @@ def test_duplicate_primitive_config_keys_are_rejected_before_fingerprinting():
                       StringCategory('lead_weights', 'target_weights'): [1] * 2}
     with pytest.raises(ValueError):
         validate_config(cfg)
+
+
+@pytest.mark.parametrize('route', ['original', 'copy', 'deepcopy', 'pickle'])
+def test_factory_parameter_keys_cannot_redirect_constructor_binding(route):
+    raw = {StringCategory('lag_steps', 'alpha'): 1,
+           StringCategory('alpha', 'lag_steps'): 2}
+    raw = {'original': lambda x: x, 'copy': copy, 'deepcopy': deepcopy,
+           'pickle': lambda x: pickle.loads(pickle.dumps(x))}[route](raw)
+    model = make_baseline('direct_ridge', raw)
+    assert model.lag_steps == 1
+    assert model.alpha == 2.
+    _, train, test = fixture()
+    model.fit(train)
+    canonical = make_baseline('direct_ridge', {'lag_steps': 1, 'alpha': 2}).fit(train)
+    assert model.parameters == canonical.parameters
+    np.testing.assert_array_equal(model.predict(test.context, test.targets.grid).values,
+                                  canonical.predict(test.context, test.targets.grid).values)
+
+
+@pytest.mark.parametrize('name,field', [('trailing_mean', 'lookback_steps'),
+                                       ('drift', 'lookback_steps'), ('direct_ridge', 'lag_steps')])
+@pytest.mark.parametrize('route', ['original', 'copy', 'deepcopy', 'pickle'])
+def test_factory_unknown_primitive_parameter_name_is_not_a_valid_equality_alias(name, field, route):
+    raw = {StringCategory('UNKNOWN', field): 2}
+    raw = {'original': lambda x: x, 'copy': copy, 'deepcopy': deepcopy,
+           'pickle': lambda x: pickle.loads(pickle.dumps(x))}[route](raw)
+    with pytest.raises(ValueError):
+        make_baseline(name, raw)
+
+
+@pytest.mark.parametrize('name,parameters', MODELS)
+def test_factory_retains_supported_readonly_mapping_parameters(name, parameters):
+    _, train, test = fixture()
+    model = make_baseline(name, MappingProxyType(parameters)).fit(train)
+    canonical = make_baseline(name, parameters).fit(train)
+    assert model.parameters == canonical.parameters
+    np.testing.assert_array_equal(model.predict(test.context, test.targets.grid).values,
+                                  canonical.predict(test.context, test.targets.grid).values)
