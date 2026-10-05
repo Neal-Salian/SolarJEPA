@@ -393,3 +393,19 @@ implementation branch, with sole untracked
 results and SDD scratch paths match actual ignore rules. Main/research refs and
 historical checkpoint documents are preserved. **Stop here for user review;
 explicit approval is required before integration into main.**
+
+## 2026-10-05 addendum — causal prediction-context remediation
+
+The [fresh re-audit](P1_INTEGRATION_READINESS_REAUDIT.md) of `0f587d9` returned
+NOT_READY_FOR_INTEGRATION for R1: restored or unchecked contexts bypassed
+prediction-time issue-boundary validation. That failed report is preserved
+unchanged. The [focused remediation](P1_PREDICTION_CONTEXT_REMEDIATION.md), code
+`009547932e398edeef1bd2ede2ff3d10bc9e1862`, adds exact-base causal snapshots at
+the common prediction boundary and primitive declared-string semantics at both
+fit and predict. F1 raw/window consistency and effective identity remain intact.
+Observed verification is now **480 targeted / 646 full tests passed**, including
+186 new cases, with the existing warning retained. Installed module/CLI checks,
+synthetic/GOES pairs, artifact/corruption verification, all 109 preserved hashes
+and a fresh independent 295-probe review pass. Valid canonical forecasts are
+unchanged from the prior F1 acceptance artifacts. This is READY_FOR_P1_REAUDIT,
+requiring another integration-readiness audit; no integration or Phase E approval.

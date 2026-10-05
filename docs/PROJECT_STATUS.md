@@ -1,6 +1,6 @@
 # SolarJEPA project status — canonical tracker
 
-Current checkpoint: **2026-10-04** (Asia/Kolkata). Git fetch verifies D.1 merged
+Current checkpoint: **2026-10-05** (Asia/Kolkata). Git fetch verifies D.1 merged
 on synchronized main `1a4991da4dda9676caeb1d7e35a03408528c3188` (PR #4).
 `research/experiment-evaluation-foundation` was created and published from that
 main before milestone edits. Checkpoint `805f1c3` is frozen and unchanged.
@@ -12,13 +12,24 @@ approved P1 infrastructure is now implemented on the separate published
 [integration audit](P1_INTEGRATION_READINESS_AUDIT.md) returned
 **NOT_READY_FOR_INTEGRATION** at `11b72bb`: window values/masks could contradict
 canonical raw TrainingSlice support. Focused [remediation](P1_TRAININGSLICE_REMEDIATION.md)
-at final code commit `8ba57aa58242facf7614e805695fe9e71406ea3c` now validates this
-relationship and records effective training identities. Verification:
-**294 P1 targeted / 460 total tests passed**, one existing dependency warning,
-installed imports/CLI and deterministic synthetic/pinned-GOES acceptance pairs,
-109 starting artifact/config/skill identities unchanged. The historical
+at code commit `8ba57aa58242facf7614e805695fe9e71406ea3c` validates this
+relationship and records effective training identities. The preserved
+[fresh re-audit](P1_INTEGRATION_READINESS_REAUDIT.md) of `0f587d9` then returned
+**NOT_READY_FOR_INTEGRATION**: R1, copied/deserialized/subclassed contexts could
+expose post-issue support to all six baseline prediction APIs. Focused
+[prediction-context remediation](P1_PREDICTION_CONTEXT_REMEDIATION.md) at
+`009547932e398edeef1bd2ede2ff3d10bc9e1862` now reconstructs and validates detached
+causal snapshots before consumption, preserving F1 protections. Verification:
+**480 P1 targeted / 646 total tests passed**, one existing dependency warning;
+185 new prediction regressions plus one runner case; all 53 TrainingSlice cases
+pass. Installed imports/CLI and all 22 module identities match outside checkout;
+synthetic/pinned-GOES acceptance pairs pass with stable-byte comparisons and
+corruption rejection; all 109 starting artifact/config/skill identities match.
+A fresh independent focused reviewer found no unaddressed BLOCKER/HIGH in 295
+adversarial probes. The historical
 [P1 implementation checkpoint](P1_IMPLEMENTATION_REPORT.md) remains preserved.
-The next step is a fresh integration-readiness audit; no integration or
+Current state: **READY_FOR_P1_REAUDIT**. The next step is another fresh
+integration-readiness audit; no integration or
 next-phase work is authorized. Main and the research branch remain unchanged.
 The Paperclip pointer remains untracked.
 

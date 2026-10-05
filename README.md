@@ -6,11 +6,15 @@ The title is provisional: JEPA is a representation-learning method, not by
 itself a generative trajectory model; physics and generation claims require
 additional validated components.
 
-**Status (2026-10-04): Phase D.1 remains merged on synchronized main
+**Status (2026-10-05): Phase D.1 remains merged on synchronized main
 `1a4991d`. Approved P1 experiment/evaluation infrastructure is implemented on
 `feat/p1-experiment-evaluation-foundation`. A failed integration audit found a
-TrainingSlice consistency defect; focused remediation now has 294 P1 targeted
-tests and 460 total tests passing, with the existing dependency warning retained.
+TrainingSlice consistency defect, corrected at `8ba57aa`. The fresh re-audit
+then found copied/subclassed prediction contexts could expose future support.
+Focused correction at `0095479` now validates causal prediction snapshots:
+480 P1 targeted and 646 total tests pass, with the existing dependency warning
+retained. Synthetic/pinned-GOES acceptance pairs and 109 preserved identities
+pass. The checkpoint is READY_FOR_P1_REAUDIT; another integration audit is required.
 The frozen research checkpoint `805f1c3` is preserved on
 `research/experiment-evaluation-foundation`. P1 requires a fresh integration
 audit before human integration review. The original official
@@ -22,7 +26,9 @@ L1 v1.1 products remain native validation samples; July 2 availability is UNKNOW
 No final Aditya dataset or SolarJEPA model exists. NOAA GOES remains external reference data.
 See the [P1 implementation checkpoint](docs/P1_IMPLEMENTATION_REPORT.md).
 See the preserved [failed integration audit](docs/P1_INTEGRATION_READINESS_AUDIT.md)
-and [TrainingSlice remediation](docs/P1_TRAININGSLICE_REMEDIATION.md).
+and [TrainingSlice remediation](docs/P1_TRAININGSLICE_REMEDIATION.md),
+the [failed fresh re-audit](docs/P1_INTEGRATION_READINESS_REAUDIT.md), and
+[prediction-context remediation](docs/P1_PREDICTION_CONTEXT_REMEDIATION.md).
 See the [P1 starting-state audit](docs/P1_REPOSITORY_AUDIT.md),
 [Paperclip literature reconnaissance](docs/P1_LITERATURE_RECONNAISSANCE.md), and
 [proposed P1 design](docs/P1_PROPOSED_DESIGN.md).
