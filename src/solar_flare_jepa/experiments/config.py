@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 
 from solar_flare_jepa.forecasting.contracts import (
-    ForecastSpec, _canonical_strings, _category, canonical_json, fingerprint_payload,
+    ForecastSpec, _canonical_strings, _category, _string, canonical_json, fingerprint_payload,
 )
 
 
@@ -86,6 +86,8 @@ def validate_config(config):
         _keys(dataset, ('kind','manifest','prepared_config','sidecar'))
         expected = dict(manifest='configs/data/noaa_sample.json', prepared_config='configs/data/noaa_eda.json',
                         sidecar='data/processed/noaa_reference.metadata.json')
+        for key in expected:
+            dataset[key] = _string(dataset[key], 'Pinned GOES path')
         if any(dataset[k] != v for k,v in expected.items()):
             raise ValueError('Only the existing pinned GOES reference is supported')
     if not isinstance(cfg['forecast'],dict):

@@ -36,7 +36,9 @@ def _canonical_strings(value):
     if isinstance(value, dict):
         result = {}
         for key, part in dict.items(value):
-            key = _canonical_strings(key)
+            if not isinstance(key, str):
+                raise ValueError('Canonical mapping keys require explicit strings')
+            key = str.__str__(key)
             if key in result:
                 raise ValueError('Duplicate canonical mapping keys')
             result[key] = _canonical_strings(part)
