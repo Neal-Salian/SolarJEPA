@@ -1,12 +1,13 @@
 """Strict, resolved P1 configurations with no implicit scientific defaults."""
-from copy import deepcopy
 import json
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
-from solar_flare_jepa.forecasting.contracts import ForecastSpec, canonical_json, fingerprint_payload
+from solar_flare_jepa.forecasting.contracts import (
+    ForecastSpec, _canonical_strings, _category, canonical_json, fingerprint_payload,
+)
 
 
 def _object(pairs):
@@ -64,16 +65,18 @@ def _weights(value, count):
 def validate_config(config):
     """Return a fully resolved finite copy; unsupported scientific inputs fail."""
     try:
-        canonical_json(config)
+        cfg = _canonical_strings(config)
+        canonical_json(cfg)
     except (TypeError,ValueError) as exc:
         raise ValueError('Configuration must be finite JSON') from exc
-    cfg = deepcopy(config)
     _keys(cfg, ('schema_version','dataset','forecast','splits','baselines','metrics','seeds'))
     if type(cfg['schema_version']) is not int or cfg['schema_version'] != 1:
         raise ValueError('Unsupported schema version')
     dataset = cfg['dataset']
-    if not isinstance(dataset,dict) or dataset.get('kind') not in ('synthetic_fixture','goes_reference'):
+    if not isinstance(dataset,dict):
         raise ValueError('Unsupported scientific input; Phase E remains BLOCKED_FOR_PHASE_E')
+    dataset['kind'] = _category(dataset.get('kind'), ('synthetic_fixture', 'goes_reference'),
+                                'scientific input; Phase E remains BLOCKED_FOR_PHASE_E')
     if dataset['kind'] == 'synthetic_fixture':
         _keys(dataset, ('kind','rows','start_utc','fixture_seed'))
         _positive_int(dataset['rows'])
@@ -107,6 +110,7 @@ def validate_config(config):
     previous = None
     for item,name in zip(cfg['splits'],names):
         _keys(item, ('name','start_utc','end_utc'))
+        item['name'] = _category(item['name'], names, 'chronological split name')
         start,end = utc_ns(item['start_utc']),utc_ns(item['end_utc'])
         if item['name'] != name or start >= end or previous is not None and start < previous:
             raise ValueError('Splits must be nonoverlapping chronological train/validation/(calibration)/test')

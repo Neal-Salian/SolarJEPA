@@ -6,7 +6,7 @@ end. Supplied event groups are definitions from callers, never derived here.
 """
 from dataclasses import asdict, dataclass
 
-from .contracts import TimeSeriesDataset, _time_scalar
+from .contracts import TimeSeriesDataset, _category, _string, _time_scalar
 
 
 @dataclass(frozen=True)
@@ -16,8 +16,8 @@ class TemporalPartition:
     end_ns: int
 
     def __post_init__(self):
-        if self.name not in ('train', 'validation', 'calibration', 'test'):
-            raise ValueError('Unsupported chronological partition name')
+        object.__setattr__(self, 'name', _category(self.name, ('train', 'validation', 'calibration', 'test'),
+                                                'chronological partition name'))
         for name in ('start_ns', 'end_ns'):
             object.__setattr__(self, name, _time_scalar(getattr(self, name)))
         if self.start_ns >= self.end_ns:
@@ -35,7 +35,8 @@ class EventGroup:
     maturity_ns: int
 
     def __post_init__(self):
-        if not isinstance(self.group_id, str) or not self.group_id.strip():
+        object.__setattr__(self, 'group_id', _string(self.group_id, 'Group identity'))
+        if not self.group_id.strip():
             raise ValueError('A supplied group identity is required')
         for name in ('start_ns', 'end_ns', 'maturity_ns'):
             object.__setattr__(self, name, _time_scalar(getattr(self, name)))

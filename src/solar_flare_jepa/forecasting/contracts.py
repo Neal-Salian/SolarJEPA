@@ -20,22 +20,50 @@ def fingerprint_payload(value) -> str:
     return hashlib.sha256(canonical_json(value).encode('utf-8')).hexdigest()
 
 
-def _canonical_fields(value, contract):
-    """Read base declarations with primitive string semantics, without subtype hooks.
+def _canonical_strings(value):
+    """Detach ordered/container declarations using base string/container content.
 
-    Nested contracts are reconstructed explicitly by their caller. Their array
-    fields are copied and validated by the exact base constructors, not here.
+    Preserve numerical and collection types for their existing strict validators.
+    No arbitrary object's equality, string conversion or deepcopy hook supplies
+    categorical semantics. Nested contracts/arrays have their own constructors.
     """
-    def primitive(item):
-        if isinstance(item, str):
-            return str.__str__(item)
-        if isinstance(item, tuple):
-            return tuple(primitive(part) for part in item)
-        if isinstance(item, list):
-            return [primitive(part) for part in item]
-        return item
+    if isinstance(value, str):
+        return str.__str__(value)
+    if isinstance(value, tuple):
+        return tuple(_canonical_strings(part) for part in tuple.__iter__(value))
+    if isinstance(value, list):
+        return [_canonical_strings(part) for part in list.__iter__(value)]
+    if isinstance(value, dict):
+        result = {}
+        for key, part in dict.items(value):
+            key = _canonical_strings(key)
+            if key in result:
+                raise ValueError('Duplicate canonical mapping keys')
+            result[key] = _canonical_strings(part)
+        return result
+    return value
 
-    return {field.name: primitive(getattr(value, field.name)) for field in fields(contract)}
+
+def _canonical_fields(value, contract):
+    """Read base declarations; constructors validate every captured field."""
+    return {field.name: _canonical_strings(getattr(value, field.name)) for field in fields(contract)}
+
+
+def _string(value, label):
+    """Accept genuine string representations, retaining only primitive content."""
+    if not isinstance(value, str):
+        raise ValueError(f'{label} requires an explicit string')
+    value = str.__str__(value)
+    if not value:
+        raise ValueError(f'{label} requires a nonempty string')
+    return value
+
+
+def _category(value, choices, label):
+    value = _string(value, label)
+    if value not in choices:
+        raise ValueError(f'Unsupported {label}')
+    return value
 
 
 def logical_array(value):
@@ -81,8 +109,8 @@ def _values_mask(values, mask, shape):
 def _names(value, *, unique=True):
     if not isinstance(value, (list, tuple)):
         raise ValueError('Names/units require an explicit ordered list or tuple')
-    values = tuple(value)
-    if not values or any(not isinstance(x, str) or not x.strip() for x in values):
+    values = tuple(_string(x, 'Names/units') for x in value)
+    if not values or any(not x.strip() for x in values):
         raise ValueError('Names/units must be nonempty strings')
     if unique and len(set(values)) != len(values):
         raise ValueError('Names must be unique')
@@ -128,8 +156,7 @@ def _shift_times(times, offset):
 
 
 def _identity(value):
-    if not isinstance(value, str) or not value:
-        raise ValueError('An explicit identity is required')
+    return _string(value, 'Identity')
 
 
 @dataclass(frozen=True)
@@ -152,6 +179,11 @@ class ForecastSpec:
     target_minimum: tuple[float | None, ...] = ()
 
     def __post_init__(self):
+        for name, choices, label in (
+                ('availability_mode', ('operational', 'retrospective_bin_end'), 'availability mode'),
+                ('eligibility_policy', ('complete', 'masked'), 'eligibility policy'),
+                ('transform', ('identity', 'log10'), 'transform')):
+            object.__setattr__(self, name, _category(getattr(self, name), choices, label))
         for name in ('cadence_seconds', 'context_steps', 'horizon_steps', 'stride_steps'):
             object.__setattr__(self, name, _integer(getattr(self, name), positive=True))
         for name in ('feature_lookback_steps', 'label_maturity_steps'):
@@ -164,12 +196,6 @@ class ForecastSpec:
         if (len(self.feature_names) != len(self.feature_units)
                 or len(self.target_names) != len(self.target_units)):
             raise ValueError('Name/unit lengths differ')
-        if self.availability_mode not in ('operational', 'retrospective_bin_end'):
-            raise ValueError('Unsupported availability mode')
-        if self.eligibility_policy not in ('complete', 'masked'):
-            raise ValueError('Unsupported eligibility policy')
-        if self.transform not in ('identity', 'log10'):
-            raise ValueError('Unsupported transform')
         for name, count in [('feature_reference', len(self.feature_names)),
                             ('target_reference', len(self.target_names))]:
             if not isinstance(getattr(self, name), (list, tuple)):
@@ -261,9 +287,12 @@ class TimeSeriesDataset:
     metadata_json: str = '{}'
 
     def __post_init__(self):
-        _identity(self.name)
-        if self.role not in ('synthetic_fixture', 'goes_reference'):
-            raise ValueError('Unsupported scientific dataset role; SoLEXS remains gated')
+        object.__setattr__(self, 'name', _identity(self.name))
+        object.__setattr__(self, 'role', _category(self.role, ('synthetic_fixture', 'goes_reference'),
+                                                'scientific dataset role; SoLEXS remains gated'))
+        object.__setattr__(self, 'availability_policy',
+                           _category(self.availability_policy, ('explicit', 'bin_end_earliest'),
+                                     'availability policy'))
         object.__setattr__(self, 'cadence_seconds', _integer(self.cadence_seconds, positive=True))
         for name in ('feature_names', 'target_names', 'feature_units', 'target_units'):
             object.__setattr__(self, name, _names(getattr(self, name), unique=name.endswith('names')))
@@ -285,8 +314,6 @@ class TimeSeriesDataset:
                                         (len(starts), count))
             object.__setattr__(self, values_name, values)
             object.__setattr__(self, mask_name, mask)
-        if self.availability_policy not in ('explicit', 'bin_end_earliest'):
-            raise ValueError('Unsupported availability policy')
         if self.availability_ns is None:
             if self.availability_policy == 'explicit':
                 raise ValueError('Explicit availability cannot be unknown')
@@ -298,8 +325,8 @@ class TimeSeriesDataset:
                     or (available[self.feature_mask] < np.broadcast_to(ends[:, None], available.shape)[self.feature_mask]).any()):
                 raise ValueError('Invalid actual availability before bin completion')
             object.__setattr__(self, 'availability_ns', available)
-        _identity(self.time_policy)
-        _identity(self.quality_policy)
+        object.__setattr__(self, 'time_policy', _identity(self.time_policy))
+        object.__setattr__(self, 'quality_policy', _identity(self.quality_policy))
         metadata = json.loads(self.metadata_json)
         if not isinstance(metadata, dict):
             raise ValueError('Dataset metadata must be an object')
@@ -324,12 +351,12 @@ def _origins(obj):
     issues = _times(obj.issue_times_ns, ndim=1)
     if not isinstance(obj.origin_ids, (list, tuple)):
         raise ValueError('Origins require an explicit ordered list or tuple')
-    ids = tuple(obj.origin_ids)
+    ids = tuple(_string(x, 'Origin identity') for x in obj.origin_ids)
     if (len(ids) != len(issues) or len(set(ids)) != len(ids)
-            or any(not isinstance(x, str) or not x.strip() for x in ids)
+            or any(not x.strip() for x in ids)
             or any(int(a) >= int(b) for a,b in zip(issues,issues[1:]))):
         raise ValueError('Origins must be ordered, unique and explicitly identified')
-    _identity(obj.dataset_fingerprint)
+    object.__setattr__(obj, 'dataset_fingerprint', _identity(obj.dataset_fingerprint))
     object.__setattr__(obj, 'issue_times_ns', issues)
     object.__setattr__(obj, 'origin_ids', ids)
     return len(issues)
@@ -427,9 +454,10 @@ class ForecastPrediction:
     point_interpretation: str = 'native_point'
 
     def __post_init__(self):
-        _identity(self.model_id)
-        if self.point_interpretation not in ('native_point', 'inverse_transformed_point'):
-            raise ValueError('Unsupported point interpretation')
+        object.__setattr__(self, 'model_id', _identity(self.model_id))
+        object.__setattr__(self, 'point_interpretation',
+                           _category(self.point_interpretation,
+                                     ('native_point', 'inverse_transformed_point'), 'point interpretation'))
         shape = (len(self.grid.origin_ids), self.grid.spec.horizon_steps, len(self.grid.spec.target_names))
         values = _immutable(self.values, np.float64)
         if values.shape != shape:
@@ -484,8 +512,8 @@ class TrainingSlice:
     raw_availability_ns: np.ndarray | None = None
 
     def __post_init__(self):
-        if self.partition_name != 'train':
-            raise ValueError('Fitting accepts a train partition only')
+        object.__setattr__(self, 'partition_name',
+                           _category(self.partition_name, ('train',), 'training partition name'))
         if not isinstance(self.context, ForecastContext) or not isinstance(self.targets, ForecastTargets):
             raise ValueError('Training windows require ForecastContext and ForecastTargets')
         if (not isinstance(self.context.spec, ForecastSpec)
@@ -503,7 +531,7 @@ class TrainingSlice:
         object.__setattr__(self, 'targets', ForecastTargets(self.targets.values, self.targets.mask,
                                                           FutureGrid(**grid)))
         validate_alignment(self.context, self.targets.grid)
-        _identity(self.split_fingerprint)
+        object.__setattr__(self, 'split_fingerprint', _identity(self.split_fingerprint))
         object.__setattr__(self, 'partition_start_ns', _time_scalar(self.partition_start_ns))
         object.__setattr__(self, 'partition_end_ns', _time_scalar(self.partition_end_ns))
         if self.partition_start_ns >= self.partition_end_ns:

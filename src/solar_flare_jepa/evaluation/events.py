@@ -1,6 +1,8 @@
 """Binary scoring of explicitly supplied outcomes, never derived event labels."""
 import numpy as np
 
+from solar_flare_jepa.forecasting.contracts import _string
+
 
 def _cell(value,count,reason=None):
     return {'value':None if value is None else float(value),'reason':reason,'count':int(count)}
@@ -33,11 +35,12 @@ def evaluate_events(outcomes,valid_mask,mature_mask,origin_ids,event_definition,
     """
     if not isinstance(origin_ids, (list, tuple)):
         raise ValueError('origin_ids require an explicit ordered list or tuple')
-    ids = tuple(origin_ids)
+    ids = tuple(_string(x, 'Origin identity') for x in origin_ids)
     n = len(ids)
-    if (len(set(ids)) != n or any(not isinstance(x,str) or not x.strip() for x in ids)):
+    if (len(set(ids)) != n or any(not x.strip() for x in ids)):
         raise ValueError('origin_ids must be explicit unique nonempty strings')
-    if not isinstance(event_definition,str) or not event_definition.strip():
+    event_definition = _string(event_definition, 'Event definition')
+    if not event_definition.strip():
         raise ValueError('An explicit event_definition is required')
     if (isinstance(horizon_seconds,(bool,np.bool_))
             or not isinstance(horizon_seconds,(int,np.integer)) or horizon_seconds <= 0):

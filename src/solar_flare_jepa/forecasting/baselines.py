@@ -11,7 +11,7 @@ import numpy as np
 
 from .contracts import (
     ForecastContext, ForecastPrediction, ForecastSpec, FutureGrid, TrainingSlice,
-    _canonical_fields, validate_alignment,
+    _canonical_fields, _category, validate_alignment,
 )
 
 
@@ -323,8 +323,7 @@ _BASELINES = {'persistence': Persistence, 'training_mean': TrainingMean,
 
 def make_baseline(name, parameters):
     """Construct one fixed baseline; unknown names/parameters fail clearly."""
-    if not isinstance(name, str) or name not in _BASELINES:
-        raise ValueError(f'Unsupported baseline name: {name!r}')
+    name = _category(name, tuple(_BASELINES), 'baseline name')
     if not isinstance(parameters, Mapping):
         raise ValueError('Baseline parameters must be a mapping')
     try:
