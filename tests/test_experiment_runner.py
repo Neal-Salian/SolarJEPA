@@ -1,4 +1,5 @@
 """Exercise the complete pipeline and installed boundary in isolated Git roots."""
+from copy import deepcopy
 from dataclasses import replace
 import importlib
 import json
@@ -142,6 +143,47 @@ def test_actual_drift_domain_failures_are_recorded_without_origin_dropping(tmp_p
     metric_records=json.loads((out/'metrics.json').read_text())
     failed=[item for item in metric_records if item['status']=='failed']
     assert failed and all(item['metrics'] is None and item['reason'] for item in failed)
+
+
+def test_invalid_prediction_context_records_failures_without_scoring_future_values(tmp_path, monkeypatch):
+    module = runner()
+    cfg = prototype()
+    cfg['baselines'] = [dict(name=name, parameters=params) for name, params in [
+        ('persistence', {}), ('training_mean', {}),
+        ('trailing_mean', {'lookback_steps': 2}), ('drift', {'lookback_steps': 2}),
+        ('ar1', {}), ('direct_ridge', {'lag_steps': 2, 'alpha': .1})]]
+    cfg['seeds'] = [17]
+    root, path = repository(tmp_path, cfg)
+    build = module.build_partition_windows
+
+    def malformed_test_context(dataset, spec, partition):
+        window = build(dataset, spec, partition)
+        if partition.name == 'test':
+            context = deepcopy(window.context)
+            context.availability_ns[:, -1, :] = context.issue_times_ns[:, None] + 1
+            context.values[:, -1, :] = window.targets.values[:, 0, :]
+            return replace(window, context=context)
+        return window
+
+    monkeypatch.setattr(module, 'build_partition_windows', malformed_test_context)
+    output = module.run_experiment(path, root)
+    result = json.loads((output / 'result.json').read_text())
+    failures = json.loads((output / 'failures.json').read_text())
+    predictions = json.loads((output / 'predictions.json').read_text())
+    metrics = json.loads((output / 'metrics.json').read_text())
+    assert result['status'] == 'complete_with_model_failures'
+    assert result['failure_count'] == 6
+    assert len(failures) == 6 and {f['model'] for f in failures} == {b['name'] for b in cfg['baselines']}
+    assert all(f['partition'] == 'test' and f['stage'] == 'predict' and
+               f['error_type'] == 'ValueError' and f['attempted_origin_ids'] and
+               f['common_target_valid_count'] > 0 and f['reason'] for f in failures)
+    for record in predictions:
+        if record['partition'] == 'test':
+            assert record['status'] == 'failed' and record['values'] is None
+    for record in metrics:
+        if record['partition'] == 'test':
+            assert record['status'] == 'failed' and record['metrics'] is None
+    assert result['successful_model_partition_scores'] == 12
 
 
 def test_runner_refuses_unsafe_output_and_dirty_or_mismatched_code(tmp_path):

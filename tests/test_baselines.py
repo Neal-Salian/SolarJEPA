@@ -104,7 +104,10 @@ def test_literal_outputs_for_five_baselines(name, parameters, context, want):
     ctx, grid = context_grid(context)
     prediction = model.predict(ctx, grid)
     np.testing.assert_allclose(prediction.values, want, rtol=1e-12)
-    assert prediction.grid is grid
+    # Returned coordinates are an immutable snapshot, not a caller-owned alias.
+    assert prediction.grid is not grid
+    np.testing.assert_array_equal(prediction.grid.starts_ns, grid.starts_ns)
+    np.testing.assert_array_equal(prediction.grid.ends_ns, grid.ends_ns)
     assert prediction.point_interpretation == 'native_point'
     assert prediction.model_id == name
     json.dumps(model.parameters, allow_nan=False)
