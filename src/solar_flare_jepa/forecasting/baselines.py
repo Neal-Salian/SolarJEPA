@@ -11,7 +11,7 @@ import numpy as np
 
 from .contracts import (
     ForecastContext, ForecastPrediction, ForecastSpec, FutureGrid, TrainingSlice,
-    _canonical_fields, _category, validate_alignment,
+    _canonical_fields, _canonical_strings, _category, validate_alignment,
 )
 
 
@@ -327,6 +327,7 @@ def make_baseline(name, parameters):
     if not isinstance(parameters, Mapping):
         raise ValueError('Baseline parameters must be a mapping')
     try:
+        parameters = _canonical_strings(dict(parameters))
         return _BASELINES[name](**parameters)
     except TypeError as error:
         raise ValueError(f'Invalid parameters for baseline {name!r}: {error}') from error
