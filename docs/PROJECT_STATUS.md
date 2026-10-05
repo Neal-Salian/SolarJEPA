@@ -1,6 +1,6 @@
 # SolarJEPA project status — canonical tracker
 
-Current checkpoint: **2026-10-05** (Asia/Kolkata). Git fetch verifies D.1 merged
+Current checkpoint: **2026-10-06** (Asia/Kolkata). Git fetch verifies D.1 merged
 on synchronized main `1a4991da4dda9676caeb1d7e35a03408528c3188` (PR #4).
 `research/experiment-evaluation-foundation` was created and published from that
 main before milestone edits. Checkpoint `805f1c3` is frozen and unchanged.
@@ -18,15 +18,24 @@ relationship and records effective training identities. The preserved
 **NOT_READY_FOR_INTEGRATION**: R1, copied/deserialized/subclassed contexts could
 expose post-issue support to all six baseline prediction APIs. Focused
 [prediction-context remediation](P1_PREDICTION_CONTEXT_REMEDIATION.md) at
-`009547932e398edeef1bd2ede2ff3d10bc9e1862` now reconstructs and validates detached
-causal snapshots before consumption, preserving F1 protections. Verification:
-**480 P1 targeted / 646 total tests passed**, one existing dependency warning;
-185 new prediction regressions plus one runner case; all 53 TrainingSlice cases
-pass. Installed imports/CLI and all 22 module identities match outside checkout;
-synthetic/pinned-GOES acceptance pairs pass with stable-byte comparisons and
-corruption rejection; all 109 starting artifact/config/skill identities match.
-A fresh independent focused reviewer found no unaddressed BLOCKER/HIGH in 295
-adversarial probes. The historical
+`009547932e398edeef1bd2ede2ff3d10bc9e1862` reconstructs and validates detached
+causal snapshots before consumption. That checkpoint passed 480 targeted / 646
+total tests, but the preserved [final audit](P1_FINAL_INTEGRATION_READINESS_AUDIT.md)
+of `8fa3877` returned **NOT_READY_FOR_INTEGRATION** for N1: non-string categorical
+semantics and caller-owned metadata survived snapshots under colliding identities.
+Focused [canonical-semantics remediation](P1_CANONICAL_SEMANTICS_REMEDIATION.md)
+at `edea3df87c0b08fdc08e66fe1df597334270dad8` normalizes categories, captures owned
+metadata/container content and canonical parameter keys before validation/use.
+Verification: **659 P1 targeted / 825 total tests passed**, one existing warning;
+179 new canonical-semantic cases, all 53 F1 and 185 R1 regressions pass.
+All 22 modules import from the rebuilt installed distribution outside checkout
+and match source. Fresh synthetic/GOES pairs each score all 54 combinations with
+zero failures; stable-byte, artifact and corruption checks pass. All 109 starting
+artifact/config/skill identities match after acceptance. A fresh independent
+reviewer closed additional factory alias variants and found no surviving related
+BLOCKER/HIGH in 686 bounded probes plus eight factory and six Mapping checks,
+repeated against the installed package. Historical F3-F9 limitations and a
+pre-existing malformed numeric-subtype edge remain documented. The historical
 [P1 implementation checkpoint](P1_IMPLEMENTATION_REPORT.md) remains preserved.
 Current state: **READY_FOR_P1_REAUDIT**. The next step is another fresh
 integration-readiness audit; no integration or

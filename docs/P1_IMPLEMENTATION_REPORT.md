@@ -409,3 +409,23 @@ synthetic/GOES pairs, artifact/corruption verification, all 109 preserved hashes
 and a fresh independent 295-probe review pass. Valid canonical forecasts are
 unchanged from the prior F1 acceptance artifacts. This is READY_FOR_P1_REAUDIT,
 requiring another integration-readiness audit; no integration or Phase E approval.
+
+## 2026-10-06 addendum — canonical semantics and snapshot ownership
+
+The preserved [final integration audit](P1_FINAL_INTEGRATION_READINESS_AUDIT.md)
+of `8fa3877` returned NOT_READY_FOR_INTEGRATION for N1: behavioral categorical
+objects and retained metadata could disagree with fingerprints. That report was
+committed unchanged before the [focused remediation](P1_CANONICAL_SEMANTICS_REMEDIATION.md).
+Verified implementation `edea3df87c0b08fdc08e66fe1df597334270dad8` captures primitive
+category/container semantics before validation, identity and model consumption,
+including config and public factory keys and pinned paths. F1/R1 protections
+remain intact. Four test-first cycles and independent review closed the original
+and additional key/container variants; no related BLOCKER/HIGH remains in the
+bounded review. **179 new cases; 659 targeted / 825 full tests pass**, with the
+existing warning retained. Fresh synthetic/GOES pairs, eight byte-identical JSON artifacts
+per pair, artifact/corruption checks, 22 actual installed module imports/parity
+and 109 preserved identities pass. Seven non-provenance artifacts remain
+byte-identical to valid R1 acceptance outputs. Historical F3-F9 and the reviewed
+numeric-subtype limitation remain documented, without unrelated fixes.
+The stop state is READY_FOR_P1_REAUDIT; a fresh independent integration audit is
+required. Main/research and Phase E gates remain unchanged.
