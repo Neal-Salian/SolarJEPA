@@ -9,6 +9,7 @@ from pathlib import Path, PurePosixPath, PureWindowsPath
 import platform
 import re
 import shutil
+import stat
 import subprocess
 import sys
 import tempfile
@@ -36,21 +37,65 @@ def _relative(value):
     return path
 
 
+def _source_path(value):
+    """Check lexical components before resolving; source redirection is refused."""
+    path = Path(value).absolute()
+    prefix = Path(path.anchor)
+    for component in path.parts[1:]:
+        prefix = prefix / component
+        if prefix.is_symlink():
+            raise ValueError(f'Reproducibility source must not redirect through symlinks: {prefix}')
+    return path.resolve()
+
+
+def _source_files(directory):
+    directory = _source_path(directory)
+    def failed(error):
+        raise ValueError(f'Cannot inspect reproducibility source: {error}') from error
+    for parent, directories, files in os.walk(directory, followlinks=False, onerror=failed):
+        # Directory links (including dangling/loop links) must be inspected even
+        # though an ordinary Python glob would omit their executable contents.
+        for name in directories + files:
+            _source_path(Path(parent) / name)
+        for name in files:
+            yield Path(parent) / name
+
+
+def _source_identity(path):
+    path = _source_path(path)
+    try:
+        before = path.stat()
+        if not stat.S_ISREG(before.st_mode):
+            raise ValueError(f'Reproducibility source must be a regular file: {path}')
+        digest = sha256_file(path)
+        _source_path(path)
+        after = path.stat()
+    except OSError as error:
+        raise ValueError(f'Cannot hash reproducibility source: {path}') from error
+    attributes = ('st_dev', 'st_ino', 'st_size', 'st_mtime_ns', 'st_ctime_ns')
+    if any(getattr(before, name) != getattr(after, name) for name in attributes):
+        raise ValueError(f'Reproducibility source changed during hashing: {path}')
+    return dict(bytes=after.st_size, sha256=digest)
+
+
 def verify_source_identities(root, identities):
-    root = Path(root).resolve()
+    root = _source_path(root)
     for item in identities:
         path = root / str(_relative(item['path']))
         repository_relative_path(path,root)
-        if (not path.is_file() or path.stat().st_size != item['bytes']
-                or sha256_file(path) != item['sha256']):
+        if _source_identity(path) != {key: item[key] for key in ('bytes', 'sha256')}:
             raise ValueError(f'Source identity mismatch: {item["path"]}')
 
 
 def source_fingerprint(root, paths=None):
-    root = Path(root).resolve()
+    root = _source_path(root)
     if paths is None:
-        paths = [p.relative_to(root).as_posix() for base in ('src','scripts') for p in (root/base).rglob('*.py')]
-        paths += [p.relative_to(root).as_posix() for p in (root/'configs'/'experiments').glob('p1_*.json')]
+        paths = [p.relative_to(root).as_posix() for base in ('src','scripts')
+                 for p in _source_files(root/base) if p.suffix == '.py']
+        paths += [p.relative_to(root).as_posix() for p in _source_files(root/'configs'/'experiments')
+                  if p.parent == root/'configs'/'experiments' and p.match('p1_*.json')]
+        # Check the schema tree too, although only the P1 result schema is hashed.
+        list(_source_files(root/'schemas'))
         paths += ['pyproject.toml','requirements-lock.txt','schemas/experiment_result.schema.json']
     files = []
     for identifier in sorted(set(paths)):
@@ -58,12 +103,12 @@ def source_fingerprint(root, paths=None):
         repository_relative_path(path,root)
         if not path.is_file():
             raise ValueError(f'Missing reproducibility source: {identifier}')
-        files.append(dict(path=identifier,bytes=path.stat().st_size,sha256=sha256_file(path)))
+        files.append(dict(path=identifier,**_source_identity(path)))
     return dict(files=files,fingerprint=fingerprint_payload(files))
 
 
 def code_provenance(root, *, require_clean=True, require_installed_match=True):
-    root = Path(root).resolve()
+    root = _source_path(root)
     def git(*args):
         result = subprocess.run(['git','-C',str(root),*args],capture_output=True,text=True,check=True)
         return result.stdout.strip()
@@ -77,23 +122,26 @@ def code_provenance(root, *, require_clean=True, require_installed_match=True):
     source = source_fingerprint(root)
     imported = []
     package = importlib.import_module('solar_flare_jepa')
-    package_root = Path(package.__file__).resolve().parent
+    package_root = _source_path(package.__file__).parent
+    list(_source_files(package_root))
     try:
         installed_root = Path(distribution('solar-flare-jepa').locate_file('solar_flare_jepa')).resolve()
     except PackageNotFoundError:
         installed_root = None
+    recorded_modules = set()
     for item in source['files']:
         if item['path'].startswith('src/solar_flare_jepa/') and item['path'].endswith('.py'):
             relative = item['path'][4:-3].replace('/','.')
             name = relative[:-9] if relative.endswith('.__init__') else relative
+            recorded_modules.add(name)
             # Inspect unused module files without executing optional scientific
             # readers. Already loaded modules must match their actual location.
             module = sys.modules.get(name)
-            actual = (Path(module.__file__).resolve() if module is not None else
+            actual = (_source_path(module.__file__) if module is not None else
                       package_root/item['path'].removeprefix('src/solar_flare_jepa/'))
             if not actual.is_file():
                 raise ValueError(f'Execution-package source identity mismatch: missing {name}')
-            digest = sha256_file(actual)
+            digest = _source_identity(actual)['sha256']
             matches = digest == item['sha256']
             if require_installed_match and not matches:
                 raise ValueError(f'Imported/checkout source identity mismatch: {name}')
@@ -102,6 +150,10 @@ def code_provenance(root, *, require_clean=True, require_installed_match=True):
                         and actual.is_relative_to(installed_root) else 'external_matching_source')
             imported.append(dict(module=name,sha256=digest,checkout_match=matches,location=location,
                 inspection='loaded_module_file' if module is not None else 'package_file_not_imported'))
+    unexpected = {name for name, module in sys.modules.copy().items() if module is not None
+                  and (name == 'solar_flare_jepa' or name.startswith('solar_flare_jepa.'))} - recorded_modules
+    if unexpected:
+        raise ValueError(f'Loaded project modules are absent from source inventory: {sorted(unexpected)}')
     packages = {}
     for name in ('solar-flare-jepa','numpy','pandas','xarray','netCDF4','pyarrow'):
         try:

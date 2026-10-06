@@ -15,7 +15,7 @@ from solar_flare_jepa.evaluation import evaluate_trajectory
 from .config import config_fingerprint, load_config, utc_ns
 from .fixtures import synthetic_fixture
 from .provenance import (atomic_record, code_provenance, dataset_fingerprint,
-                         split_fingerprint, verify_source_identities, _destination)
+                         split_fingerprint, verify_source_identities, _destination, _source_path)
 
 
 ROLE = 'foundation_smoke_not_scientific_skill'
@@ -70,7 +70,7 @@ def run_experiment(config_path, root, *, output_dir=None):
     Model seeds are identity tags here: these six deterministic comparators
     consume no RNG and receive no held-out values in their fit interface.
     """
-    root = Path(root).resolve()
+    root = _source_path(root)
     config_path = Path(config_path)
     if not config_path.is_absolute():
         config_path = root/config_path
