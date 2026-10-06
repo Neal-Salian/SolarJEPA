@@ -72,7 +72,8 @@ def _json(directory, filename):
     return json.loads((directory / filename).read_text())
 
 
-def test_persistent_api_refuses_old_loaded_source_after_clean_checkout(tmp_path):
+@pytest.mark.parametrize('evict_module', [False, True])
+def test_persistent_api_refuses_old_loaded_source_after_clean_checkout(tmp_path, evict_module):
     root = _repository(tmp_path)
     baseline = root / 'src/solar_flare_jepa/forecasting/baselines.py'
     canonical = baseline.read_text()
@@ -89,6 +90,8 @@ import json,pathlib,subprocess,sys
 from solar_flare_jepa.experiments.runner import run_experiment
 root=pathlib.Path(sys.argv[1]); current=sys.argv[2]
 subprocess.run(['git','-C',str(root),'checkout','-q',current],check=True)
+if sys.argv[3]=='evict':
+    sys.modules.pop('solar_flare_jepa.forecasting.baselines')
 assert not subprocess.check_output(['git','-C',str(root),'status','--porcelain',
                                    '--untracked-files=no'],text=True)
 destination=root/'results/experiments/stale'
@@ -104,7 +107,8 @@ else:
         first_prediction=predictions[0]['values'][0][0][0],
         all_checkout_match=all(x['checkout_match'] for x in provenance['imported_source']))))
 """
-    process = subprocess.run([sys.executable, '-B', '-c', program, str(root), current],
+    process = subprocess.run([sys.executable, '-B', '-c', program, str(root), current,
+                              'evict' if evict_module else 'retain'],
                              cwd=root, env=_environment(root), capture_output=True, text=True)
     assert process.returncode == 0, process.stderr
     observed = json.loads(process.stdout)
@@ -215,7 +219,7 @@ else:
     assert not observed['published']
 
 
-@pytest.mark.parametrize('loader_path', ['existing-module', 'new-module', 'load-module'])
+@pytest.mark.parametrize('loader_path', ['existing-module', 'new-module', 'load-module', 'external-source'])
 def test_alternate_loader_cannot_attest_stale_bytecode_as_canonical_source(tmp_path, loader_path):
     root = _repository(tmp_path)
     _commit(root, 'canonical source')
@@ -233,7 +237,12 @@ source.write_bytes(stale);os.utime(source,(stamp,stamp))
 py_compile.compile(str(source),doraise=True,invalidation_mode=py_compile.PycInvalidationMode.TIMESTAMP)
 source.write_bytes(canonical);os.utime(source,(stamp,stamp))
 name=baselines.__name__
-if mode=='existing-module':
+if mode=='external-source':
+    clone=root.parent/'alternate-baselines.py'
+    clone.write_bytes(canonical.replace(b'output[n, :, k] = values[-1]',
+                                       b'output[n, :, k] = values[-1] + 1.',1))
+    importlib.machinery.SourceFileLoader(name,str(clone)).exec_module(baselines)
+elif mode=='existing-module':
     importlib.machinery.SourceFileLoader(name,str(source)).exec_module(baselines)
 elif mode=='load-module':
     importlib.machinery.SourceFileLoader(name,str(source)).load_module()
