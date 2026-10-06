@@ -16,6 +16,7 @@ import tempfile
 
 from solar_flare_jepa.data.download import sha256_file
 from solar_flare_jepa.data.storage import repository_relative_path
+from solar_flare_jepa._executed_source import verify_loaded_source
 from solar_flare_jepa.forecasting.contracts import canonical_json, fingerprint_payload
 from .config import read_finite_json
 
@@ -142,6 +143,7 @@ def code_provenance(root, *, require_clean=True, require_installed_match=True):
             if not actual.is_file():
                 raise ValueError(f'Execution-package source identity mismatch: missing {name}')
             digest = _source_identity(actual)['sha256']
+            executed_digest = None if module is None else verify_loaded_source(name, actual, digest)
             matches = digest == item['sha256']
             if require_installed_match and not matches:
                 raise ValueError(f'Imported/checkout source identity mismatch: {name}')
@@ -149,6 +151,7 @@ def code_provenance(root, *, require_clean=True, require_installed_match=True):
                         'installed_distribution' if installed_root is not None
                         and actual.is_relative_to(installed_root) else 'external_matching_source')
             imported.append(dict(module=name,sha256=digest,checkout_match=matches,location=location,
+                executed_sha256=executed_digest,
                 inspection='loaded_module_file' if module is not None else 'package_file_not_imported'))
     unexpected = {name for name, module in sys.modules.copy().items() if module is not None
                   and (name == 'solar_flare_jepa' or name.startswith('solar_flare_jepa.'))} - recorded_modules
