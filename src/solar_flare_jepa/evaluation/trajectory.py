@@ -7,8 +7,33 @@ those points as physical conditional means or fabricate quantile forecasts.
 import numpy as np
 
 from ..forecasting.contracts import (
-    ForecastPrediction, ForecastTargets, TrainingSlice, validate_alignment,
+    ForecastPrediction, ForecastSpec, ForecastTargets, FutureGrid, TrainingSlice,
+    _canonical_fields, fingerprint_payload, logical_array, validate_alignment,
 )
+
+
+def _grid_snapshot(grid):
+    if not isinstance(grid, FutureGrid):
+        raise ValueError('Evaluation requires an explicit future grid')
+    declarations = _canonical_fields(grid, FutureGrid)
+    if not isinstance(declarations['spec'], ForecastSpec):
+        raise ValueError('Evaluation requires an explicit forecast spec')
+    declarations['spec'] = ForecastSpec(**_canonical_fields(declarations['spec'], ForecastSpec))
+    return FutureGrid(**declarations)
+
+
+def _forecast_snapshot(value, contract):
+    declarations = _canonical_fields(value, contract)
+    declarations['grid'] = _grid_snapshot(declarations['grid'])
+    return contract(**declarations)
+
+
+def _prediction_content(prediction):
+    if prediction is None:
+        return None
+    return dict(model_id=prediction.model_id, point_interpretation=prediction.point_interpretation,
+                values=logical_array(prediction.values), quantile_levels=prediction.quantile_levels,
+                quantiles=None if prediction.quantiles is None else logical_array(prediction.quantiles))
 
 
 def _cell(value, count, reason=None):
@@ -133,13 +158,20 @@ def evaluate_trajectory(targets, prediction, training, persistence=None,
         raise TypeError('Expected ForecastTargets and ForecastPrediction')
     if not isinstance(training,TrainingSlice):
         raise TypeError('Expected TrainingSlice')
+    if persistence is not None and not isinstance(persistence,ForecastPrediction):
+        raise TypeError('Expected ForecastPrediction persistence')
+    # Constructor history is not a trust boundary: copies, pickle and subclasses
+    # may contain different buffers or declarations. These exact-base snapshots
+    # are the only objects used for alignment, metrics, coverage and identities.
+    targets = _forecast_snapshot(targets, ForecastTargets)
+    prediction = _forecast_snapshot(prediction, ForecastPrediction)
+    training = TrainingSlice(**_canonical_fields(training, TrainingSlice))
+    persistence = None if persistence is None else _forecast_snapshot(persistence, ForecastPrediction)
     validate_alignment(targets.grid,prediction.grid)
     if (training.spec.fingerprint != targets.grid.spec.fingerprint
             or training.context.dataset_fingerprint != targets.grid.dataset_fingerprint):
         raise ValueError('Training data do not align in dataset/spec/target identity')
     if persistence is not None:
-        if not isinstance(persistence,ForecastPrediction):
-            raise TypeError('Expected ForecastPrediction persistence')
         validate_alignment(targets.grid,persistence.grid)
     for pred in (prediction,persistence):
         if pred is not None and (not np.isfinite(pred.values).all()
@@ -148,6 +180,15 @@ def evaluate_trajectory(targets, prediction, training, persistence=None,
     n,h,k = targets.values.shape
     lead = _weights(lead_weights,h,'lead')
     target = _weights(target_weights,k,'target')
+    training_identity = training.fingerprint
+    grid = targets.grid
+    evaluation_identity = fingerprint_payload(dict(
+        schema_version=1, dataset=grid.dataset_fingerprint, spec=grid.spec.as_dict(),
+        origin_ids=grid.origin_ids, issue_times_ns=logical_array(grid.issue_times_ns),
+        starts_ns=logical_array(grid.starts_ns), ends_ns=logical_array(grid.ends_ns),
+        targets=logical_array(targets.values), target_mask=logical_array(targets.mask),
+        prediction=_prediction_content(prediction), persistence=_prediction_content(persistence),
+        training=training_identity, lead_weights=lead.tolist(), target_weights=target.tolist()))
     # Normalize axes separately before multiplication to avoid weight overflow.
     pooled_weights = np.broadcast_to((lead/lead.sum())[None,:,None]
                                     * (target/target.sum())[None,None,:], (n,h,k))
@@ -210,6 +251,7 @@ def evaluate_trajectory(targets, prediction, training, persistence=None,
         point_interpretation=prediction.point_interpretation,model_transform=targets.grid.spec.transform,
         dataset_fingerprint=targets.grid.dataset_fingerprint,spec_fingerprint=targets.grid.spec.fingerprint,
         training_split_fingerprint=training.split_fingerprint,
+        training_fingerprint=training_identity,evaluation_input_fingerprint=evaluation_identity,
         origin_ids=list(targets.grid.origin_ids),target_names=list(names),
         target_units=list(targets.grid.spec.target_units),units=units,
         quantile_levels=list(prediction.quantile_levels),

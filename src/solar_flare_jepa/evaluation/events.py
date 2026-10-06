@@ -1,7 +1,9 @@
 """Binary scoring of explicitly supplied outcomes, never derived event labels."""
 import numpy as np
 
-from solar_flare_jepa.forecasting.contracts import _string
+from solar_flare_jepa.forecasting.contracts import (
+    _canonical_strings, _immutable, _string, fingerprint_payload, logical_array,
+)
 
 
 def _cell(value,count,reason=None):
@@ -20,7 +22,7 @@ def _vector(value,n,name,mask=None,binary=False):
         raise ValueError(f'{name} must be binary on scored origins')
     if not binary and ((selected < 0).any() or (selected > 1).any()):
         raise ValueError(f'{name} must be in [0,1] on scored origins')
-    return array
+    return _immutable(array, np.float64)
 
 
 def evaluate_events(outcomes,valid_mask,mature_mask,origin_ids,event_definition,
@@ -35,7 +37,7 @@ def evaluate_events(outcomes,valid_mask,mature_mask,origin_ids,event_definition,
     """
     if not isinstance(origin_ids, (list, tuple)):
         raise ValueError('origin_ids require an explicit ordered list or tuple')
-    ids = tuple(_string(x, 'Origin identity') for x in origin_ids)
+    ids = tuple(_string(x, 'Origin identity') for x in _canonical_strings(origin_ids))
     n = len(ids)
     if (len(set(ids)) != n or any(not x.strip() for x in ids)):
         raise ValueError('origin_ids must be explicit unique nonempty strings')
@@ -43,7 +45,10 @@ def evaluate_events(outcomes,valid_mask,mature_mask,origin_ids,event_definition,
     if not event_definition.strip():
         raise ValueError('An explicit event_definition is required')
     if (isinstance(horizon_seconds,(bool,np.bool_))
-            or not isinstance(horizon_seconds,(int,np.integer)) or horizon_seconds <= 0):
+            or not isinstance(horizon_seconds,(int,np.integer))):
+        raise ValueError('horizon_seconds must be a positive integer')
+    horizon_seconds = int(horizon_seconds)
+    if horizon_seconds <= 0:
         raise ValueError('horizon_seconds must be a positive integer')
     if decisions is None and probabilities is None:
         raise ValueError('Supply decisions or probabilities')
@@ -52,12 +57,20 @@ def evaluate_events(outcomes,valid_mask,mature_mask,origin_ids,event_definition,
         mask = np.asarray(values)
         if mask.shape != (n,) or mask.dtype.kind != 'b':
             raise ValueError(f'{name} must be a boolean vector of length {n}')
-        masks.append(mask)
+        # Capture before later input conversions can mutate caller-owned masks.
+        masks.append(_immutable(mask, bool))
     valid,mature = masks
     mask = valid & mature
     outcome = _vector(outcomes,n,'outcomes',mask,binary=True)
     decision = None if decisions is None else _vector(decisions,n,'decisions',mask,binary=True)
     probability = None if probabilities is None else _vector(probabilities,n,'probabilities',mask)
+    evaluation_identity = fingerprint_payload(dict(
+        schema_version=1, origin_ids=ids, event_definition=event_definition,
+        horizon_seconds=horizon_seconds, valid_mask=logical_array(valid), mature_mask=logical_array(mature),
+        # Missing values outside the scored mask are explicitly inert.
+        outcomes=logical_array(np.where(mask,outcome,np.nan)),
+        decisions=None if decision is None else logical_array(np.where(mask,decision,np.nan)),
+        probabilities=None if probability is None else logical_array(np.where(mask,probability,np.nan))))
     count = int(mask.sum())
     names = ('precision','recall','pod','far','fpr','f1','tss','hss2')
     confusion = None
@@ -93,6 +106,7 @@ def evaluate_events(outcomes,valid_mask,mature_mask,origin_ids,event_definition,
         probability=float(probability[i]) if mask[i] and probability is not None else None,
         brier_loss=float(losses[i]) if mask[i] and losses is not None else None) for i in range(n)]
     return dict(schema_version=1,event_definition=event_definition,horizon_seconds=int(horizon_seconds),
+                evaluation_input_fingerprint=evaluation_identity,
                 origin_ids=list(ids),confusion=confusion,metrics=metrics,
                 units={name:'dimensionless' for name in (*names,'brier')},
                 reduction=dict(mask='valid_mask & mature_mask',brier='mean((probability - outcome)^2)',
