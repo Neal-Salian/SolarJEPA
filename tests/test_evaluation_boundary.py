@@ -103,6 +103,59 @@ def test_event_identity_records_effective_outcomes_and_coverage(changed):
     assert actual['evaluation_input_fingerprint'] != control['evaluation_input_fingerprint']
 
 
+def test_target_mask_is_captured_once_before_validation_and_consumption():
+    targets, prediction, training, persistence = fixture()
+    expected = evaluate_trajectory(targets, prediction, training, persistence)
+
+    class MaskOwner:
+        calls = 0
+
+        def __array__(self, dtype=None, copy=None):
+            self.calls += 1
+            result = np.ones((2, 2, 1), bool) if self.calls == 1 else np.zeros((2, 2, 1), int)
+            return np.asarray(result, dtype=dtype)
+
+    owner = MaskOwner()
+    targets = copy(targets)
+    object.__setattr__(targets, 'mask', owner)
+    actual = evaluate_trajectory(targets, prediction, training, persistence)
+    assert owner.calls == 1
+    assert actual == expected
+
+
+@pytest.mark.parametrize('field', ['stride_steps', 'feature_lookback_steps', 'label_maturity_steps'])
+def test_integer_constraints_check_normalized_content_before_subtype_comparisons(field):
+    class NegativeInteger(int):
+        def __lt__(self, other):
+            return False
+
+    with pytest.raises(ValueError):
+        ForecastSpec(1, 1, 2, ('x',), ('x',), ('unit',), ('unit',), **{field: NegativeInteger(-1)})
+
+
+def test_extreme_positive_lead_weights_retain_masked_common_coverage():
+    targets, prediction, training, persistence = fixture()
+    mask = np.zeros(targets.mask.shape, bool)
+    mask[:, 0] = True
+    targets = replace(targets, mask=mask)
+    result = evaluate_trajectory(targets, prediction, training, persistence,
+                                 lead_weights=[1e-300, 1e300])
+    assert result['coverage']['valid_count'] == result['coverage']['scored_count'] == 2
+    assert result['by_target']['x']['mae'] == dict(value=8., count=2, reason=None)
+    assert result['aggregate']['mae'] == dict(value=8., count=2, reason=None)
+
+
+def test_extreme_positive_target_weights_retain_masked_common_coverage():
+    from test_trajectory_metrics import fixture as two_target_fixture
+    mask = np.zeros((2, 2, 2), bool)
+    mask[:, :, 0] = True
+    inputs = two_target_fixture(values=np.ones(mask.shape) * 10., predictions=np.ones(mask.shape) * 8.,
+                                mask=mask, units=('unit', 'unit'))
+    result = evaluate_trajectory(*inputs, target_weights=[1e-300, 1e300])
+    assert result['coverage']['valid_count'] == result['coverage']['scored_count'] == 4
+    assert result['aggregate']['mae'] == dict(value=2., count=4, reason=None)
+
+
 @pytest.mark.parametrize('ownership', ['copy', 'deepcopy', 'pickle', 'new'])
 def test_reconstructed_training_with_changed_raw_values_is_rejected(ownership):
     targets, prediction, training, persistence = fixture()
