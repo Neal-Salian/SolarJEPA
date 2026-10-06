@@ -7,6 +7,8 @@ import shutil
 import subprocess
 import sys
 
+import pytest
+
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -168,3 +170,88 @@ def test_timestamp_valid_old_bytecode_cannot_change_fresh_cli_computation(tmp_pa
     assert result['experiment_ids'] == expected['experiment_ids']
     assert _json(output, 'predictions.json') == _json(control, 'predictions.json')
     assert _json(output, 'metrics.json') == _json(control, 'metrics.json')
+
+
+def test_alternate_loader_cannot_reuse_an_earlier_module_source_capture(tmp_path):
+    root = _repository(tmp_path)
+    _commit(root, 'canonical source')
+    control = _cli(root, 'control')
+    program = """
+import importlib.util,json,pathlib,sys
+from solar_flare_jepa.forecasting import baselines
+root=pathlib.Path(sys.argv[1]); source=root/'src/solar_flare_jepa/forecasting/baselines.py'
+canonical=source.read_text(); statement='output[n, :, k] = values[-1]\\n'
+source.write_text(canonical.replace(statement,statement.rstrip()+' + 1.\\n',1))
+name=baselines.__name__
+spec=importlib.util.spec_from_file_location(name,source)
+alternate=importlib.util.module_from_spec(spec)
+sys.modules[name]=alternate
+try:
+    spec.loader.exec_module(alternate)
+finally:
+    source.write_text(canonical)
+from solar_flare_jepa.experiments.runner import run_experiment
+destination=root/'results/experiments/alternate'
+try:
+    output=run_experiment('configs/experiments/p1_test.json',root,output_dir=destination)
+except ValueError as error:
+    print(json.dumps(dict(rejected=True,error=str(error),published=destination.exists())))
+else:
+    result=json.loads((output/'result.json').read_text())
+    values=json.loads((output/'predictions.json').read_text())
+    print(json.dumps(dict(rejected=False,published=True,result=result,
+                         first_prediction=values[0]['values'][0][0][0])))
+"""
+    process = subprocess.run([sys.executable, '-B', '-c', program, str(root)], cwd=root,
+                             env=_environment(root), capture_output=True, text=True)
+    assert process.returncode == 0, process.stderr
+    observed = json.loads(process.stdout)
+    if not observed['rejected']:
+        expected = _json(control, 'result.json')
+        observed['same_fingerprints'] = expected['fingerprints'] == observed['result']['fingerprints']
+        observed['same_experiment_ids'] = expected['experiment_ids'] == observed['result']['experiment_ids']
+        observed['control_prediction'] = _json(control, 'predictions.json')[0]['values'][0][0][0]
+    assert observed['rejected'], observed
+    assert not observed['published']
+
+
+@pytest.mark.parametrize('loader_path', ['existing-module', 'new-module', 'load-module'])
+def test_alternate_loader_cannot_attest_stale_bytecode_as_canonical_source(tmp_path, loader_path):
+    root = _repository(tmp_path)
+    _commit(root, 'canonical source')
+    program = """
+import importlib.machinery,importlib.util,json,os,pathlib,py_compile,sys
+from solar_flare_jepa.forecasting import baselines
+from solar_flare_jepa.experiments.runner import run_experiment
+root=pathlib.Path(sys.argv[1]); mode=sys.argv[2]
+source=root/'src/solar_flare_jepa/forecasting/baselines.py'
+canonical=source.read_bytes()
+stale=canonical.replace(b'output[n, :, k] = values[-1]',b'output[n, :, k] = values[+0]',1)
+assert stale!=canonical and len(stale)==len(canonical)
+stamp=1_600_000_000
+source.write_bytes(stale);os.utime(source,(stamp,stamp))
+py_compile.compile(str(source),doraise=True,invalidation_mode=py_compile.PycInvalidationMode.TIMESTAMP)
+source.write_bytes(canonical);os.utime(source,(stamp,stamp))
+name=baselines.__name__
+if mode=='existing-module':
+    importlib.machinery.SourceFileLoader(name,str(source)).exec_module(baselines)
+elif mode=='load-module':
+    importlib.machinery.SourceFileLoader(name,str(source)).load_module()
+else:
+    spec=importlib.util.spec_from_file_location(name,source)
+    module=importlib.util.module_from_spec(spec);sys.modules[name]=module
+    spec.loader.exec_module(module)
+destination=root/'results/experiments/alternate-cache'
+try:
+    run_experiment('configs/experiments/p1_test.json',root,output_dir=destination)
+except ValueError as error:
+    print(json.dumps(dict(rejected=True,error=str(error),published=destination.exists())))
+else:
+    print(json.dumps(dict(rejected=False,published=True)))
+"""
+    process = subprocess.run([sys.executable, '-B', '-c', program, str(root), loader_path],
+                             cwd=root, env=_environment(root), capture_output=True, text=True)
+    assert process.returncode == 0, process.stderr
+    observed = json.loads(process.stdout)
+    assert observed['rejected'], observed
+    assert not observed['published']
