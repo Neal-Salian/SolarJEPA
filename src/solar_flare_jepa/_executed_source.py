@@ -163,9 +163,10 @@ def verify_execution_frames():
     """Refuse retained project functions that predate bootstrap observation.
 
     This covers completed standard-loader executions whose imports were deferred
-    until function invocation, including stale code at an otherwise canonical
-    filename. Dynamically generated non-file code (such as dataclass methods) is
-    outside source-file attestation; this is not an interpreter security sandbox.
+    until function invocation, including stale code or a retained older globals
+    namespace at an otherwise canonical filename. Dynamically generated non-file
+    code (such as dataclass methods) is outside source-file attestation; this is
+    not an interpreter security sandbox.
     """
     for frame in _active_frames():
         name = frame.f_globals.get('__name__')
@@ -174,6 +175,9 @@ def verify_execution_frames():
         name = str.__str__(name)
         if name != 'solar_flare_jepa' and not name.startswith('solar_flare_jepa.'):
             continue
+        module = sys.modules.get(name)
+        if type(module) is not ModuleType or frame.f_globals is not module.__dict__:
+            raise ValueError(f'Executed/recorded project source mismatch: {name} (namespace ownership); use a fresh interpreter')
         code = frame.f_code
         if code.co_filename.startswith('<'):
             continue
