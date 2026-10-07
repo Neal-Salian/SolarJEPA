@@ -98,7 +98,8 @@ def _times(value, *, ndim):
 
 def _values_mask(values, mask, shape):
     values = _immutable(values, np.float64)
-    if np.asarray(mask).dtype.kind != 'b':
+    mask = np.asarray(mask)
+    if mask.dtype.kind != 'b':
         raise ValueError('Masks must be boolean')
     mask = _immutable(mask, bool)
     if values.shape != shape or mask.shape != shape:
@@ -122,9 +123,10 @@ def _names(value, *, unique=True):
 def _integer(value, *, positive=False):
     if isinstance(value, (bool, np.bool_)) or not isinstance(value, (int, np.integer)):
         raise ValueError('Sample lengths and bounds must be integers')
+    value = int.__int__(value) if isinstance(value, int) else int(value)
     if value < (1 if positive else 0):
         raise ValueError('Invalid sample length')
-    return int(value)
+    return value
 
 
 def _time_scalar(value):

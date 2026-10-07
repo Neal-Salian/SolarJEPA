@@ -28,6 +28,16 @@ def _forecast_snapshot(value, contract):
     return contract(**declarations)
 
 
+def prediction_snapshot(value):
+    """Capture a model output before scoring or publishing any of its fields."""
+    if not isinstance(value, ForecastPrediction):
+        raise ValueError('Model output must be a ForecastPrediction')
+    try:
+        return _forecast_snapshot(value, ForecastPrediction)
+    except (AttributeError, TypeError) as error:
+        raise ValueError('Incomplete or malformed forecast prediction declarations') from error
+
+
 def _prediction_content(prediction):
     if prediction is None:
         return None
@@ -56,12 +66,14 @@ def _weights(value, size, name):
     return weights
 
 
-def _mean(values, mask, weights):
-    selected = mask & (weights > 0)
+def _mean(values, mask, weights, *, log_weights=False):
+    selected = mask & (np.isfinite(weights) if log_weights else weights > 0)
     count = int(selected.sum())
     if not count:
         return _cell(None, 0, 'empty_mask')
     w = weights[selected]
+    # Normalize on scored support, not against masked high-weight cells.
+    w = np.exp(w - w.max()) if log_weights else w / w.max()
     return _cell(np.dot(values[selected], w / w.sum()), count)
 
 
@@ -164,9 +176,9 @@ def evaluate_trajectory(targets, prediction, training, persistence=None,
     # may contain different buffers or declarations. These exact-base snapshots
     # are the only objects used for alignment, metrics, coverage and identities.
     targets = _forecast_snapshot(targets, ForecastTargets)
-    prediction = _forecast_snapshot(prediction, ForecastPrediction)
+    prediction = prediction_snapshot(prediction)
     training = TrainingSlice(**_canonical_fields(training, TrainingSlice))
-    persistence = None if persistence is None else _forecast_snapshot(persistence, ForecastPrediction)
+    persistence = None if persistence is None else prediction_snapshot(persistence)
     validate_alignment(targets.grid,prediction.grid)
     if (training.spec.fingerprint != targets.grid.spec.fingerprint
             or training.context.dataset_fingerprint != targets.grid.dataset_fingerprint):
@@ -189,9 +201,12 @@ def evaluate_trajectory(targets, prediction, training, persistence=None,
         targets=logical_array(targets.values), target_mask=logical_array(targets.mask),
         prediction=_prediction_content(prediction), persistence=_prediction_content(persistence),
         training=training_identity, lead_weights=lead.tolist(), target_weights=target.tolist()))
-    # Normalize axes separately before multiplication to avoid weight overflow.
-    pooled_weights = np.broadcast_to((lead/lead.sum())[None,:,None]
-                                    * (target/target.sum())[None,None,:], (n,h,k))
+    # Log products retain positive support without overflowing products or
+    # underflowing tiny weights before applying the common target mask.
+    log_lead, log_target = np.full(h, -np.inf), np.full(k, -np.inf)
+    log_lead[lead > 0] = np.log(lead[lead > 0])
+    log_target[target > 0] = np.log(target[target > 0])
+    pooled_weights = np.broadcast_to(log_lead[None,:,None] + log_target[None,None,:], (n,h,k))
     mask = targets.mask
     observed = np.where(mask,targets.values,0.)
     try:
@@ -209,7 +224,7 @@ def evaluate_trajectory(targets, prediction, training, persistence=None,
             names = targets.grid.spec.target_names
             for t,name in enumerate(names):
                 by_target[name] = _metrics(observed[:,:,t],prediction.values[:,:,t],signed[:,:,t],
-                    mask[:,:,t],np.broadcast_to((lead/lead.sum())[None],(n,h)),scales[t],
+                    mask[:,:,t],np.broadcast_to(lead[None],(n,h)),scales[t],
                     None if reference is None else reference[:,:,t],
                     None if pinball is None else pinball[:,:,t,:])
                 by_lead[name] = [dict(lead_step=l+1,**_metrics(
@@ -217,14 +232,14 @@ def evaluate_trajectory(targets, prediction, training, persistence=None,
                     np.ones(n),scales[t],None if reference is None else reference[:,l,t],
                     None if pinball is None else pinball[:,l,t,:])) for l in range(h)]
             same_units = len(set(targets.grid.spec.target_units)) == 1
-            scored_count = int((mask & (pooled_weights > 0)).sum())
+            scored_count = int((mask & np.isfinite(pooled_weights)).sum())
             if same_units:
-                aggregate_mae = _mean(np.abs(signed),mask,pooled_weights)
-                aggregate_mse = _mean(signed**2,mask,pooled_weights)
+                aggregate_mae = _mean(np.abs(signed),mask,pooled_weights,log_weights=True)
+                aggregate_mse = _mean(signed**2,mask,pooled_weights,log_weights=True)
                 aggregate_rmse = _cell(None if aggregate_mse['value'] is None else
                                       np.sqrt(aggregate_mse['value']),aggregate_mse['count'],aggregate_mse['reason'])
                 aggregate_pinball = None if pinball is None else [
-                    _mean(pinball[...,q],mask,pooled_weights) for q in range(pinball.shape[-1])]
+                    _mean(pinball[...,q],mask,pooled_weights,log_weights=True) for q in range(pinball.shape[-1])]
             else:
                 aggregate_mae = _cell(None,scored_count,'incompatible_target_units')
                 aggregate_rmse = _cell(None,scored_count,'incompatible_target_units')

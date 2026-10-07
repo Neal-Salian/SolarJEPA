@@ -8,10 +8,13 @@ import numpy as np
 
 from solar_flare_jepa.data.storage import repository_relative_path
 from solar_flare_jepa.forecasting.baselines import make_baseline
-from solar_flare_jepa.forecasting.contracts import ForecastSpec, fingerprint_payload, logical_array
+from solar_flare_jepa.forecasting.contracts import (
+    ForecastSpec, fingerprint_payload, logical_array, validate_alignment,
+)
 from solar_flare_jepa.forecasting.splitting import chronological_partitions
 from solar_flare_jepa.forecasting.windows import build_partition_windows
 from solar_flare_jepa.evaluation import evaluate_trajectory
+from solar_flare_jepa.evaluation.trajectory import prediction_snapshot
 from .config import config_fingerprint, load_config, utc_ns
 from .fixtures import synthetic_fixture
 from .provenance import (atomic_record, code_provenance, dataset_fingerprint,
@@ -130,7 +133,12 @@ def run_experiment(config_path, root, *, output_dir=None):
                 try:
                     if not len(window.context.origin_ids):
                         raise ValueError('No eligible origins in this partition')
-                    outputs[model_name] = fitted[model_name].predict(window.context, window.targets.grid)
+                    prediction = prediction_snapshot(
+                        fitted[model_name].predict(window.context, window.targets.grid))
+                    validate_alignment(window.targets.grid, prediction.grid)
+                    if prediction.model_id != model_name:
+                        raise ValueError('Prediction model identity differs from the requested baseline')
+                    outputs[model_name] = prediction
                 except model_errors as error:
                     prediction_errors[model_name] = error
             for definition in definitions:
@@ -154,7 +162,8 @@ def run_experiment(config_path, root, *, output_dir=None):
                 prediction = outputs[model_name]
                 predictions.append(dict(**record, status='predicted', values=prediction.values.tolist(),
                     point_interpretation=prediction.point_interpretation,
-                    quantile_levels=list(prediction.quantile_levels), quantiles=None))
+                    quantile_levels=list(prediction.quantile_levels),
+                    quantiles=None if prediction.quantiles is None else prediction.quantiles.tolist()))
                 if reference_only:
                     continue
                 attempted += 1

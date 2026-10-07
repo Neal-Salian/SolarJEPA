@@ -420,7 +420,7 @@ def test_target_free_forecasts_remain_independent_of_evaluation_targets():
     np.testing.assert_array_equal(first, second)
 
 
-def test_runner_records_malformed_prediction_as_evaluation_failure(tmp_path, monkeypatch):
+def test_runner_records_malformed_prediction_before_scoring_or_publication(tmp_path, monkeypatch):
     """Real runner/scorer/publication; fixed provenance avoids fixture Git calls."""
     from test_experiment_provenance import config
     from solar_flare_jepa.experiments.provenance import verify_artifacts
@@ -459,7 +459,7 @@ def test_runner_records_malformed_prediction_as_evaluation_failure(tmp_path, mon
     assert result['successful_model_partition_scores'] == 3
     assert result['failure_count'] == 3
     assert len(failures) == 3
-    assert all(f['model'] == 'training_mean' and f['stage'] == 'evaluate' and
+    assert all(f['model'] == 'training_mean' and f['stage'] == 'predict' and
                f['error_type'] == 'ValueError' and f['attempted_origin_ids'] and
                f['common_target_valid_count'] > 0 for f in failures)
     assert all(record['status'] == 'failed' and record['metrics'] is None
