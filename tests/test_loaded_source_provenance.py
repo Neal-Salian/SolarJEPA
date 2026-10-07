@@ -135,6 +135,85 @@ def _shifted_runner(source):
         '                        quantiles=prediction.quantiles)\n' + statement)
 
 
+@pytest.mark.parametrize('cache_module', [False, True])
+def test_identical_function_code_cannot_attest_an_older_globals_namespace(tmp_path, cache_module):
+    root = _repository(tmp_path)
+    _commit(root, 'canonical source')
+    _cli(root, 'control')
+    source = root / 'src/solar_flare_jepa/experiments/runner.py'
+    canonical = source.read_text()
+    start = canonical.index('from solar_flare_jepa.data.storage import')
+    end = canonical.index('ROLE = ')
+    imports = canonical[start:end]
+    names = [alias.asname or alias.name for node in ast.parse(imports).body
+             if isinstance(node, ast.ImportFrom) for alias in node.names]
+    # Preserve every original function's code, filename and line positions.
+    altered = canonical[:start] + '\n' * imports.count('\n') + canonical[end:]
+    altered += """
+class _PreviousFactory:
+    def __init__(self, inner): self.inner = inner
+    @property
+    def parameters(self): return self.inner.parameters
+    def fit(self, training):
+        self.inner.fit(training)
+        return self
+    def predict(self, context, grid):
+        value = self.inner.predict(context, grid)
+        return type(value)(value.values + 1., value.grid, value.model_id,
+            point_interpretation=value.point_interpretation,
+            quantile_levels=value.quantile_levels, quantiles=value.quantiles)
+def _previous_factory(name, parameters):
+    return _PreviousFactory(_original_factory(name, parameters))
+def _late_imports():
+"""
+    altered += '    global ' + ','.join(names + ['_original_factory']) + '\n'
+    imports = imports.replace('import make_baseline\n', 'import make_baseline as _original_factory\n')
+    altered += ''.join('    ' + line + '\n' for line in imports.splitlines())
+    altered += '    make_baseline = _previous_factory\n'
+    previous = tmp_path / 'previous-source.txt'
+    previous.write_text(altered)
+    program = """
+import importlib,importlib.util,json,pathlib,sys
+root=pathlib.Path(sys.argv[1]);source=root/'src/solar_flare_jepa/experiments/runner.py'
+canonical=source.read_text();altered=pathlib.Path(sys.argv[2]).read_text()
+assert 'solar_flare_jepa' not in sys.modules
+source.write_text(altered);name='solar_flare_jepa.experiments.runner'
+spec=importlib.util.spec_from_file_location(name,source)
+module=importlib.util.module_from_spec(spec)
+if sys.argv[3]=='cache': sys.modules[name]=module
+try: spec.loader.exec_module(module)
+finally: source.write_text(canonical)
+assert 'solar_flare_jepa' not in sys.modules
+retained=module.run_experiment;module._late_imports();sys.modules.pop(name,None)
+current=importlib.import_module(name)
+from solar_flare_jepa._executed_source import _code_content
+assert retained.__code__.co_filename==current.run_experiment.__code__.co_filename
+assert _code_content(retained.__code__)==_code_content(current.run_experiment.__code__)
+assert retained.__globals__ is not current.run_experiment.__globals__
+destination=root/'results/experiments/previous-namespace'
+try:
+    retained('configs/experiments/p1_test.json',root,output_dir=destination)
+except ValueError as error:
+    observed=dict(rejected=True,error=str(error),published=destination.exists())
+else:
+    def read(directory,name): return json.loads((directory/name).read_text())
+    control=root/'results/experiments/control';a,b=read(control,'result.json'),read(destination,'result.json')
+    observed=dict(rejected=False,published=True,status=b['status'],
+                  same_fingerprints=a['fingerprints']==b['fingerprints'],
+                  same_ids=a['experiment_ids']==b['experiment_ids'],
+                  same_predictions=read(control,'predictions.json')==read(destination,'predictions.json'))
+print(json.dumps(observed))
+"""
+    process = subprocess.run([sys.executable, '-B', '-c', program, str(root), str(previous),
+                              'cache' if cache_module else 'uncached'],
+                             cwd=root, env=_environment(root), capture_output=True, text=True,
+                             timeout=45)
+    assert process.returncode == 0, process.stderr
+    observed = json.loads(process.stdout)
+    assert observed['rejected'], observed
+    assert not observed['published']
+
+
 @pytest.mark.parametrize('canonical_reimport', [False, True])
 @pytest.mark.parametrize('cache_module', [False, True])
 def test_worker_loader_starting_before_bootstrap_cannot_escape_history(
