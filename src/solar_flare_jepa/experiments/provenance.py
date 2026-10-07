@@ -16,7 +16,7 @@ import tempfile
 
 from solar_flare_jepa.data.download import sha256_file
 from solar_flare_jepa.data.storage import repository_relative_path
-from solar_flare_jepa._executed_source import verify_loaded_source
+from solar_flare_jepa._executed_source import captured_source_names, verify_loaded_source
 from solar_flare_jepa.forecasting.contracts import canonical_json, fingerprint_payload
 from .config import read_finite_json
 
@@ -122,6 +122,7 @@ def code_provenance(root, *, require_clean=True, require_installed_match=True):
         raise ValueError('Reproducible execution requires clean tracked source and tracked P1 inputs')
     source = source_fingerprint(root)
     imported = []
+    captured_modules = set(captured_source_names())
     package = importlib.import_module('solar_flare_jepa')
     package_root = _source_path(package.__file__).parent
     list(_source_files(package_root))
@@ -143,7 +144,8 @@ def code_provenance(root, *, require_clean=True, require_installed_match=True):
             if not actual.is_file():
                 raise ValueError(f'Execution-package source identity mismatch: missing {name}')
             digest = _source_identity(actual)['sha256']
-            executed_digest = None if module is None else verify_loaded_source(name, actual, digest)
+            executed_digest = (verify_loaded_source(name, actual, digest)
+                               if module is not None or name in captured_modules else None)
             matches = digest == item['sha256']
             if require_installed_match and not matches:
                 raise ValueError(f'Imported/checkout source identity mismatch: {name}')
@@ -153,8 +155,9 @@ def code_provenance(root, *, require_clean=True, require_installed_match=True):
             imported.append(dict(module=name,sha256=digest,checkout_match=matches,location=location,
                 executed_sha256=executed_digest,
                 inspection='loaded_module_file' if module is not None else 'package_file_not_imported'))
-    unexpected = {name for name, module in sys.modules.copy().items() if module is not None
-                  and (name == 'solar_flare_jepa' or name.startswith('solar_flare_jepa.'))} - recorded_modules
+    unexpected = ({name for name, module in sys.modules.copy().items() if module is not None
+                   and (name == 'solar_flare_jepa' or name.startswith('solar_flare_jepa.'))}
+                  | captured_modules) - recorded_modules
     if unexpected:
         raise ValueError(f'Loaded project modules are absent from source inventory: {sorted(unexpected)}')
     packages = {}
