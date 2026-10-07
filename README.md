@@ -6,7 +6,7 @@ The title is provisional: JEPA is a representation-learning method, not by
 itself a generative trajectory model; physics and generation claims require
 additional validated components.
 
-**Status (2026-10-06): Phase D.1 remains merged on synchronized main
+**Status (2026-10-07): Phase D.1 remains merged on synchronized main
 `1a4991d`. Approved P1 experiment/evaluation infrastructure is implemented on
 `feat/p1-experiment-evaluation-foundation`. A failed integration audit found a
 TrainingSlice consistency defect, corrected at `8ba57aa`. The fresh re-audit
@@ -15,9 +15,15 @@ Focused correction at `0095479` validates causal prediction snapshots. The next
 failed audit found N1: categorical object semantics and snapshot ownership could
 disagree with fingerprints. Correction at `edea3df` enforces canonical categories,
 owned metadata and parameter keys while retaining F1/R1 protections:
-659 P1 targeted and 825 total tests pass, with the existing dependency warning
-retained. Synthetic/pinned-GOES acceptance pairs and 109 preserved identities
-pass. The checkpoint is READY_FOR_P1_REAUDIT; another integration audit is required.
+that checkpoint passed 659 P1 targeted and 825 total tests. The subsequent audit
+found N2 (unrecorded symlinked executable source) and N3 (invalid evaluation
+references). Focused correction at `cde534d` binds provenance to captured source
+and namespace ownership, and scores/publishes canonical detached inputs. Final
+verification at `3028ad1`: 805 targeted / 971 total tests pass, with the existing
+dependency warning retained. Four synthetic/pinned-GOES acceptance runs each score
+54 combinations without failures; 23 installed/source modules and all 109 preserved
+identities match. The checkpoint is READY_FOR_P1_REAUDIT; another independent
+integration audit is required.
 The frozen research checkpoint `805f1c3` is preserved on
 `research/experiment-evaluation-foundation`. P1 requires a fresh integration
 audit before human integration review. The original official
@@ -32,8 +38,10 @@ See the preserved [failed integration audit](docs/P1_INTEGRATION_READINESS_AUDIT
 and [TrainingSlice remediation](docs/P1_TRAININGSLICE_REMEDIATION.md),
 the [failed fresh re-audit](docs/P1_INTEGRATION_READINESS_REAUDIT.md),
 [prediction-context remediation](docs/P1_PREDICTION_CONTEXT_REMEDIATION.md),
-the [failed final audit](docs/P1_FINAL_INTEGRATION_READINESS_AUDIT.md), and
-[canonical-semantics remediation](docs/P1_CANONICAL_SEMANTICS_REMEDIATION.md).
+the [failed final audit](docs/P1_FINAL_INTEGRATION_READINESS_AUDIT.md),
+[canonical-semantics remediation](docs/P1_CANONICAL_SEMANTICS_REMEDIATION.md),
+the [failed N2/N3 audit](docs/P1_FINAL_INTEGRATION_AUDIT.md), and
+[N2/N3 remediation and verification](docs/P1_N2_N3_REMEDIATION.md).
 See the [P1 starting-state audit](docs/P1_REPOSITORY_AUDIT.md),
 [Paperclip literature reconnaissance](docs/P1_LITERATURE_RECONNAISSANCE.md), and
 [proposed P1 design](docs/P1_PROPOSED_DESIGN.md).

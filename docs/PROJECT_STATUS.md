@@ -1,6 +1,6 @@
 # SolarJEPA project status — canonical tracker
 
-Current checkpoint: **2026-10-06** (Asia/Kolkata). Git fetch verifies D.1 merged
+Current checkpoint: **2026-10-07** (Asia/Kolkata). Git refs verify D.1 merged
 on synchronized main `1a4991da4dda9676caeb1d7e35a03408528c3188` (PR #4).
 `research/experiment-evaluation-foundation` was created and published from that
 main before milestone edits. Checkpoint `805f1c3` is frozen and unchanged.
@@ -26,7 +26,7 @@ semantics and caller-owned metadata survived snapshots under colliding identitie
 Focused [canonical-semantics remediation](P1_CANONICAL_SEMANTICS_REMEDIATION.md)
 at `edea3df87c0b08fdc08e66fe1df597334270dad8` normalizes categories, captures owned
 metadata/container content and canonical parameter keys before validation/use.
-Verification: **659 P1 targeted / 825 total tests passed**, one existing warning;
+Verification at that N1 checkpoint: **659 P1 targeted / 825 total tests passed**, one existing warning;
 179 new canonical-semantic cases, all 53 F1 and 185 R1 regressions pass.
 All 22 modules import from the rebuilt installed distribution outside checkout
 and match source. Fresh synthetic/GOES pairs each score all 54 combinations with
@@ -37,10 +37,30 @@ BLOCKER/HIGH in 686 bounded probes plus eight factory and six Mapping checks,
 repeated against the installed package. Historical F3-F9 limitations and a
 pre-existing malformed numeric-subtype edge remain documented. The historical
 [P1 implementation checkpoint](P1_IMPLEMENTATION_REPORT.md) remains preserved.
-Current state: **READY_FOR_P1_REAUDIT**. The next step is another fresh
-integration-readiness audit; no integration or
-next-phase work is authorized. Main and the research branch remain unchanged.
-The Paperclip pointer remains untracked.
+The subsequent preserved [N2/N3 audit](P1_FINAL_INTEGRATION_AUDIT.md) of
+`65369567d2f6cd2aebb4c1f4e7bd608fb393cb03` returned **NOT_READY_FOR_INTEGRATION**:
+symlinked executable source escaped provenance, and evaluation trusted invalid
+copied training/reference objects. Focused [N2/N3 remediation](P1_N2_N3_REMEDIATION.md)
+at implementation `cde534d67820bc34fbaf83a131667b72edab0016` rejects redirected
+source, captures actual project source/loading/namespace ownership, and validates
+detached evaluation and publication inputs. Independent reviews found further
+loaded-source and output-publication variants, closed in bounded TDD cycles.
+Final test/acceptance checkpoint `3028ad10f3e6bcac0ce4df93650ae87465083460` adds
+only test-process isolation over that implementation. **805 targeted / 971 total
+tests pass**, including 146 new cases and the existing 53 F1 / 185 R1 / 179 N1
+cases; the NumPy/netCDF warning remains visible. Four fresh installed-package
+synthetic/GOES runs each score 54 combinations with zero failures. Paired semantic
+identities and eight stable JSON files match; artifact and corruption checks pass.
+All **23 installed modules** match source outside checkout without PYTHONPATH,
+and **109/109** starting preservation identities match. Bounded independent source,
+evaluation and whole-chain reviewers reproduced no remaining related BLOCKER/HIGH.
+The report retains a LOW quoted Git-path tracking gap, source-attestation/TOCTOU
+limits and the clean-environment/cross-platform reproducibility gaps.
+
+Current state: **READY_FOR_P1_REAUDIT**. A fresh independent integration-readiness
+audit is still required; this remediation grants no integration or next-phase
+authorization. Main and the research branch remain unchanged. The Paperclip
+pointer remains untracked.
 
 **Phase E remains BLOCKED_FOR_PHASE_E pending authoritative SoLEXS evidence.**
 The official request is user-reported as sent; no reply is available. P1
