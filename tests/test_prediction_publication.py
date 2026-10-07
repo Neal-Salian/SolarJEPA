@@ -78,7 +78,10 @@ def test_all_baselines_publish_values_used_by_metric_logic(tmp_path, monkeypatch
             assert score['by_target'][target]['mae']['value'] == pytest.approx(mae)
 
 
-@pytest.mark.parametrize('malformed', ['none', 'array', 'missing-fields', 'shape', 'grid'])
+@pytest.mark.parametrize('malformed', [
+    'none', 'array', 'missing-fields', 'shape', 'grid',
+    'misaligned-grid', 'dataset', 'origins', 'units', 'model-id',
+])
 def test_malformed_model_output_becomes_explicit_failure_before_publication(
         tmp_path, monkeypatch, malformed):
     def damage(prediction):
@@ -88,6 +91,21 @@ def test_malformed_model_output_becomes_explicit_failure_before_publication(
             return np.array(prediction.values)
         if malformed == 'missing-fields':
             return ForecastPrediction.__new__(ForecastPrediction)
+        if malformed == 'misaligned-grid':
+            grid = prediction.grid
+            offset = grid.spec.cadence_ns
+            return replace(prediction, grid=replace(grid, starts_ns=grid.starts_ns + offset,
+                ends_ns=grid.ends_ns + offset, issue_times_ns=grid.issue_times_ns + offset))
+        if malformed == 'dataset':
+            return replace(prediction, grid=replace(prediction.grid, dataset_fingerprint='other-dataset'))
+        if malformed == 'origins':
+            return replace(prediction, grid=replace(prediction.grid,
+                origin_ids=tuple('other:' + value for value in prediction.grid.origin_ids)))
+        if malformed == 'units':
+            spec = replace(prediction.grid.spec, target_units=('other-unit', 'other-unit'))
+            return replace(prediction, grid=replace(prediction.grid, spec=spec))
+        if malformed == 'model-id':
+            return replace(prediction, model_id='other-model')
         prediction = deepcopy(prediction)
         if malformed == 'shape':
             prediction.values.resize((1, 1, 2), refcheck=False)

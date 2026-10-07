@@ -264,3 +264,44 @@ else:
     observed = json.loads(process.stdout)
     assert observed['rejected'], observed
     assert not observed['published']
+
+
+@pytest.mark.parametrize('canonical_reimport', [False, True])
+def test_first_alternate_execution_cannot_disappear_before_source_attestation(tmp_path, canonical_reimport):
+    root = _repository(tmp_path)
+    _commit(root, 'canonical source')
+    source = (root / 'src/solar_flare_jepa/experiments/runner.py').read_text()
+    statement = "model = make_baseline(name, definition['parameters'])"
+    assert source.count(statement) == 1
+    alternate = root.parent / 'first-alternate-runner.py'
+    alternate.write_text(source.replace(statement, "model = make_baseline('training_mean', {})"))
+    program = """
+import importlib,importlib.util,json,pathlib,sys
+import solar_flare_jepa.experiments
+root=pathlib.Path(sys.argv[1]); path=pathlib.Path(sys.argv[2])
+name='solar_flare_jepa.experiments.runner'
+assert name not in sys.modules
+spec=importlib.util.spec_from_file_location(name,path)
+module=importlib.util.module_from_spec(spec);sys.modules[name]=module
+spec.loader.exec_module(module)
+retained=module.run_experiment
+sys.modules.pop(name)
+if sys.argv[3]=='reimport':
+    canonical=importlib.import_module(name)
+    assert canonical.run_experiment is not retained
+destination=root/'results/experiments/retained-first'
+try:
+    retained('configs/experiments/p1_test.json',root,output_dir=destination)
+except ValueError as error:
+    print(json.dumps(dict(rejected=True,error=str(error),published=destination.exists())))
+else:
+    print(json.dumps(dict(rejected=False,published=True)))
+"""
+    process = subprocess.run([sys.executable, '-B', '-c', program, str(root), str(alternate),
+                              'reimport' if canonical_reimport else 'evict'],
+                             cwd=root, env=_environment(root), capture_output=True, text=True)
+    assert process.returncode == 0, process.stderr
+    observed = json.loads(process.stdout)
+    assert observed['rejected'], observed
+    assert 'Executed/recorded project source mismatch' in observed['error']
+    assert not observed['published']
