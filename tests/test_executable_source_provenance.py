@@ -220,18 +220,41 @@ def test_ordinary_source_inventory_is_portable_deterministic_and_complete(tmp_pa
     provenance.verify_source_identities(clone, first['files'])
 
 
-def test_loaded_project_module_missing_from_checkout_inventory_is_refused(tmp_path, monkeypatch):
+def test_loaded_project_module_missing_from_checkout_inventory_is_refused(tmp_path):
     root, _ = _repository(tmp_path)
     path = tmp_path.resolve() / 'unrecorded.py'
     path.write_text('executed_value = 42\n')
-    name = 'solar_flare_jepa.experiments.unrecorded_probe'
-    spec = importlib.util.spec_from_file_location(name, path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    assert module.executed_value == 42
-    monkeypatch.setitem(sys.modules, name, module)
-    with pytest.raises(ValueError):
-        provenance.code_provenance(root)
+    # A real interpreter retains unsafe execution history after cache eviction.
+    # Isolate intentional invalid execution rather than resetting that history
+    # and contaminating later ordinary runner tests in pytest's interpreter.
+    program = """
+import importlib.util,json,pathlib,sys
+from solar_flare_jepa.experiments import provenance
+root,path=map(pathlib.Path,sys.argv[1:3])
+provenance.code_provenance(root)
+name='solar_flare_jepa.experiments.unrecorded_probe'
+spec=importlib.util.spec_from_file_location(name,path)
+module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+assert module.executed_value==42
+sys.modules[name]=module
+rejected=[]
+for evict in (False,True):
+    if evict:sys.modules.pop(name,None)
+    try:provenance.code_provenance(root)
+    except ValueError as error:
+        assert name in str(error)
+        rejected.append(str(error))
+    else:raise AssertionError('Unrecorded execution must remain refused')
+print(json.dumps(dict(rejections=rejected)))
+"""
+    env = os.environ.copy()
+    env['PYTHONPATH'] = str(root / 'src')
+    env['PYTHONDONTWRITEBYTECODE'] = '1'
+    run = subprocess.run([sys.executable, '-B', '-c', program, str(root), str(path)],
+                         cwd=tmp_path.resolve(), env=env, capture_output=True, text=True,
+                         timeout=45)
+    assert run.returncode == 0, run.stderr
+    assert len(json.loads(run.stdout)['rejections']) == 2
 
 
 @pytest.mark.parametrize('replacement', ['file', 'directory'])
