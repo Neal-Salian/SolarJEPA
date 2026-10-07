@@ -16,7 +16,9 @@ import tempfile
 
 from solar_flare_jepa.data.download import sha256_file
 from solar_flare_jepa.data.storage import repository_relative_path
-from solar_flare_jepa._executed_source import captured_source_names, verify_loaded_source
+from solar_flare_jepa._executed_source import (
+    captured_source_names, verify_execution_frames, verify_loaded_source,
+)
 from solar_flare_jepa.forecasting.contracts import canonical_json, fingerprint_payload
 from .config import read_finite_json
 
@@ -110,6 +112,7 @@ def source_fingerprint(root, paths=None):
 
 def code_provenance(root, *, require_clean=True, require_installed_match=True):
     root = _source_path(root)
+    verify_execution_frames()
     def git(*args):
         result = subprocess.run(['git','-C',str(root),*args],capture_output=True,text=True,check=True)
         return result.stdout.strip()

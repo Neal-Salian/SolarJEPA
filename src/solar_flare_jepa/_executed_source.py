@@ -17,6 +17,7 @@ if '_captures' not in globals():
     _captures = {}
     _changed = set()
     _codes = {}
+    _frame_codes = {}
     _loaders = {}
     _audit_ready = False
 
@@ -45,7 +46,22 @@ def _capture(name, filename, source, code, loader):
         _changed.add(name)
     _captures.setdefault(name, identity)
     _codes.setdefault(name, _code_content(code))
+    _frame_codes.setdefault(name, set(_nested_codes(code)))
     _loaders[name] = loader
+
+
+def _nested_codes(code):
+    yield _code_content(code)
+    for value in code.co_consts:
+        if isinstance(value, CodeType):
+            yield from _nested_codes(value)
+
+
+def _active_frames():
+    for frame in sys._current_frames().values():
+        while frame is not None:
+            yield frame
+            frame = frame.f_back
 
 
 def _bootstrap_capture(name, filename, executing_code):
@@ -118,15 +134,13 @@ def install(package_name, filename, executing_code):
     for name in sys.modules.copy():
         if (name == 'solar_flare_jepa' or name.startswith('solar_flare_jepa.')) and name not in _captures:
             _changed.add(name)
-    frame = sys._getframe(1)
-    while frame is not None:
+    for frame in _active_frames():
         module = frame.f_locals.get('module') if frame.f_code.co_name == 'exec_module' else None
         if (isinstance(module, ModuleType)
                 and (module.__name__ == 'solar_flare_jepa'
                      or module.__name__.startswith('solar_flare_jepa.'))
                 and module.__name__ not in _captures):
             _changed.add(module.__name__)
-        frame = frame.f_back
     if not any(isinstance(finder, _ProjectSourceFinder) for finder in sys.meta_path):
         sys.meta_path.insert(0, _ProjectSourceFinder())
 
@@ -143,6 +157,31 @@ def verify_loaded_source(name, filename, digest):
 def captured_source_names():
     """Include evicted modules: retained from-import references can still run."""
     return tuple(sorted(set(_captures) | _changed))
+
+
+def verify_execution_frames():
+    """Refuse retained project functions that predate bootstrap observation.
+
+    This covers completed standard-loader executions whose imports were deferred
+    until function invocation, including stale code at an otherwise canonical
+    filename. Dynamically generated non-file code (such as dataclass methods) is
+    outside source-file attestation; this is not an interpreter security sandbox.
+    """
+    for frame in _active_frames():
+        name = frame.f_globals.get('__name__')
+        if not isinstance(name, str):
+            continue
+        name = str.__str__(name)
+        if name != 'solar_flare_jepa' and not name.startswith('solar_flare_jepa.'):
+            continue
+        code = frame.f_code
+        if code.co_filename.startswith('<'):
+            continue
+        identity = _captures.get(name)
+        if (name in _changed or identity is None
+                or str(Path(code.co_filename).absolute()) != identity['path']
+                or _code_content(code) not in _frame_codes.get(name, ())):
+            raise ValueError(f'Executed/recorded project source mismatch: {name}; use a fresh interpreter')
 
 
 # These two bootstrap modules precede the finder. Compare their executing module
