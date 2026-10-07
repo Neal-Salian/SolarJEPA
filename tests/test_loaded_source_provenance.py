@@ -1,4 +1,5 @@
 """Executing source must match provenance in persistent and cached interpreters."""
+import ast
 import json
 import os
 from pathlib import Path
@@ -119,6 +120,146 @@ else:
         observed['same_fingerprints_as_fresh'] = observed['result']['fingerprints'] == control['fingerprints']
         observed['same_experiment_ids_as_fresh'] = observed['result']['experiment_ids'] == control['experiment_ids']
         observed['fresh_first_prediction'] = _json(fresh, 'predictions.json')[0]['values'][0][0][0]
+    assert observed['rejected'], observed
+    assert not observed['published']
+
+
+def _shifted_runner(source):
+    statement = '                    outputs[model_name] = prediction\n'
+    assert source.count(statement) == 1
+    return source.replace(statement,
+        '                    prediction = type(prediction)(\n'
+        '                        prediction.values + 1., prediction.grid, prediction.model_id,\n'
+        '                        point_interpretation=prediction.point_interpretation,\n'
+        '                        quantile_levels=prediction.quantile_levels,\n'
+        '                        quantiles=prediction.quantiles)\n' + statement)
+
+
+@pytest.mark.parametrize('canonical_reimport', [False, True])
+@pytest.mark.parametrize('cache_module', [False, True])
+def test_worker_loader_starting_before_bootstrap_cannot_escape_history(
+        tmp_path, canonical_reimport, cache_module):
+    root = _repository(tmp_path)
+    _commit(root, 'canonical source')
+    control = _cli(root, 'control')
+    marker, release = tmp_path / 'started', tmp_path / 'release'
+    alternate = tmp_path / 'worker-runner.py'
+    prefix = (f'import pathlib,time\n_marker=pathlib.Path({str(marker)!r})\n'
+              f'_release=pathlib.Path({str(release)!r})\n'
+              '_marker.write_text("started")\n_deadline=time.monotonic()+15\n'
+              'while not _release.exists():\n'
+              '    if time.monotonic()>_deadline: raise RuntimeError("release timeout")\n'
+              '    time.sleep(.01)\n')
+    source = (root / 'src/solar_flare_jepa/experiments/runner.py').read_text()
+    alternate.write_text(prefix + _shifted_runner(source))
+    program = """
+import importlib,importlib.util,json,pathlib,sys,threading,time
+root,path,marker,release=map(pathlib.Path,sys.argv[1:5])
+name='solar_flare_jepa.experiments.runner'
+assert 'solar_flare_jepa' not in sys.modules
+spec=importlib.util.spec_from_file_location(name,path)
+module=importlib.util.module_from_spec(spec)
+if sys.argv[6]=='cache': sys.modules[name]=module
+errors=[]
+def load():
+    try: spec.loader.exec_module(module)
+    except BaseException as error: errors.append(repr(error))
+worker=threading.Thread(target=load);worker.start();deadline=time.monotonic()+15
+while not marker.exists():
+    assert worker.is_alive(),errors
+    if time.monotonic()>deadline: raise RuntimeError('startup timeout')
+    time.sleep(.01)
+import solar_flare_jepa.experiments
+release.write_text('continue');worker.join(15)
+assert not worker.is_alive() and not errors,errors
+retained=module.run_experiment;sys.modules.pop(name,None)
+if sys.argv[5]=='reimport': importlib.import_module(name)
+destination=root/'results/experiments/threaded'
+try:
+    retained('configs/experiments/p1_test.json',root,output_dir=destination)
+except ValueError as error:
+    observed=dict(rejected=True,error=str(error),published=destination.exists())
+else:
+    control=root/'results/experiments/control'
+    def read(directory,name): return json.loads((directory/name).read_text())
+    a,b=read(control,'result.json'),read(destination,'result.json')
+    observed=dict(rejected=False,published=True,status=b['status'],
+                  same_fingerprints=a['fingerprints']==b['fingerprints'],
+                  same_ids=a['experiment_ids']==b['experiment_ids'],
+                  same_predictions=read(control,'predictions.json')==read(destination,'predictions.json'))
+print(json.dumps(observed))
+"""
+    process = subprocess.run([sys.executable, '-B', '-c', program, str(root), str(alternate),
+                              str(marker), str(release),
+                              'reimport' if canonical_reimport else 'evict',
+                              'cache' if cache_module else 'uncached'],
+                             cwd=root, env=_environment(root), capture_output=True, text=True,
+                             timeout=45)
+    assert process.returncode == 0, process.stderr
+    observed = json.loads(process.stdout)
+    assert observed['rejected'], observed
+    assert not observed['published']
+    assert _json(control, 'result.json')['status'] == 'complete'
+
+
+@pytest.mark.parametrize('canonical_reimport', [False, True])
+@pytest.mark.parametrize('source_path', ['external', 'canonical'])
+def test_completed_deferred_import_loader_cannot_hide_retained_code(
+        tmp_path, canonical_reimport, source_path):
+    root = _repository(tmp_path)
+    path = root / 'src/solar_flare_jepa/experiments/runner.py'
+    canonical = path.read_text()
+    current = _commit(root, 'canonical source')
+    _cli(root, 'control')
+    tree = ast.parse(_shifted_runner(canonical))
+    imports = [node for node in tree.body if isinstance(node, ast.ImportFrom)]
+    names = [alias.asname or alias.name for node in imports for alias in node.names]
+    tree.body = [node for node in tree.body if node not in imports]
+    tree.body.append(ast.FunctionDef(name='_late_imports', args=ast.arguments(
+        posonlyargs=[], args=[], kwonlyargs=[], kw_defaults=[], defaults=[]),
+        body=[ast.Global(names=names)] + imports, decorator_list=[]))
+    run = next(node for node in tree.body if isinstance(node, ast.FunctionDef)
+               and node.name == 'run_experiment')
+    run.body.insert(1, ast.Expr(value=ast.Call(func=ast.Name(id='_late_imports', ctx=ast.Load()),
+                                            args=[], keywords=[])))
+    altered = ast.unparse(ast.fix_missing_locations(tree))
+    if source_path == 'canonical':
+        path.write_text(altered)
+        _commit(root, 'old deferred runner')
+    else:
+        path = tmp_path / 'deferred-runner.py'
+        path.write_text(altered)
+    program = """
+import importlib,importlib.util,json,pathlib,subprocess,sys
+root,path=map(pathlib.Path,sys.argv[1:3]);name='solar_flare_jepa.experiments.runner'
+assert 'solar_flare_jepa' not in sys.modules
+spec=importlib.util.spec_from_file_location(name,path)
+module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+assert 'solar_flare_jepa' not in sys.modules
+retained=module.run_experiment
+subprocess.run(['git','-C',str(root),'checkout','-q',sys.argv[3]],check=True)
+import solar_flare_jepa.experiments
+if sys.argv[4]=='reimport': importlib.import_module(name)
+destination=root/'results/experiments/deferred'
+try:
+    retained('configs/experiments/p1_test.json',root,output_dir=destination)
+except ValueError as error:
+    observed=dict(rejected=True,error=str(error),published=destination.exists())
+else:
+    def read(directory,name): return json.loads((directory/name).read_text())
+    control=root/'results/experiments/control';a,b=read(control,'result.json'),read(destination,'result.json')
+    observed=dict(rejected=False,published=True,status=b['status'],
+                  same_fingerprints=a['fingerprints']==b['fingerprints'],
+                  same_ids=a['experiment_ids']==b['experiment_ids'],
+                  same_predictions=read(control,'predictions.json')==read(destination,'predictions.json'))
+print(json.dumps(observed))
+"""
+    process = subprocess.run([sys.executable, '-B', '-c', program, str(root), str(path), current,
+                              'reimport' if canonical_reimport else 'evict'],
+                             cwd=root, env=_environment(root), capture_output=True, text=True,
+                             timeout=45)
+    assert process.returncode == 0, process.stderr
+    observed = json.loads(process.stdout)
     assert observed['rejected'], observed
     assert not observed['published']
     assert not list((root / 'results/experiments').glob('.stage-*'))
