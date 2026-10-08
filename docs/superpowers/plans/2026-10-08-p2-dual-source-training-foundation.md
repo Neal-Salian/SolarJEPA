@@ -34,7 +34,7 @@
 - [x] Read repository policy, source/interfaces, manifests, refs and local audit.
 - [x] Fetch and verify main/P1/research refs and P1 checkpoint ancestry.
 - [x] Create exact requested P2 branch from verified P1 HEAD and publish upstream before implementation.
-- [ ] Record existing file identities; run fresh full P1 suite and recheck reference GOES data.
+- [x] Record existing file identities; run fresh full P1 suite and recheck reference GOES data.
 
 ## Task 2: Historical NOAA acquisition
 
@@ -42,9 +42,9 @@ Owner: acquisition worker. Files: new `data/goes_acquisition.py`, `scripts/acqui
 
 Interface: `acquire_history(config_path, root) -> dict` and `verify_history(manifest_path, root) -> list[Path]` (flux files only). Manifest records portable paths, official URLs, sizes, hashes, selected interval and satellite/product/version.
 
-- [ ] Write offline tests for bounded acquisition, retries/failure, immutable resume, path safety and integrity; observe RED.
-- [ ] Implement minimum acquisition; run GREEN. Browse official NOAA source/product documentation.
-- [ ] Acquire/verify the fixed month within caps and record actual inventory.
+- [x] Write offline tests for bounded acquisition, retries/failure, immutable resume, path safety and integrity; observe RED.
+- [x] Implement minimum acquisition; run GREEN. Browse official NOAA source/product documentation.
+- [x] Acquire/verify the fixed month within caps and record actual inventory.
 
 ## Task 3: GOES validation and P1 integration
 
@@ -52,19 +52,19 @@ Owner: primary. Files: new `data/foundation.py`, `scripts/prepare_goes_training.
 
 Interfaces: `goes_training(config, root) -> TimeSeriesDataset`; `prepare_foundation(config_path, root, output_dir) -> dict`. Preserve native identity metadata, complete measured-bin grids with explicit absent masks, raw quality report and P1 split/window manifests.
 
-- [ ] Write failing tests for historical adapter, mask/missingness, platform/units/order and no incompatible source conversion/mixing.
-- [ ] Add `goes_historical` config/role preserving original reference protections; reuse native read_goes quality policy.
-- [ ] Verify target support inside splits and train-only normalization; record raw rows, valid origins and exclusions.
-- [ ] Execute all six fixed P1 baselines and verify indexed artifacts, causality, coverage and failures.
+- [x] Write failing tests for historical adapter, mask/missingness, platform/units/order and no incompatible source conversion/mixing.
+- [x] Add `goes_historical` config/role preserving original reference protections; reuse native read_goes quality policy.
+- [x] Verify target support inside splits and train-only normalization; record raw rows, valid origins and exclusions.
+- [x] Execute all six fixed P1 baselines and verify indexed artifacts, causality, coverage and failures.
 
 ## Task 4: Native SoLEXS exploration
 
 Owner: native worker. Files: new `data/solexs_exploration.py`, CLI, dedicated tests, diagnostic config and readiness document. Do not modify old loader/gate/manifests.
 
-- [ ] Read existing loader/scientific evidence; verify archives with existing APIs.
-- [ ] Write and observe failing tests for detector identity, blocked conversion/task, bounded native diagnostics and provenance.
-- [ ] Implement native summaries and plots using existing loaders. Label OBSERVED_NATIVE or EXPERIMENTAL_UNCALIBRATED; never SCIENTIFICALLY_VALIDATED.
-- [ ] Run real inspection; report each candidate sequence task and gate disposition.
+- [x] Read existing loader/scientific evidence; verify archives with existing APIs.
+- [x] Write and observe failing tests for detector identity, blocked conversion/task, bounded native diagnostics and provenance.
+- [x] Implement native summaries and plots using existing loaders. Label OBSERVED_NATIVE or EXPERIMENTAL_UNCALIBRATED; never SCIENTIFICALLY_VALIDATED.
+- [x] Run real inspection; report each candidate sequence task and gate disposition.
 
 ## Task 5: Lightweight training foundation
 
@@ -72,14 +72,24 @@ Owner: training worker. Files: new `training/` package, `scripts/train_smoke.py`
 
 Interfaces: P1 WindowedPartition/TrainingSlice inputs; train-only unique-raw log/standard normalization; explicit input/target masks; model output `[batch,horizon,targets]`; P1 prediction/evaluation adapter; checkpoint reload and inference.
 
-- [ ] Inspect existing package/environment; write deterministic tests and observe RED.
-- [ ] Implement bounded CPU loops, optional MPS selection, seeds, validation-only checkpoint selection, optimizer and numerical guards.
-- [ ] Verify checkpoint identities, deterministic reload and evaluator integration; run actual GOES smoke after primary prepares windows.
+- [x] Inspect existing package/environment; write deterministic tests and observe RED.
+- [x] Implement bounded CPU loops, optional MPS selection, seeds, validation-only checkpoint selection, optimizer and numerical guards.
+- [x] Verify checkpoint identities, deterministic reload and evaluator integration; run actual GOES smoke after primary prepares windows.
 
 ## Task 6: Independent review, verification and handoff
 
-- [ ] Commit scoped tested implementation and push P2 throughout; install package normally after source changes.
-- [ ] Run P2, native loaders, historical F1/R1/N1/N2/N3, full suite, actual NOAA validation/baselines, native inspection and smoke/reload.
-- [ ] Independent scientific/leakage/code review; reproduce and fix important findings with tests.
-- [ ] Write `docs/P2_DUAL_SOURCE_FOUNDATION.md`, `docs/P2_CLAUDE_CODE_HANDOFF.md` and future model contract; distinguish IMPLEMENTED/VERIFIED/PLANNED/BLOCKED.
-- [ ] Inspect diffs/index/history/ignore policy, preservation identities and all protected refs; push final P2 and confirm sync. Stop for human review.
+- [x] Commit scoped tested implementation and push P2 throughout; install package normally after source changes.
+- [x] Run P2, native loaders, historical F1/R1/N1/N2/N3, full suite, actual NOAA validation/baselines, native inspection and smoke/reload.
+- [x] Independent scientific/leakage/code review; reproduce and fix important findings with tests.
+- [x] Write `docs/P2_DUAL_SOURCE_FOUNDATION.md`, `docs/P2_CLAUDE_CODE_HANDOFF.md` and future model contract; distinguish IMPLEMENTED/VERIFIED/PLANNED/BLOCKED.
+- [x] Inspect diffs/index/history/ignore policy, preservation identities and all protected refs; verify successful implementation pushes. Repeat upstream verification after the final documentation commit, then stop for human review.
+
+
+## Execution evidence (2026-10-08)
+
+- Parent: 971 tests passed; final full suite: 1,084 passed, zero failed, one retained ABI warning. P2 targeted: 113 passed.
+- Actual GOES: 31 pinned files, 44,640 rows; 855/199/209 retained train/validation/test origins. All six comparators produced 18 scores with zero failures.
+- Actual SoLEXS: two original archives, eight products, four native plots; all candidate training tasks remain blocked.
+- CPU smoke: eight optimizer steps, validation-selected epoch 2, all three serialized reload subsets bitwise equal.
+- Independent review: three MEDIUM findings reproduced and fixed; final targeted/full/actual acceptance ran after fixes.
+- Full results, precise commands and limits: `docs/P2_DUAL_SOURCE_FOUNDATION.md`, `docs/P2_CLAUDE_CODE_HANDOFF.md`. Executable checkpoint `a2d76f8cc561bcb412b5e2c64043e979ad59136c`; final handoff commit contains only documentation/lock.
