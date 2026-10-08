@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "task_id": "solexs-native-recorded-value-v1",
+  "scientific_label": "EXPLORATORY / PROVISIONAL / NOT SCIENTIFICALLY CALIBRATED",
+  "context_samples": 64,
+  "horizon_samples": 8,
+  "stride_samples": 8,
+  "train_stop_row": 60480,
+  "expected_rows": 86400,
+  "inventory_path": "data/manifests/aditya_inventory.json",
+  "inventory_sha256": "0f770484f375ada192ed5bea75f04d9e2ba5d2b94956938329279a5f11b87540",
+  "phase_e_path": "data/manifests/solexs_phase_e_evidence.json",
+  "phase_e_sha256": "6e886b27e39db0db28566211ede609dc53eead1bb7db6ecb7317d3ae33f73d5c",
+  "sources": [
+    {
+      "path": "data/raw/aditya/solexs/l1/v1.1/archives/2024/07/AL1_SLX_L1_20240701_v1.1.zip",
+      "bytes": 6036792,
+      "sha256": "9d0cb2341c2eb6c4b25b6dd0b600042b750920ea433197e1d0def742c947b7e4",
+      "nominal_date": "2024-07-01",
+      "member": "AL1_SLX_L1_20240701_v1.1/SDD2/AL1_SOLEXS_20240701_SDD2_L1.lc.gz",
+      "fits_sha256": "8db1592fe86c59093a5d0ae2308da5db9848e408df00387b525bfbf411820cdb"
+    },
+    {
+      "path": "data/raw/aditya/solexs/l1/v1.1/archives/2024/07/AL1_SLX_L1_20240703_v1.1.zip",
+      "bytes": 6216112,
+      "sha256": "b82ce974cd6195621e85e3c2773dc94202811c12c7b31e71df0c0353fe3af4bf",
+      "nominal_date": "2024-07-03",
+      "member": "AL1_SLX_L1_20240703_v1.1/SDD2/AL1_SOLEXS_20240703_SDD2_L1.lc.gz",
+      "fits_sha256": "f3baf21aadb2328701ede746a819b9bf65ed6dc8113fd07905b44814da8c5639"
+    }
+  ],
+  "neural": {
+    "seed": 17,
+    "epochs": 8,
+    "batch_size": 128,
+    "learning_rate": 0.001,
+    "gradient_clip": 1.0
+  }
+}
