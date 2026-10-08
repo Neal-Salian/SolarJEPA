@@ -106,7 +106,7 @@ independently checked by the calibration reviewer.
 |---|---|
 | Untouched inherited full suite | **1,084 passed, zero failed**, one existing warning, 83.15s. |
 | Final full suite after reports/manifests | **1,084 passed, zero failed**, same warning, 79.20s. |
-| Native loader/readiness/exploration subset | **109 passed**, zero warnings, 7.33s; existing tests unchanged. |
+| Native loader/readiness/exploration subset | **109 passed**, zero warnings, 7.33s; final repeat **109 passed**, 5.59s; existing tests unchanged. |
 | Actual archives/native CLI | Two archives/eight products; CRC/gzip/FITS integrity and16 DATASUM checks passed; CHECKSUM absent. |
 | Actual response/readiness CLI | Deterministic native-only output; candidate mappings/applicability not approved. |
 | Gated exploration CLI | Two archives/four plots; training not executed; conversion/calibration not applied. |
@@ -182,3 +182,14 @@ bounded historical coverage, define source-separated targets/masks/uncertainties
 establish causal availability and independent chronological evaluation support,
 then consider approved common-response comparisons. These are recommendations,
 not implemented model/training work or permission to change P3. No branch is merged.
+
+## Publication verification
+
+Scientific evidence/report commit
+`dc61dd0803f47cfd0dbf4f44ecaf7bc470948003` was pushed only to the named Phase E
+branch, with local HEAD, upstream and independent `ls-remote` exactly equal.
+The worktree was clean after that push. Subsequent closure records only these
+verification results and completed plan items; get its final full tip with
+`git rev-parse HEAD` (a commit cannot contain its own hash). No PR, merge, push
+to main, history rewrite or branch deletion was performed. The worktree remains
+available for human review, and scientific training remains blocked.

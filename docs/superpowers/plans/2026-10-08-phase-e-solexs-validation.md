@@ -37,8 +37,8 @@
 - [x] Implement only a reproduced, evidence-justified validation defect if discovered; use a failing targeted test first. Otherwise preserve executable code and report why no new utility is needed.
 - [x] Write scientific validation, evidence matrix and implementation reports; extend the existing requirements manifest without altering its historical fields. Store only compact provenance summaries.
 - [x] Conduct independent scientific/implementation review and resolve substantiated findings.
-- [ ] Run final scoped verification, inspect exact inventory and ignored/indexed paths, verify protected refs and original raw hashes, commit explicitly staged files and push only Phase E.
-- [ ] Verify upstream synchronization and stop for human review; report blockers and next scientific milestone.
+- [x] Run final scoped verification, inspect exact inventory and ignored/indexed paths, verify protected refs and original raw hashes, commit explicitly staged files and push only Phase E.
+- [x] Verify upstream synchronization and stop for human review; report blockers and next scientific milestone.
 
 ## Execution notes
 
@@ -52,3 +52,5 @@ Three read-only investigators cover the five suggested scientific domains becaus
 - Fresh final review: no actionable findings; review limits are recorded in the implementation report.
 - Historical requirement fields, all original raw inputs, local audit/skill and prior scientific/experiment identities were rechecked unchanged.
 - Authorized finishing path is feature-branch publication and human review only; no merge, PR creation, branch deletion or worktree cleanup.
+
+- Scientific evidence publication: `dc61dd0803f47cfd0dbf4f44ecaf7bc470948003`, local/upstream/remote equality verified; final closure records this result without changing the scientific verdict.
