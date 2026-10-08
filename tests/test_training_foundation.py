@@ -136,6 +136,32 @@ def test_checkpoint_rejects_nonfinite_weights(tmp_path):
         module.load_checkpoint(path, expected_identities=model.identities)
 
 
+@pytest.mark.parametrize('change', ['scientific_status', 'phase_e', 'test_selection',
+                                  'empty_history', 'selection_loss', 'optimizer_steps'])
+def test_checkpoint_rejects_inconsistent_scientific_and_monitoring_record(tmp_path, change):
+    import torch
+    module, model, _ = fitted()
+    path = tmp_path/'best.pt'
+    model.save_checkpoint(path)
+    payload = torch.load(path, weights_only=True)
+    record = payload['training_record']
+    if change == 'scientific_status':
+        record['scientific_status'] = 'SCIENTIFICALLY_VALIDATED'
+    elif change == 'phase_e':
+        record['phase_e'] = 'CLEARED_FOR_PHASE_E'
+    elif change == 'test_selection':
+        record['selection']['partition'] = 'test'
+    elif change == 'empty_history':
+        record['history'] = []
+    elif change == 'selection_loss':
+        record['selection']['loss'] += 1.
+    else:
+        record['optimizer_steps'] += 1
+    torch.save(payload, path)
+    with pytest.raises(ValueError, match='record|monitor|status|history|selection|steps'):
+        module.load_checkpoint(path, expected_identities=model.identities)
+
+
 def test_predictions_consume_causal_context_and_grid_without_future_labels():
     _, model, windows = fitted()
     window = windows['validation']

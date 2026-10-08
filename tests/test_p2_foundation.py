@@ -26,12 +26,15 @@ def native_file(path, times=(0, 60, 180, 240), defect=None):
     with xr.open_dataset(path, decode_times=False) as original:
         ds = original.load()
     ds.attrs.update(platform='g16', instrument='GOES R Series Extreme Ultraviolet Sensor and X-ray Irradiance Sensors (EXIS)')
+    ds.attrs['id'] = path.name
     if defect == 'platform':
         ds.attrs['platform'] = 'GOES-18'
     if defect == 'instrument':
         ds.attrs['instrument'] = 'SoLEXS'
     if defect == 'unit':
         ds.xrsb_flux.attrs['units'] = 'counts'
+    if defect == 'id':
+        ds.attrs['id'] = 'wrong-version-or-date.nc'
     if defect == 'nonfinite':
         ds.xrsb_flux.values[2] = np.inf
     if defect == 'fractional_quality':
@@ -57,7 +60,7 @@ def test_absent_bins_are_nan_with_false_masks_and_reported(tmp_path):
     assert report['event_labels']['status'] == 'NOT_DEFINED'
 
 
-@pytest.mark.parametrize('defect', ['platform', 'instrument', 'unit', 'fractional_quality'])
+@pytest.mark.parametrize('defect', ['platform', 'instrument', 'unit', 'fractional_quality', 'id'])
 def test_unsupported_native_identity_and_semantics_rejected(tmp_path, defect):
     path = tmp_path/'fixture.nc'
     native_file(path, defect=defect)
@@ -66,7 +69,8 @@ def test_unsupported_native_identity_and_semantics_rejected(tmp_path, defect):
             end_utc='2000-01-01T12:05:00Z', platform='GOES-16')
 
 
-@pytest.mark.parametrize('times', [(60, 0, 180, 240), (0, 60, 60, 240), (0, 60, 170, 240)])
+@pytest.mark.parametrize('times', [(60, 0, 180, 240), (0, 60, 60, 240), (0, 60, 170, 240),
+                                  (30, 90, 150, 210)])
 def test_disorder_duplicates_and_nonuniform_native_cadence_rejected(tmp_path, times):
     path = tmp_path/'fixture.nc'
     native_file(path, times=times)
@@ -156,7 +160,7 @@ def offline_history(tmp_path, monkeypatch):
     """HTTP boundary supplies a real-format artificial native NetCDF file."""
     from test_goes_acquisition import config, Response
     from solar_flare_jepa.data import goes_acquisition as acquisition
-    source = tmp_path/'native.nc'
+    source = tmp_path/'sci_xrsf-l2-avg1m_g16_d20240701_v2-2-1.nc'
     offset = (pd.Timestamp('2024-07-01T00:00:00Z')-pd.Timestamp('2000-01-01T12:00:00Z')).total_seconds()
     native_file(source, times=tuple(offset+x for x in (0, 60, 180, 240)))
     path, selection = config(tmp_path, days=1)
@@ -202,3 +206,11 @@ def test_historical_config_rejects_nonportable_manifest(manifest):
     cfg['dataset'] = dict(kind='goes_historical', manifest=manifest)
     with pytest.raises(ValueError):
         validate_config(cfg)
+
+
+def test_nominal_source_day_cannot_hide_mismatched_native_clock(tmp_path):
+    path = tmp_path/'sci_xrsf-l2-avg1m_g16_d20240701_v2-2-1.nc'
+    native_file(path)
+    with pytest.raises(ValueError, match='date|day'):
+        foundation().validate_goes_files([path], start_utc='2000-01-01T12:00:00Z',
+            end_utc='2000-01-01T12:05:00Z', platform='GOES-16')

@@ -355,6 +355,50 @@ def fit_smoke(training, validation, *, config=None, source_identity, split_ident
     return TrainedSmoke(model, normalization, config, identities, record, best_optimizer, device=str(device))
 
 
+def _validate_training_record(record, config, torch_version):
+    """Reject scientific and monitoring claims inconsistent with this smoke run."""
+    constants = dict(model_id=MODEL_ID, model_kind='masked_linear',
+        scientific_status=MODEL_ID, phase_e='BLOCKED_FOR_PHASE_E', optimizer='Adam',
+        deterministic_algorithms=True, torch_threads=1, iteration='fixed_chronological_no_shuffle',
+        tensor_dtype='float32', normalization_dtype='float64',
+        masked_fill='normalized_zero_for_tensor_consumption_only', torch_version=torch_version)
+    if not isinstance(record, dict) or any(record.get(k) != v for k,v in constants.items()):
+        raise ValueError('Checkpoint training record status/policy contradicts smoke infrastructure')
+    history = record.get('history')
+    if not isinstance(history, list) or len(history) != config.epochs:
+        raise ValueError('Checkpoint training history does not match epoch configuration')
+    for epoch, entry in enumerate(history, 1):
+        if (not isinstance(entry, dict) or set(entry) != {'epoch', 'training_loss', 'validation_loss'}
+                or type(entry['epoch']) is not int or entry['epoch'] != epoch
+                or any(type(entry[k]) not in (int, float) or not np.isfinite(entry[k]) or entry[k] < 0
+                       for k in ('training_loss', 'validation_loss'))):
+            raise ValueError('Checkpoint training history has invalid monitoring values')
+    best = min(history, key=lambda item: item['validation_loss'])
+    expected_selection = dict(partition='validation', metric='masked_normalized_mse',
+        epoch=best['epoch'], loss=best['validation_loss'], tie_policy='earliest_epoch')
+    if record.get('selection') != expected_selection:
+        raise ValueError('Checkpoint selection contradicts validation monitoring history')
+    coverage = record.get('coverage')
+    if not isinstance(coverage, dict) or set(coverage) != {'train', 'validation'}:
+        raise ValueError('Checkpoint monitoring coverage must describe train and validation')
+    for name, limit in [('train', config.max_train_batches), ('validation', config.max_validation_batches)]:
+        item = coverage[name]
+        if not isinstance(item, dict):
+            raise ValueError('Invalid checkpoint coverage record')
+        counts = [item.get(k) for k in ('eligible_count', 'selected_count', 'omitted_count',
+                                       'valid_target_cells', 'total_target_cells')]
+        if (any(type(x) is not int or x < 0 for x in counts)
+                or not 0 < counts[1] <= min(counts[0], config.batch_size*limit)
+                or counts[2] != counts[0]-counts[1] or not 0 < counts[3] <= counts[4]
+                or item.get('policy') != 'FIRST_CHRONOLOGICAL_ORIGINS_FIXED_BEFORE_TRAINING'
+                or not isinstance(item.get('origin_ids'), list)
+                or len(item['origin_ids']) != counts[1] or len(set(item['origin_ids'])) != counts[1]):
+            raise ValueError('Checkpoint coverage record contradicts bounded monitoring')
+    steps = ((coverage['train']['selected_count']+config.batch_size-1)//config.batch_size)*config.epochs
+    if type(record.get('optimizer_steps')) is not int or record['optimizer_steps'] != steps:
+        raise ValueError('Checkpoint optimizer steps contradict bounded training history')
+
+
 def load_checkpoint(path, *, expected_identities, device='cpu'):
     torch = _torch()
     expected = _identities(expected_identities)
@@ -379,6 +423,7 @@ def load_checkpoint(path, *, expected_identities, device='cpu'):
     spec = ForecastSpec(**payload['spec'])
     record = payload['training_record']
     canonical_json(record)
+    _validate_training_record(record, config, payload['torch_version'])
     if (spec.fingerprint != identities['spec'] or normalization.spec.fingerprint != spec.fingerprint
             or normalization.fingerprint != identities['normalization']
             or config.fingerprint != identities['training_config'] or payload['seed'] != config.seed

@@ -2,6 +2,7 @@
 from dataclasses import asdict, dataclass
 import json
 from pathlib import Path
+import re
 
 import numpy as np
 import pandas as pd
@@ -100,13 +101,25 @@ def validate_goes_files(paths, *, start_utc, end_utc, platform='GOES-16'):
         with xr.open_dataset(path, decode_times=False, engine='netcdf4') as ds:
             if ds.attrs.get('platform') != 'g16' or ds.attrs.get('instrument') != GOES_INSTRUMENT:
                 raise ValueError('Native GOES platform/instrument identity mismatch')
+            if ds.attrs.get('id') != Path(path).name:
+                raise ValueError('Native product id differs from pinned filename/version/date')
             times = _times(ds)
             if (not len(times) or not times.is_monotonic_increasing or times.has_duplicates
                     or previous is not None and times[0] <= previous):
                 raise ValueError('Native time/files must be nonempty, chronologically ordered and unique')
             previous = times[-1]
+            if ((times.asi8-start.value) % 60_000_000_000 != 0).any():
+                raise ValueError('Native timestamps are off the selected minute cadence grid')
             if times[0] < start or times[-1]+pd.Timedelta(minutes=1) > end:
                 raise ValueError('Native observations outside selected interval')
+            name = Path(path).name
+            if name.startswith('sci_xrsf-l2-avg1m_'):
+                match = re.fullmatch(r'sci_xrsf-l2-avg1m_g16_d(\d{8})_v2-2-1\.nc', name)
+                if match is None:
+                    raise ValueError('Unsupported native product filename/version')
+                nominal_day = pd.Timestamp(match[1], tz='UTC')
+                if times[0] < nominal_day or times[-1]+pd.Timedelta(minutes=1) > nominal_day+pd.Timedelta(days=1):
+                    raise ValueError('Native time coverage contradicts the nominal source day')
             for name in ('electron_correction_flag', 'xrsa_flag', 'xrsb_flag', 'xrsa_num', 'xrsb_num'):
                 if name not in ds or ds[name].dims != ('time',):
                     raise ValueError('Missing scalar native quality/count field')
@@ -117,6 +130,8 @@ def validate_goes_files(paths, *, start_utc, end_utc, platform='GOES-16'):
     native = read_goes(list(paths))
     index = pd.date_range(start, end, freq='min', inclusive='left', name='time_start')
     observed = index.isin(native.index)
+    if int(observed.sum()) != len(native):
+        raise ValueError('Native observation conservation failed; reindex would discard measurements')
     frame = native.reindex(index)
     frame['time_end'] = index+pd.Timedelta(minutes=1)
     frame['observed'] = observed
