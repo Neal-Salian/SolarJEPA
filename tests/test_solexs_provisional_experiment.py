@@ -70,3 +70,26 @@ def test_frozen_v1_neural_budget_cannot_silently_change(changes):
     config=api().load_config(Path(__file__).parents[1]/'configs/experiments/solexs_provisional_v1.json')
     config['neural'].update(changes)
     with pytest.raises(ValueError): api().validate_config(config)
+
+
+def test_runtime_provenance_does_not_require_optional_test_dependency(monkeypatch):
+    runner=api(); original=runner.version
+    from importlib.metadata import PackageNotFoundError
+    def runtime_only(name):
+        if name=='pytest': raise PackageNotFoundError(name)
+        return original(name)
+    monkeypatch.setattr(runner,'version',runtime_only)
+    assert callable(getattr(runner,'runtime_versions',None)), 'runtime versions helper missing'
+    versions=runner.runtime_versions()
+    assert set(versions)=={'numpy','astropy','torch'}
+    assert all(versions.values())
+
+
+def test_config_and_hash_are_derived_from_the_same_bytes(tmp_path):
+    runner=api()
+    config_path=Path(__file__).parents[1]/'configs/experiments/solexs_provisional_v1.json'
+    data=config_path.read_bytes(); target=tmp_path/'config.json';target.write_bytes(data)
+    assert callable(getattr(runner,'load_config_snapshot',None)), 'config snapshot helper missing'
+    config,digest=runner.load_config_snapshot(target)
+    assert config==runner.load_config(config_path)
+    assert digest==hashlib.sha256(data).hexdigest()

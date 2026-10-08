@@ -12,7 +12,7 @@ import numpy as np
 from solar_flare_jepa.data.download import sha256_file
 from solar_flare_jepa.data.solexs import open_solexs_product, load_light_curve
 from solar_flare_jepa.data.storage import load_inventory, repository_relative_path
-from solar_flare_jepa.experiments.config import read_finite_json
+from solar_flare_jepa.experiments.config import read_finite_json, _object, _reject_constant
 from solar_flare_jepa.experiments.provenance import code_provenance, _destination, _rename_no_replace
 from solar_flare_jepa.forecasting.contracts import canonical_json, fingerprint_payload
 from .sequences import LABEL, UNIT, array_hash, sequence_from_native, make_windows, fit_normalization
@@ -58,7 +58,19 @@ def validate_config(c):
 
 
 def load_config(path):
-    return validate_config(read_finite_json(path))
+    return load_config_snapshot(path)[0]
+
+
+def load_config_snapshot(path):
+    """Parse and hash a single captured configuration byte sequence."""
+    data=Path(path).read_bytes()
+    if len(data)>65536: raise ValueError('Provisional configuration exceeds byte limit')
+    config=json.loads(data,object_pairs_hook=_object,parse_constant=_reject_constant)
+    return validate_config(config),hashlib.sha256(data).hexdigest()
+
+
+def runtime_versions():
+    return {name:version(name) for name in ('numpy','astropy','torch')}
 
 
 def load_selected_sequence(data_root,record,selection):
@@ -122,8 +134,7 @@ def run_experiment(config_path, *, project_root, data_root, output_dir):
     """Fit/choose on train/validation, freeze, THEN score the separate test source."""
     project_root,data_root=Path(project_root).resolve(),Path(data_root).resolve()
     config_path=Path(config_path).resolve()
-    c=load_config(config_path)
-    config_hash=sha256_file(config_path)
+    c,config_hash=load_config_snapshot(config_path)
     destination=_destination(project_root,output_dir)
     code=code_provenance(project_root)
     manifest_paths={}
@@ -208,7 +219,7 @@ def run_experiment(config_path, *, project_root, data_root, output_dir):
                         device='cpu',checkpoint_reload_equal=True,
                         checkpoint_sha256=sha256_file(stage/'best.pt')),
                     scores=scores,prediction_hashes=prediction_hashes,
-                    software={name:version(name) for name in ('numpy','astropy','torch','pytest')},
+                    software=runtime_versions(),
                     warnings=['UNCALIBRATED_RECORDED_VALUES','COLUMN_UNITS_UNENCODED',
                               'UTC_EXPOSURE_QUALITY_AND_LC_GENERATION_UNKNOWN','TWO_DAY_ENGINEERING_HOLDOUT_ONLY',
                               'NO_UNCERTAINTY_INTERVALS_OR_FLARE_LABELS'],
