@@ -55,3 +55,18 @@ def test_publisher_rejects_outside_results_and_symlink_destinations(tmp_path):
     parent=tmp_path/'results/experiments';parent.mkdir(parents=True)
     (parent/'redirect').symlink_to(target,target_is_directory=True)
     with pytest.raises(FileExistsError):api().publish_stage(stage,parent/'redirect')
+
+
+@pytest.mark.parametrize('changes',[{'context_samples':32},{'horizon_samples':4},{'stride_samples':16},
+                                     {'train_stop_row':50000},{'expected_rows':90000}])
+def test_frozen_v1_numerical_contract_cannot_silently_change(changes):
+    config=api().load_config(Path(__file__).parents[1]/'configs/experiments/solexs_provisional_v1.json')
+    with pytest.raises(ValueError): api().validate_config(dict(config,**changes))
+
+
+@pytest.mark.parametrize('changes',[{'seed':1},{'epochs':2},{'batch_size':64},
+                                     {'learning_rate':.01},{'gradient_clip':2.}])
+def test_frozen_v1_neural_budget_cannot_silently_change(changes):
+    config=api().load_config(Path(__file__).parents[1]/'configs/experiments/solexs_provisional_v1.json')
+    config['neural'].update(changes)
+    with pytest.raises(ValueError): api().validate_config(config)

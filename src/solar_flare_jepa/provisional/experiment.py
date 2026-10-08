@@ -46,8 +46,14 @@ def validate_config(c):
                 or s['nominal_date']!=date or type(s['bytes']) is not int or s['bytes']<=0
                 or any(not re.fullmatch('[0-9a-f]{64}',s[k]) for k in ('sha256','fits_sha256'))):
             raise ValueError('Invalid source selection identity')
-    from .neural import _config
+    frozen=dict(context_samples=64,horizon_samples=8,stride_samples=8,
+                train_stop_row=60480,expected_rows=86400)
+    if any(c[k]!=v for k,v in frozen.items()):
+        raise ValueError('Frozen v1 sample lengths/split changed; requires a new reviewed experiment')
+    from .neural import _config, DEFAULT_CONFIG
     _config(c['neural'])
+    if c['neural']!=DEFAULT_CONFIG:
+        raise ValueError('Frozen v1 neural budget changed; requires a new reviewed experiment')
     return json.loads(canonical_json(c))
 
 
