@@ -75,13 +75,22 @@ def validate_config(config):
     dataset = cfg['dataset']
     if not isinstance(dataset,dict):
         raise ValueError('Unsupported scientific input; Phase E remains BLOCKED_FOR_PHASE_E')
-    dataset['kind'] = _category(dataset.get('kind'), ('synthetic_fixture', 'goes_reference'),
+    dataset['kind'] = _category(dataset.get('kind'), ('synthetic_fixture', 'goes_reference', 'goes_historical'),
                                 'scientific input; Phase E remains BLOCKED_FOR_PHASE_E')
     if dataset['kind'] == 'synthetic_fixture':
         _keys(dataset, ('kind','rows','start_utc','fixture_seed'))
         _positive_int(dataset['rows'])
         _positive_int(dataset['fixture_seed'], minimum=0)
         dataset['start_utc'] = pd.Timestamp(utc_ns(dataset['start_utc']),tz='UTC').isoformat()
+    elif dataset['kind'] == 'goes_historical':
+        _keys(dataset, ('kind', 'manifest'))
+        from pathlib import PurePosixPath
+        value = _string(dataset['manifest'], 'GOES manifest')
+        path = PurePosixPath(value)
+        if (path.is_absolute() or '..' in path.parts or '\\' in value or ':' in value
+                or path.as_posix() != value or not value.startswith('data/manifests/')
+                or not value.endswith('.json')):
+            raise ValueError('Historical GOES requires a portable pinned data manifest')
     else:
         _keys(dataset, ('kind','manifest','prepared_config','sidecar'))
         expected = dict(manifest='configs/data/noaa_sample.json', prepared_config='configs/data/noaa_eda.json',
@@ -104,6 +113,12 @@ def validate_config(config):
                 or spec.eligibility_policy != 'complete' or spec.cadence_seconds != 60
                 or spec.feature_lookback_steps != 0):
             raise ValueError('Unsupported pinned GOES smoke representation/policy')
+    elif dataset['kind'] == 'goes_historical':
+        if (any(name not in ('xrsa_flux', 'xrsb_flux') for name in spec.feature_names+spec.target_names)
+                or any(unit != 'W/m2' for unit in spec.feature_units+spec.target_units)
+                or spec.availability_mode != 'retrospective_bin_end' or spec.cadence_seconds != 60
+                or spec.feature_lookback_steps != 0):
+            raise ValueError('Unsupported native GOES historical representation/policy')
     elif any(unit != 'synthetic_unit' for unit in spec.feature_units+spec.target_units):
         raise ValueError('Artificial fixture units must be explicitly synthetic_unit')
     if not isinstance(cfg['splits'],list) or len(cfg['splits']) not in (3,4):

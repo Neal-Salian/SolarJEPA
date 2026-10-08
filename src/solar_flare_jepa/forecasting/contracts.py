@@ -292,7 +292,7 @@ class TimeSeriesDataset:
 
     def __post_init__(self):
         object.__setattr__(self, 'name', _identity(self.name))
-        object.__setattr__(self, 'role', _category(self.role, ('synthetic_fixture', 'goes_reference'),
+        object.__setattr__(self, 'role', _category(self.role, ('synthetic_fixture', 'goes_reference', 'goes_historical'),
                                                 'scientific dataset role; SoLEXS remains gated'))
         object.__setattr__(self, 'availability_policy',
                            _category(self.availability_policy, ('explicit', 'bin_end_earliest'),
