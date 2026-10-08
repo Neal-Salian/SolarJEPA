@@ -35,6 +35,73 @@
   },
   "missingness_policy": "Preserve NaNs, empty GTIs and locally absent dates; no interpolation or inferred global nonavailability",
   "phase": "D",
+  "phase_e_validation": {
+    "base_commit": "656e540162c635d4c2274b4469ae11247290f986",
+    "branch": "research/phase-e-solexs-validation",
+    "evidence_date": "2026-10-09",
+    "evidence_manifest": "data/manifests/solexs_phase_e_evidence.json",
+    "forecast_training_allowed": false,
+    "gate": "BLOCKED_FOR_PHASE_E",
+    "gate_decisions": [
+      {
+        "id": "E1",
+        "name": "Timing validity",
+        "status": "BLOCKED_EXTERNAL_EVIDENCE"
+      },
+      {
+        "id": "E2",
+        "name": "Calibration validity",
+        "status": "BLOCKED_EXTERNAL_EVIDENCE"
+      },
+      {
+        "id": "E3",
+        "name": "Exposure and quality validity",
+        "status": "BLOCKED_EXTERNAL_EVIDENCE"
+      },
+      {
+        "id": "E4",
+        "name": "Detector and product selection",
+        "status": "PARTIALLY_VERIFIED"
+      },
+      {
+        "id": "E5",
+        "name": "GOES/SoLEXS compatibility",
+        "status": "PARTIALLY_VERIFIED"
+      },
+      {
+        "id": "E6",
+        "name": "Forecasting readiness",
+        "status": "BLOCKED_EXTERNAL_EVIDENCE"
+      }
+    ],
+    "historical_fields_preserved": true,
+    "historical_scope": "All prior fields retain their Phase D dated meaning; this additive record supplies current Phase E evidence.",
+    "identity_updates": [
+      {
+        "finding": "Official supplied tools1.1 bundle is present; RMF/ARF/bounds equal candidate bytes. Earlier acquisition/equivalence unknown wording is superseded only for local identity.",
+        "requirement_id": "approved_tools_caldb_bundle",
+        "source": "data/manifests/solexs_phase_d1_evidence.json",
+        "status": "LOCAL_IDENTITY_VERIFIED_APPLICABILITY_UNKNOWN"
+      },
+      {
+        "finding": "Official RMF remains1..340 vs PI0..339; no approved mapping.",
+        "requirement_id": "sdd2_redistribution",
+        "status": "LOCAL_IDENTITY_VERIFIED_APPLICABILITY_UNKNOWN"
+      },
+      {
+        "finding": "Official ARF bytes/grid verified; mission-specific pairing still unknown.",
+        "requirement_id": "sdd2_effective_area",
+        "status": "LOCAL_IDENTITY_VERIFIED_APPLICABILITY_UNKNOWN"
+      },
+      {
+        "finding": "Official text bounds bytes verified; no encoded units or approved indexing.",
+        "requirement_id": "pi_energy_bounds",
+        "status": "LOCAL_IDENTITY_VERIFIED_APPLICABILITY_UNKNOWN"
+      }
+    ],
+    "next_scientific_milestone": "Mission-authoritative pipeline1.1 timing/exposure/correction and response applicability closure; conditional HK/reference before bounded historical experiment design",
+    "timezone": "Asia/Kolkata"
+  },
   "recorded_date": "2026-10-02",
   "required_artifacts": [
     {

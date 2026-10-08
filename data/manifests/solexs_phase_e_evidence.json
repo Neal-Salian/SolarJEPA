@@ -1,0 +1,848 @@
+{
+  "archives": [
+    {
+      "bytes": 6036792,
+      "gti_point_diagnostic": {
+        "continuous_exposure": null,
+        "coordinate_policy": "inclusive_point_membership_diagnostic",
+        "evidence": "OBSERVED",
+        "filter_applied": false,
+        "finite_inside": 86272,
+        "finite_outside": 0,
+        "nan_inside": 0,
+        "nan_outside": 128,
+        "status": "checked_native_coordinates_only"
+      },
+      "lc_counts_summary": {
+        "finite": 86272,
+        "max": 1554.0,
+        "min": 3.0,
+        "nan": 128,
+        "negative": 0,
+        "negative_infinity": 0,
+        "noninteger_finite": 0,
+        "positive_infinity": 0,
+        "values": 86400,
+        "zero": 0
+      },
+      "native_gti": {
+        "adjacent_overlaps": 0,
+        "continuous_exposure": null,
+        "endpoint_policy": "UNKNOWN_NOT_APPLIED",
+        "intervals_native": [
+          [
+            1719792000.0,
+            1719792004.0
+          ],
+          [
+            1719792131.0,
+            1719815131.0
+          ],
+          [
+            1719815133.0,
+            1719815137.0
+          ],
+          [
+            1719815139.0,
+            1719878399.0
+          ]
+        ],
+        "intervals_truncated": false,
+        "invalid_intervals": 0,
+        "nonfinite_intervals": 0,
+        "sum_stop_minus_start_native": 86268.0,
+        "unordered_starts": 0
+      },
+      "native_lc_pi_response_comparison": {
+        "all_channel_sum": {
+          "equal_rows": 0,
+          "maximum_absolute_difference": 695.0
+        },
+        "exposure_all_one": true,
+        "finite_compared_rows": 86272,
+        "inclusive_upper_control": {
+          "equal_rows": 86258,
+          "maximum_absolute_difference": 1.0
+        },
+        "mapping_validated": false,
+        "pi_channel_first_last": [
+          0,
+          339
+        ],
+        "pi_channel_labels_constant": true,
+        "pi_channel_labels_equal_rmf": false,
+        "pi_nan_mask_equals_lc": true,
+        "pi_nan_rows": 128,
+        "rows": 86400,
+        "telapse_all_one": true,
+        "tool_slice": {
+          "equal_rows": 86253,
+          "maximum_absolute_difference": 1.0
+        }
+      },
+      "native_time": {
+        "converted_utc": null,
+        "duplicate_values": 0,
+        "epoch_interpretation": "UNKNOWN_NOT_APPLIED",
+        "first_native": 1719792000.0,
+        "last_native": 1719878399.0,
+        "max_native": 1719878399.0,
+        "min_native": 1719792000.0,
+        "nonmonotonic_steps": 0,
+        "positive_steps_not_one": 0,
+        "step_max": 1.0,
+        "step_min": 1.0,
+        "zero_steps": 0
+      },
+      "nominal_date": "2024-07-01",
+      "nominal_date_evidence": "INFERRED",
+      "path": "data/raw/aditya/solexs/l1/v1.1/archives/2024/07/AL1_SLX_L1_20240701_v1.1.zip",
+      "pi_summary": {
+        "all_nan_rows": 128,
+        "channel_axis_constant": true,
+        "channel_max": 339,
+        "channel_min": 0,
+        "energy_mapping": null,
+        "exposure_equals_telapse_rows": 86400,
+        "nonpositive_exposure_rows": 0,
+        "partially_nan_rows": 0,
+        "spec_num_duplicate_values": 0
+      },
+      "products": [
+        {
+          "detector": {
+            "evidence": "INFERRED",
+            "source": "member_name",
+            "value": "SDD1"
+          },
+          "expanded_bytes": 5760,
+          "fits_sha256": "05106ffb348426f58b058cc9a910aeec09064057d4e507175349f29b0bd50079",
+          "kind": "gti",
+          "rows": 0
+        },
+        {
+          "detector": {
+            "evidence": "INFERRED",
+            "source": "member_name",
+            "value": "SDD2"
+          },
+          "expanded_bytes": 8640,
+          "fits_sha256": "e5f2ece74c3b3a70908a42fb6c69fcad20cf13a6e602de5b9e3b7cddb83f432c",
+          "kind": "gti",
+          "rows": 4
+        },
+        {
+          "detector": {
+            "evidence": "OBSERVED",
+            "source": "FILTER",
+            "value": "SDD2"
+          },
+          "expanded_bytes": 1391040,
+          "fits_sha256": "8db1592fe86c59093a5d0ae2308da5db9848e408df00387b525bfbf411820cdb",
+          "kind": "lc",
+          "rows": 86400
+        },
+        {
+          "detector": {
+            "evidence": "OBSERVED",
+            "source": "FILTER",
+            "value": "SDD2"
+          },
+          "expanded_bytes": 472443840,
+          "fits_sha256": "9a1146d04541a15aa75c0a5ceeaf8fec1617e2b802ba7d2574abccd3379e573d",
+          "kind": "pi",
+          "rows": 86400
+        }
+      ],
+      "sha256": "9d0cb2341c2eb6c4b25b6dd0b600042b750920ea433197e1d0def742c947b7e4"
+    },
+    {
+      "bytes": 6216112,
+      "gti_point_diagnostic": {
+        "continuous_exposure": null,
+        "coordinate_policy": "inclusive_point_membership_diagnostic",
+        "evidence": "OBSERVED",
+        "filter_applied": false,
+        "finite_inside": 86398,
+        "finite_outside": 0,
+        "nan_inside": 0,
+        "nan_outside": 2,
+        "status": "checked_native_coordinates_only"
+      },
+      "lc_counts_summary": {
+        "finite": 86398,
+        "max": 943.0,
+        "min": 2.0,
+        "nan": 2,
+        "negative": 0,
+        "negative_infinity": 0,
+        "noninteger_finite": 0,
+        "positive_infinity": 0,
+        "values": 86400,
+        "zero": 0
+      },
+      "native_gti": {
+        "adjacent_overlaps": 0,
+        "continuous_exposure": null,
+        "endpoint_policy": "UNKNOWN_NOT_APPLIED",
+        "intervals_native": [
+          [
+            1719964800.0,
+            1719982832.0
+          ],
+          [
+            1719982834.0,
+            1719982838.0
+          ],
+          [
+            1719982840.0,
+            1720051199.0
+          ]
+        ],
+        "intervals_truncated": false,
+        "invalid_intervals": 0,
+        "nonfinite_intervals": 0,
+        "sum_stop_minus_start_native": 86395.0,
+        "unordered_starts": 0
+      },
+      "native_lc_pi_response_comparison": {
+        "all_channel_sum": {
+          "equal_rows": 0,
+          "maximum_absolute_difference": 661.0
+        },
+        "exposure_all_one": true,
+        "finite_compared_rows": 86398,
+        "inclusive_upper_control": {
+          "equal_rows": 86393,
+          "maximum_absolute_difference": 1.0
+        },
+        "mapping_validated": false,
+        "pi_channel_first_last": [
+          0,
+          339
+        ],
+        "pi_channel_labels_constant": true,
+        "pi_channel_labels_equal_rmf": false,
+        "pi_nan_mask_equals_lc": true,
+        "pi_nan_rows": 2,
+        "rows": 86400,
+        "telapse_all_one": true,
+        "tool_slice": {
+          "equal_rows": 86383,
+          "maximum_absolute_difference": 1.0
+        }
+      },
+      "native_time": {
+        "converted_utc": null,
+        "duplicate_values": 0,
+        "epoch_interpretation": "UNKNOWN_NOT_APPLIED",
+        "first_native": 1719964800.0,
+        "last_native": 1720051199.0,
+        "max_native": 1720051199.0,
+        "min_native": 1719964800.0,
+        "nonmonotonic_steps": 0,
+        "positive_steps_not_one": 0,
+        "step_max": 1.0,
+        "step_min": 1.0,
+        "zero_steps": 0
+      },
+      "nominal_date": "2024-07-03",
+      "nominal_date_evidence": "INFERRED",
+      "path": "data/raw/aditya/solexs/l1/v1.1/archives/2024/07/AL1_SLX_L1_20240703_v1.1.zip",
+      "pi_summary": {
+        "all_nan_rows": 2,
+        "channel_axis_constant": true,
+        "channel_max": 339,
+        "channel_min": 0,
+        "energy_mapping": null,
+        "exposure_equals_telapse_rows": 86400,
+        "nonpositive_exposure_rows": 0,
+        "partially_nan_rows": 0,
+        "spec_num_duplicate_values": 0
+      },
+      "products": [
+        {
+          "detector": {
+            "evidence": "INFERRED",
+            "source": "member_name",
+            "value": "SDD1"
+          },
+          "expanded_bytes": 5760,
+          "fits_sha256": "d6818c43285303bf94e0b66c36f756ec736ae22f495241e020ca615871cdeed9",
+          "kind": "gti",
+          "rows": 0
+        },
+        {
+          "detector": {
+            "evidence": "INFERRED",
+            "source": "member_name",
+            "value": "SDD2"
+          },
+          "expanded_bytes": 8640,
+          "fits_sha256": "a28dd62ba7033dca3548f0bfe4908d51a46da6e134cbff6b14e4fc67fd3c26d6",
+          "kind": "gti",
+          "rows": 3
+        },
+        {
+          "detector": {
+            "evidence": "OBSERVED",
+            "source": "FILTER",
+            "value": "SDD2"
+          },
+          "expanded_bytes": 1391040,
+          "fits_sha256": "f3baf21aadb2328701ede746a819b9bf65ed6dc8113fd07905b44814da8c5639",
+          "kind": "lc",
+          "rows": 86400
+        },
+        {
+          "detector": {
+            "evidence": "OBSERVED",
+            "source": "FILTER",
+            "value": "SDD2"
+          },
+          "expanded_bytes": 472443840,
+          "fits_sha256": "5c9fdadfb642b225c6105cc9b1d32b4c9440fd2cee834a789b9f10ae82899473",
+          "kind": "pi",
+          "rows": 86400
+        }
+      ],
+      "sha256": "b82ce974cd6195621e85e3c2773dc94202811c12c7b31e71df0c0353fe3af4bf"
+    }
+  ],
+  "band_hypothesis": {
+    "control_slice_start_inclusive_stop_exclusive": [
+      41,
+      314
+    ],
+    "mapping_validated": false,
+    "nominal_thresholds_from_manual": [
+      2,
+      22
+    ],
+    "text_table_encoded_unit": null,
+    "tool_slice_start_inclusive_stop_exclusive": [
+      41,
+      313
+    ]
+  },
+  "base_commit": "656e540162c635d4c2274b4469ae11247290f986",
+  "baseline_requirements_identity": {
+    "bytes": 29084,
+    "path": "data/manifests/solexs_phase_e_requirements.json",
+    "sha256": "e3406c76553dadd0520ccdcb03040f172b35c0f1b37d2ff7726e9d988906a2a3"
+  },
+  "branch": "research/phase-e-solexs-validation",
+  "calibration_inputs": {
+    "arf": {
+      "bytes": 34560,
+      "path": "data/raw/aditya/calibration/solexs/tools-1.1-24693af/arf/solexs_arf_SDD2_v1.arf",
+      "sha256": "0f08199b3ef2f346979c58e0df83451fa23ae72a39fcaaa3d85bfe66b4b5bdc7"
+    },
+    "arf_pi": {
+      "bytes": 11520,
+      "path": "data/raw/aditya/calibration/solexs/tools-current-51403b0/arf/solexs_arf_pi_SDD2_v1.arf",
+      "sha256": "a07eec19cfee37bc0f840e77f0eeaea7a232940f034a20ca04c6c5ca1dec6257"
+    },
+    "bounds": {
+      "bytes": 6423,
+      "path": "data/raw/aditya/calibration/solexs/tools-1.1-24693af/ebounds/energy_bins_out_SDD2_v1.dat",
+      "sha256": "684f916612003706062d509ab805ae2cda763f99a83f85ce81028a94aea0949e"
+    },
+    "rmf": {
+      "bytes": 6168960,
+      "path": "data/raw/aditya/calibration/solexs/tools-current-51403b0/response/rmf/solexs_gaussian_SDD2_v1.rmf",
+      "sha256": "fc8ab03f15bb21ff066426cd6047519d57ffe017bb776bb88a5a65136deb63db"
+    }
+  },
+  "candidate_calibration": {
+    "accepted_for_application": false,
+    "arf_incident_grid_comparison": "EXACT_VALUES_AND_ENCODED_UNITS",
+    "arf_pi_channel_grid_comparison": "EXACT_VALUES_AND_ENCODED_UNITS",
+    "hdus": {
+      "arf": {
+        "PRIMARY": {
+          "cards": {
+            "CHANTYPE": null,
+            "CREATOR": null,
+            "DETCHANS": null,
+            "FILTER": null,
+            "TLMIN1": null
+          },
+          "rows": null,
+          "units": {}
+        },
+        "SPECRESP": {
+          "cards": {
+            "CHANTYPE": null,
+            "CREATOR": "solexs_pipeline-1.0",
+            "DETCHANS": null,
+            "FILTER": null,
+            "TLMIN1": null
+          },
+          "rows": 2250,
+          "units": {
+            "ENERG_HI": "keV",
+            "ENERG_LO": "keV",
+            "SPECRESP": "cm2"
+          }
+        }
+      },
+      "arf_pi": {
+        "PRIMARY": {
+          "cards": {
+            "CHANTYPE": null,
+            "CREATOR": null,
+            "DETCHANS": null,
+            "FILTER": null,
+            "TLMIN1": null
+          },
+          "rows": null,
+          "units": {}
+        },
+        "SPECRESP": {
+          "cards": {
+            "CHANTYPE": null,
+            "CREATOR": null,
+            "DETCHANS": null,
+            "FILTER": null,
+            "TLMIN1": null
+          },
+          "rows": 340,
+          "units": {
+            "ENERG_HI": "keV",
+            "ENERG_LO": "keV",
+            "SPECRESP": "cm2"
+          }
+        }
+      },
+      "rmf": {
+        "EBOUNDS": {
+          "cards": {
+            "CHANTYPE": "PI",
+            "CREATOR": "solexs_pipeline-1.0",
+            "DETCHANS": null,
+            "FILTER": null,
+            "TLMIN1": 1
+          },
+          "rows": 340,
+          "units": {
+            "CHANNEL": null,
+            "E_MAX": "keV",
+            "E_MIN": "keV"
+          }
+        },
+        "MATRIX": {
+          "cards": {
+            "CHANTYPE": "PI",
+            "CREATOR": "solexs_pipeline-1.0",
+            "DETCHANS": 340,
+            "FILTER": "",
+            "TLMIN1": null
+          },
+          "rows": 2250,
+          "units": {
+            "ENERG_HI": "keV",
+            "ENERG_LO": "keV",
+            "F_CHAN": null,
+            "MATRIX": null,
+            "N_CHAN": null,
+            "N_GRP": null
+          }
+        },
+        "PRIMARY": {
+          "cards": {
+            "CHANTYPE": null,
+            "CREATOR": null,
+            "DETCHANS": null,
+            "FILTER": null,
+            "TLMIN1": null
+          },
+          "rows": null,
+          "units": {}
+        }
+      }
+    },
+    "matrix_array_bytes": 6120000,
+    "matrix_negative_cells": 0,
+    "matrix_nonfinite_cells": 0,
+    "matrix_shape": [
+      2250,
+      340
+    ],
+    "response_channel_first_last": [
+      1,
+      340
+    ]
+  },
+  "diagnostic_artifact_identities": [
+    {
+      "bytes": 100275,
+      "path": "results/phase_e_20261008/native_report.json",
+      "sha256": "70241bdde078c8e0986bb23117c6543a262fe1846bfd81e64d4b49380f43eb8a"
+    },
+    {
+      "bytes": 22739,
+      "path": "results/phase_e_20261008/readiness_probe.json",
+      "sha256": "3df12394d6e9f4f4fe94b7adb787c9a8cb9af41bb460b7dbe21cd2436f4df174"
+    },
+    {
+      "bytes": 39912,
+      "path": "results/phase_e_20261008/local_identity_audit.json",
+      "sha256": "719ff284cd59440bcbf118e87ee2cc39ec76be60e843c1497cc482645d6faf90"
+    },
+    {
+      "bytes": 215218,
+      "path": "results/p2_solexs/phase_e_20261008/report.json",
+      "sha256": "9ebc539d09d5c681f906a59e0600ddd33290a11f0cd8d18bb01aad213de97868"
+    },
+    {
+      "bytes": 18980,
+      "path": "results/phase_e_20261008/phase-e-literature.md",
+      "sha256": "cfe77b558a2113fd710090cc799600134b900019993ab11bf8fe2fc7c065f0a1"
+    },
+    {
+      "bytes": 16847,
+      "path": "results/phase_e_20261008/phase-e-calibration.md",
+      "sha256": "15d02de1d78269d934990715c486ac024b69b79a2d78a728005604fab0e55dd4"
+    },
+    {
+      "bytes": 25620,
+      "path": "results/phase_e_20261008/phase-e-timing-quality.md",
+      "sha256": "c98986af77c7361fa323a28adf8a47b72e843d69d1984e72afa8b47037a81dd2"
+    },
+    {
+      "bytes": 8561,
+      "path": "results/phase_e_20261008/phase-e-timing-quality-audit.py",
+      "sha256": "225995bcf512ab5fe9161d9124a9320905d5db664fe2a454331e85225267240a"
+    },
+    {
+      "bytes": 90906,
+      "path": "results/phase_e_20261008/phase-e-timing-quality-native.json",
+      "sha256": "6a62d74b093977935508243102d7935bb7712af48560e02de8ef1c76ef0cf2d6"
+    },
+    {
+      "bytes": 15529,
+      "path": "results/phase_e_20261008/phase-e-calibration-observations.json",
+      "sha256": "0a427f47b914b5b3dd3469ca100f4788c65936baf407e2bb75c27e2350d171b9"
+    },
+    {
+      "bytes": 4008,
+      "path": "results/phase_e_20261008/phase-e-independent-review.md",
+      "sha256": "ea15da54ed84523c1d75e321f4f58f6addcaa0f6f9655953f58c3115f8cc3057"
+    },
+    {
+      "bytes": 1756,
+      "path": "results/phase_e_20261008/phase-e-final-tests.txt",
+      "sha256": "022a5c4d62758660570bb530792c0892246c933da84fdd51a96cbe6e4ea52a72"
+    }
+  ],
+  "evidence": "OBSERVED with source-grounded DOCUMENTED context; scientific interpretations separately labeled",
+  "evidence_date": "2026-10-09",
+  "executed_source_identities": [
+    {
+      "bytes": 26552,
+      "path": "src/solar_flare_jepa/data/solexs.py",
+      "sha256": "d34be04e77fa9879e4abf710e690cd0f1764bcd0f348b966c2b7e1b0f1672430"
+    },
+    {
+      "bytes": 18259,
+      "path": "src/solar_flare_jepa/data/solexs_exploration.py",
+      "sha256": "1032aed054e1e8e44ab6569b47197fcc08105a3be7b4503e6c77ec570fb8f11b"
+    },
+    {
+      "bytes": 3474,
+      "path": "scripts/validate_solexs.py",
+      "sha256": "113edcaf67364a10422cc4fd2d25ec0b5cad434f3c2bcf83d50e8e9f15556183"
+    },
+    {
+      "bytes": 14218,
+      "path": "scripts/probe_solexs_readiness.py",
+      "sha256": "37e2cd3d1215f3b728c7b47f76caf76679f4f701e7b862b2adf7fb709b5cc19c"
+    },
+    {
+      "bytes": 1717,
+      "path": "scripts/explore_solexs.py",
+      "sha256": "2e7798dc3a8773da902645f62a90b78d07908c957a2332c7f68c68e60832238f"
+    }
+  ],
+  "forecast_training_allowed": false,
+  "gate": "BLOCKED_FOR_PHASE_E",
+  "gates": [
+    {
+      "evidence_matrix": "docs/SOLEXS_PHASE_E_EVIDENCE_MATRIX.md",
+      "evidence_report": "docs/SOLEXS_PHASE_E_SCIENTIFIC_VALIDATION.md",
+      "id": "E1",
+      "name": "Timing validity",
+      "required_actions": [
+        "Obtain mission-approved pipeline-1.1 timing policy and reference boundary output"
+      ],
+      "status": "BLOCKED_EXTERNAL_EVIDENCE",
+      "unknown": [
+        "Absolute UTC/card precedence",
+        "LC bin completion/position",
+        "GTI clock/endpoints",
+        "clock corrections and uncertainty"
+      ],
+      "verified": [
+        "Native LC/PI coordinates, order, unit-step cadence"
+      ]
+    },
+    {
+      "evidence_matrix": "docs/SOLEXS_PHASE_E_EVIDENCE_MATRIX.md",
+      "evidence_report": "docs/SOLEXS_PHASE_E_SCIENTIFIC_VALIDATION.md",
+      "id": "E2",
+      "name": "Calibration validity",
+      "required_actions": [
+        "Obtain approved response/correction identities and compatibility rule with numerical reference"
+      ],
+      "status": "BLOCKED_EXTERNAL_EVIDENCE",
+      "unknown": [
+        "PI0..339/RMF1..340 mapping",
+        "Detector/epoch/pipeline response applicability",
+        "gain and correction provenance",
+        "scientific uncertainty"
+      ],
+      "verified": [
+        "Local official bundle/member identity",
+        "Candidate response grid structure/units"
+      ]
+    },
+    {
+      "conditional_blockers": [
+        {
+          "condition": "Mission-approved correction workflow requires matching HK",
+          "dependency": "Compatible July1/3 SDD2 HK; exact names/availability UNKNOWN",
+          "status": "BLOCKED_DATA"
+        }
+      ],
+      "evidence_matrix": "docs/SOLEXS_PHASE_E_EVIDENCE_MATRIX.md",
+      "evidence_report": "docs/SOLEXS_PHASE_E_SCIENTIFIC_VALIDATION.md",
+      "id": "E3",
+      "name": "Exposure and quality validity",
+      "required_actions": [
+        "Obtain approved GTI/bin/quality/correction rules; acquire paired HK only if required"
+      ],
+      "status": "BLOCKED_EXTERNAL_EVIDENCE",
+      "unknown": [
+        "Continuous effective exposure",
+        "quality/operational/saturation/correction state"
+      ],
+      "verified": [
+        "Native missingness and inclusive GTI point relation",
+        "PI exposure/telapse stored values"
+      ]
+    },
+    {
+      "conditional_blockers": [
+        {
+          "condition": "SDD1 science requested",
+          "dependency": "SDD1 LC/PI absent from inspected sample",
+          "status": "BLOCKED_DATA"
+        }
+      ],
+      "evidence_matrix": "docs/SOLEXS_PHASE_E_EVIDENCE_MATRIX.md",
+      "evidence_report": "docs/SOLEXS_PHASE_E_SCIENTIFIC_VALIDATION.md",
+      "id": "E4",
+      "name": "Detector and product selection",
+      "required_actions": [
+        "Keep SDD2 separate; approve task-specific product selection after E1-E3"
+      ],
+      "status": "PARTIALLY_VERIFIED",
+      "unknown": [
+        "Sample-specific SDD1 absence cause",
+        "LC NUMBAND/band-generation quantity equivalence",
+        "task-specific calibrated selection"
+      ],
+      "verified": [
+        "SDD2 native inspection candidate",
+        "SDD1 GTI-only absence",
+        "LC/PI timing/missingness equality"
+      ]
+    },
+    {
+      "evidence_matrix": "docs/SOLEXS_PHASE_E_EVIDENCE_MATRIX.md",
+      "evidence_report": "docs/SOLEXS_PHASE_E_SCIENTIFIC_VALIDATION.md",
+      "id": "E5",
+      "name": "GOES/SoLEXS compatibility",
+      "required_actions": [
+        "Resolve E1-E3 and define response-aware comparison with paired reference; no numerical conversion authorized"
+      ],
+      "status": "PARTIALLY_VERIFIED",
+      "unknown": [
+        "Local common calibrated quantity",
+        "time/bin/observer alignment",
+        "response-tail/1-AU convention",
+        "transfer-learning validity"
+      ],
+      "verified": [
+        "Distinct detector responses/bands/quantities",
+        "Published corrected cross-instrument methodology"
+      ]
+    },
+    {
+      "downstream_dependencies": [
+        "BLOCKED_DATA: bounded historical coverage and labels as applicable",
+        "BLOCKED_IMPLEMENTATION: approved processing/experiment contract after external scientific evidence"
+      ],
+      "evidence_matrix": "docs/SOLEXS_PHASE_E_EVIDENCE_MATRIX.md",
+      "evidence_report": "docs/SOLEXS_PHASE_E_SCIENTIFIC_VALIDATION.md",
+      "id": "E6",
+      "name": "Forecasting readiness",
+      "required_actions": [
+        "Close mission contract first; design bounded pilot and chronological forecast experiment only in a future authorized milestone"
+      ],
+      "status": "BLOCKED_EXTERNAL_EVIDENCE",
+      "unknown": [
+        "Validated target",
+        "causal availability and UTC/bin support",
+        "stable quantity and quality",
+        "sufficient independent chronological coverage",
+        "flare labels and uncertainties"
+      ],
+      "verified": [
+        "Native descriptive inspection"
+      ]
+    }
+  ],
+  "independent_final_review": {
+    "actionable_findings": 0,
+    "datasum_checks_verified": 16,
+    "expanded_fits_hashes_verified": 8,
+    "historical_manifest_extension_verified": true,
+    "limits": [
+      "Did not independently revalidate every literature claim",
+      "Did not rerun full suite",
+      "Did not authenticate PRADAN provenance"
+    ],
+    "native_arrays_and_comparisons_verified": true,
+    "pinned_identities_verified": 22
+  },
+  "investigation_started": "2026-10-08",
+  "literature_sources": [
+    {
+      "bytes": 10575871,
+      "doi": "10.1117/1.JATIS.11.4.045005",
+      "id": "P",
+      "journal": "JATIS11(4),045005(2025)",
+      "locators": [
+        "sections4.1-4.5",
+        "sections5.2-5.4;PDFpages18-23"
+      ],
+      "path": "data/raw/aditya/documentation/phase-e-reference/2509.26292v2.pdf",
+      "scientific_applicability_to_local_files": "UNKNOWN",
+      "sha256": "dc6db1cc6a1a2b9c8d348c12a212818616e025566f17adb141c9b364475c309e",
+      "url": "https://arxiv.org/pdf/2509.26292v2",
+      "version": "v2 2025-11-03"
+    },
+    {
+      "id": "G",
+      "original_lines": "https://paperclip.gxl.ai/citations/papers/PMC11582350#L137-L142",
+      "scope": "GOES detector response; no local SoLEXS compatibility approval",
+      "url": "https://doi.org/10.1029/2024JA032925",
+      "version": "Published2024-11-21"
+    }
+  ],
+  "local_source_verification": {
+    "nested_distributions_scientifically_reviewed": false,
+    "portal_authenticity": "USER_REPORTED_NOT_INDEPENDENTLY_VERIFIED",
+    "source_entries": 39,
+    "status": "ALL_SIZE_SHA256_MATCH",
+    "tools_member_status": "ALL_MATCH_D1_PINS",
+    "tools_outer_members": 45,
+    "tools_regular_member_hashes": 35,
+    "unique_paths": 39
+  },
+  "parent_manifest_identities": [
+    {
+      "bytes": 7265,
+      "path": "data/manifests/aditya_inventory.json",
+      "sha256": "0f770484f375ada192ed5bea75f04d9e2ba5d2b94956938329279a5f11b87540"
+    },
+    {
+      "bytes": 11290,
+      "path": "data/manifests/solexs_guidance_sources.json",
+      "sha256": "553bad889cfc40c0dd97d8fb999b5300441e645810ef6d125b731bbf69eea438"
+    },
+    {
+      "bytes": 6790,
+      "path": "data/manifests/solexs_phase_d_sources.json",
+      "sha256": "d37303d0f180c50c570b8daa78eaa1b15b42e70f1e3e672477857215461abf21"
+    },
+    {
+      "bytes": 26507,
+      "path": "data/manifests/solexs_phase_d1_evidence.json",
+      "sha256": "352e84a73f95520e41bf87a6ba5d40c0d0f2ad542bc84562ff9334427d7452ef"
+    },
+    {
+      "bytes": 44293,
+      "path": "data/manifests/solexs_phase_d1_requirements.json",
+      "sha256": "130913b5059895423799d36e265ce768271c060cc2b39f43221268e782da4872"
+    },
+    {
+      "bytes": 30844,
+      "path": "data/manifests/solexs_phase_d_observations.json",
+      "sha256": "41e5a55acb92621423fd396978f8ea7bb0a8ee2c256109fd4c1bb960b2729503"
+    }
+  ],
+  "phase": "E",
+  "physical_analysis_allowed": false,
+  "policies": {
+    "absolute_utc_conversion": "UNKNOWN_NOT_APPLIED",
+    "calibration": "UNKNOWN_NOT_APPLIED",
+    "exposure_correction": "UNKNOWN_NOT_APPLIED",
+    "gap_filling": "NOT_APPLIED",
+    "gti_filtering": "UNKNOWN_NOT_APPLIED",
+    "instrument_alignment": "NOT_PERFORMED"
+  },
+  "preservation": {
+    "indexed_experiment_directories_verified": 32,
+    "models_modified": false,
+    "original_raw_snapshot_files": 80,
+    "p3_modified": false,
+    "previous_experiment_hashes_verified": 290,
+    "previous_scientific_source_hashes_verified": 109,
+    "raw_archives_replaced": false,
+    "training_experiment_executed": false
+  },
+  "regression": {
+    "full_baseline": {
+      "failed": 0,
+      "passed": 1084,
+      "seconds": 83.15,
+      "warnings": 1
+    },
+    "full_final": {
+      "failed": 0,
+      "passed": 1084,
+      "seconds": 79.2,
+      "warnings": 1
+    },
+    "installed_scientific_source_parity_modules": 5,
+    "native_response_comparisons_equal_phase_d": true,
+    "native_summary_equals_preserved_p2": true,
+    "scientific_subset": {
+      "failed": 0,
+      "passed": 109,
+      "seconds": 7.33
+    },
+    "strict_warning_diagnostic": {
+      "failed": 1,
+      "passed": 0,
+      "reason": "Inherited netCDF4 import NumPy ABI RuntimeWarning promoted to error; no acceptance rule changed"
+    }
+  },
+  "schema_version": 1,
+  "scope": "Two immutable pilot archives; native diagnostics and primary-source investigation only",
+  "software": {
+    "astropy": "8.0.1",
+    "matplotlib": "3.11.2",
+    "netCDF4": "1.7.2",
+    "numpy": "2.2.6",
+    "pandas": "2.3.3",
+    "pytest": "9.1.1",
+    "python": "3.13.3",
+    "torch": "2.6.0",
+    "xarray": "2026.7.0"
+  },
+  "timezone": "Asia/Kolkata"
+}
