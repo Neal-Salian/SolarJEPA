@@ -93,3 +93,24 @@ def test_config_and_hash_are_derived_from_the_same_bytes(tmp_path):
     config,digest=runner.load_config_snapshot(target)
     assert config==runner.load_config(config_path)
     assert digest==hashlib.sha256(data).hexdigest()
+
+
+def test_publication_rejects_symlink_stage_and_redirected_output_verification(tmp_path):
+    outside=tmp_path/'outside';outside.mkdir()
+    (outside/'report.json').write_text('{}')
+    parent=tmp_path/'results/experiments';parent.mkdir(parents=True)
+    stage=parent/'.stage-link';stage.symlink_to(outside,target_is_directory=True)
+    dest=parent/'trial'
+    with pytest.raises(ValueError):api().publish_stage(stage,dest)
+    assert not (outside/'artifacts.json').exists() and not dest.exists()
+    real=parent/'.stage-real';real.mkdir();(real/'report.json').write_text('{}')
+    api().publish_stage(real,dest)
+    redirected=parent/'redirect';redirected.symlink_to(dest,target_is_directory=True)
+    with pytest.raises(ValueError):api().verify_outputs(redirected)
+
+
+def test_stage_must_share_publication_parent(tmp_path):
+    stage=tmp_path/'outside-stage';stage.mkdir();(stage/'report.json').write_text('{}')
+    parent=tmp_path/'results/experiments';parent.mkdir(parents=True)
+    with pytest.raises(ValueError):api().publish_stage(stage,parent/'trial')
+    assert stage.exists() and not (stage/'artifacts.json').exists()

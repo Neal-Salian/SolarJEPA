@@ -93,7 +93,9 @@ def _write_json(path,value):
 
 
 def verify_outputs(directory):
-    directory=Path(directory)
+    directory=Path(directory).absolute()
+    if directory.is_symlink() or any(p.is_symlink() for p in directory.parents) or not directory.is_dir():
+        raise ValueError('Artifact directory must not redirect through symlinks')
     index=read_finite_json(directory/'artifacts.json')
     if (set(index)!={'schema_version','scientific_label','files'} or index['schema_version']!=1
             or index['scientific_label']!=LABEL): raise ValueError('Invalid provisional artifact index')
@@ -119,6 +121,9 @@ def publish_stage(stage,destination):
             or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]*',destination.name)
             or any(p.is_symlink() for p in destination.parents)):
         raise ValueError('Output must be a new directory immediately under results/experiments')
+    if (stage.is_symlink() or not stage.is_dir() or stage.parent!=destination.parent
+            or any(p.is_symlink() for p in stage.parents)):
+        raise ValueError('Stage must be a regular sibling directory of the destination')
     files=[]
     for p in sorted(stage.iterdir()):
         if not p.is_file() or p.is_symlink() or p.name=='artifacts.json':
