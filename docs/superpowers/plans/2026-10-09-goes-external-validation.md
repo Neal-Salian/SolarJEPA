@@ -40,32 +40,32 @@
 - [x] Establish inherited full suite (1084 passed; one unsuppressed binary warning).
 - [x] Research candidate availability and select January 2025 before external scoring.
 - [x] Reuse acquire_history/verify_history; validate measured coverage/quality with validate_goes_files.
-- [ ] Write failing synthetic parser/integrity tests, implement data/flare_catalog.py and CLI/config/manifest, run GREEN tests.
-- [ ] Verify annual official catalog+metadata bytes; retain disagreements with operational SWPC as separate evidence.
+- [x] Write failing synthetic parser/integrity tests, implement data/flare_catalog.py and CLI/config/manifest, run GREEN tests.
+- [x] Verify annual official catalog+metadata bytes; retain disagreements with operational SWPC as separate evidence.
 
 ### Task 2: Catalog alignment and onset labels (GOES research subagent)
 
 Files: evaluation/flare_alignment.py; tests/test_flare_alignment.py.
 Interfaces: align_events(events,dataset), label_onsets(events,dataset,grid,minimum_class,catalog_interval).
-- [ ] Write RED tests for UTC boundaries, unknown ends, overlaps, quality gaps, provenance, saturation, source mismatch and peak maturity.
-- [ ] Implement separate retrospective label artifacts, never modify features; new catalog starts in [issue, end), final class threshold C1/M1/X1 fixed a priori.
-- [ ] Run targeted GREEN tests and actual-data alignment; retain completeness limitations.
+- [x] Write RED tests for UTC boundaries, unknown ends, overlaps, quality gaps, provenance, saturation, source mismatch and peak maturity.
+- [x] Implement separate retrospective label artifacts, never modify features; new catalog starts in [issue, end), final class threshold C1/M1/X1 fixed a priori.
+- [x] Run targeted GREEN tests and actual-data alignment; retain completeness limitations.
 
 ### Task 3: Model-independent evaluation (root + protocol subagent)
 
 Files: data/external_validation.py; evaluation/external_flux.py, event_matching.py, uncertainty.py; scripts/prepare_external_validation.py; external config and focused tests.
-- [ ] RED tests for external/frozen interval separation, deterministic construction, causal contexts and no training slice; implement adapter using P2 source validation and a single test partition.
-- [ ] RED hand-calculated flux errors/coverage/skill and mismatched prediction identity tests; implement external flux scoring without TrainingSlice, reuse strict contract snapshots and alignment.
-- [ ] RED alarm matching and block-bootstrap tests; implement one-to-one deterministic maximum-cardinality alarms and explicit UTC calendar-block paired uncertainty.
-- [ ] Execute real preparation only, with no model predictions/scoring; publish small observed summaries and reproducible fingerprints in tracked manifest.
+- [x] RED tests for external/frozen interval separation, deterministic construction, causal contexts and no training slice; implement adapter using P2 source validation and a single test partition.
+- [x] RED hand-calculated flux errors/coverage/skill and mismatched prediction identity tests; implement external flux scoring without TrainingSlice, reuse strict contract snapshots and alignment.
+- [x] RED alarm matching and block-bootstrap tests; implement one-to-one deterministic maximum-cardinality alarms and explicit UTC calendar-block paired uncertainty.
+- [x] Execute real preparation only, with no model predictions/scoring; publish small observed summaries and reproducible fingerprints in tracked manifest.
 
 ### Task 4: Verification, reporting and publication (root + independent reviewers)
 
-- [ ] Run targeted and full inherited suites; retain warnings and investigate failures.
-- [ ] Install source snapshot outside original environment, smoke CLI/import, reproduce twice in distinct no-replacement output dirs and compare scientific identities.
-- [ ] Independent code and scientific reviews; regressions for actionable findings.
-- [ ] Reports include literature/official source evidence, uncertainties, exact input identities, reproduction and future P3 interface.
-- [ ] Verify preservation snapshots, raw ignores/index/history, complete diff and remote protected refs.
+- [x] Run targeted and full inherited suites; retain warnings and investigate failures.
+- [x] Install source snapshot outside original environment, smoke CLI/import, reproduce twice in distinct no-replacement output dirs and compare scientific identities.
+- [x] Independent code and scientific reviews; regressions for actionable findings.
+- [x] Reports include literature/official source evidence, uncertainties, exact input identities, reproduction and future P3 interface.
+- [x] Verify preservation snapshots, raw ignores/index/history, complete diff and remote protected refs.
 - [ ] Focused Conventional Commits; push only research branch; verify synchronization/clean state; stop for human review.
 
 ## Execution evidence

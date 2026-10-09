@@ -1,0 +1,310 @@
+{
+  "schema_version": 1,
+  "kind": "external_retrospective_evaluation_preparation",
+  "status": "PARTIALLY_VERIFIED",
+  "summary": {
+    "aligned_events": 278,
+    "annual_catalog_records": 3277,
+    "catalog_id": "noaa-ncei-science-flrpt-2025-v1-0-1",
+    "catalog_manifest": {
+      "path": "data/manifests/flare_catalog_2025.json",
+      "sha256": "7192ffbafc1d07c4637d464e0e1dcbfe864ba32925cfd635023439b077ce8011"
+    },
+    "config_path": "configs/evaluation/goes_external_january2025.json",
+    "config_sha256": "c9959a85997e66acf58510df39df7f267387d72e25b3431436ed1aa3830b7b76",
+    "dataset_fingerprint": "b4ff51eff9d8a3d85f30375c07b7623915cd09be9c8f82e26ca17dca13dfcd7c",
+    "dataset_id": "external-goes16-january2025-science-avg1m-v2-2-1",
+    "evaluation_id": "external-goes16-january2025-catalog-onset-v1",
+    "event_decision_validation": "BLOCKED_IMPLEMENTATION",
+    "excluded_origins": 481,
+    "fit_performed": false,
+    "forecast": {
+      "availability_mode": "retrospective_bin_end",
+      "cadence_seconds": 60,
+      "context_steps": 120,
+      "eligibility_policy": "complete",
+      "feature_lookback_steps": 0,
+      "feature_names": [
+        "xrsa_flux",
+        "xrsb_flux"
+      ],
+      "feature_reference": [
+        1.0,
+        1.0
+      ],
+      "feature_units": [
+        "W/m2",
+        "W/m2"
+      ],
+      "horizon_steps": 30,
+      "label_maturity_steps": 0,
+      "stride_steps": 30,
+      "target_minimum": [
+        0.0,
+        0.0
+      ],
+      "target_names": [
+        "xrsa_flux",
+        "xrsb_flux"
+      ],
+      "target_reference": [
+        1.0,
+        1.0
+      ],
+      "target_units": [
+        "W/m2",
+        "W/m2"
+      ],
+      "transform": "log10"
+    },
+    "frozen_benchmark": {
+      "dataset_id": "p2-goes16-july2024-science-avg1m-v2-2-1",
+      "exclusion_end_utc": "2024-08-01T00:00:00+00:00",
+      "exclusion_start_utc": "2024-07-01T00:00:00+00:00",
+      "path": "data/manifests/goes_p2_july2024.json",
+      "sha256": "581a3c4b8cfba6b9b21ed1fdb0b2277e728e9bf329a8da1ddcc0bd49c3cc4b3d"
+    },
+    "labels": {
+      "C1.0": {
+        "candidate_origins": 1007,
+        "catalog_completeness": "UNKNOWN",
+        "catalog_positive_origins": 194,
+        "definition_id": "aec55fa29223c09044afa00f41d9efbe961e2706f8c28a2a90e07f827285a54c",
+        "exclusion_reasons": {},
+        "valid_mature_origins": 1007,
+        "valid_mature_positive_origins": 194
+      },
+      "M1.0": {
+        "candidate_origins": 1007,
+        "catalog_completeness": "UNKNOWN",
+        "catalog_positive_origins": 39,
+        "definition_id": "62d2ccce222beb98be4df8f2b60d3722c90c404cb516ac09ec38963219eb058b",
+        "exclusion_reasons": {},
+        "valid_mature_origins": 1007,
+        "valid_mature_positive_origins": 39
+      },
+      "X1.0": {
+        "candidate_origins": 1007,
+        "catalog_completeness": "UNKNOWN",
+        "catalog_positive_origins": 3,
+        "definition_id": "15fa66ed76430b12e82b8db77a65a69fb03dde98bb430d51a20bd5b5c19ab30d",
+        "exclusion_reasons": {},
+        "valid_mature_origins": 1007,
+        "valid_mature_positive_origins": 3
+      }
+    },
+    "missing_event_ends": 26,
+    "model_metrics": "NOT_COMPUTED",
+    "model_predictions": "NOT_RUN",
+    "native_validation": {
+      "actual_operational_delivery": "UNKNOWN",
+      "availability": "retrospective_bin_end",
+      "cadence_seconds": 60,
+      "channels": {
+        "xrsa": {
+          "electron_quality_policy": "strict_status_zero_and_channel_specific_electron_bits",
+          "nonfinite_raw_bins": 313,
+          "nonpositive_raw_bins": 0,
+          "quality_rejected_bins": 5470,
+          "status_flag_counts": {
+            "0.0": 44325,
+            "2.0": 313,
+            "4.0": 2
+          },
+          "units": "W/m2",
+          "valid_bins": 39170
+        },
+        "xrsb": {
+          "electron_quality_policy": "strict_status_zero_and_channel_specific_electron_bits",
+          "nonfinite_raw_bins": 313,
+          "nonpositive_raw_bins": 0,
+          "quality_rejected_bins": 323,
+          "status_flag_counts": {
+            "0.0": 44325,
+            "2.0": 313,
+            "4.0": 2
+          },
+          "units": "W/m2",
+          "valid_bins": 44317
+        }
+      },
+      "chronological_order": "PASS",
+      "duplicate_timestamps": 0,
+      "end_utc": "2025-02-01T00:00:00+00:00",
+      "event_labels": {
+        "reason": "Continuous native flux task; no flare catalogue-to-label rule has been established",
+        "status": "NOT_DEFINED"
+      },
+      "evidence": "OBSERVED",
+      "grid_rows": 44640,
+      "imputation": "none",
+      "instrument": "EXIS/XRS",
+      "missing_bins": 0,
+      "missing_intervals": [],
+      "nonuniform_cadence": "none except reported absent bins",
+      "normalization": "none",
+      "observed_end_utc": "2025-02-01T00:00:00+00:00",
+      "observed_rows": 44640,
+      "observed_start_utc": "2025-01-01T00:00:00+00:00",
+      "platform": "GOES-16",
+      "primary_detector_selector_counts": {
+        "10.0": 19,
+        "5.0": 44564,
+        "6.0": 57
+      },
+      "start_utc": "2025-01-01T00:00:00+00:00",
+      "status": "VALIDATED_NATIVE_GOES_CONTRACT"
+    },
+    "operational_benchmark_status": "BLOCKED_EXTERNAL_EVIDENCE",
+    "partition": "external_test_only",
+    "physical_flare_completeness": "UNKNOWN",
+    "preparation_fingerprint": "55ad86e40eb9455c9b4cbe1f60a1b00b9336ca00946417c5016c809ca8583c59",
+    "retained_origins": 1007,
+    "saturated_events": 0,
+    "schema_version": 1,
+    "selected_event_counts": {
+      "onset": {
+        "C": 235,
+        "M": 40,
+        "X": 3
+      },
+      "peak": {
+        "C": 235,
+        "M": 40,
+        "X": 3
+      }
+    },
+    "selected_events_by_source": {
+      "GOES-16": 275,
+      "GOES-18": 3
+    },
+    "source_manifest": {
+      "path": "data/manifests/goes_external_january2025.json",
+      "sha256": "d099a83b5aa1e44134461458806337ecbde591f1eedc7549068f6f9b0cd82bb1"
+    },
+    "spec_fingerprint": "094df46d625380c4c812bb26c9320cff10e40a2de185cfcebfa5dfff04674d94",
+    "split_fingerprint": "8018d4c47c06250d988f992a261131e3ca25fd57a0039da4a1be1247a9506dcb",
+    "status": "PARTIALLY_VERIFIED",
+    "valid_target_cells": 60420,
+    "verified_scope": "pinned retrospective observations, catalog parsing and deterministic candidate labels"
+  },
+  "implementation": {
+    "source_commit": "8f41ab2f7fac59fc12152040af32e10c69563091",
+    "source_fingerprint": "4ea44fda6ade364611e32d4c3c6a6608b61c5b6dfbbb1bba5080f10e9170507a",
+    "all_imports": "installed_distribution",
+    "base_commit": "656e540162c635d4c2274b4469ae11247290f986"
+  },
+  "reproduction": {
+    "config": "configs/evaluation/goes_external_january2025.json",
+    "command": "python scripts/prepare_external_validation.py --output-dir results/experiments/<new-unique-name>",
+    "acceptance_runs": [
+      "results/experiments/goes-external-january2025-acceptance-c",
+      "results/experiments/goes-external-january2025-acceptance-d"
+    ],
+    "all_13_artifacts_byte_identical": true,
+    "catalog_clean_clone_recovery": {
+      "status": "VERIFIED",
+      "resources": 2,
+      "bytes": 634597,
+      "original_ledger_unchanged": true,
+      "local_recovery_interval_utc": [
+        "2026-10-09T14:00:51.931422+00:00",
+        "2026-10-09T14:00:55.100858+00:00"
+      ]
+    }
+  },
+  "artifacts": [
+    {
+      "name": "artifacts.json",
+      "bytes": 1473,
+      "sha256": "0c82db2fd0a4f084451b0e51b5330418e0f9714f2f229b8e5d57653f1177b69e"
+    },
+    {
+      "name": "contexts.json",
+      "bytes": 12005607,
+      "sha256": "37e23b2ebc56b2a405b261534ed696fd7bddf3498bb6fddf2127c3b48fe55ee8"
+    },
+    {
+      "name": "dataset_manifest.json",
+      "bytes": 50084,
+      "sha256": "4b0571e6213819539a926bc06c4e8445469204dc3dd606eebf88c0c4dc6e7340"
+    },
+    {
+      "name": "event_alignment.json",
+      "bytes": 14212544,
+      "sha256": "a4c38304857f79b5cb6d38ad4802da1231a163b72ea0742c37e2ff420b03ee59"
+    },
+    {
+      "name": "future_grid.json",
+      "bytes": 1262389,
+      "sha256": "a56e471ab6c335049103d78b0468ebb313c7da0dfedaa565a940b996e6b1bf4f"
+    },
+    {
+      "name": "onset_labels_C.json",
+      "bytes": 801871,
+      "sha256": "8fca3a372751d6f18a348ffdf18540f6fc7806abe30a39be0b2748dfedef0fd3"
+    },
+    {
+      "name": "onset_labels_M.json",
+      "bytes": 752124,
+      "sha256": "803213ffa36e4536a30cd2a836b04a1e522dd4423f75639700cba0849d1a3dec"
+    },
+    {
+      "name": "onset_labels_X.json",
+      "bytes": 741145,
+      "sha256": "2a08af64732480364261e07708e26f2e886b1fa22cca0502b133971d4bf3425e"
+    },
+    {
+      "name": "provenance.json",
+      "bytes": 18245,
+      "sha256": "6c2cbd69e2c5fe559c5e7c1560cab4f26445aa7917b1602c9ee6f743c0b30f7d"
+    },
+    {
+      "name": "resolved_config.json",
+      "bytes": 792,
+      "sha256": "3eb7a2d57fdc354631a4bc109992706b8436eb240c5e9b2056f8c23d0e08e0ee"
+    },
+    {
+      "name": "summary.json",
+      "bytes": 4657,
+      "sha256": "a2155e7df99b5b29f2c096486014b298df15532b10ec6c95a21cbd30caf70933"
+    },
+    {
+      "name": "targets.json",
+      "bytes": 3044858,
+      "sha256": "05679cf6e5fba29d2fb03232e5187d126a70f615f03cf526b9d560c918eddeff"
+    },
+    {
+      "name": "window_manifest.json",
+      "bytes": 3511106,
+      "sha256": "a21584342c06b927d0389700da5fb6d1c7b5827144523b423ba20e1be64d1b64"
+    }
+  ],
+  "verification": {
+    "inherited_baseline": {
+      "passed": 1084,
+      "warnings": 1
+    },
+    "full_final_source": {
+      "passed": 1272,
+      "warnings": 1,
+      "seconds": 78.45
+    },
+    "warning": "Inherited NumPy/netCDF4 ndarray binary-size RuntimeWarning; unsuppressed",
+    "independent_code_review": "VERIFIED_ACTIONABLE_FINDINGS_RESOLVED",
+    "independent_scientific_review": "PARTIALLY_VERIFIED_NO_UNRESOLVED_ACTIONABLE_FINDING",
+    "targeted_final": {
+      "passed": 188,
+      "warnings": 1,
+      "seconds": 1.85
+    }
+  },
+  "limitations": {
+    "operational_availability_and_native_preprocessing_causality": "BLOCKED_EXTERNAL_EVIDENCE",
+    "physical_catalog_completeness": "UNKNOWN",
+    "validated_flux_to_event_decision": "BLOCKED_IMPLEMENTATION",
+    "observational_model_scores": "NOT_COMPUTED",
+    "future_remote_snapshot_retrievability": "UNKNOWN; changed pinned metadata blocks acquisition, never silently repin"
+  },
+  "scientific_payload_policy": "Only small provenance/summary/identity records tracked; all source bytes, contexts, targets and labels remain ignored"
+}
