@@ -196,8 +196,8 @@ def _validate_content(paths, spec):
     return events
 
 
-def verify_catalog(manifest_path, root) -> dict[str, Path]:
-    """Verify config, immutable ledger, bytes and semantics; return resource paths."""
+def _verify_catalog_manifest(manifest_path, root, *, allow_missing=False) -> dict[str, Path]:
+    """Check the ledger; acquisition alone may defer absent payload checks."""
     root = Path(root).resolve()
     path = Path(manifest_path)
     path = path if path.is_absolute() else root / path
@@ -227,8 +227,11 @@ def verify_catalog(manifest_path, root) -> dict[str, Path]:
             elif record['lineage'] != 'existing_pinned_bytes_acquisition_time_unknown':
                 raise ValueError('Unknown existing catalog acquisition lineage')
             local = _path(record['path'], root)
-            _check(local, entry)
+            if local.exists() or not allow_missing:
+                _check(local, entry)
             paths[entry['role']] = local
+        if allow_missing and not all(path.is_file() for path in paths.values()):
+            return paths
         events = _validate_content(paths, spec)
         if ledger['event_count'] != len(events) or ledger['total_bytes'] != sum(e['bytes'] for e in spec['resources']):
             raise ValueError('Catalog ledger event/byte count conflict')
@@ -237,17 +240,25 @@ def verify_catalog(manifest_path, root) -> dict[str, Path]:
         raise ValueError('Malformed flare-report ledger') from exc
 
 
+def verify_catalog(manifest_path, root) -> dict[str, Path]:
+    """Verify config, immutable ledger, bytes and semantics; missing data fails."""
+    return _verify_catalog_manifest(manifest_path, root)
+
+
 def acquire_catalog(config_path, root) -> dict:
     """Acquire exactly two pinned public resources, without redirects/replacement.
 
-    Existing files must match the config. Existing ledgers are verified and
-    returned unchanged. A changed remote snapshot fails rather than repinning.
+    Existing files must match the config. Missing payloads may be restored under
+    a verified existing ledger, which is returned unchanged after full validation.
+    A changed remote snapshot fails rather than repinning.
     """
     root = Path(root).resolve()
     spec, relative, digest, manifest = _config(config_path, root)
-    if manifest.exists():
-        verify_catalog(manifest, root)
-        return _json(manifest)
+    existing_manifest = manifest.exists()
+    if existing_manifest:
+        existing_paths = _verify_catalog_manifest(manifest, root, allow_missing=True)
+        if all(path.is_file() for path in existing_paths.values()):
+            return _json(manifest)
     records, paths = [], {}
     for entry in spec['resources']:
         path = _path(entry['path'], root)
@@ -283,6 +294,9 @@ def acquire_catalog(config_path, root) -> dict:
         records.append(dict(entry, acquired_utc=acquired, registered_utc=datetime.now(timezone.utc).isoformat(),
                             lineage=lineage))
     events = _validate_content(paths, spec)
+    if existing_manifest:
+        verify_catalog(manifest, root)
+        return _json(manifest)
     ledger = dict(schema_version=1, catalog_id=spec['catalog_id'], product=spec['product'],
                   version=spec['version'], year=spec['year'], config_path=relative, config_sha256=digest,
                   complete=True, resources=records, total_bytes=sum(e['bytes'] for e in records),

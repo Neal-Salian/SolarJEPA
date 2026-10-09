@@ -287,3 +287,57 @@ def test_raw_symlink_identity_rejected(tmp_path, monkeypatch):
     with pytest.raises(ValueError):
         module.acquire_catalog(path, tmp_path)
     assert target.is_symlink()
+
+
+def cloned_ledger(tmp_path,monkeypatch):
+    module=api()
+    source=tmp_path/'source'
+    source.mkdir()
+    config_path,spec,bodies=config(source)
+    monkeypatch.setattr(module,'open_history_url',lambda url,timeout:Response(bodies['catalog' if url.endswith('.csv') else 'metadata']))
+    module.acquire_catalog(config_path,source)
+    clone=tmp_path/'clone'
+    for rel in ('configs/data/flare_catalog_2025.json',spec['manifest_path']):
+        target=clone/rel;target.parent.mkdir(parents=True,exist_ok=True)
+        target.write_bytes((source/rel).read_bytes())
+    return module,source,clone,spec,bodies
+
+
+@pytest.mark.parametrize('missing',['catalog','metadata','both'])
+def test_committed_ledger_restores_missing_pinned_resources_without_rewriting(tmp_path,monkeypatch,missing):
+    module,source,clone,spec,bodies=cloned_ledger(tmp_path,monkeypatch)
+    for entry in spec['resources']:
+        if missing not in (entry['role'],'both'):
+            target=clone/entry['path'];target.parent.mkdir(parents=True,exist_ok=True)
+            target.write_bytes((source/entry['path']).read_bytes())
+    manifest=clone/spec['manifest_path'];before=manifest.read_bytes()
+    with pytest.raises(ValueError):module.verify_catalog(manifest,clone)
+    requested=[]
+    def download(url,timeout):
+        requested.append(url)
+        return Response(bodies['catalog' if url.endswith('.csv') else 'metadata'])
+    monkeypatch.setattr(module,'open_history_url',download)
+    result=module.acquire_catalog('configs/data/flare_catalog_2025.json',clone)
+    assert manifest.read_bytes()==before
+    assert result==json.loads(before)
+    assert set(requested)=={entry['url'] for entry in spec['resources'] if missing in (entry['role'],'both')}
+    assert set(module.verify_catalog(manifest,clone))=={'catalog','metadata'}
+
+
+def test_missing_resource_recovery_rejects_existing_corruption_before_network(tmp_path,monkeypatch):
+    module,source,clone,spec,bodies=cloned_ledger(tmp_path,monkeypatch)
+    metadata=spec['resources'][1]
+    target=clone/metadata['path'];target.parent.mkdir(parents=True,exist_ok=True)
+    target.write_bytes(b'corrupt')
+    monkeypatch.setattr(module,'open_history_url',lambda *args:pytest.fail('Unexpected network'))
+    with pytest.raises(ValueError):module.acquire_catalog('configs/data/flare_catalog_2025.json',clone)
+    assert not (clone/spec['resources'][0]['path']).exists()
+
+
+def test_missing_resource_recovery_never_accepts_changed_remote_snapshot(tmp_path,monkeypatch):
+    module,source,clone,spec,bodies=cloned_ledger(tmp_path,monkeypatch)
+    manifest=clone/spec['manifest_path'];before=manifest.read_bytes()
+    monkeypatch.setattr(module,'open_history_url',lambda *args:Response(b'changed'))
+    with pytest.raises(ValueError):module.acquire_catalog('configs/data/flare_catalog_2025.json',clone)
+    assert manifest.read_bytes()==before
+    assert not (clone/spec['resources'][0]['path']).exists()
