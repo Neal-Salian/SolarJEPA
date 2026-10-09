@@ -75,7 +75,7 @@ Files: `src/solar_flare_jepa/provisional/experiment.py`,
 - [x] Full tests, 109-test native subset, normal installed import and CLI smoke checks.
 - [x] New report and concise implementation report with actual results and limitations.
 - [x] Verify archived inputs and old results unchanged, Git ignores/index/history, protected refs.
-- [ ] Commit only small allowed files, push feature branch, verify remote equality; stop.
+- [x] Commit only small allowed files, push feature branch, verify remote equality; stop.
 
 ## Execution evidence and rulings
 
@@ -95,3 +95,11 @@ Files: `src/solar_flare_jepa/provisional/experiment.py`,
   retained training-origin wording in the report (first retained origin 200).
 - Prior identities: 436 hashes and 32 indexed experiments verified unchanged.
   No P3/main mutation, PR or integration is authorized.
+
+## Publication verification
+
+Scientific report/provenance commit
+`dabf68e2bd80be23e4db0c1ae8e63db978ead843` was pushed only to the provisional
+branch. HEAD, upstream and independent `ls-remote` exactly matched, with a clean
+worktree. This closure records that completed check; its own final commit is
+reported in the handoff after final synchronization. No PR/merge/main push.
