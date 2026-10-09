@@ -196,7 +196,7 @@ def write_report(destination):
                    and (c['model'] in (picks['jepa'],) or test.get(c['model'], {}).get('family') in JEPA_FAMILIES)]
     lines = [f"# v1 results: {destination.name}", '',
              f"Mode: {'DEV (relaxed provenance)' if summary['dev_mode'] else 'STRICT'}"
-             f"{', QUICK' if summary['quick'] else ''}. Git: `{(summary['provenance'].get('git') or {}).get('head')}`. "
+             f"{', QUICK' if summary['quick'] else ''}. Git: `{summary['provenance']['git_commit']}`. "
              f"Dataset fingerprint `{summary['dataset']['fingerprint']}`.", '',
              '## Train-only diagnostics (log10 one-minute differences)', '', '```json',
              json.dumps(summary.get('diagnostics'), indent=1), '```', '',

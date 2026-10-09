@@ -232,7 +232,7 @@ def run_v1(config_path, models_path, root, *, output_dir=None, dev=False, quick=
                    models_config=models, models_config_identity=_source_identity(models_path),
                    dataset=_dataset_manifest(dataset),
                    split_manifest=[windows[p.name].manifest() for p in partitions],
-                   provenance=dict(git=provenance.get('git'), source_fingerprint=provenance['source']['fingerprint']),
+                   provenance=dict(provenance, source_fingerprint=provenance['source']['fingerprint']),
                    selections=selections, fits=fits, failures=failures, diagnostics=diagnostics, comparisons=comparisons,
                    limitations=['four months of one satellite (GOES-16, May-Aug 2024); not cycle-wide generalization',
                                 'overlapping contexts; origins are not independent samples',
