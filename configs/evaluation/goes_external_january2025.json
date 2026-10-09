@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "evaluation_id": "external-goes16-january2025-catalog-onset-v1",
+  "goes_manifest": "data/manifests/goes_external_january2025.json",
+  "catalog_manifest": "data/manifests/flare_catalog_2025.json",
+  "forecast": {
+    "cadence_seconds": 60,
+    "context_steps": 120,
+    "horizon_steps": 30,
+    "stride_steps": 30,
+    "feature_names": [
+      "xrsa_flux",
+      "xrsb_flux"
+    ],
+    "target_names": [
+      "xrsa_flux",
+      "xrsb_flux"
+    ],
+    "feature_units": [
+      "W/m2",
+      "W/m2"
+    ],
+    "target_units": [
+      "W/m2",
+      "W/m2"
+    ],
+    "availability_mode": "retrospective_bin_end",
+    "eligibility_policy": "complete",
+    "transform": "log10",
+    "feature_reference": [
+      1.0,
+      1.0
+    ],
+    "target_reference": [
+      1.0,
+      1.0
+    ],
+    "target_minimum": [
+      0.0,
+      0.0
+    ]
+  },
+  "catalog_interval": [
+    "2025-01-01T00:00:00Z",
+    "2026-01-01T00:00:00Z"
+  ],
+  "minimum_classes": [
+    "C1.0",
+    "M1.0",
+    "X1.0"
+  ],
+  "policy": "external_evaluation_only_no_fitting_or_tuning"
+}
