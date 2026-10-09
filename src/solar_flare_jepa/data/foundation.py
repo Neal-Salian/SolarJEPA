@@ -159,21 +159,50 @@ def validate_goes_files(paths, *, start_utc, end_utc, platform='GOES-16'):
     return frame, report
 
 
-def goes_training(config, root):
-    """Rebuild from pinned raw identities; never trust a prepared cache alone."""
-    from solar_flare_jepa.experiments.config import read_finite_json, validate_config
+def _pinned_frame(relative, root):
+    """Verify one pinned bounded selection and validate its native files."""
+    from solar_flare_jepa.experiments.config import read_finite_json
     from .goes_acquisition import verify_history
-    cfg = validate_config(config)
-    if cfg['dataset']['kind'] != 'goes_historical':
-        raise ValueError('Historical adapter requires goes_historical')
-    root = Path(root).resolve()
-    manifest = root/repository_relative_path(cfg['dataset']['manifest'], root)
+    manifest = root/repository_relative_path(relative, root)
     inventory = read_finite_json(manifest)
     paths = verify_history(manifest, root)
     interval = inventory['selected_interval']
     start = pd.Timestamp(interval['start'], tz='UTC').isoformat()
     end = pd.Timestamp(interval['end_exclusive'], tz='UTC').isoformat()
     frame, report = validate_goes_files(paths, start_utc=start, end_utc=end, platform=inventory['platform'])
+    return manifest, inventory, paths, frame, report
+
+
+def goes_training(config, root):
+    """Rebuild from pinned raw identities; never trust a prepared cache alone.
+
+    `goes_historical_multi` concatenates several independently pinned
+    selections only when their declared intervals are exactly contiguous, so
+    the combined grid has no silently bridged time.
+    """
+    from solar_flare_jepa.experiments.config import validate_config
+    cfg = validate_config(config)
+    kind = cfg['dataset']['kind']
+    if kind not in ('goes_historical', 'goes_historical_multi'):
+        raise ValueError('Historical adapter requires goes_historical')
+    root = Path(root).resolve()
+    selections = [_pinned_frame(value, root) for value in
+                  ([cfg['dataset']['manifest']] if kind == 'goes_historical' else cfg['dataset']['manifests'])]
+    for (_, _, _, left, _), (_, _, _, right, _) in zip(selections, selections[1:]):
+        if left['time_end'].iloc[-1] != right.index[0]:
+            raise ValueError('Multi-manifest GOES selections must be chronologically contiguous')
+    if len({s[1]['platform'] for s in selections}) != 1:
+        raise ValueError('Multi-manifest GOES selections must share one platform')
+    if kind == 'goes_historical':
+        manifest, inventory, paths, frame, report = selections[0]
+        dataset_id, manifest_sha256 = inventory['dataset_id'], sha256_file(manifest)
+    else:
+        frame = pd.concat([s[3] for s in selections])
+        paths = [p for s in selections for p in s[2]]
+        report = [s[4] for s in selections]
+        dataset_id = '+'.join(s[1]['dataset_id'] for s in selections)
+        manifest_sha256 = [dict(path=repository_relative_path(s[0], root), sha256=sha256_file(s[0]))
+                           for s in selections]
     channels = ('xrsa_flux', 'xrsb_flux')
     identity = SourceIdentity('NOAA GOES-R', 'GOES-16', 'EXIS/XRS', channels, ('W/m2', 'W/m2'),
         GOES_TIME, '60 s record-start half-open bins', 'irradiance', GOES_QUALITY, 'none',
@@ -182,14 +211,14 @@ def goes_training(config, root):
     sources = [dict(path=repository_relative_path(p, root), sha256=sha256_file(p), bytes=p.stat().st_size)
                for p in paths]
     metadata = dict(adapter='p2_goes16_native_flux_v1', source_identity=identity.as_dict(),
-        sources=sources, manifest_sha256=sha256_file(manifest), raw_validation=report,
+        sources=sources, manifest_sha256=manifest_sha256, raw_validation=report,
         channel_bands_nm={'xrsa_flux': [0.05, 0.4], 'xrsb_flux': [0.1, 0.8]},
         detector_selection='primary composite; native per-bin xrs_primary_chan retained in preparation',
         scientific_role='GOES retrospective flux forecasting; not Aditya-L1',
         operational_latency='UNKNOWN', imputation='none', normalization='none', phase_e='BLOCKED_FOR_PHASE_E')
     values = frame[list(channels)].to_numpy(float)
     mask = frame[['xrsa_valid', 'xrsb_valid']].to_numpy(bool)
-    return TimeSeriesDataset(inventory['dataset_id'], 'goes_historical', frame.index.asi8,
+    return TimeSeriesDataset(dataset_id, 'goes_historical', frame.index.asi8,
         pd.DatetimeIndex(frame.time_end).asi8, values, mask, values, mask, channels, channels,
         ('W/m2', 'W/m2'), ('W/m2', 'W/m2'), 60, availability_policy='bin_end_earliest',
         time_policy=GOES_TIME, quality_policy=GOES_QUALITY, metadata_json=canonical_json(metadata))

@@ -28,7 +28,7 @@ PHASE_E = 'BLOCKED_FOR_PHASE_E'
 def _dataset(config, root):
     if config['dataset']['kind'] == 'synthetic_fixture':
         return synthetic_fixture(config)
-    if config['dataset']['kind'] == 'goes_historical':
+    if config['dataset']['kind'] in ('goes_historical', 'goes_historical_multi'):
         from solar_flare_jepa.data.foundation import goes_training
         return goes_training(config, root)
     # Optional scientific readers are never imported by a synthetic run.
