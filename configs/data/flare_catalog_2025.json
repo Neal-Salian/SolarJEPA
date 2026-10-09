@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "catalog_id": "noaa-ncei-science-flrpt-2025-v1-0-1",
+  "product": "xrsf-l2-flrpt_science",
+  "version": "1-0-1",
+  "year": 2025,
+  "manifest_path": "data/manifests/flare_catalog_2025.json",
+  "timeout_seconds": 30,
+  "resources": [
+    {
+      "role": "catalog",
+      "url": "https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/multi/l2/data/xrsf-l2-flrpt_science/csv/sci_xrsf-l2-flrpt_geo_y2025_v1-0-1.csv",
+      "path": "data/raw/external/goes_flare_catalog_2025/sci_xrsf-l2-flrpt_geo_y2025_v1-0-1.csv",
+      "max_bytes": 1048576,
+      "bytes": 626081,
+      "sha256": "287c9ee0961e221368f3580c6e159e8dc17ef7607d02442dabf3ab48fa8c6c88"
+    },
+    {
+      "role": "metadata",
+      "url": "https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/multi/l2/data/xrsf-l2-flrpt_science/csv/sci_xrsf-l2-flrpt_geo_metadata.json",
+      "path": "data/raw/external/goes_flare_catalog_2025/sci_xrsf-l2-flrpt_geo_metadata.json",
+      "max_bytes": 1048576,
+      "bytes": 8516,
+      "sha256": "4a8af6ecce0df30d851b8500d362de537bb6e92646a4fc499fcf691a7eef68fb"
+    }
+  ],
+  "selection_basis": "Annual official science catalog for the a priori January 2025 external flux period. No model predictions were inspected. CSV year aggregation is indexed by flare peak; alignment retains boundary events.",
+  "identity_basis": "SHA-256 values observed during bounded source reconnaissance; these are local pins, not NOAA-issued checksums.",
+  "semantics_url": "https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/goes16/l2/docs/GOES_Flare_Report_ReadMe.pdf"
+}

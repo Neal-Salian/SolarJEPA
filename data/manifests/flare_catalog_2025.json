@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "catalog_id": "noaa-ncei-science-flrpt-2025-v1-0-1",
+  "product": "xrsf-l2-flrpt_science",
+  "version": "1-0-1",
+  "year": 2025,
+  "config_path": "configs/data/flare_catalog_2025.json",
+  "config_sha256": "fd3ea0068587ddea6374cbe3c3c03f11a5d1e623b06b86a7c3bdd6602d4f238e",
+  "complete": true,
+  "resources": [
+    {
+      "role": "catalog",
+      "url": "https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/multi/l2/data/xrsf-l2-flrpt_science/csv/sci_xrsf-l2-flrpt_geo_y2025_v1-0-1.csv",
+      "path": "data/raw/external/goes_flare_catalog_2025/sci_xrsf-l2-flrpt_geo_y2025_v1-0-1.csv",
+      "max_bytes": 1048576,
+      "bytes": 626081,
+      "sha256": "287c9ee0961e221368f3580c6e159e8dc17ef7607d02442dabf3ab48fa8c6c88",
+      "acquired_utc": "2026-10-09T13:26:44.978543+00:00",
+      "registered_utc": "2026-10-09T13:26:44.979081+00:00",
+      "lineage": "download_official_noaa"
+    },
+    {
+      "role": "metadata",
+      "url": "https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/multi/l2/data/xrsf-l2-flrpt_science/csv/sci_xrsf-l2-flrpt_geo_metadata.json",
+      "path": "data/raw/external/goes_flare_catalog_2025/sci_xrsf-l2-flrpt_geo_metadata.json",
+      "max_bytes": 1048576,
+      "bytes": 8516,
+      "sha256": "4a8af6ecce0df30d851b8500d362de537bb6e92646a4fc499fcf691a7eef68fb",
+      "acquired_utc": "2026-10-09T13:26:46.021643+00:00",
+      "registered_utc": "2026-10-09T13:26:46.021764+00:00",
+      "lineage": "download_official_noaa"
+    }
+  ],
+  "total_bytes": 634597,
+  "event_count": 3277,
+  "status": "VERIFIED_RAW_IDENTITIES_AND_PARSE",
+  "scientific_completeness": "UNKNOWN",
+  "metadata_caveat": "Unversioned metadata snapshot is pinned by bytes; later remote changes fail verification."
+}
