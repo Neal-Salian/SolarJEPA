@@ -27,6 +27,14 @@ identities. This bounded check does not claim to hash every ignored scratch file
 Protected local/remote refs were checked independently. Main remains
 `1a4991da4dda9676caeb1d7e35a03408528c3188`.
 
+Publication was verified at `bd128295c8529e064473e483751ca747de2f57a5`:
+the explicit research-only push succeeded, remote branch SHA matched local HEAD,
+upstream ahead/behind was 0/0 and the research worktree was clean. A direct remote
+query confirmed main's unchanged SHA and no advertised named P3 branch. The
+closing reporting commit records that observed publication; final HEAD is
+available from Git and the accompanying final response. The worktree and ignored
+inputs/artifacts are retained for human review. No PR or merge was created.
+
 ## Inputs and measured preparation
 
 | Quantity | Verified observation |

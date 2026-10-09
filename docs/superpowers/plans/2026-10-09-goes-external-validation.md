@@ -66,8 +66,16 @@ Files: data/external_validation.py; evaluation/external_flux.py, event_matching.
 - [x] Independent code and scientific reviews; regressions for actionable findings.
 - [x] Reports include literature/official source evidence, uncertainties, exact input identities, reproduction and future P3 interface.
 - [x] Verify preservation snapshots, raw ignores/index/history, complete diff and remote protected refs.
-- [ ] Focused Conventional Commits; push only research branch; verify synchronization/clean state; stop for human review.
+- [x] Focused Conventional Commits; push only research branch; verify synchronization/clean state; stop for human review.
 
 ## Execution evidence
 
 Initial worktree: /Users/nealsalian/.codex/worktrees/goes-external-validation/SolarJEPA. Original checkout remains at P2 with untracked resources preserved. Research agent notes and detailed command logs live under ignored results/external_research. The final implementation report records verified test and artifact identities; historical reports are not rewritten.
+
+Final source suite: 1,272 passed, one inherited warning; focused suite: 188 passed,
+one inherited warning. Normal installed preparations C/D produced 13 byte-identical
+artifacts. Independent reviews resolved all actionable findings. Publication at
+bd128295c8529e064473e483751ca747de2f57a5 was directly verified on origin with
+0/0 upstream divergence, clean research worktree and unchanged protected refs.
+This closing ledger update is the only subsequent change; source remains at
+the verified 8f41ab2 implementation snapshot. Human review is the next action.
