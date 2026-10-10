@@ -396,3 +396,24 @@ def test_paired_cohort_accepts_frozen_arm_sharing_the_ssl_artifact():
     records = [fit_arm(arm, windows, pretraining=artifact).record for arm in ('jepa_finetune', 'jepa_frozen')]
     records += [fit_arm(arm, windows).record for arm in ('supervised', 'supervised_extra_updates', 'random_frozen')]
     assert module.check_paired_cohort(records)['arms'] == sorted(module.ARMS)
+
+
+def test_fit_controlled_requires_a_validation_partition_for_selection():
+    # M4A regression: a missing validation window crashed with AttributeError instead of a clear refusal.
+    module = controlled()
+    config = module.ControlledConfig(tiny(), schedule('supervised'))
+    with pytest.raises(ValueError, match='validation'):
+        module.fit_controlled(fixture()['train'].training_slice, None, config)
+
+
+def test_paired_cohort_rejects_arms_selected_on_different_validation_support(arms):
+    # M4A regression: checkpoint selection on different validation windows previously passed the cohort check.
+    module = controlled()
+    fitted, _ = arms
+    records = [model.record for model in fitted.values() if model.record['arm'] != 'jepa_frozen']
+    module.check_paired_cohort(records)
+    for change in (dict(origin_fingerprint='0' * 64), dict(origin_count=1)):
+        other = [dict(r, validation=dict(r['validation'], **change)) if r['arm'] == 'supervised' else r
+                 for r in records]
+        with pytest.raises(ValueError, match='validation differs'):
+            module.check_paired_cohort(other)

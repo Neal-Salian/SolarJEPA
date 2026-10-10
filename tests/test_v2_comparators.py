@@ -224,3 +224,12 @@ def test_linear_rejects_incomplete_context_and_is_deterministic(fitted):
         linear.model.forecast(torch.zeros(2, 10, 2), mask)
     again = fit_linear(fixture(test_multiplier=1e3))
     assert torch.equal(again.model.linear.weight, linear.model.linear.weight)
+
+
+def test_comparators_require_a_validation_partition_for_selection():
+    # M4A regression: a missing validation window crashed with AttributeError instead of a clear refusal.
+    windows = fixture()
+    with pytest.raises(ValueError, match='validation'):
+        comparators().fit_tcn(windows['train'].training_slice, None, tcn_config(), comparator_schedule())
+    with pytest.raises(ValueError, match='validation'):
+        comparators().fit_quantile_linear(windows['train'].training_slice, None, linear_config())

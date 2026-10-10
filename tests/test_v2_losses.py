@@ -155,3 +155,18 @@ def test_dex_metric_equals_log_space_mean_pinball_on_complete_support():
     value = module.forecast_loss('dex_pinball_equal_channel_v2', torch.tensor(quantiles), torch.tensor(targets),
                                  torch.tensor(valid.targets.mask), levels, normalization.target_scale)
     assert float(value) == pytest.approx(expected, rel=1e-10)
+
+
+@pytest.mark.parametrize('levels', [(0.5, 0.05, 0.95), (0.05, 0.05, 0.95), (0.0, 0.5, 0.95), (0.05, 0.5, 1.0),
+                                    (-0.1, 0.5, 0.95), (0.05, 0.5, 1.5), (0.05, float('nan'), 0.95)])
+def test_quantile_levels_must_be_strictly_increasing_inside_the_unit_interval(levels):
+    # M4A regression: invalid levels previously produced finite, meaningless losses and metrics.
+    module = losses()
+    q = torch.zeros((2, 1, 2, 3))
+    t = torch.zeros((2, 1, 2))
+    m = torch.ones((2, 1, 2), dtype=torch.bool)
+    for version in module.LOSS_VERSIONS:
+        with pytest.raises(ValueError, match='levels'):
+            module.forecast_loss(version, q, t, m, levels, (1., 1.))
+        with pytest.raises(ValueError, match='levels'):
+            module.MetricAccumulator(version, levels, (1., 1.))

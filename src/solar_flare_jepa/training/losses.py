@@ -41,8 +41,19 @@ def channel_weights(version, target_scale):
     return (1.,) * len(scales) if version == 'normalized_pinball_v1' else tuple(float(x) for x in scales)
 
 
+def check_levels(levels):
+    """Quantile levels must be a nonempty, strictly increasing sequence inside (0, 1)."""
+    values = tuple(levels) if isinstance(levels, (list, tuple)) else ()
+    if (not values or any(type(x) not in (int, float) for x in values)
+            or not all(math.isfinite(x) and 0 < x < 1 for x in values)
+            or any(b <= a for a, b in zip(values, values[1:]))):
+        raise ValueError('Quantile levels must be a nonempty strictly increasing sequence inside (0, 1)')
+    return tuple(float(x) for x in values)
+
+
 def _checked(quantiles, targets, mask, levels, scales):
     torch = _torch()
+    check_levels(levels)
     if (quantiles.shape[:-1] != targets.shape or mask.shape != targets.shape or mask.dtype != torch.bool
             or quantiles.shape[-1] != len(levels) or targets.ndim != 3 or targets.shape[-1] != len(scales)):
         raise ValueError('Loss quantile/target/mask/channel shape differs')
@@ -83,7 +94,7 @@ class MetricAccumulator:
 
     def __init__(self, version, levels, target_scale):
         self.version = check_loss_version(version)
-        self.levels = tuple(float(x) for x in levels)
+        self.levels = check_levels(levels)
         self.weights = channel_weights(version, target_scale)
         self.sums = np.zeros(len(self.weights))
         self.counts = np.zeros(len(self.weights), dtype=np.int64)

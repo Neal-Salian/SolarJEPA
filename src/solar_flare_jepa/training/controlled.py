@@ -335,7 +335,9 @@ def train_downstream(model, *, trainable, frozen, windows, validation_batch, sch
 # ------------------------------------------------------------------ pretraining
 
 
-def _prepare(training_slice, validation_window, config):
+def _prepare(training_slice, validation_window, config, *, require_validation=True):
+    if validation_window is None and require_validation:
+        raise ValueError('Checkpoint/lambda selection requires a validation partition; none was supplied')
     training = training_snapshot(training_slice)
     validation = window_snapshot(validation_window) if validation_window is not None else None
     if validation is not None:
@@ -429,7 +431,8 @@ def pretrain_controlled(training_slice, config):
     """Run one seed's JEPA pretraining once, for reuse by fine-tuned and frozen arms."""
     if not isinstance(config, ControlledConfig) or config.schedule.arm not in SSL_ARMS:
         raise ValueError('Pretraining requires a ControlledConfig of a JEPA arm')
-    training, _, normalization, windows, window_record = _prepare(training_slice, None, config.jepa_config)
+    training, _, normalization, windows, window_record = _prepare(training_slice, None, config.jepa_config,
+                                                                  require_validation=False)
     return _pretrain(training, normalization, windows, window_record, config)
 
 
@@ -563,7 +566,8 @@ def check_paired_cohort(records):
     """Verify that controlled-arm records of each seed form a valid paired cohort.
 
     Arms of one seed must share initial state, window subset, training support,
-    normalization, downstream order and downstream schedule; every arm's
+    normalization, validation (selection) support, downstream order and
+    downstream schedule; every arm's
     architecture must be identical up to the seed. The extra-update control must
     replay the JEPA SSL order and step count, and frozen JEPA must reuse the
     fine-tuned arm's SSL artifact. Returns a summary; raises ValueError listing
@@ -588,7 +592,7 @@ def check_paired_cohort(records):
         if any(len(v) != 1 for v in arms.values()):
             problems.append(f'seed {seed}: duplicate arm records')
         members = [v[0] for v in arms.values()]
-        for key in ('training_fingerprint', 'normalization_fingerprint', 'train_windows'):
+        for key in ('training_fingerprint', 'normalization_fingerprint', 'train_windows', 'validation'):
             if len({canonical_json(m[key]) for m in members}) != 1:
                 problems.append(f'seed {seed}: {key} differs')
         for key in ('initial_state', 'downstream_order'):
