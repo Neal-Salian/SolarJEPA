@@ -106,6 +106,9 @@ def generate_panels(cfg, rng_seed):
         origin_days = np.repeat(np.arange(days), counts)
         difference = d[:, origin_days]
         base = 1 + np.abs(difference)
+        stored = (base+difference)-base
+        if np.any((difference != 0) & (stored == 0)):
+            raise ValueError('Synthetic paired effect is below loss representation resolution')
         times = np.array([start + int(day)*DAY_NS + (j+1)*(DAY_NS//8)
                           for day, count in enumerate(counts) for j in range(int(count))], np.int64)
         fields = dict(seed_ids=tuple(range(cfg.seeds)), origin_ids=tuple(f'f{f}:o{i}' for i in range(len(times))),

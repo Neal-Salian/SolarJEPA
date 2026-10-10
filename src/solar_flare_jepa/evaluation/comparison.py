@@ -149,7 +149,8 @@ def _daily(panel, values=None):
     return sums, counts
 
 
-def paired_comparison(folds_a, folds_b, *, block_days, replicates, rng_seed, confidence):
+def paired_comparison(folds_a, folds_b, *, block_days, replicates, rng_seed, confidence,
+                      max_calendar_cells=1_000_000):
     """Equal-fold loss effect A−B; negative favours A, without a test decision.
 
     A shared seed vector crosses every fixed fold. Each fold's circular block
@@ -157,16 +158,21 @@ def paired_comparison(folds_a, folds_b, *, block_days, replicates, rng_seed, con
     empty days, are retained. Required zero-support draws invalidate intervals,
     never get silently removed/redrawn. Relative reduction is 1−mean(A)/mean(B),
     not the mean of per-origin ratios. All analysis settings are explicit.
+    ``max_calendar_cells`` bounds total seed-by-calendar cells before dense
+    aggregation (three float64 sum arrays, plus temporary draw buffers). This
+    resource guard does not change support or block settings; larger callers
+    may explicitly supply a different positive integer memory budget.
     """
     try:
         with np.errstate(over='raise', invalid='raise', divide='raise'):
             return _compare(folds_a, folds_b, block_days=block_days,
-                            replicates=replicates, rng_seed=rng_seed, confidence=confidence)
+                            replicates=replicates, rng_seed=rng_seed, confidence=confidence,
+                            max_calendar_cells=max_calendar_cells)
     except (FloatingPointError, OverflowError) as error:
         raise ValueError('Nonfinite comparison arithmetic') from error
 
 
-def _compare(folds_a, folds_b, *, block_days, replicates, rng_seed, confidence):
+def _compare(folds_a, folds_b, *, block_days, replicates, rng_seed, confidence, max_calendar_cells):
     a, b = _panels(folds_a), _panels(folds_b)
     if set(a) != set(b):
         raise ValueError('Paired fold identities must align')
@@ -181,6 +187,10 @@ def _compare(folds_a, folds_b, *, block_days, replicates, rng_seed, confidence):
     _integer(block_days, 1, 'Block days')
     _integer(replicates, 2, 'Replicates')
     _integer(rng_seed, 0, 'RNG seed')
+    _integer(max_calendar_cells, 1, 'Calendar cell budget')
+    cells = sum(len(p.seed_ids) * ((p.calendar_end_ns-p.calendar_start_ns)//DAY_NS) for p in a.values())
+    if cells > max_calendar_cells:
+        raise ValueError('Dense calendar aggregation exceeds calendar cell budget')
     if (type(confidence) not in (int, float) or not np.isfinite(confidence)
             or not 0 < confidence < 1):
         raise ValueError('Confidence must be finite and strictly within (0,1)')
@@ -216,6 +226,9 @@ def _compare(folds_a, folds_b, *, block_days, replicates, rng_seed, confidence):
                                  observed_days=int((counts > 0).sum()))
     seed_a, seed_b = np.mean(fold_means_a, axis=0), np.mean(fold_means_b, axis=0)
     seed_difference = np.mean(fold_differences, axis=0)
+    dispersion_scale = float(np.max(np.abs(seed_difference)))
+    seed_sd = (0. if dispersion_scale == 0 else
+               float((seed_difference / dispersion_scale).std(ddof=1) * dispersion_scale))
     mean_a, mean_b = float(seed_a.mean()), float(seed_b.mean())
     rng = np.random.default_rng(rng_seed)
     differences, relatives = [], []
@@ -257,7 +270,7 @@ def _compare(folds_a, folds_b, *, block_days, replicates, rng_seed, confidence):
                 mean_a=mean_a, mean_b=mean_b, mean_difference=float(seed_difference.mean()),
                 relative_reduction=None if mean_b <= 0 else float(-np.divide(seed_difference.mean(), mean_b)),
                 per_seed_difference=seed_difference.tolist(),
-                seed_difference_sd=float(seed_difference.std(ddof=1)),
+                seed_difference_sd=seed_sd,
                 seed_win_fraction=float((seed_difference < 0).mean()),
                 leave_one_seed_out_difference=[float(np.delete(seed_difference, i).mean())
                                               for i in range(len(seeds))],
@@ -268,6 +281,7 @@ def _compare(folds_a, folds_b, *, block_days, replicates, rng_seed, confidence):
                 empty_replicates=empty, nonpositive_reference_replicates=nonpositive,
                 bootstrap_negative_fraction=None if reason else float((np.asarray(differences) < 0).mean()),
                 confidence=float(confidence), block_days=block_days,
+                max_calendar_cells=max_calendar_cells,
                 replicates=replicates, rng_seed=rng_seed,
                 assumptions=['fixed named periods; no period-population inference',
                              'representative independent paired training seeds',

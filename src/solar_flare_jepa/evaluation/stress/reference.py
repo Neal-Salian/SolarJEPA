@@ -47,7 +47,7 @@ def reference_bootstrap(a, b, *, block_days, replicates, rng_seed, confidence, m
         days = (left.calendar_end_ns-left.calendar_start_ns)//DAY_NS
         if block_days > days:
             raise ValueError('Block too long')
-        day = (left.issue_times_ns-left.calendar_start_ns)//DAY_NS
+        day = np.array([(int(t)-left.calendar_start_ns)//DAY_NS for t in left.issue_times_ns], np.int64)
         inputs.append((left.losses-right.losses, [np.flatnonzero(day == t) for t in range(days)]))
     estimate = float(np.mean([d.mean() for d, _ in inputs]))
     rng = np.random.default_rng(rng_seed)

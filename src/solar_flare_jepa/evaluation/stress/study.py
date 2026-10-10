@@ -40,8 +40,8 @@ def run_case(cfg, *, block_days, replications, bootstrap_replicates, confidence,
         if interval is not None:
             counts['available_intervals'] += 1
             counts['coverage'] += int(_covered(interval[0], truth, interval[1]))
-            counts['negative_exclusion'] += int(interval[1] < 0)
-            counts['positive_exclusion'] += int(interval[0] > 0)
+            counts['negative_exclusion'] += int(interval[1] < -1e-12)
+            counts['positive_exclusion'] += int(interval[0] > 1e-12)
             widths.append(interval[1]-interval[0])
         if variance is not None:
             half = NormalDist().inv_cdf((1+confidence)/2)*math.sqrt(variance)
@@ -56,14 +56,16 @@ def run_case(cfg, *, block_days, replications, bootstrap_replicates, confidence,
                     item['widths'].append(hi-lo)
     available = counts['available_intervals']
     estimates = np.asarray(estimates)
+    finite_variance = cfg.distribution != 't1.5' or max(cfg.sigma_seed, cfg.sigma_time, cfg.sigma_cell) == 0
     out = dict(scenario=cfg.as_dict(), block_days=block_days, replications=replications,
                bootstrap_replicates=bootstrap_replicates, confidence=confidence, master_seed=master_seed,
-               truth=truth, coverage_numerical_tolerance=1e-12, estimate_mean=float(estimates.mean()), bias=float(estimates.mean()-truth),
-               bias_mcse=float(estimates.std(ddof=1)/math.sqrt(replications)),
+               truth=truth, coverage_numerical_tolerance=1e-12, null_exclusion_numerical_tolerance=1e-12,
+               finite_estimator_variance=finite_variance, estimate_mean=float(estimates.mean()), bias=float(estimates.mean()-truth),
+               bias_mcse=float(estimates.std(ddof=1)/math.sqrt(replications)) if finite_variance else None,
                rmse=float(np.sqrt(np.mean((estimates-truth)**2))), estimator_sd=float(estimates.std(ddof=1)),
                oracle_sd=None if variance is None else math.sqrt(variance),
                mean_ci_width=None if not widths else float(np.mean(widths)),
-               width_mcse=None if len(widths) < 2 else float(np.std(widths, ddof=1)/math.sqrt(len(widths))),
+               width_mcse=None if len(widths) < 2 or not finite_variance else float(np.std(widths, ddof=1)/math.sqrt(len(widths))),
                **{key: rate_summary(value, replications) for key, value in counts.items()},
                conditional_coverage=rate_summary(counts['coverage'], available),
                ci_exclusion=rate_summary(counts['negative_exclusion']+counts['positive_exclusion'], replications))

@@ -26,7 +26,7 @@ def main():
     config = read_finite_json(root/args.config)
     if args.pilot:
         config = dict(config, replications=5, bootstrap_replicates=99, calibration_origins=1000)
-    validate_config(config)
+    config = validate_config(config)
     provenance = code_provenance(root)  # clean tracked source, normal installed match
     started_utc = datetime.now(timezone.utc).isoformat()
     start = time.monotonic()

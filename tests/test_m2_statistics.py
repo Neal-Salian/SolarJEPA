@@ -110,3 +110,70 @@ def test_small_study_repeats_exactly_and_reports_all_denominators():
 def test_scenarios_reject_undefined_or_unbounded_inputs(changes):
     with pytest.raises(ValueError):
         Scenario('invalid', **changes)
+
+
+def test_coverage_and_null_exclusion_use_the_same_roundoff_convention():
+    cfg = Scenario('cancelled', seeds=3, days=(3, 9), delta=(-.4, .4),
+                   sigma_seed=0., sigma_time=0., sigma_cell=0.)
+    out = run_case(cfg, block_days=1, replications=5, bootstrap_replicates=19, confidence=.95, master_seed=3)
+    assert out['coverage']['rate'] == 1.
+    assert out['ci_exclusion']['rate'] == 0.
+    assert out['null_exclusion_numerical_tolerance'] == 1e-12
+
+
+def test_infinite_variance_case_does_not_claim_mean_or_width_standard_errors():
+    cfg = Scenario('infinite-variance', seeds=3, days=(4,), distribution='t1.5')
+    out = run_case(cfg, block_days=1, replications=3, bootstrap_replicates=19, confidence=.95, master_seed=3)
+    assert out['bias_mcse'] is None
+    assert out['width_mcse'] is None
+    assert not out['finite_estimator_variance']
+    assert out['coverage']['mcse'] is not None
+
+
+def test_dense_calendar_allocation_budget_is_checked_before_allocating(monkeypatch):
+    cfg = Scenario('bounded', seeds=10, days=(2,))
+    a, b, _ = generate_panels(cfg, 2)
+    updates = dict(calendar_start_ns=-100000*86400000000000, calendar_end_ns=100000*86400000000000)
+    a['f0'], b['f0'] = replace(a['f0'], **updates), replace(b['f0'], **updates)
+    original = np.zeros
+    def guarded(shape, *args, **kwargs):
+        if isinstance(shape, tuple) and math.prod(shape) > 1_000_000:
+            raise AssertionError('Attempted dangerous dense calendar allocation')
+        return original(shape, *args, **kwargs)
+    monkeypatch.setattr(np, 'zeros', guarded)
+    with pytest.raises(ValueError, match='calendar.*budget|Calendar.*budget'):
+        paired_comparison(a, b, block_days=1, replicates=2, rng_seed=1, confidence=.95)
+
+
+def test_calendar_memory_budget_is_explicit_and_configurable():
+    a, b, _ = generate_panels(Scenario('budget', seeds=3, days=(4,)), 3)
+    args = dict(block_days=1, replicates=2, rng_seed=1, confidence=.95)
+    with pytest.raises(ValueError):
+        paired_comparison(a, b, max_calendar_cells=11, **args)
+    with pytest.raises(ValueError):
+        paired_comparison(a, b, max_calendar_cells=True, **args)
+    assert paired_comparison(a, b, max_calendar_cells=12, **args)['mean_difference'] is not None
+
+
+def test_synthetic_generator_rejects_effect_lost_in_loss_representation():
+    cfg = Scenario('too-small', seeds=3, days=(4,), delta=(1e-20,), sigma_seed=0., sigma_time=0., sigma_cell=0.)
+    with pytest.raises(ValueError, match='resolution|represent'):
+        generate_panels(cfg, 2)
+
+
+def test_reference_calendar_arithmetic_does_not_wrap_int64():
+    from solar_flare_jepa.evaluation.comparison import LossPanel, DAY_NS
+    times = np.array([-50000*DAY_NS, 0, 50000*DAY_NS, 99999*DAY_NS], np.int64)
+    a = LossPanel((0, 1), ('a', 'b', 'c', 'd'), times, np.array([[0., 1., 2., 3.]]*2),
+                  'support', 'artificial', 'unit', -100000*DAY_NS, 100000*DAY_NS)
+    b = replace(a, losses=np.zeros((2, 4)))
+    out = reference_bootstrap({'f': a}, {'f': b}, block_days=200000, replicates=2, rng_seed=1, confidence=.95)
+    assert out['interval'] == [1.5, 1.5]
+
+
+def test_seed_dispersion_does_not_underflow_for_representable_tiny_effects():
+    a, b, _ = generate_panels(Scenario('tiny-scale', seeds=2, days=(4,)), 1)
+    b['f0'] = replace(b['f0'], losses=np.zeros((2, 4)))
+    a['f0'] = replace(a['f0'], losses=np.array([[1e-300]*4, [2e-300]*4]))
+    out = paired_comparison(a, b, block_days=1, replicates=9, rng_seed=1, confidence=.95)
+    assert out['seed_difference_sd']/1e-300 == pytest.approx(2**-.5)

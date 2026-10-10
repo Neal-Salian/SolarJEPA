@@ -186,3 +186,31 @@ Methodological context: [Owen and Eckles](https://arxiv.org/abs/1106.2125)
 describe crossed-array bootstrap limitations; [Politis and White](https://mathweb.ucsd.edu/~politis/SBblock-revER.pdf)
 show why block choice matters; [Gneiting and Raftery](https://sites.stat.washington.edu/raftery/Research/PDF/Gneiting2007jasa.pdf)
 motivate proper quantile/interval scores. None proves nominal coverage of M1's hybrid.
+
+## Execution decisions and review corrections
+
+- Plan committed before production implementation (`09a1cd6`). Test-first API
+  collection failures preceded the harness (`d4f8f7a`); paired-offset regression
+  failed with effect 0 instead of 1 before the M1 fix.
+- Pilot at `d4f8f7a`: 25 cases ×5 datasets ×99 draws, 1.334 s. Main scaling
+  is computationally feasible under the unchanged 900 s budget. A first main run
+  was intentionally interrupted during review corrections; it published no
+  scientific artifact. Earlier pilot artifact is preserved, not overwritten.
+- Independent statistical/software reviews reproduced inconsistent null-exclusion
+  tolerance, invalid infinite-variance bias MCSE, dense calendar allocation risk,
+  int64 overflow in the new reference, mutable configuration, and unrepresentable
+  tiny generated effects. All received failing regressions before corrections.
+- Ruling: add configurable `max_calendar_cells=1_000_000` to M1 comparison before
+  dense allocation. It bounds total seed×day cells (three float64 sum arrays plus
+  draw buffers); it changes no observations or inference settings. The old valid
+  full-int64-span two-seed regression remains below budget and passes.
+- Ruling: use the same 1e−12 null tolerance for CI exclusion as for zero coverage;
+  suppress bias/width MCSE for t1.5. Finite empirical SD/RMSE remain descriptive,
+  and Bernoulli operating-characteristic MCSE remains available.
+- Ruling: snapshot validated configuration, use Python integer subtraction in
+  independent timestamp indexing, and reject generated nonzero effects lost to
+  floating-point representation rather than certify their apparent coverage.
+- Additional numerical audit reproduced seed SD underflow at 1e−300. Compute SD
+  after scaling paired seed differences, then restore units; exact zero stays zero.
+- No empirical result, winner or coverage rate motivated configuration changes.
+  Shared V2 protocol decisions, model code and scientific inputs remain untouched.

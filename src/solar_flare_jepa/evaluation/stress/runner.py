@@ -1,5 +1,6 @@
 """Validated budgets and deterministic synthetic-only scientific payloads."""
-from dataclasses import replace
+from dataclasses import fields, replace
+import json
 import time
 
 import numpy as np
@@ -18,7 +19,7 @@ def validate_config(config):
                 'calibration_origins', 'max_runtime_seconds', 'cases'}
     if type(config) is not dict or set(config) != required or type(config['schema_version']) is not int or config['schema_version'] != 1:
         raise ValueError('Malformed M2 configuration')
-    canonical_json(config)
+    config = json.loads(canonical_json(config))  # detach caller-owned nested state
     for name, minimum, maximum in (('master_seed', 0, 2**63-1), ('replications', 2, 1000),
         ('bootstrap_replicates', 2, 5000), ('calibration_origins', 1, 100000), ('max_runtime_seconds', 1, 900)):
         if type(config[name]) is not int or not minimum <= config[name] <= maximum:
@@ -31,7 +32,10 @@ def validate_config(config):
     for case in config['cases']:
         if type(case) is not dict or set(case) != {'scenario', 'block_days', 'attribution'} or type(case['attribution']) is not bool:
             raise ValueError('Malformed case configuration')
-        cfg = Scenario(**case['scenario'])
+        raw = case['scenario']
+        if type(raw) is not dict or 'name' not in raw or set(raw)-{f.name for f in fields(Scenario)}:
+            raise ValueError('Malformed scenario configuration')
+        cfg = Scenario(**raw)
         block = case['block_days']
         if type(block) is not int or not 1 <= block <= min(cfg.days):
             raise ValueError('Block must fit every fixed fold')

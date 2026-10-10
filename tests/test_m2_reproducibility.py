@@ -53,3 +53,22 @@ def test_arm_swap_sign_equivariance_with_finite_samples():
         forward, reverse = paired_comparison(a, b, **args), paired_comparison(b, a, **args)
         assert forward['mean_difference'] == -reverse['mean_difference']
         np.testing.assert_allclose(forward['difference_interval'], -np.array(reverse['difference_interval'])[::-1], atol=1e-12)
+
+
+def test_progress_callback_cannot_mutate_validated_scientific_design():
+    config = tiny_config()
+    config['cases'].append(dict(scenario=dict(name='tiny-two', seeds=3, days=[4]), block_days=1, attribution=False))
+    def mutate(*_):
+        config['replications'] = 3
+        config['cases'][1]['scenario']['delta'] = [99.]
+    result = scientific_payload(config, progress=mutate)
+    assert [case['replications'] for case in result['cases']] == [2, 2]
+    assert [case['truth'] for case in result['cases']] == [0., 0.]
+
+
+@pytest.mark.parametrize('scenario', [[], {'name': 'bad', 'unknown': 1}])
+def test_malformed_scenario_configuration_uses_value_error(scenario):
+    config = tiny_config()
+    config['cases'][0]['scenario'] = scenario
+    with pytest.raises(ValueError):
+        validate_config(config)
