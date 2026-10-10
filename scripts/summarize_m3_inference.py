@@ -76,7 +76,9 @@ def main():
                 row=case['methods'][label];y=i+offset
                 if row['availability']['rate']==0:continue
                 rate=row['coverage']['rate'];lo,hi=row['coverage']['wilson95']
-                ax.errorbar(rate,y,xerr=[[rate-lo],[hi-rate]],fmt='o',markersize=3,color=colors[j],linewidth=.9)
+                # Wilson's upper endpoint can round to 1-eps when rate is 1.
+                # Clip only the plotting length; retain original evidence bounds.
+                ax.errorbar(rate,y,xerr=[[max(0.,rate-lo)],[max(0.,hi-rate)]],fmt='o',markersize=3,color=colors[j],linewidth=.9)
             ax.plot([],[],color=colors[j],marker='o',label=label)
         ax.axvline(.95,color='.4',linestyle='--',linewidth=1)
         ax.set(xlim=(0,1.02),title=title,xlabel='True-target coverage (Wilson 95% bars)')

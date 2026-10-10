@@ -187,12 +187,12 @@ scaled by max(1,|truth|). Do not let that tolerance fabricate valid zero-varianc
   GREEN frozen config, conditional-null attribution, overlap covariance/truth,
   common data/draw labels, unsupported-method reasons, callback mutation and
   budget/publication/provenance rejection. Reuse M2 rate summaries unchanged.
-- [ ] Task 3: Commit executable source, normal install, pilot/development then
+- [x] Task 3: Commit executable source, normal install, pilot/development then
   frozen evaluation/repeat. Preserve aggregate evidence under docs, bulk outputs
   ignored. Independent reviewers challenge estimands, units, formulas, Monte
   Carlo, benchmark overfitting and software/provenance. Reproduced severe defects
   require RED→GREEN regressions and final checks.
-- [ ] Task 4: Full tests/import/pip/artifact/scope/history/ignore audits;
+- [x] Task 4: Full tests/import/pip/artifact/scope/history/ignore audits;
   `docs/V2_M3_INFERENCE_REMEDIATION_REPORT.md`, tables/figure, explicit selection
   and restricted integration proposal. Commit/push M3 only, verify remote SHA.
 
@@ -248,3 +248,13 @@ code is untouched. The exporter also rejects counting one execution as a repeat.
 Both fixes precede final evaluation; no scientific settings changed. The earlier
 development artifacts remain preserved and are not claimed to have stronger
 driver attestation retroactively. This is not an interpreter security sandbox.
+
+Final/repeat at f0806e3: 115.361/112.407 s, identical scientific file bytes and
+payload4eae0b13e366d243718c0342552c5a51062851652261f52f2e47c9b6b8f69055.
+No candidate passed every eligible frozen screen; the negative selection outcome
+is preserved. Only a plotting length clipping fix followed evaluation, after
+Wilson's endpoint rounded below an observed rate1 by machine epsilon; original
+bounds/data and all candidate/config code are unchanged. Publication full suite:
+1,391 passed, one existing warning,92.43 s. Detailed evidence and limitations are
+in V2_M3_INFERENCE_REMEDIATION_REPORT.md. Publication audits/commit/push complete
+this milestone only; no subsequent milestone is authorized.
