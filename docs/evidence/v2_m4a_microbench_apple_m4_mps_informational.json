@@ -1,0 +1,118 @@
+{
+ "environment": {
+  "cpu_count": 10,
+  "cuda_available": false,
+  "device": "cpu",
+  "hw.memsize": "17179869184",
+  "hw.model": "Mac16,12",
+  "hw.perflevel0.physicalcpu": "4",
+  "hw.perflevel1.physicalcpu": "6",
+  "machdep.cpu.brand_string": "Apple M4",
+  "machine": "arm64",
+  "mps_available": true,
+  "numpy": "2.2.6",
+  "platform": "macOS-26.3.1-arm64-arm-64bit-Mach-O",
+  "precision": "float32",
+  "processor": "arm",
+  "python": "3.13.7",
+  "torch": "2.6.0"
+ },
+ "failures": {},
+ "kind": "solarjepa_v2_m4a_compute_benchmark",
+ "projection": {
+  "method": "first epoch + (N-1) x last epoch; data preparation added once per job",
+  "schedule": {
+   "downstream_epochs": 15,
+   "linear_epochs": 100,
+   "linear_lambdas": 5,
+   "ssl_epochs": 8,
+   "warmup_epochs": 8
+  },
+  "seconds": {},
+  "status": "EXTRAPOLATED_NOT_MEASURED"
+ },
+ "results": {
+  "microbench": {
+   "data_seconds": 5.397933583008125,
+   "job": "microbench",
+   "microbench": [
+    {
+     "batch_size": 256,
+     "device": "mps",
+     "median_seconds": 0.03312435402767733,
+     "min_seconds": 0.03252566698938608,
+     "model": "jepa_full_finetune",
+     "p90_seconds": 0.033648708020336926,
+     "threads": 4,
+     "timed_steps": 30,
+     "trainable_parameters": 136332,
+     "warmup_steps": 5
+    },
+    {
+     "batch_size": 256,
+     "device": "mps",
+     "median_seconds": 0.016557354014366865,
+     "min_seconds": 0.01207629102282226,
+     "model": "jepa_head_only",
+     "p90_seconds": 0.018878811923786997,
+     "threads": 4,
+     "timed_steps": 30,
+     "trainable_parameters": 67948,
+     "warmup_steps": 5
+    },
+    {
+     "batch_size": 256,
+     "device": "mps",
+     "median_seconds": 0.02010381198488176,
+     "min_seconds": 0.01879837503656745,
+     "model": "tcn",
+     "p90_seconds": 0.021434661827515814,
+     "threads": 4,
+     "timed_steps": 30,
+     "trainable_parameters": 44620,
+     "warmup_steps": 5
+    },
+    {
+     "batch_size": 256,
+     "device": "mps",
+     "median_seconds": 0.005692124948836863,
+     "min_seconds": 0.005545874941162765,
+     "model": "quantile_linear",
+     "p90_seconds": 0.005915871553588659,
+     "threads": 4,
+     "timed_steps": 30,
+     "trainable_parameters": 72300,
+     "warmup_steps": 5
+    }
+   ],
+   "peak_rss_bytes": 746864640,
+   "rss_after_data_bytes": 509935616,
+   "rss_after_imports_bytes": 185548800,
+   "torch_threads": 4,
+   "validation_origins": 476
+  }
+ },
+ "schema_version": 1,
+ "settings": {
+  "batch_size": 256,
+  "cadence_seconds": 60,
+  "context_steps": 120,
+  "device": "cpu",
+  "diagnostic_metric": "normalized_pinball_v1",
+  "downstream_epochs": 2,
+  "horizon_steps": 30,
+  "linear_epochs": 2,
+  "max_train_windows": 20000,
+  "precision": "float32",
+  "rss_scope": "per-job subprocess ru_maxrss (process high-water mark)",
+  "seed": 1261866429,
+  "ssl_epochs": 1,
+  "stride_steps": 30,
+  "threads": 4,
+  "train_days": 82,
+  "train_loss": "dex_pinball_equal_channel_v2",
+  "validation_days": 10
+ },
+ "status": "SYNTHETIC_DEVELOPMENT_BENCHMARK",
+ "total_wall_seconds": 18.870562166906893
+}

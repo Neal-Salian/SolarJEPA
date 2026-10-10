@@ -1,0 +1,250 @@
+{
+ "environment": {
+  "cpu_count": 10,
+  "cuda_available": false,
+  "device": "cpu",
+  "hw.memsize": "17179869184",
+  "hw.model": "Mac16,12",
+  "hw.perflevel0.physicalcpu": "4",
+  "hw.perflevel1.physicalcpu": "6",
+  "machdep.cpu.brand_string": "Apple M4",
+  "machine": "arm64",
+  "mps_available": true,
+  "numpy": "2.2.6",
+  "platform": "macOS-26.3.1-arm64-arm-64bit-Mach-O",
+  "precision": "float32",
+  "processor": "arm",
+  "python": "3.13.7",
+  "torch": "2.6.0"
+ },
+ "failures": {},
+ "kind": "solarjepa_v2_m4a_compute_benchmark",
+ "projection": {
+  "method": "first epoch + (N-1) x last epoch; data preparation added once per job",
+  "schedule": {
+   "downstream_epochs": 15,
+   "linear_epochs": 100,
+   "linear_lambdas": 5,
+   "ssl_epochs": 8,
+   "warmup_epochs": 8
+  },
+  "seconds": {
+   "tcn_job_excluding_ssl": 228.09837925469037
+  },
+  "status": "EXTRAPOLATED_NOT_MEASURED"
+ },
+ "results": {
+  "microbench": {
+   "data_seconds": 5.465453709010035,
+   "job": "microbench",
+   "microbench": [
+    {
+     "batch_size": 256,
+     "median_seconds": 0.07042208354687318,
+     "min_seconds": 0.06966133392415941,
+     "model": "jepa_full_finetune",
+     "p90_seconds": 0.07072288325289264,
+     "threads": 1,
+     "timed_steps": 30,
+     "trainable_parameters": 136332,
+     "warmup_steps": 5
+    },
+    {
+     "batch_size": 256,
+     "median_seconds": 0.029437583463732153,
+     "min_seconds": 0.02915108297020197,
+     "model": "jepa_head_only",
+     "p90_seconds": 0.029597029229626058,
+     "threads": 1,
+     "timed_steps": 30,
+     "trainable_parameters": 67948,
+     "warmup_steps": 5
+    },
+    {
+     "batch_size": 256,
+     "median_seconds": 0.25748829141957685,
+     "min_seconds": 0.2556544579565525,
+     "model": "tcn",
+     "p90_seconds": 0.258266987465322,
+     "threads": 1,
+     "timed_steps": 30,
+     "trainable_parameters": 44620,
+     "warmup_steps": 5
+    },
+    {
+     "batch_size": 256,
+     "median_seconds": 0.0011655204580165446,
+     "min_seconds": 0.001138624968007207,
+     "model": "quantile_linear",
+     "p90_seconds": 0.0011850786046124994,
+     "threads": 1,
+     "timed_steps": 30,
+     "trainable_parameters": 72300,
+     "warmup_steps": 5
+    },
+    {
+     "batch_size": 256,
+     "median_seconds": 0.027458249998744577,
+     "min_seconds": 0.027037124964408576,
+     "model": "jepa_full_finetune",
+     "p90_seconds": 0.0279122295207344,
+     "threads": 4,
+     "timed_steps": 30,
+     "trainable_parameters": 136332,
+     "warmup_steps": 5
+    },
+    {
+     "batch_size": 256,
+     "median_seconds": 0.011246520967688411,
+     "min_seconds": 0.011142458068206906,
+     "model": "jepa_head_only",
+     "p90_seconds": 0.011423546040896326,
+     "threads": 4,
+     "timed_steps": 30,
+     "trainable_parameters": 67948,
+     "warmup_steps": 5
+    },
+    {
+     "batch_size": 256,
+     "median_seconds": 0.2101163959596306,
+     "min_seconds": 0.20694416691549122,
+     "model": "tcn",
+     "p90_seconds": 0.21349162891274318,
+     "threads": 4,
+     "timed_steps": 30,
+     "trainable_parameters": 44620,
+     "warmup_steps": 5
+    },
+    {
+     "batch_size": 256,
+     "median_seconds": 0.0007958755013532937,
+     "min_seconds": 0.0007274579256772995,
+     "model": "quantile_linear",
+     "p90_seconds": 0.0008217377937398851,
+     "threads": 4,
+     "timed_steps": 30,
+     "trainable_parameters": 72300,
+     "warmup_steps": 5
+    },
+    {
+     "batch_size": 256,
+     "median_seconds": 0.0340834169765003,
+     "min_seconds": 0.03090050001628697,
+     "model": "jepa_full_finetune",
+     "p90_seconds": 0.03631952942814678,
+     "threads": 8,
+     "timed_steps": 30,
+     "trainable_parameters": 136332,
+     "warmup_steps": 5
+    },
+    {
+     "batch_size": 256,
+     "median_seconds": 0.014617999957408756,
+     "min_seconds": 0.012691832962445915,
+     "model": "jepa_head_only",
+     "p90_seconds": 0.01609302151482552,
+     "threads": 8,
+     "timed_steps": 30,
+     "trainable_parameters": 67948,
+     "warmup_steps": 5
+    },
+    {
+     "batch_size": 256,
+     "median_seconds": 0.2412246880121529,
+     "min_seconds": 0.23556854203343391,
+     "model": "tcn",
+     "p90_seconds": 0.24734769192291423,
+     "threads": 8,
+     "timed_steps": 30,
+     "trainable_parameters": 44620,
+     "warmup_steps": 5
+    },
+    {
+     "batch_size": 256,
+     "median_seconds": 0.001049186976160854,
+     "min_seconds": 0.0007855839794501662,
+     "model": "quantile_linear",
+     "p90_seconds": 0.0014984422945417465,
+     "threads": 8,
+     "timed_steps": 30,
+     "trainable_parameters": 72300,
+     "warmup_steps": 5
+    }
+   ],
+   "peak_rss_bytes": 624607232,
+   "rss_after_data_bytes": 509755392,
+   "rss_after_imports_bytes": 185352192,
+   "torch_threads": 8,
+   "validation_origins": 476
+  },
+  "tcn": {
+   "checkpoint_bytes": 191874,
+   "data_seconds": 5.410740833031014,
+   "epochs": [
+    {
+     "epoch": 1,
+     "phase": "downstream",
+     "steps": 79,
+     "wall_seconds": 14.661700833006762
+    },
+    {
+     "epoch": 2,
+     "phase": "downstream",
+     "steps": 158,
+     "wall_seconds": 14.858995542046614
+    }
+   ],
+   "job": "tcn",
+   "parameters": 44620,
+   "peak_rss_bytes": 675446784,
+   "phases": [
+    {
+     "epochs": 2,
+     "optimizer_steps": 158,
+     "phase": "downstream",
+     "seconds_per_epoch": 14.760819624993019,
+     "seconds_per_step_incl_overhead": 0.1868458180378863,
+     "wall_seconds": 29.521639249986038
+    }
+   ],
+   "predict_validation_seconds": 0.34018079098314047,
+   "receptive_field_bins": 253,
+   "rss_after_data_bytes": 509657088,
+   "rss_after_imports_bytes": 185401344,
+   "torch_threads": 4,
+   "train_windows": {
+    "cap": 20000,
+    "eligible": 117931,
+    "fingerprint": "43d24bf8385c64054567bd186a80d0b7ee33322a35de82370287a87e45fd9ca9",
+    "policy": "complete_consecutive_raw_training_rows",
+    "stride": 1,
+    "subsample": "evenly_spaced_chronological",
+    "used": 20000
+   },
+   "validation_origins": 476
+  }
+ },
+ "schema_version": 1,
+ "settings": {
+  "batch_size": 256,
+  "cadence_seconds": 60,
+  "context_steps": 120,
+  "device": "cpu",
+  "diagnostic_metric": "normalized_pinball_v1",
+  "downstream_epochs": 2,
+  "horizon_steps": 30,
+  "linear_epochs": 2,
+  "max_train_windows": 20000,
+  "precision": "float32",
+  "rss_scope": "per-job subprocess ru_maxrss (process high-water mark)",
+  "seed": 1261866429,
+  "ssl_epochs": 1,
+  "stride_steps": 30,
+  "threads": 4,
+  "train_days": 82,
+  "train_loss": "dex_pinball_equal_channel_v2",
+  "validation_days": 10
+ },
+ "status": "SYNTHETIC_DEVELOPMENT_BENCHMARK",
+ "total_wall_seconds": 77.17822066589724
+}
