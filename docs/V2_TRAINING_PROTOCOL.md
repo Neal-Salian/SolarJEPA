@@ -79,7 +79,7 @@ matching the step accounting tested above).
 - **Equal window exposure.** All neural/linear arms use the identical 20,000-window
   subset. Classical models use all unique raw training bins, which is unequal by design and declared.
 - **Equal compute.** Not claimed. SSL steps run the context encoder, EMA teacher and predictor.
-  Head-only steps skip backpropagation into the encoder. The TCN is about 7.5× costlier per step than full fine-tuning
+  Head-only steps skip backpropagation into the encoder. The TCN is about 7.6× costlier per step than full fine-tuning
   (microbench, [compute §3](V2_COMPUTE_FEASIBILITY.md#3-measured-results)). The proposed H5 cost endpoint
   (J/B wall-time ratio ≤ 1.10) is a separately measured quantity, not implied by step equality.
 
@@ -126,7 +126,7 @@ All values are **PROPOSED — REQUIRES APPROVAL**. "Status" says where each valu
 | Batch / clip | 256 / global norm 1.0 | INHERITED_V1 | — |
 | Training windows | 20,000 deterministic chronological subset | INHERITED_V1 | Bounds cost. Discards ≈83% of the 117,931 eligible stride-1 windows of the 82-day V1 train split (count OBSERVED on the synthetic dataset of identical dimensions) |
 | SSL / warmup / downstream epochs | 8 / 8 / 15 | INHERITED_V1 (8, 15); INHERITED_V2_PROPOSAL (warmup = SSL) | Warmup must equal SSL for B's replay check |
-| Early stopping | None (fixed 15 epochs). V1 patience 3 is the recorded alternative | INHERITED_V2_PROPOSAL | Fixed schedules make executed budgets arm-independent but cost about 1.6× V1's early-stopped runtime |
+| Early stopping | None (fixed 15 epochs). V1 patience 3 is the recorded alternative | INHERITED_V2_PROPOSAL | Fixed schedules make executed budgets arm-independent but always execute all 15 epochs, so they cost more than early-stopped V1 runs by an amount not measured here |
 | Checkpoint selection | Validation `dex_pinball_equal_channel_v2`, downstream epochs only, earliest minimum | INHERITED_V2_PROPOSAL; tie and eligibility rules are code invariants | Aligns selection with the proposed primary estimand (equal-channel dex) |
 | Training loss | `dex_pinball_equal_channel_v2` | **NEWLY_PROPOSED_M4A** | V1 trained on standardized pinball (B/A weight 1.68 in dex). Training on the selection objective removes a train/select mismatch. Whether it changes checkpoints is unmeasured (§6) |
 | Diagnostic metric | `normalized_pinball_v1` recorded per epoch | **NEWLY_PROPOSED_M4A** | No training effect. Enables the development loss comparison |
@@ -135,7 +135,7 @@ All values are **PROPOSED — REQUIRES APPROVAL**. "Status" says where each valu
 | Quantiles | {0.05, 0.25, 0.5, 0.75, 0.95} | INHERITED_V1 (D08) | — |
 | Precision / device | CPU, float32, 4 Torch threads, deterministic algorithms on | INHERITED_V1; threads confirmed by the M4A benchmark (8 threads was slower for every model) | MPS/GPU not assumed. Results are host-specific |
 | Memory ceiling | 4 GiB process peak RSS, checked between jobs. Run one job per process | INHERITED_V2_PROPOSAL (D11) | Measured jobs peak at ≤0.65 GiB on synthetic data, so there is ample headroom |
-| Per-job timeout | neural downstream 600 s, SSL 300 s, TCN 1,800 s, linear 1,800 s | **NEWLY_PROPOSED_M4A** (D11) | About 5–8× the extrapolated per-job time. A timeout is an infrastructure failure |
+| Per-job timeout | neural downstream 600 s, SSL 300 s, TCN 1,800 s, linear 1,800 s | **NEWLY_PROPOSED_M4A** (D11) | ≥6× the expected per-job time and ≥2× the conservative one ([compute §6](V2_COMPUTE_FEASIBILITY.md#6-bottlenecks-and-recommended-execution-limits)). A timeout is an infrastructure failure |
 | Failure/retry | ≤1 logged infrastructure retry per job at an identical seed/config/code. Numerical failures recorded, never retried with changed settings. Seeds never dropped or replaced | policy INHERITED_V2_PROPOSAL; count **NEWLY_PROPOSED_M4A** | Prevents a selective-rerun bias |
 
 ### 5.1 Fixed schedule versus early stopping
@@ -191,6 +191,8 @@ This is not a claim about forecast skill.
   validation dex pinball at the selected checkpoints, and B/A channel weight implied by σ_k.
 - **Reported descriptively.** Whether selected epochs differ, and the change in per-channel dex pinball.
   No interval, test or decision is attached. With 2 seeds nothing can be inferred.
+- **Cohort checks.** The loss-comparison records form a **separate cohort**. `check_paired_cohort` deliberately rejects
+  mixed objectives and duplicate arms per seed, so these records must never be checked together with the primary cohort.
 - **Decision use.** Informs the approval of D10 (training loss) before the protocol is frozen. Any change produces a new
   protocol version, never a silent switch.
 
@@ -222,7 +224,7 @@ Machine-readable plan: [`feasibility_pilot_proposal.json`](../configs/v2_propose
 | Schedules | §5 (8 SSL / 8 warmup / 15 downstream, fixed) |
 | Resource ceilings | 4 GiB RSS, per-job timeouts as §5, total wall budget 2 h, 4 threads, one job per process |
 | Expected outputs | Ledger to D_LOCKED; model records; `check_paired_cohort` summaries; checkpoints with reload parity; validation predictions accepted by the M4B `EvaluationRecord`/`LossPanel` adapters; measured time/RSS/storage; λ path |
-| Stop conditions | RSS or timeout breach after one retry; any nonfinite loss/gradient/prediction or crossing; cohort check failure; reload parity failure; any test-partition access; total budget exceeded |
+| Stop conditions | RSS or timeout breach after one retry; any nonfinite loss/gradient/prediction or crossing; cohort check failure (primary cohort and loss-comparison cohort checked separately); reload parity failure; any test-partition access; total budget exceeded |
 | Preconditions | M4B integration merged on a branch; protocol approval (D10, D11); data re-acquired with manifest hash verification (§9); custodian decision on August handling |
 
 Estimated pilot cost on the M4 host: see [compute §5](V2_COMPUTE_FEASIBILITY.md#5-study-and-pilot-totals).

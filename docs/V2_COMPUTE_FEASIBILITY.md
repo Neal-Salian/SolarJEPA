@@ -41,7 +41,7 @@ Harness: [`scripts/benchmark_v2_feasibility.py`](../scripts/benchmark_v2_feasibi
   the per-epoch monitor. The microbench times forward + backward + clip + AdamW on a fixed random batch,
   with no data loading or validation. Checkpoint sizes come from `QuantileForecaster.save` and `PretrainingArtifact.save`.
 - **Runs.**
-  - Run A: a scratch run, not committed, with the same settings.
+  - Run A: [`…_run_a.json`](evidence/v2_m4a_compute_benchmark_apple_m4_run_a.json), the same settings. Its stored `projection` field uses an earlier, superseded formula (average epoch; linear scaled from total fit time). Use its measured fields only.
   - Run B: [`docs/evidence/v2_m4a_compute_benchmark_apple_m4.json`](evidence/v2_m4a_compute_benchmark_apple_m4.json).
   - Run C: a quiet rerun of the TCN job and microbench, [`…_quiet_rerun.json`](evidence/v2_m4a_compute_benchmark_apple_m4_quiet_rerun.json).
   - Run D: MPS microbench, [`v2_m4a_microbench_apple_m4_mps_informational.json`](evidence/v2_m4a_microbench_apple_m4_mps_informational.json).
@@ -49,8 +49,14 @@ Harness: [`scripts/benchmark_v2_feasibility.py`](../scripts/benchmark_v2_feasibi
   microbench was 0.043 s/step against 0.028 in Runs A and C, and its TCN epochs were 16.5–17.2 s against 14.7–15.4 s.
   Run C was taken on an otherwise idle machine and agrees with Run A. **Run C supersedes Run B for those two jobs.** All other jobs agree
   across A and B within about 3% except S epoch 1 (3.52 vs 2.81 s, warm-up).
-- **Script versions.** Runs A–C used the harness before the opt-in `--micro-devices` option was added.
-  The CPU code path is unchanged.
+- **Script versions.** Runs A–D predate the committed harness and record no code identity. Runs A–C predate the opt-in
+  `--micro-devices` option. Measurement code paths are unchanged, but the later review fixes changed reporting:
+  - The SSL job now records its epochs.
+  - The schedule and λ count are now read from the proposal.
+  - Each report now records `code.git_head`, `code.script_sha256`, `job_device` and `microbench_devices`.
+
+  Run D's `settings.device`/`environment.device` fields say `cpu` because they were hard-coded at the time. Its
+  microbench rows carry the correct per-row `device: "mps"`.
 
 Reproduce:
 
@@ -95,7 +101,8 @@ The microbench shows four things:
 - **The TCN costs 7.6× a full fine-tuning step** in isolation (0.210/0.0275).
 - **Per epoch, including validation and monitoring, the TCN costs about 6.3× S** (14.86/2.34). The historical 4.6× was measured
   on a smaller workload (7,000-minute series, 4,851 windows, 19 steps/epoch), where fixed validation/monitor overhead weighs more.
-  The historical **0.19 s/step reproduces** (0.186–0.194 here).
+  The historical 0.19 s/step **coincides** with 0.186–0.194 here. Both figures include validation and monitor overhead,
+  which weighs differently at 19 versus 79 steps/epoch, so this is agreement in magnitude, not a controlled reproduction.
 
 ### 3.3 MPS (informational, Run D; not proposed for protocol use)
 
@@ -117,14 +124,19 @@ MPS makes the TCN about 10× faster and makes everything else slower. Two conseq
 
 - **Per-job peak RSS is 0.55–0.65 GiB** on V1-sized data (OBSERVED).
 - **The proposed 4 GiB ceiling leaves at least 6× headroom.**
-- About 75% of the peak is the data/window arrays. Real data adds NetCDF decoding for 123 files (≈36.5 MB on disk). V1
+- Imports account for 177 MiB of the high-water mark. Synthetic data and window construction raise it to 486 MiB (+309 MiB, about
+  48% of the peak). Training adds 80–180 MiB. These are high-water marks, not live-array sizes. Real data adds NetCDF decoding for
+  123 files (≈36.5 MB on disk). V1
   documented 0.56 GB peak for its strict run on another host.
 - Real-data peak is UNKNOWN until the pilot. Batch-256 activations are not the bottleneck at these sizes.
 
 ## 4. Per-job projections
 
 EXTRAPOLATED, M4 host, proposed schedule. Each phase is projected as first epoch + (N−1) × last epoch, and data preparation is counted once.
-These are the harness's `projection` field, with the TCN taken from Run C.
+This is the committed `project()` formula, applied to the Run B epoch records and Run C for the TCN.
+Two rows were derived by hand because Run B predates the review fixes:
+- The SSL row is 8 × the pretrain epoch (2.65 s) recorded in the `jepa_finetune` result, which reused the same artifact.
+- The linear row is scaled from Run B's per-λ times to the proposed 7 λ.
 
 | Job | Projection (s) | Notes |
 |---|---|---|
@@ -145,8 +157,14 @@ threshold, but close enough that real-data overhead or monitoring differences co
 Scenarios (all EXTRAPOLATED):
 
 - **Optimistic** = §4 values.
-- **Expected** = ×1.25, for real NetCDF loading, I/O, thermal throttling and larger 29-day validation partitions (≈1,392 origins against 476).
-- **Conservative** = ×2, for a slower or 8 GiB host, sustained throttling, and one infrastructure retry on ~10% of jobs.
+- **Expected** = ×1.25 (M4 host), for real NetCDF loading, I/O, thermal throttling and larger 29-day validation partitions
+  (≈1,392 origins against 476).
+- **Conservative** = ×3, for a slower host, sustained throttling and one infrastructure retry on ~10% of jobs.
+  - Basis: V1's nine *early-stopped* real-data neural fits took 54.8–130.6 s each on the 8 GiB Mac14,2 design host
+    (DOCUMENTED, `V2_RESEARCH_EXECUTION_PLAN.md` on `research/v2-independent-validation`).
+  - M4A projects S ≈41 s and J ≈63 s here with *more* (fixed) epochs. So that host plus real data is plausibly
+    2–3× slower than these synthetic M4 figures (INFERRED).
+  - ×3 is therefore a reasoned bound, not a guarantee. Re-measure on the execution host.
 
 ### 5.1 Two-seed feasibility pilot (proposal §8: 2 SSL, 12 downstream, 1 linear fit, 4 loss-comparison jobs)
 
@@ -160,7 +178,7 @@ Scenarios (all EXTRAPOLATED):
 | Loss comparison (J, S × 2 with V1 loss) | 166 |
 | **Total** | **≈1,130 s ≈ 19 min** |
 
-Expected is ≈24 min and conservative is ≈38 min. The proposed 2 h pilot wall budget gives about 3× margin over conservative.
+Expected is ≈24 min and conservative (×3) is ≈57 min. The proposed 2 h pilot wall budget gives about 2× margin over conservative.
 
 ### 5.2 Proposed main study (protocol: 3 folds; J/S/B × 20 seeds; frozen/random/TCN × 5 seeds; 60 SSL)
 
@@ -175,9 +193,9 @@ Expected is ≈24 min and conservative is ≈38 min. The proposed 2 h pilot wall
 | Linear (7 λ) | 3 | 171–216 |
 | **Total** | | **≈14,300–14,750 s ≈ 4.0–4.1 h** |
 
-Expected is ≈5.1 h and conservative is ≈8.2 h serial on this host.
+Expected is ≈5.1 h on this host. Conservative (×3) is ≈11.9–12.3 h serial.
 
-- This sits inside the design's 8–16 h reservation and 24 h stress ceiling.
+- The conservative figure sits inside the design's 8–16 h reservation and 24 h stress ceiling.
 - Classical models (ARIMA/volatility) and analysis are **not** included. They were not benchmarked here; the design reserved 0.2–2 h.
 - **The TCN is about 25% of the main study and about 40% of the pilot from only 15 (or 2) jobs.** It is the main bottleneck.
 
@@ -201,8 +219,8 @@ Keep only selected and SSL states, not per-epoch checkpoints. The design's 0.25 
    before the pilot (`--jobs microbench`).
 3. **Serial execution, one job per process.** This gives per-job RSS and avoids process high-water contamination. `StagedRun(max_rss_bytes=4 GiB)` stays as the
    between-job guard.
-4. **Timeouts** (proposed): SSL 300 s, neural downstream 600 s, TCN 1,800 s, linear 1,800 s. That is about 5–8× the
-   expected values.
+4. **Timeouts** (proposed): SSL 300 s, neural downstream 600 s, TCN 1,800 s, linear 1,800 s. Against the expected (×1.25)
+   per-job values these are ≥6× (TCN ≈6×, B ≈8×, J/SSL ≈11×, frozen ≈15×, linear ≈20×). That is still ≥2× the conservative values.
 5. **Pilot wall budget** 2 h. **Main-study reservation:** keep the design's 8–16 h, stress ceiling 24 h.
 6. **Avoid measurement contamination.** No other CPU-heavy work during timed runs. Run B shows that even a 5 s pytest run
    inflates TCN epochs by about 10%.

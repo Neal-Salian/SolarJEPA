@@ -167,7 +167,7 @@ No BLOCKER or HIGH defects were found in the baselines or losses.
 | `tests/test_v2_comparators.py` + `tests/test_v2_losses.py` at baseline | 21 passed (OBSERVED) |
 | New regression tests before the fix | 9 failed (7 level cases + 2 missing-validation cases), as intended (OBSERVED) |
 | `test_v2_losses.py`, `test_v2_comparators.py`, `test_v2_controlled.py` after the fix | 55 passed (OBSERVED) |
-| Final full suite | See [handoff §8](V2_M4_INTEGRATION_HANDOFF.md#8-verification-evidence) |
+| Final full suite | 1310 passed, 1 warning ([handoff §8](V2_M4_INTEGRATION_HANDOFF.md#8-verification-evidence)) |
 
 The single warning is the pre-existing NumPy binary-compatibility `RuntimeWarning`
 in `tests/test_experiment_reference.py`.

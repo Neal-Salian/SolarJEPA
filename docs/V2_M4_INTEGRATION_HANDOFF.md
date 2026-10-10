@@ -24,8 +24,12 @@ main 1a4991d ─▶ v1 644648f ─┬─▶ 1826400 feat/v2-controlled-model-dev
 - The model side and the evaluation side change **disjoint files**. A read-only `git merge-tree` of
   M4A-base against `94cae59` reported no conflicts (INFERRED: the textual merge is clean). The evaluation side's
   only shared-core edit is `forecasting/splitting.py` (+10 lines, `embargo_ns`), which the model side does not touch.
-- M2 (`94cae59`) adds two things over `fd7203b`: a `max_calendar_cells` guard, and a paired-difference summation fix in
-  `evaluation/comparison.py`. **Integrate against `94cae59` or later, not `fd7203b`.**
+- M2 (`94cae59`) adds three things over `fd7203b`:
+  - a `max_calendar_cells` guard
+  - a paired-difference summation fix in `evaluation/comparison.py`
+  - the synthetic known-truth reliability harness `evaluation/stress/*` (a study tool, not a decision module)
+
+  **Integrate against `94cae59` or later, not `fd7203b`.**
 - **M3.1 has published nothing** (its branch equals the M2 tip). Do not cherry-pick unpublished work. Do not assume a method.
 - The name "M3" collides with the execution plan's "M3 = approved bounded acquisition". The branch name refers to
   inference remediation.
@@ -132,11 +136,11 @@ Interval outputs must not be labelled reliable nominal 95% evidence (M2 report �
 | Check | Result |
 |---|---|
 | Baseline full suite at `1826400` | 1290 passed, 1 warning (pre-existing NumPy RuntimeWarning), 65.2 s |
-| New tests: losses (7 parametrized), controlled (2), comparators (1), proposals (8) | Written first. The 10 behavioural regressions failed before their fixes |
-| Final full suite | **1308 passed**, 1 warning (same pre-existing warning) |
+| New tests: losses (7 parametrized), controlled (2), comparators (1), proposals/benchmark (10) | Written first. The 10 behavioural regressions failed before their fixes |
+| Final full suite | **1310 passed**, 1 warning (same pre-existing warning). 1308 before the review fixes |
 | Environment gotcha | The repository `.venv` holds a **non-editable** install. `test_installed_synthetic_run_does_not_require_optional_aditya_imports` fails closed ("Imported/checkout source identity mismatch") after any `src/` edit until the package is reinstalled. Observed here: 1307 passed + 1 failed before reinstall, 1308 after. The venv has no `pip`. Use `uv pip install --python .venv/bin/python --no-deps --no-build-isolation --offline .` |
 | Benchmark harness | 3 CPU runs + 1 MPS microbench, no failures ([compute §2](V2_COMPUTE_FEASIBILITY.md#2-method)) |
-| Independent final review | See §10 |
+| Independent final review | Completed; no BLOCKER/HIGH (§10.1) |
 
 ## 9. Outstanding decisions (none approved)
 
@@ -175,4 +179,23 @@ Findings and dispositions: [§10.1](#101-review-findings).
 
 ### 10.1 Review findings
 
-_Filled in after the review; see the commit history for the review-fix commit if any._
+The reviewer was an independent agent with read-only access and its own probes, reviewing `1826400..edfcb4d`. It reported
+**no BLOCKER and no HIGH**. It confirmed:
+
+- the three code fixes are correct, and no caller breaks
+- no leakage path exists
+- the step and presentation arithmetic, the λ-scale rationale, and every projection and total
+- the remote-branch API claims
+- the V1 code is untouched
+
+| ID | Severity | Finding | Disposition |
+|---|---|---|---|
+| F1 | MEDIUM | The harness `ssl` job emitted no epoch history, so `project()` never produced `ssl_phase`. The test passed only on a hand-built dict. The compute doc wrongly called the SSL row harness output | **Fixed**: the ssl job records epochs. New test runs the real `run_job('ssl', …)` → `project()`. Doc states which rows are hand-derived |
+| F2 | LOW–MEDIUM | Harness hard-coded 5 λ against the proposal's 7 | **Fixed**: schedule and λ count are read from the proposal JSON (test added) |
+| F3 | MEDIUM | Pilot as written would trip its own stop condition: `check_paired_cohort` rejects mixed objectives and duplicate arms, so the loss-comparison jobs cannot share the primary cohort check | **Fixed** in the pilot JSON and protocol §6/§8: separate cohorts |
+| F4 | MEDIUM | The "conservative ×2" factor was not reconciled with V1's documented 54.8–130.6 s real-data fits on the 8 GiB host | **Fixed**: conservative ×3 with the V1 basis cited. Pilot ≈57 min (< 2 h), main study ≈11.9–12.3 h (within the 8–16 h reservation) |
+| F5 | LOW | Run A was uncommitted. Reports lacked a code identity. Run D mislabels `device` | **Fixed**: Run A committed (projection field marked superseded). Harness records git head, dirty flag, script and proposal hashes, and job/microbench devices. Run D labelling disclosed |
+| F6 | LOW | Wording/arithmetic: data share of RSS, timeout multiples, 7.5× vs 7.6×, "reproduces", unsourced 1.6×, M2 stress package omitted | **Fixed** in the docs |
+| F7 | LOW | This section was a placeholder | **Fixed** (this table) |
+| F8 | LOW | `check_paired_cohort` raises `KeyError` rather than `ValueError` on records missing any required key. This is a pre-existing pattern, and no legitimate record lacks `validation` | **Unresolved, documented**. Fail-closed either way. M4B may normalize the error type |
+| F9 | LOW | The pilot test pins JSON text, not isolation behaviour | **Documented**. The behavioural guarantee is integration test §6.10 |

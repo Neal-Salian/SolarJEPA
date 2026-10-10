@@ -28,7 +28,7 @@
     "neural_downstream": {"jepa_finetune": 2, "supervised": 2, "supervised_extra_updates": 2, "jepa_frozen": 2, "random_frozen": 2, "tcn": 2},
     "quantile_linear_fits": 1,
     "quantile_linear_lambdas": 7,
-    "loss_comparison_extra_jobs": {"jepa_finetune": 2, "supervised": 2, "train_loss": "normalized_pinball_v1", "selection_metric": "normalized_pinball_v1", "diagnostic_metrics": ["dex_pinball_equal_channel_v2"], "reuse": "SSL artifacts of the primary jobs"},
+    "loss_comparison_extra_jobs": {"jepa_finetune": 2, "supervised": 2, "train_loss": "normalized_pinball_v1", "selection_metric": "normalized_pinball_v1", "diagnostic_metrics": ["dex_pinball_equal_channel_v2"], "reuse": "SSL artifacts of the primary jobs", "cohort_check": "checked as a separate cohort; check_paired_cohort rejects mixed objectives and duplicate arms per seed by design"},
     "classical": "deferred to the fit-acceptance owner; not part of the M4A model-side pilot"
   },
   "resource_ceilings": {
@@ -50,7 +50,7 @@
   "stop_conditions": [
     "any job exceeds the RSS ceiling or its timeout after one infrastructure retry",
     "any nonfinite loss, gradient, prediction or crossing native quantile",
-    "check_paired_cohort fails for any seed",
+    "check_paired_cohort fails for any seed of the primary cohort (the 5 controlled-arm records per seed; TCN/linear are checked by record comparison) or of the separate loss-comparison cohort",
     "reload parity fails",
     "any code path attempts to read or score the test partition",
     "cumulative wall time exceeds total_wall_budget_seconds"
