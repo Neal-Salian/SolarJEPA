@@ -34,6 +34,12 @@ def main():
         print(f'{i}/{n}: {name}, block={block}', flush=True))
     elapsed = time.monotonic()-start
     verify_source_identities(root, provenance['source']['files'])
+    final_provenance = code_provenance(root)
+    if (final_provenance['git_commit'] != provenance['git_commit']
+            or final_provenance['git_branch'] != provenance['git_branch']
+            or final_provenance['source']['fingerprint'] != provenance['source']['fingerprint']):
+        raise ValueError('Git/source state changed during execution')
+    provenance = final_provenance
     payload_hash = fingerprint_payload(scientific)
     identity = fingerprint_payload(dict(config=config, source=provenance['source']['fingerprint']))
     destination = 'results/experiments/m2-'+identity[:12]+'-'+uuid.uuid4().hex[:12]

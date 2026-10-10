@@ -72,3 +72,32 @@ def test_malformed_scenario_configuration_uses_value_error(scenario):
     config['cases'][0]['scenario'] = scenario
     with pytest.raises(ValueError):
         validate_config(config)
+
+
+@pytest.mark.parametrize('drift', ['git_commit', 'git_branch', 'source'])
+def test_cli_rechecks_complete_git_and_source_identity_before_publication(tmp_path, monkeypatch, drift):
+    from copy import deepcopy
+    import importlib.util
+    from pathlib import Path
+    import sys
+    module_spec = importlib.util.spec_from_file_location('m2_cli_test', Path(__file__).resolve().parents[1]/'scripts/run_m2_validation.py')
+    cli = importlib.util.module_from_spec(module_spec)
+    module_spec.loader.exec_module(cli)
+    before = dict(git_commit='before', git_branch='M2', source=dict(files=[], fingerprint='source'))
+    after = deepcopy(before)
+    if drift == 'source':
+        after['source']['fingerprint'] = 'newly-added-source'
+    else:
+        after[drift] = 'changed'
+    snapshots = iter([before, after])
+    monkeypatch.setattr(sys, 'argv', ['run_m2_validation.py', '--root', str(tmp_path)])
+    monkeypatch.setattr(cli, 'read_finite_json', lambda _: tiny_config())
+    monkeypatch.setattr(cli, 'code_provenance', lambda _: next(snapshots))
+    monkeypatch.setattr(cli, 'scientific_payload', lambda *args, **kwargs: {'synthetic': True})
+    monkeypatch.setattr(cli, 'verify_source_identities', lambda *args: None)
+    published = []
+    monkeypatch.setattr(cli, 'atomic_record', lambda *args: published.append(args) or tmp_path)
+    monkeypatch.setattr(cli, 'verify_artifacts', lambda *args: None)
+    with pytest.raises(ValueError, match='state changed'):
+        cli.main()
+    assert not published
