@@ -41,8 +41,12 @@ def main():
     parser.add_argument('--root',type=Path,default=Path(__file__).resolve().parents[1])
     for name in ('evaluation','repeat','development','pilot'):parser.add_argument('--'+name,required=True)
     args=parser.parse_args();root=args.root.resolve();runs={}
+    if (root/args.evaluation).resolve()==(root/args.repeat).resolve():
+        raise ValueError('A deterministic repeat requires distinct executions')
     for name in ('evaluation','repeat','development','pilot'):runs[name]=load_run(root,getattr(args,name))
     final,metadata=runs['evaluation'];repeat,other=runs['repeat']
+    if metadata['started_utc']==other['started_utc']:
+        raise ValueError('A deterministic repeat requires distinct execution identities')
     if final!=repeat or metadata['git_commit']!=other['git_commit'] or metadata['source_fingerprint']!=other['source_fingerprint']:
         raise ValueError('Final scientific payload/source did not repeat')
     frozen=json.loads((root/'configs/validation/m3_evaluation.json').read_text())

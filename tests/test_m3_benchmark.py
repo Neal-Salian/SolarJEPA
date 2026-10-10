@@ -1,8 +1,8 @@
 """Known truths, frozen designs and independent benchmark bookkeeping."""
 from copy import deepcopy
 from dataclasses import replace
-import importlib.util
 import json
+import importlib.util
 from pathlib import Path
 import sys
 
@@ -115,10 +115,23 @@ def test_integer_assumption_cannot_masquerade_as_boolean():
     with pytest.raises(ValueError,match='Boolean'):validate_config(config)
 
 
+def test_cli_scientific_execution_lives_in_captured_package():
+    from solar_flare_jepa.evaluation.inference_research import runner
+    assert runner.main.__module__=='solar_flare_jepa.evaluation.inference_research.runner'
+    driver=(ROOT/'scripts/run_m3_inference.py').read_text()
+    assert 'import main' in driver and 'atomic_record' not in driver
+
+
+def test_report_cannot_count_one_execution_as_a_repeat(tmp_path,monkeypatch):
+    spec=importlib.util.spec_from_file_location('m3_export_test',ROOT/'scripts/summarize_m3_inference.py')
+    cli=importlib.util.module_from_spec(spec);spec.loader.exec_module(cli)
+    monkeypatch.setattr(sys,'argv',['export','--root',str(tmp_path),'--evaluation','same','--repeat','same','--development','dev','--pilot','pilot'])
+    with pytest.raises(ValueError,match='distinct'):cli.main()
+
+
 @pytest.mark.parametrize('drift',['git_commit','git_branch','source'])
 def test_cli_rechecks_complete_final_provenance_before_publication(tmp_path,monkeypatch,drift):
-    spec=importlib.util.spec_from_file_location('m3_cli_test',ROOT/'scripts/run_m3_inference.py')
-    cli=importlib.util.module_from_spec(spec);spec.loader.exec_module(cli)
+    from solar_flare_jepa.evaluation.inference_research import runner as cli
     before=dict(git_commit='before',git_branch='M3',source=dict(files=[],fingerprint='source'))
     after=deepcopy(before)
     if drift=='source':after['source']['fingerprint']='changed'

@@ -239,3 +239,12 @@ HAC L7 has no eligible development DGP because those periods are shorter than
 its 32-day guard; its first eligible Monte Carlo assessment is frozen evaluation.
 Fixed lag/block settings have no general growing-bandwidth/block asymptotic
 guarantee. These restrictions are retained rather than tuned after development.
+
+Software review reproduced a driver-attestation gap: a stale external copy could
+call valid package functions while provenance hashed the checkout driver. The
+meaningful CLI logic now lives in captured `inference_research/runner.py`; the
+script only supplies its repository root and invokes it. Shared provenance/M1/M2
+code is untouched. The exporter also rejects counting one execution as a repeat.
+Both fixes precede final evaluation; no scientific settings changed. The earlier
+development artifacts remain preserved and are not claimed to have stronger
+driver attestation retroactively. This is not an interpreter security sandbox.
