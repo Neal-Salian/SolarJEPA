@@ -179,7 +179,7 @@ scaled by max(1,|truth|). Do not let that tolerance fabricate valid zero-varianc
 
 - [ ] Task 1: `evaluation/inference_research/{contracts,methods}.py` and
   `tests/test_m3_inference.py`. RED absent API; GREEN literal seed t with df=2
-  critical value 4.302652729911275, independent HAC Toeplitz quadratic form,
+  critical value 4.302652729749464, independent HAC Toeplitz quadratic form,
   exact three-day stationary transition enumeration, mismatched/failed ledger,
   degenerate/small/nonfinite/large-offset and deterministic sampling checks.
 - [ ] Task 2: `evaluation/inference_research/{benchmark,synthetic}.py`,
@@ -213,3 +213,11 @@ identify future-period generalization. Symmetric heavy-tail theory is not a
 license for arbitrary skewed/infinite-mean losses. Real seed-score distribution,
 operational causality, training-data/search uncertainty and effective block
 independence remain UNKNOWN. No forced numerical CI or favorable-method selection.
+
+## Execution rulings
+
+The initial literal df=2 critical value was an inaccurate tabulation. Before
+benchmark execution, independent 60-digit Decimal inversion of
+F(t)=1/2+t/(2 sqrt(t²+2)) gave 4.30265272974946385…, agreeing with SciPy to
+2e−15. The literal test/plan were corrected from this mathematical evidence;
+no expected simulation value, scientific tolerance or frozen configuration changed.
