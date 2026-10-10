@@ -60,7 +60,7 @@ def validate_partition(dataset: TimeSeriesDataset, partition: TemporalPartition)
         raise ValueError('Partition bounds must be within the dataset on its declared grid')
 
 
-def chronological_partitions(dataset: TimeSeriesDataset, boundaries):
+def chronological_partitions(dataset: TimeSeriesDataset, boundaries, *, embargo_ns=0):
     """Return validated ordered train/validation/[calibration]/test partitions.
 
     ``boundaries`` is an iterable of TemporalPartition objects, or dictionaries
@@ -69,7 +69,12 @@ def chronological_partitions(dataset: TimeSeriesDataset, boundaries):
     Touching half-open bounds and explicit gaps are allowed; overlap, reversed
     order, missing/duplicate roles, outside-data or off-grid bounds are rejected.
     A partition in an observed cadence gap is valid and may yield no windows.
+    ``embargo_ns`` is an explicit nonnegative integer minimum gap between every
+    adjacent pair. It validates supplied bounds and never trims/moves them.
     """
+    embargo_ns = _time_scalar(embargo_ns)
+    if embargo_ns < 0:
+        raise ValueError('Temporal embargo must be nonnegative')
     partitions = []
     for entry in boundaries:
         if isinstance(entry, dict):
@@ -84,4 +89,7 @@ def chronological_partitions(dataset: TimeSeriesDataset, boundaries):
         raise ValueError('Expected ordered train/validation/[calibration]/test partitions')
     if any(left.end_ns > right.start_ns for left, right in zip(partitions, partitions[1:])):
         raise ValueError('Chronological partitions must not overlap')
+    if any(right.start_ns - left.end_ns < embargo_ns
+           for left, right in zip(partitions, partitions[1:])):
+        raise ValueError('Chronological partition gap is smaller than the declared embargo')
     return tuple(partitions)
