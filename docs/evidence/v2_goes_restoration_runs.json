@@ -1,0 +1,173 @@
+{
+ "code_note": "runs started before 2026-10-10T20:13Z used the restoration code later committed in bdea733 except the then-uncommitted official-listing helpers (added after the download); the restore/inventory logic is identical. The last run used the committed code.",
+ "external_timing": {
+  "command": "/usr/bin/time -l (download run)",
+  "max_rss_bytes": 70959104,
+  "real_seconds": 420.78
+ },
+ "full_reports": "results/v2_goes_restoration/*.json on the restoring host (git-ignored; per-file before/after rows)",
+ "kind": "solarjepa_goes_development_restoration_runs",
+ "plan": {
+  "interval": [
+   "2024-05-01",
+   "2024-09-01"
+  ],
+  "manifests": [
+   {
+    "config_path": "configs/data/v1_goes_202405.json",
+    "file_count": 31,
+    "path": "data/manifests/goes_v1_202405.json",
+    "role": "development_exposed",
+    "sha256": "9828b714ecb4545af2711f2760d110b9d0dd963a67e1f3d1d1f711af0aeb2240"
+   },
+   {
+    "config_path": "configs/data/v1_goes_202406.json",
+    "file_count": 30,
+    "path": "data/manifests/goes_v1_202406.json",
+    "role": "development_exposed",
+    "sha256": "91e45449c61918c52786c4d4f45d4d9311ef313bbc8baace314a40bf135ecc79"
+   },
+   {
+    "config_path": "configs/data/p2_goes_july2024.json",
+    "file_count": 31,
+    "path": "data/manifests/goes_p2_july2024.json",
+    "role": "development_exposed",
+    "sha256": "581a3c4b8cfba6b9b21ed1fdb0b2277e728e9bf329a8da1ddcc0bd49c3cc4b3d"
+   },
+   {
+    "config_path": "configs/data/v1_goes_202408.json",
+    "file_count": 31,
+    "path": "data/manifests/goes_v1_202408.json",
+    "role": "development_exposed",
+    "sha256": "50164744c036e2c3776486a6657cf1c60bef4e9e81b0c27a154be9bdbd12faff"
+   }
+  ],
+  "path": "configs/data/v2_goes_development_restoration.json",
+  "plan_id": "v2-goes16-development-restoration-2024-05-08",
+  "sha256": "f782c942f40a79ba0fe2ceded8752f30fd4f4e9ede54fbd6bcb74141a15a5dba"
+ },
+ "required_bytes": 36535474,
+ "required_files": 123,
+ "runs": [
+  {
+   "counts_after": null,
+   "counts_before": {
+    "mismatch": 0,
+    "missing": 123,
+    "partial": 0,
+    "present_verified": 0,
+    "required": 123,
+    "unexpected": 0
+   },
+   "free_bytes_before": null,
+   "mode": "inventory",
+   "peak_rss_bytes": 30179328,
+   "report": "inventory-20261010T195833Z.json",
+   "required_free_bytes": null,
+   "started_utc": "2026-10-10T19:58:33.823745+00:00",
+   "stats": null,
+   "wall_seconds": 0.023
+  },
+  {
+   "counts_after": {
+    "mismatch": 0,
+    "missing": 0,
+    "partial": 0,
+    "present_verified": 123,
+    "required": 123,
+    "unexpected": 0
+   },
+   "counts_before": {
+    "mismatch": 0,
+    "missing": 123,
+    "partial": 0,
+    "present_verified": 0,
+    "required": 123,
+    "unexpected": 0
+   },
+   "free_bytes_before": 17370587136,
+   "mode": "restore",
+   "peak_rss_bytes": 70959104,
+   "report": "restore-20261010T195840Z.json",
+   "required_free_bytes": 304970930,
+   "started_utc": "2026-10-10T19:58:40.166246+00:00",
+   "stats": {
+    "attempts": 123,
+    "downloaded_bytes": 36535474,
+    "downloaded_files": 123,
+    "failures": [],
+    "retries": 0,
+    "reused_reference_files": 0
+   },
+   "wall_seconds": 420.727
+  },
+  {
+   "counts_after": {
+    "mismatch": 0,
+    "missing": 0,
+    "partial": 0,
+    "present_verified": 123,
+    "required": 123,
+    "unexpected": 0
+   },
+   "counts_before": {
+    "mismatch": 0,
+    "missing": 0,
+    "partial": 0,
+    "present_verified": 123,
+    "required": 123,
+    "unexpected": 0
+   },
+   "free_bytes_before": 17335447552,
+   "mode": "restore",
+   "peak_rss_bytes": 30277632,
+   "report": "restore-20261010T200549Z.json",
+   "required_free_bytes": 268435456,
+   "started_utc": "2026-10-10T20:05:49.355359+00:00",
+   "stats": {
+    "attempts": 0,
+    "downloaded_bytes": 0,
+    "downloaded_files": 0,
+    "failures": [],
+    "retries": 0,
+    "reused_reference_files": 0
+   },
+   "wall_seconds": 0.11
+  },
+  {
+   "counts_after": {
+    "mismatch": 0,
+    "missing": 0,
+    "partial": 0,
+    "present_verified": 123,
+    "required": 123,
+    "unexpected": 0
+   },
+   "counts_before": {
+    "mismatch": 0,
+    "missing": 0,
+    "partial": 0,
+    "present_verified": 123,
+    "required": 123,
+    "unexpected": 0
+   },
+   "free_bytes_before": 17223434240,
+   "mode": "restore",
+   "peak_rss_bytes": 30457856,
+   "report": "restore-20261010T201352Z.json",
+   "required_free_bytes": 268435456,
+   "started_utc": "2026-10-10T20:13:52.142645+00:00",
+   "stats": {
+    "attempts": 0,
+    "downloaded_bytes": 0,
+    "downloaded_files": 0,
+    "failures": [],
+    "retries": 0,
+    "reused_reference_files": 0
+   },
+   "wall_seconds": 0.131
+  }
+ ],
+ "schema_version": 1,
+ "sources": "official NOAA NCEI URLs recorded per file in the four manifests (https://data.ngdc.noaa.gov/.../xrsf-l2-avg1m_science/2024/MM/), TLS-verified, no redirects"
+}
