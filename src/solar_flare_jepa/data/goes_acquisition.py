@@ -245,8 +245,20 @@ def _write_ledger(path, value):
             temporary.unlink(missing_ok=True)
 
 
-def _download(entry, temporary, spec):
+def _new_stats(stats):
+    """Initialise an optional caller-owned counter mapping (observability only)."""
+    if stats is not None:
+        for key, value in dict(attempts=0, retries=0, downloaded_files=0, downloaded_bytes=0,
+                               reused_reference_files=0, failures=[]).items():
+            stats.setdefault(key, value)
+    return stats
+
+
+def _download(entry, temporary, spec, stats=None):
     for attempt in range(spec['max_attempts']):
+        if stats is not None:
+            stats['attempts'] += 1
+            stats['retries'] += attempt > 0
         try:
             with open_history_url(entry['url'], spec['timeout_seconds']) as response:
                 declared = response.headers.get('Content-Length')
@@ -265,7 +277,12 @@ def _download(entry, temporary, spec):
                 if expected is not None and total != expected:
                     raise ValueError('Truncated response: Content-Length mismatch')
             return _check(temporary, entry)
-        except (URLError, TimeoutError, ConnectionError, OSError) as error:
+        except (URLError, TimeoutError, ConnectionError, OSError, ValueError) as error:
+            if stats is not None:
+                stats['failures'].append(dict(url=entry['url'], attempt=attempt + 1,
+                                              error=f'{type(error).__name__}: {error}'))
+            if isinstance(error, ValueError):
+                raise
             if isinstance(error, HTTPError) and error.code not in {408, 429, 500, 502, 503, 504}:
                 raise
             if attempt + 1 == spec['max_attempts']:
@@ -274,9 +291,14 @@ def _download(entry, temporary, spec):
     raise RuntimeError('Unreachable bounded download state')
 
 
-def acquire_history(config_path: Path, root: Path) -> dict:
-    """Acquire only explicit daily flux files; resume solely from pinned identities."""
+def acquire_history(config_path: Path, root: Path, *, stats: dict | None = None) -> dict:
+    """Acquire only explicit daily flux files; resume solely from pinned identities.
+
+    ``stats``, when supplied, receives attempt/retry/byte/failure counters; it never
+    changes acquisition behaviour.
+    """
     root = Path(root).resolve()
+    _new_stats(stats)
     spec, relative, digest, output = _config(config_path, root)
     inventory = (_json(output) if output.exists() else
                  dict(_base(spec, relative, digest), complete=False, total_bytes=0, files=[]))
@@ -314,9 +336,14 @@ def acquire_history(config_path: Path, root: Path) -> dict:
                     shutil.copyfile(original, temporary)
                     _check(temporary, dict(expected, bytes=size, sha256=checksum))
                     lineage = dict(method='copy_pinned_reference', parent=reuse)
+                    if stats is not None:
+                        stats['reused_reference_files'] += 1
                 else:
-                    size, checksum = _download(expected, temporary, spec)
+                    size, checksum = _download(expected, temporary, spec, stats)
                     acquired = datetime.now(timezone.utc).isoformat()
+                    if stats is not None:
+                        stats['downloaded_files'] += 1
+                        stats['downloaded_bytes'] += size
                     lineage = dict(method='download_official_noaa')
                 # Atomic no-replace publication; copies never alias reference inodes.
                 target.hardlink_to(temporary)

@@ -318,3 +318,26 @@ def test_complete_pins_verify_after_repository_relocation(tmp_path, monkeypatch)
     paths = api.verify_history(moved / value['manifest_path'], moved)
     assert paths == [moved / e['path'] for e in value['files']]
     assert all(p.read_bytes() == PAYLOAD for p in paths)
+
+
+def test_optional_stats_record_attempts_retries_bytes_and_failures(tmp_path, monkeypatch):
+    # V2 restoration: retry counts and downloaded bytes must be observable without changing behaviour.
+    api = load_api()
+    path, value = config(tmp_path, days=2)
+    calls = []
+    def flaky(url, timeout):
+        calls.append(url)
+        if len(calls) == 1:
+            raise URLError('temporary outage')
+        return Response()
+    monkeypatch.setattr(api, 'open_history_url', flaky)
+    stats = {}
+    assert api.acquire_history(path, tmp_path, stats=stats)['complete'] is True
+    assert stats == dict(attempts=3, retries=1, downloaded_files=2, downloaded_bytes=2 * len(PAYLOAD),
+                         reused_reference_files=0, failures=[dict(url=value['files'][0]['url'], attempt=1,
+                                                                  error='URLError: <urlopen error temporary outage>')])
+    monkeypatch.setattr(api, 'open_history_url', no_network)
+    again = {}
+    api.acquire_history(path, tmp_path, stats=again)  # idempotent: nothing requested, nothing counted
+    assert again == dict(attempts=0, retries=0, downloaded_files=0, downloaded_bytes=0, reused_reference_files=0,
+                         failures=[])
