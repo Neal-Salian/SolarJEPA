@@ -38,6 +38,7 @@ class Design:
     independent_seeds: bool
     seed_score_law: Literal['gaussian', 'normal_scale_mixture', 'unknown']
     calendar_dependence: Literal['fixed', 'stationary_weak', 'heteroskedastic_weak', 'unknown']
+    finite_mean: bool
     finite_variance: bool
     independent_folds: bool
     planned_seed_ids: tuple[int, ...]
@@ -48,8 +49,10 @@ class Design:
         units={'seed_conditional':'paired_training_run','calendar_conditional':'calendar_day'}
         if self.estimand not in units or self.sampling_unit != units[self.estimand]:
             raise ValueError('Explicit estimand and sampling unit must match')
-        if any(type(getattr(self,k)) is not bool for k in ('independent_seeds','finite_variance','independent_folds')):
+        if any(type(getattr(self,k)) is not bool for k in ('independent_seeds','finite_mean','finite_variance','independent_folds')):
             raise ValueError('Explicit Boolean dependence/moment declarations required')
+        if self.finite_variance and not self.finite_mean:
+            raise ValueError('Finite variance implies a finite mean')
         if self.seed_score_law not in ('gaussian','normal_scale_mixture','unknown') or self.calendar_dependence not in ('fixed','stationary_weak','heteroskedastic_weak','unknown'):
             raise ValueError('Unknown law declaration')
         if self.missing_runs != 'reject':

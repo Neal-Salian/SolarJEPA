@@ -30,7 +30,7 @@ def design(a, mode='seed_conditional', **changes):
     seeds = next(iter(a.values())).seed_ids
     args = dict(estimand=mode, sampling_unit='paired_training_run' if mode=='seed_conditional' else 'calendar_day',
                 independent_seeds=True,seed_score_law='gaussian',calendar_dependence='fixed' if mode=='seed_conditional' else 'stationary_weak',
-                finite_variance=True,independent_folds=True,planned_seed_ids=seeds,missing_runs='reject',
+                finite_mean=True,finite_variance=True,independent_folds=True,planned_seed_ids=seeds,missing_runs='reject',
                 run_states=tuple(RunState(f,m,s,'ok') for f in sorted(a) for m in ('a','b') for s in seeds))
     args.update(changes)
     return Design(**args)
@@ -159,6 +159,12 @@ def test_scale_mixture_seed_law_does_not_require_finite_variance():
     assert result.details['guarantee']=='conservative_independent_normal_scale_mixture'
 
 
+def test_scale_mixture_without_finite_mean_cannot_target_expected_loss():
+    a,b=panels(np.arange(24.).reshape(3,8))
+    result=infer(a,b,design=design(a,seed_score_law='normal_scale_mixture',finite_mean=False,finite_variance=False),config=settings())
+    assert result.interval is None and result.reason=='unsupported_undefined_mean_estimand'
+
+
 @pytest.mark.parametrize('method',['hac','stationary_basic'])
 def test_insufficient_temporal_length_is_explicit(method):
     a,b=panels(np.arange(24.).reshape(3,8))
@@ -196,3 +202,15 @@ def test_identical_nonbinary_seed_means_do_not_gain_roundoff_variance():
     result=infer(a,b,design=design(a),config=settings())
     assert result.interval is None
     assert result.reason=='INSUFFICIENT_INDEPENDENT_INFORMATION'
+
+
+@pytest.mark.parametrize('magnitude',[1e-323,1e16])
+def test_interval_cannot_collapse_when_scaling_to_float_precision(magnitude):
+    a,b=panels(np.zeros((100,24)))
+    values=np.zeros((100,24))+magnitude
+    values[0,:]=0. if magnitude<1 else magnitude+2.
+    a={'f':replace(a['f'],losses=values)}
+    b={'f':replace(b['f'],losses=np.zeros_like(values))}
+    result=infer(a,b,design=design(a),config=settings())
+    assert result.interval is None
+    assert result.reason=='INSUFFICIENT_NUMERICAL_RESOLUTION'

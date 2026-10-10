@@ -177,12 +177,12 @@ scaled by max(1,|truth|). Do not let that tolerance fabricate valid zero-varianc
 
 ## 7. Implementation tasks and independent checks
 
-- [ ] Task 1: `evaluation/inference_research/{contracts,methods}.py` and
+- [x] Task 1: `evaluation/inference_research/{contracts,methods}.py` and
   `tests/test_m3_inference.py`. RED absent API; GREEN literal seed t with df=2
   critical value 4.302652729749464, independent HAC Toeplitz quadratic form,
   exact three-day stationary transition enumeration, mismatched/failed ledger,
   degenerate/small/nonfinite/large-offset and deterministic sampling checks.
-- [ ] Task 2: `evaluation/inference_research/{benchmark,synthetic}.py`,
+- [x] Task 2: `evaluation/inference_research/{benchmark,synthetic}.py`,
   `scripts/run_m3_inference.py`, `tests/test_m3_benchmark.py`. RED missing API;
   GREEN frozen config, conditional-null attribution, overlap covariance/truth,
   common data/draw labels, unsupported-method reasons, callback mutation and
@@ -221,3 +221,11 @@ benchmark execution, independent 60-digit Decimal inversion of
 F(t)=1/2+t/(2 sqrt(t²+2)) gave 4.30265272974946385…, agreeing with SciPy to
 2e−15. The literal test/plan were corrected from this mathematical evidence;
 no expected simulation value, scientific tolerance or frozen configuration changed.
+
+Before simulations, adversarial regressions reproduced floating-point point
+intervals at subnormal and large-offset scales. The candidate returns
+INSUFFICIENT_NUMERICAL_RESOLUTION after rescaling rather than publishing them.
+Independent review also distinguished the scale-mixture location theorem from
+mean inference: the experimental Design now requires explicit finite_mean;
+undefined means are unsupported. All frozen DGPs, including t1.5, have finite
+means. Neither change modifies frozen scenarios, seeds, budgets or thresholds.

@@ -92,8 +92,11 @@ def _infer(a,b,design,config):
     def result(interval=None,se=None,reason=None):
         numbers=[estimate]+([] if interval is None else list(interval))+([] if se is None else [se])
         if not all(math.isfinite(x) for x in numbers): raise ValueError('Nonfinite inference result')
+        if interval is not None and (interval[0]>=interval[1] or se is None or se<=0):
+            interval=None;se=None;reason='INSUFFICIENT_NUMERICAL_RESOLUTION'
         return InferenceResult(config.method,design.estimand,design.sampling_unit,estimate,interval,se,reason,details)
     def unavailable(reason): return result(reason=reason)
+    if not design.finite_mean: return unavailable('unsupported_undefined_mean_estimand')
     if config.method=='seed_t':
         if not design.independent_seeds: return unavailable('unsupported_seed_dependence')
         if design.calendar_dependence!='fixed' or design.seed_score_law=='unknown':
@@ -140,7 +143,8 @@ def _infer(a,b,design,config):
         variance=math.fsum(variances)/len(daily)**2
         if variance<=0: return unavailable('INSUFFICIENT_INDEPENDENT_INFORMATION')
         se=math.sqrt(variance); critical=NormalDist().inv_cdf((1+config.confidence)/2)
-        details.update(lag_days=config.lag_days,finite_sample_correction='T/(T-1)',guarantee='asymptotic_only')
+        details.update(lag_days=config.lag_days,finite_sample_correction='T/(T-1)',
+                       guarantee='requires_suitable_bandwidth_sequence_not_guaranteed_by_fixed_lag')
         return result(((center-critical*se)*scale,(center+critical*se)*scale),se*scale)
     draws=np.zeros(config.replicates); fold_seeds={}
     for name,x in daily:
@@ -149,5 +153,6 @@ def _infer(a,b,design,config):
         draws+=x[selected].mean(axis=1)/len(daily)
     if float(draws.std())<=0: return unavailable('INSUFFICIENT_INDEPENDENT_INFORMATION')
     low,high=np.quantile(draws,[(1-config.confidence)/2,(1+config.confidence)/2],method='linear')
-    details.update(fold_rng_seeds=fold_seeds,interval_type='basic_linear_quantiles',guarantee='asymptotic_only')
+    details.update(fold_rng_seeds=fold_seeds,interval_type='basic_linear_quantiles',
+                   guarantee='requires_suitable_block_length_sequence_not_guaranteed_by_fixed_length')
     return result(((2*center-float(high))*scale,(2*center-float(low))*scale),float(draws.std(ddof=1))*scale)
