@@ -1,0 +1,569 @@
+{
+  "bootstrap_replicates": 399,
+  "cases": [
+    {
+      "assumptions": {
+        "calendar_dependence": "stationary_weak",
+        "finite_variance": true,
+        "independent_folds": true,
+        "independent_seeds": true,
+        "seed_score_law": "gaussian"
+      },
+      "law": "m2",
+      "overlap_days": null,
+      "scenario": {
+        "counts": [
+          1
+        ],
+        "days": [
+          24,
+          36
+        ],
+        "delta": [
+          0.0
+        ],
+        "distribution": "normal",
+        "heteroskedastic": false,
+        "name": "eval_seed_null",
+        "rho": 0.0,
+        "seed_correlation": 0.0,
+        "seeds": 4,
+        "sigma_cell": 0.2,
+        "sigma_seed": 0.7,
+        "sigma_time": 0.0
+      }
+    },
+    {
+      "assumptions": {
+        "calendar_dependence": "stationary_weak",
+        "finite_variance": true,
+        "independent_folds": true,
+        "independent_seeds": true,
+        "seed_score_law": "gaussian"
+      },
+      "law": "m2",
+      "overlap_days": null,
+      "scenario": {
+        "counts": [
+          1
+        ],
+        "days": [
+          24,
+          36
+        ],
+        "delta": [
+          0.35
+        ],
+        "distribution": "normal",
+        "heteroskedastic": false,
+        "name": "eval_seed_positive",
+        "rho": 0.0,
+        "seed_correlation": 0.0,
+        "seeds": 8,
+        "sigma_cell": 0.2,
+        "sigma_seed": 0.7,
+        "sigma_time": 0.0
+      }
+    },
+    {
+      "assumptions": {
+        "calendar_dependence": "stationary_weak",
+        "finite_variance": true,
+        "independent_folds": true,
+        "independent_seeds": true,
+        "seed_score_law": "gaussian"
+      },
+      "law": "m2",
+      "overlap_days": null,
+      "scenario": {
+        "counts": [
+          1
+        ],
+        "days": [
+          48,
+          72
+        ],
+        "delta": [
+          0.0
+        ],
+        "distribution": "normal",
+        "heteroskedastic": false,
+        "name": "eval_mixed_null",
+        "rho": 0.45,
+        "seed_correlation": 0.0,
+        "seeds": 16,
+        "sigma_cell": 0.3,
+        "sigma_seed": 0.5,
+        "sigma_time": 0.8
+      }
+    },
+    {
+      "assumptions": {
+        "calendar_dependence": "stationary_weak",
+        "finite_variance": true,
+        "independent_folds": true,
+        "independent_seeds": true,
+        "seed_score_law": "gaussian"
+      },
+      "law": "m2",
+      "overlap_days": null,
+      "scenario": {
+        "counts": [
+          1
+        ],
+        "days": [
+          48,
+          72
+        ],
+        "delta": [
+          -0.35
+        ],
+        "distribution": "normal",
+        "heteroskedastic": false,
+        "name": "eval_mixed_negative",
+        "rho": 0.45,
+        "seed_correlation": 0.0,
+        "seeds": 16,
+        "sigma_cell": 0.3,
+        "sigma_seed": 0.5,
+        "sigma_time": 0.8
+      }
+    },
+    {
+      "assumptions": {
+        "calendar_dependence": "stationary_weak",
+        "finite_variance": true,
+        "independent_folds": true,
+        "independent_seeds": true,
+        "seed_score_law": "gaussian"
+      },
+      "law": "m2",
+      "overlap_days": null,
+      "scenario": {
+        "counts": [
+          1
+        ],
+        "days": [
+          64
+        ],
+        "delta": [
+          0.0
+        ],
+        "distribution": "normal",
+        "heteroskedastic": false,
+        "name": "eval_calendar_null",
+        "rho": 0.3,
+        "seed_correlation": 0.0,
+        "seeds": 12,
+        "sigma_cell": 0.0,
+        "sigma_seed": 0.0,
+        "sigma_time": 1.0
+      }
+    },
+    {
+      "assumptions": {
+        "calendar_dependence": "stationary_weak",
+        "finite_variance": true,
+        "independent_folds": true,
+        "independent_seeds": true,
+        "seed_score_law": "gaussian"
+      },
+      "law": "m2",
+      "overlap_days": null,
+      "scenario": {
+        "counts": [
+          1
+        ],
+        "days": [
+          64
+        ],
+        "delta": [
+          0.35
+        ],
+        "distribution": "normal",
+        "heteroskedastic": false,
+        "name": "eval_calendar_positive",
+        "rho": 0.3,
+        "seed_correlation": 0.0,
+        "seeds": 12,
+        "sigma_cell": 0.0,
+        "sigma_seed": 0.0,
+        "sigma_time": 1.0
+      }
+    },
+    {
+      "assumptions": {
+        "calendar_dependence": "stationary_weak",
+        "finite_variance": true,
+        "independent_folds": true,
+        "independent_seeds": true,
+        "seed_score_law": "gaussian"
+      },
+      "law": "m2",
+      "overlap_days": null,
+      "scenario": {
+        "counts": [
+          1
+        ],
+        "days": [
+          40,
+          60
+        ],
+        "delta": [
+          0.0
+        ],
+        "distribution": "normal",
+        "heteroskedastic": false,
+        "name": "eval_iid_cells",
+        "rho": 0.0,
+        "seed_correlation": 0.0,
+        "seeds": 12,
+        "sigma_cell": 1.0,
+        "sigma_seed": 0.0,
+        "sigma_time": 0.0
+      }
+    },
+    {
+      "assumptions": {
+        "calendar_dependence": "stationary_weak",
+        "finite_variance": true,
+        "independent_folds": true,
+        "independent_seeds": true,
+        "seed_score_law": "gaussian"
+      },
+      "law": "m2",
+      "overlap_days": null,
+      "scenario": {
+        "counts": [
+          1
+        ],
+        "days": [
+          28
+        ],
+        "delta": [
+          0.0
+        ],
+        "distribution": "normal",
+        "heteroskedastic": false,
+        "name": "eval_ar_short",
+        "rho": 0.97,
+        "seed_correlation": 0.0,
+        "seeds": 12,
+        "sigma_cell": 0.0,
+        "sigma_seed": 0.0,
+        "sigma_time": 1.0
+      }
+    },
+    {
+      "assumptions": {
+        "calendar_dependence": "stationary_weak",
+        "finite_variance": true,
+        "independent_folds": true,
+        "independent_seeds": true,
+        "seed_score_law": "gaussian"
+      },
+      "law": "m2",
+      "overlap_days": null,
+      "scenario": {
+        "counts": [
+          1
+        ],
+        "days": [
+          240
+        ],
+        "delta": [
+          0.0
+        ],
+        "distribution": "normal",
+        "heteroskedastic": false,
+        "name": "eval_ar_long",
+        "rho": 0.9,
+        "seed_correlation": 0.0,
+        "seeds": 12,
+        "sigma_cell": 0.0,
+        "sigma_seed": 0.0,
+        "sigma_time": 1.0
+      }
+    },
+    {
+      "assumptions": {
+        "calendar_dependence": "stationary_weak",
+        "finite_variance": true,
+        "independent_folds": true,
+        "independent_seeds": false,
+        "seed_score_law": "gaussian"
+      },
+      "law": "m2",
+      "overlap_days": null,
+      "scenario": {
+        "counts": [
+          1
+        ],
+        "days": [
+          48
+        ],
+        "delta": [
+          0.0
+        ],
+        "distribution": "normal",
+        "heteroskedastic": false,
+        "name": "eval_correlated_seeds",
+        "rho": 0.0,
+        "seed_correlation": 0.65,
+        "seeds": 16,
+        "sigma_cell": 0.1,
+        "sigma_seed": 0.8,
+        "sigma_time": 0.1
+      }
+    },
+    {
+      "assumptions": {
+        "calendar_dependence": "stationary_weak",
+        "finite_variance": true,
+        "independent_folds": true,
+        "independent_seeds": true,
+        "seed_score_law": "gaussian"
+      },
+      "law": "m2",
+      "overlap_days": null,
+      "scenario": {
+        "counts": [
+          1
+        ],
+        "days": [
+          24,
+          48,
+          96
+        ],
+        "delta": [
+          -0.6,
+          0.1,
+          0.9
+        ],
+        "distribution": "normal",
+        "heteroskedastic": false,
+        "name": "eval_calendar_heterogeneity",
+        "rho": 0.0,
+        "seed_correlation": 0.0,
+        "seeds": 12,
+        "sigma_cell": 0.3,
+        "sigma_seed": 0.4,
+        "sigma_time": 0.6
+      }
+    },
+    {
+      "assumptions": {
+        "calendar_dependence": "heteroskedastic_weak",
+        "finite_variance": true,
+        "independent_folds": true,
+        "independent_seeds": true,
+        "seed_score_law": "gaussian"
+      },
+      "law": "m2",
+      "overlap_days": null,
+      "scenario": {
+        "counts": [
+          1
+        ],
+        "days": [
+          64
+        ],
+        "delta": [
+          0.0
+        ],
+        "distribution": "normal",
+        "heteroskedastic": true,
+        "name": "eval_heteroskedastic",
+        "rho": 0.0,
+        "seed_correlation": 0.0,
+        "seeds": 12,
+        "sigma_cell": 0.2,
+        "sigma_seed": 0.2,
+        "sigma_time": 0.9
+      }
+    },
+    {
+      "assumptions": {
+        "calendar_dependence": "stationary_weak",
+        "finite_variance": true,
+        "independent_folds": true,
+        "independent_seeds": true,
+        "seed_score_law": "normal_scale_mixture"
+      },
+      "law": "m2",
+      "overlap_days": null,
+      "scenario": {
+        "counts": [
+          1
+        ],
+        "days": [
+          48
+        ],
+        "delta": [
+          0.0
+        ],
+        "distribution": "t3",
+        "heteroskedastic": false,
+        "name": "eval_t3",
+        "rho": 0.0,
+        "seed_correlation": 0.0,
+        "seeds": 8,
+        "sigma_cell": 0.7,
+        "sigma_seed": 0.4,
+        "sigma_time": 0.3
+      }
+    },
+    {
+      "assumptions": {
+        "calendar_dependence": "stationary_weak",
+        "finite_variance": false,
+        "independent_folds": true,
+        "independent_seeds": true,
+        "seed_score_law": "normal_scale_mixture"
+      },
+      "law": "m2",
+      "overlap_days": null,
+      "scenario": {
+        "counts": [
+          1
+        ],
+        "days": [
+          48
+        ],
+        "delta": [
+          0.0
+        ],
+        "distribution": "t1.5",
+        "heteroskedastic": false,
+        "name": "eval_t1_5",
+        "rho": 0.0,
+        "seed_correlation": 0.0,
+        "seeds": 8,
+        "sigma_cell": 0.7,
+        "sigma_seed": 0.4,
+        "sigma_time": 0.3
+      }
+    },
+    {
+      "assumptions": {
+        "calendar_dependence": "stationary_weak",
+        "finite_variance": true,
+        "independent_folds": true,
+        "independent_seeds": true,
+        "seed_score_law": "gaussian"
+      },
+      "law": "overlap_ma",
+      "overlap_days": 5,
+      "scenario": {
+        "counts": [
+          1
+        ],
+        "days": [
+          80
+        ],
+        "delta": [
+          0.0
+        ],
+        "distribution": "normal",
+        "heteroskedastic": false,
+        "name": "eval_overlap_ma",
+        "rho": 0.0,
+        "seed_correlation": 0.0,
+        "seeds": 12,
+        "sigma_cell": 0.2,
+        "sigma_seed": 0.3,
+        "sigma_time": 0.8
+      }
+    },
+    {
+      "assumptions": {
+        "calendar_dependence": "stationary_weak",
+        "finite_variance": true,
+        "independent_folds": true,
+        "independent_seeds": true,
+        "seed_score_law": "gaussian"
+      },
+      "law": "m2",
+      "overlap_days": null,
+      "scenario": {
+        "counts": [
+          1,
+          3,
+          0
+        ],
+        "days": [
+          24,
+          48
+        ],
+        "delta": [
+          0.0
+        ],
+        "distribution": "normal",
+        "heteroskedastic": false,
+        "name": "eval_unequal_counts",
+        "rho": 0.0,
+        "seed_correlation": 0.0,
+        "seeds": 12,
+        "sigma_cell": 0.3,
+        "sigma_seed": 0.4,
+        "sigma_time": 0.6
+      }
+    }
+  ],
+  "confidence": 0.95,
+  "gate": {
+    "availability_min": 1.0,
+    "coverage_wilson_lower_min": 0.9,
+    "coverage_wilson_upper_max": 0.99,
+    "null_type1_wilson_upper_max": 0.1
+  },
+  "m1_block_days": 3,
+  "master_seed": 20261117,
+  "max_resampling_draws": 8000000,
+  "max_runtime_seconds": 900,
+  "methods": [
+    {
+      "estimand": "seed_conditional",
+      "label": "seed_t",
+      "lag_days": null,
+      "mean_block_days": null,
+      "method": "seed_t",
+      "sampling_unit": "paired_training_run"
+    },
+    {
+      "estimand": "calendar_conditional",
+      "label": "hac_l3",
+      "lag_days": 3,
+      "mean_block_days": null,
+      "method": "hac",
+      "sampling_unit": "calendar_day"
+    },
+    {
+      "estimand": "calendar_conditional",
+      "label": "hac_l7",
+      "lag_days": 7,
+      "mean_block_days": null,
+      "method": "hac",
+      "sampling_unit": "calendar_day"
+    },
+    {
+      "estimand": "calendar_conditional",
+      "label": "stationary_l3",
+      "lag_days": null,
+      "mean_block_days": 3,
+      "method": "stationary_basic",
+      "sampling_unit": "calendar_day"
+    },
+    {
+      "estimand": "calendar_conditional",
+      "label": "stationary_l7",
+      "lag_days": null,
+      "mean_block_days": 7,
+      "method": "stationary_basic",
+      "sampling_unit": "calendar_day"
+    }
+  ],
+  "replications": 400,
+  "schema_version": 1,
+  "stage": "evaluation"
+}
