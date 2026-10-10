@@ -1,0 +1,76 @@
+{
+  "kind": "solarjepa_v2_training_protocol_proposal",
+  "schema_version": 1,
+  "status": "PROPOSED_REQUIRES_APPROVAL",
+  "approved": false,
+  "approval": {"approved_by": null, "approved_utc": null, "reference": null},
+  "note": "M4A proposal. Not an approved configuration; it authorizes no training, pilot, data acquisition or test release. Every setting records its value, source, status and whether approval is required. See docs/V2_TRAINING_PROTOCOL.md.",
+  "status_vocabulary": {
+    "INHERITED_V1": "value used by the executed V1 confirmatory run (configs/experiments/v1_models.json)",
+    "INHERITED_V2_PROPOSAL": "value from docs/V2_EXPERIMENTAL_PROTOCOL.md (research/v2-independent-validation, itself PROPOSED - REQUIRES APPROVAL)",
+    "NEWLY_PROPOSED_M4A": "new in this milestone; rationale in docs/V2_TRAINING_PROTOCOL.md",
+    "CODE_INVARIANT": "enforced by existing code; not a free choice"
+  },
+  "settings": {
+    "seeds": {
+      "value": [1261866429, 1291916211, 1928562547, 510418947, 431928332, 21185310, 1222754442, 745890783, 878753449, 222572566, 957668480, 768280471, 627667792, 212882923, 1807776811, 780470138, 1784246101, 1670717663, 978924304, 1202725490],
+      "derivation": "first 4 SHA-256 bytes of ASCII 'SolarJEPA-V2.1-paired-seed-i', big endian, mod 2**31, i=0.., skipping duplicates and 17/29/43 (independently recomputed in M4A)",
+      "secondary_arm_seeds": "first 5",
+      "source": "docs/V2_EXPERIMENTAL_PROTOCOL.md section 6", "status": "INHERITED_V2_PROPOSAL", "approval_required": true, "decision": "D10"},
+    "architecture": {
+      "value": {"patch_steps": 5, "width": 32, "depth": 3, "heads": 4, "predictor_depth": 2, "mlp_ratio": 4, "head_hidden": 128, "dropout": 0.0},
+      "source": "configs/experiments/v1_models.json", "status": "INHERITED_V1", "approval_required": true, "decision": "D10"},
+    "jepa_objective": {
+      "value": {"jepa_loss": "smooth_l1", "context_block_mask": true, "context_mask_patches": 4, "ema_start": 0.996, "ema_end": 1.0, "jepa_weight_during_finetune": 0.0},
+      "source": "configs/experiments/v1_models.json; jepa_weight_during_finetune=0 is a ControlledConfig invariant", "status": "INHERITED_V1", "approval_required": true, "decision": "D10"},
+    "optimizer": {
+      "value": {"name": "AdamW", "lr": 0.001, "weight_decay": 0.0001, "lr_schedule": "none", "reset_per_phase": true},
+      "source": "configs/experiments/v1_models.json; reset is a training.controlled invariant", "status": "INHERITED_V1", "approval_required": true, "decision": "D10"},
+    "batch_size": {"value": 256, "source": "configs/experiments/v1_models.json", "status": "INHERITED_V1", "approval_required": true, "decision": "D10"},
+    "gradient_clip_norm": {"value": 1.0, "source": "configs/experiments/v1_models.json", "status": "INHERITED_V1", "approval_required": true, "decision": "D10"},
+    "max_train_windows": {
+      "value": 20000, "policy": "deterministic evenly spaced chronological subset of stride-1 complete training windows, identical for every neural/linear arm",
+      "source": "configs/experiments/v1_models.json; docs/V2_EXPERIMENTAL_PROTOCOL.md section 4", "status": "INHERITED_V1", "approval_required": true, "decision": "D10"},
+    "ssl_epochs": {"value": 8, "source": "configs/experiments/v1_models.json", "status": "INHERITED_V1", "approval_required": true, "decision": "D10"},
+    "supervised_warmup_epochs": {"value": 8, "rule": "must equal ssl_epochs (check_paired_cohort enforces equal steps and replayed SSL order)", "source": "docs/V2_EXPERIMENTAL_PROTOCOL.md section 5", "status": "INHERITED_V2_PROPOSAL", "approval_required": true, "decision": "D10"},
+    "downstream_epochs": {"value": 15, "source": "configs/experiments/v1_models.json (V1 maximum); fixed in V2 proposal", "status": "INHERITED_V2_PROPOSAL", "approval_required": true, "decision": "D10"},
+    "early_stopping": {
+      "value": null, "meaning": "fixed schedule: all downstream epochs execute",
+      "alternative": {"early_stopping_patience": 3, "source": "V1", "tradeoff": "saves compute but makes executed budgets arm-dependent and couples budget to validation noise"},
+      "source": "docs/V2_EXPERIMENTAL_PROTOCOL.md section 5", "status": "INHERITED_V2_PROPOSAL", "approval_required": true, "decision": "D10"},
+    "checkpoint_selection": {
+      "value": {"partition": "validation", "metric": "dex_pinball_equal_channel_v2", "eligible": "downstream epochs only", "tie_rule": "earliest epoch"},
+      "source": "docs/V2_EXPERIMENTAL_PROTOCOL.md section 5; eligibility and tie rule are training.controlled invariants", "status": "INHERITED_V2_PROPOSAL", "approval_required": true, "decision": "D10"},
+    "train_loss": {
+      "value": "dex_pinball_equal_channel_v2",
+      "alternative": "normalized_pinball_v1",
+      "rationale": "aligns the optimized objective with the proposed equal-channel dex selection metric and primary estimand; whether it changes selected checkpoints is unmeasured",
+      "source": "M4A", "status": "NEWLY_PROPOSED_M4A", "approval_required": true, "decision": "D10"},
+    "diagnostic_metrics": {"value": ["normalized_pinball_v1"], "rationale": "records V1-scale validation curves at no training effect, enabling the loss comparison", "source": "M4A", "status": "NEWLY_PROPOSED_M4A", "approval_required": true, "decision": "D10"},
+    "regularization": {"value": {"dropout": 0.0, "weight_decay": 0.0001, "weight_decay_scope": "all trainable parameters incl. biases (inherited V1 AdamW behaviour)"}, "source": "configs/experiments/v1_models.json", "status": "INHERITED_V1", "approval_required": true, "decision": "D10"},
+    "tcn": {
+      "value": {"width": 32, "kernel_size": 3, "dilations": [1, 2, 4, 8, 16, 32], "dropout": 0.0, "batch_size": 256, "lr": 0.001, "weight_decay": 0.0001, "gradient_clip": 1.0, "downstream_epochs": 15, "early_stopping_patience": null, "max_train_windows": 20000},
+      "verified": {"parameters": 44620, "receptive_field_bins": 253},
+      "seed_rule": "same paired seed as the J/S/B cohort, first 5 seeds",
+      "source": "docs/V2_EXPERIMENTAL_PROTOCOL.md section 5", "status": "INHERITED_V2_PROPOSAL", "approval_required": true, "decision": "D10"},
+    "quantile_linear": {
+      "value": {"lambdas": [0.0, 1.0, 10.0, 100.0, 1000.0, 10000.0, 100000.0], "optimizer": "Adam", "lr": 0.01, "batch_size": 256, "epochs": 100, "gradient_clip": null, "seed_rule": "first paired seed", "max_train_windows": 20000},
+      "superseded_proposal": {"lambdas": [0.0, 0.001, 0.01, 0.1, 1.0], "reason": "penalty is lambda * mean(W^2) over 72,000 weights; the old grid is near-unregularized (docs/V2_BASELINE_AUDIT.md B1)"},
+      "boundary_rule": "if validation selects the largest lambda, report BOUNDARY_SELECTED; in development only, one documented decade extension is allowed before the protocol is frozen; no extension after freeze",
+      "source": "lr/batch/epochs: docs/V2_EXPERIMENTAL_PROTOCOL.md section 5; grid: M4A", "status": "NEWLY_PROPOSED_M4A", "approval_required": true, "decision": "D10"},
+    "quantiles": {"value": [0.05, 0.25, 0.5, 0.75, 0.95], "source": "configs/experiments/v1_models.json", "status": "INHERITED_V1", "approval_required": true, "decision": "D08"},
+    "precision_and_device": {"value": {"device": "cpu", "dtype": "float32", "torch_threads": 4, "deterministic_algorithms": true}, "rationale": "4 threads measured fastest on the M4 host (8 threads slower for every model); MPS/GPU not assumed", "source": "V1 + M4A benchmark", "status": "INHERITED_V1", "approval_required": true, "decision": "D11"},
+    "memory_ceiling": {"value": {"process_peak_rss_bytes": 4294967296, "enforcement": "StagedRun(max_rss_bytes=...) between jobs, one job per process recommended"}, "measured_peak_rss_bytes_per_job": "566-664 MiB (synthetic, M4A)", "source": "docs/V2_RESEARCH_EXECUTION_PLAN.md (4 GiB gate)", "status": "INHERITED_V2_PROPOSAL", "approval_required": true, "decision": "D11"},
+    "per_job_timeout_seconds": {"value": {"neural_downstream": 600, "ssl_phase": 300, "tcn": 1800, "quantile_linear": 1800}, "rationale": "about 5-8x the M4A extrapolated per-job time on the M4 host; a timeout is an infrastructure failure, not a model result", "source": "M4A", "status": "NEWLY_PROPOSED_M4A", "approval_required": true, "decision": "D11"},
+    "failure_policy": {
+      "value": {"infrastructure_retries_per_job": 1, "retry_identity": "same seed, config and code fingerprints; logged in the run ledger", "numerical_failure": "recorded as model failure; no retry with changed settings; never drop or replace a seed", "primary_cohort_incomplete": "formal primary analysis incomplete/inconclusive"},
+      "source": "docs/V2_EXPERIMENTAL_PROTOCOL.md section 6 (policy); retry count M4A", "status": "NEWLY_PROPOSED_M4A", "approval_required": true, "decision": "D10"}
+  },
+  "arms": {
+    "jepa_finetune": {"pretrain_epochs": 8, "warmup_epochs": 0, "trainable": ["encoder", "predictor", "head"], "seeds": "all 20"},
+    "supervised": {"pretrain_epochs": 0, "warmup_epochs": 0, "trainable": ["encoder", "predictor", "head"], "seeds": "all 20"},
+    "supervised_extra_updates": {"pretrain_epochs": 0, "warmup_epochs": 8, "trainable": ["encoder", "predictor", "head"], "seeds": "all 20"},
+    "jepa_frozen": {"pretrain_epochs": 8, "warmup_epochs": 0, "trainable": ["head"], "reuses": "jepa_finetune SSL artifact of the same seed", "seeds": "first 5"},
+    "random_frozen": {"pretrain_epochs": 0, "warmup_epochs": 0, "trainable": ["head"], "seeds": "first 5"}
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "kind": "solarjepa_v2_feasibility_pilot_proposal",
+  "schema_version": 1,
+  "status": "PROPOSED_REQUIRES_APPROVAL",
+  "approved": false,
+  "executed": false,
+  "approval": {"approved_by": null, "approved_utc": null, "reference": null},
+  "note": "Two-seed development-only feasibility pilot prepared in M4A. NOT EXECUTED. Requires M4B integration and explicit protocol approval first. It is an infrastructure/feasibility check, never evidence about JEPA value. See docs/V2_TRAINING_PROTOCOL.md section 8.",
+  "training_protocol": "configs/v2_proposed/training_protocol_proposal.json",
+  "seeds": [1261866429, 1291916211],
+  "seed_source": "first two proposed V2.1 paired seeds",
+  "data": {
+    "manifests": ["data/manifests/goes_v1_202405.json", "data/manifests/goes_v1_202406.json", "data/manifests/goes_p2_july2024.json", "data/manifests/goes_v1_202408.json"],
+    "local_availability": "ABSENT on the M4A host: data/raw holds only .gitkeep; the 123 files (~36.5 MB) must be re-acquired with manifest hash verification after approval",
+    "exposure": "ALL EXPOSED: May-July used for V1 fitting/selection; August scored in V1 (V1 audit F10). Development-only; never confirmatory.",
+    "splits_utc_half_open": {
+      "train": ["2024-05-01T00:00:00Z", "2024-07-22T00:00:00Z"],
+      "validation": ["2024-07-22T00:00:00Z", "2024-08-01T00:00:00Z"],
+      "test_sealed_not_released": ["2024-08-01T00:00:00Z", "2024-09-01T00:00:00Z"]
+    },
+    "split_source": "configs/experiments/v1_goes_2024.json (V1 splits reused so identities stay comparable)",
+    "embargo": "none configured on this branch (partitions touch; support containment only); decision D09",
+    "test_handling": "the loader requires a test split and reads every manifest; the pilot stops at StagedRun D_LOCKED and never calls release_test",
+    "alternative_requiring_decision": "pilot-specific May-July config with an inner pseudo-test; changes split identities"
+  },
+  "jobs": {
+    "ssl_phases": 2,
+    "neural_downstream": {"jepa_finetune": 2, "supervised": 2, "supervised_extra_updates": 2, "jepa_frozen": 2, "random_frozen": 2, "tcn": 2},
+    "quantile_linear_fits": 1,
+    "quantile_linear_lambdas": 7,
+    "loss_comparison_extra_jobs": {"jepa_finetune": 2, "supervised": 2, "train_loss": "normalized_pinball_v1", "selection_metric": "normalized_pinball_v1", "diagnostic_metrics": ["dex_pinball_equal_channel_v2"], "reuse": "SSL artifacts of the primary jobs"},
+    "classical": "deferred to the fit-acceptance owner; not part of the M4A model-side pilot"
+  },
+  "resource_ceilings": {
+    "process_peak_rss_bytes": 4294967296,
+    "per_job_timeout_seconds": {"neural_downstream": 600, "ssl_phase": 300, "tcn": 1800, "quantile_linear": 1800},
+    "total_wall_budget_seconds": 7200,
+    "torch_threads": 4,
+    "one_job_per_process": true
+  },
+  "expected_outputs": [
+    "StagedRun ledger through C_SELECTED and D_LOCKED (no E_TEST_RELEASED)",
+    "per-job model record: budgets, RNG streams, pairing fingerprints, per-epoch validation curves for both loss versions, selection",
+    "check_paired_cohort summary for each seed",
+    "selected checkpoints and SSL artifacts with weight fingerprints; reload parity (load_forecaster -> identical validation predictions)",
+    "validation ForecastPrediction per model/seed adapted to EvaluationRecord (M4B adapter) and loss_panel_from_records accepted on validation only",
+    "measured wall time and per-job peak RSS; storage footprint",
+    "quantile-linear lambda path: validation metric, mean squared coefficient, raw crossing fraction per lambda"
+  ],
+  "stop_conditions": [
+    "any job exceeds the RSS ceiling or its timeout after one infrastructure retry",
+    "any nonfinite loss, gradient, prediction or crossing native quantile",
+    "check_paired_cohort fails for any seed",
+    "reload parity fails",
+    "any code path attempts to read or score the test partition",
+    "cumulative wall time exceeds total_wall_budget_seconds"
+  ],
+  "forbidden": [
+    "release_test or any test-partition scoring",
+    "choosing seeds, epochs, lambdas or losses from pilot results for confirmation without a new versioned protocol",
+    "reporting pilot validation differences as evidence about JEPA value"
+  ]
+}
