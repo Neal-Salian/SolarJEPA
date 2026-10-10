@@ -95,6 +95,9 @@ catalogs, fitting, scores, tools/dates and decision influence) and a custodian.
   (`statistical.py:275–322`). Future strict fit policy requires model-owner work.
 * Hardware is OBSERVED Mac14,2, 8 GiB, Python 3.13.3; the older M4/16 GB run-guide
   assumption does not describe this host. MPS suitability remains UNKNOWN.
+* The historical P2 model contract still describes JEPA as future work;
+  `training/jepa.py` now implements frozen/fine-tuned and supervised variants.
+  Source/executable evidence supersedes that historical milestone wording.
 * GOES masks require finite positive native-range flux, status zero,
   channel-specific electron bits and integer counts 1–60. Missing cadence is
   explicit, never imputed. Record-start UTC and earliest bin-end availability

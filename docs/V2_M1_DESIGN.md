@@ -68,10 +68,20 @@ effects, relative effect with positive-reference guard, per-seed/per-fold
 effects, seed SD, win fraction and leave-one-seed influence. Loss averaging is
 not prediction ensembling. Failure/nonfinite loss is rejected, not filtered.
 
+The canonical `loss_panel_from_records` adapter computes equal-cell per-origin
+dex pinball from complete-target `EvaluationRecord` cohorts. It binds actual
+support and quantile levels, requires one model/experiment/provenance recipe
+within each panel, and preserves ordered seed IDs. It rejects partial masks or
+point-only forecasts rather than fabricating quantile support. Raw `LossPanel`
+is a lower-level trusted-input kernel; equality of caller labels alone does not
+authenticate its derivation. Paired metric identity includes quantile levels.
+
 One resampled seed vector is shared across all fixed folds/arms. Each fold draws
 circular contiguous calendar-day blocks with one day vector shared across
 seeds/arms. Keep zero-count days, weight selected sums by selected counts,
-average folds equally and never resample fold identities. Caller must supply
+average folds equally and never resample fold identities. Fold calendars must
+be disjoint: this kernel does not handle shared temporal paths through separate
+day vectors. Caller must supply
 block length, replicates, RNG seed and confidence explicitly. A required empty
 replicate makes intervals unavailable without dropping/redrawing it. This is
 a configurable kernel, not approval of V2.1 defaults or proof of coverage.
@@ -82,6 +92,43 @@ explicit native or log10 units. Empty support uses JSON null, never invented
 zero loss. Verify arithmetic against literal examples and metric consistency.
 Robustness summaries are seed/fold/influence diagnostics; scientific strata
 and formal nonsmooth calibration inference need separate protocol decisions.
+
+## Implemented API map
+
+All paths below are under `src/solar_flare_jepa/`. No import of Torch is needed.
+
+| Module / API | Contract |
+|---|---|
+| `forecasting.splitting.chronological_partitions(dataset, boundaries, *, embargo_ns=0)` | Minimum raw partition gap, int64 ns; existing zero-gap default preserved |
+| `evaluation.records.EvaluationIdentity(...)` | Experiment/model version, uint32 seed, code/config/data/split/training/normalization/protocol identities; schema 1, validation selection only |
+| `evaluation.records.EvaluationRecord(identity, targets, prediction)` | Canonical snapshots, `.support_fingerprint`, `.fingerprint`, `.as_dict()`, `.to_json()`, `.from_dict()`, `.from_json()` |
+| `evaluation.records.support_fingerprint(targets)` | Hash actual valid observations, masks and complete output grid/spec; invalid payload canonicalized |
+| `evaluation.records.validate_fitting_artifacts(training, normalization, evaluation_context, evaluation_targets, *, identity=None, embargo_ns=0)` | Recompute train statistics; verify full declared support separation/alignment and optional fitting identities |
+| `evaluation.diagnostics.calibration_diagnostics(targets, prediction, *, space, intervals=None)` | Native/log10 diagnostics with explicit dimensional references for log10; per-lead/channel counts and per-origin losses; absent support null; mixed native-unit aggregates unavailable |
+| `evaluation.comparison.LossPanel(...)` | Ordered seed/origin IDs, integer issue times, finite nonnegative losses, support/metric/unit, whole UTC-day calendar bounds |
+| `evaluation.comparison.loss_panel_from_records(records, *, calendar_start_ns, calendar_end_ns)` | Canonical complete-support dex-pinball adapter; quantile metric identity |
+| `evaluation.comparison.paired_comparison(folds_a, folds_b, *, block_days, replicates, rng_seed, confidence)` | Explicit resampling settings; JSON effect/interval/seed/fold/influence report; no significance decision |
+
+Identity strings are required nonempty declarations; they are not signatures
+or automatically verified file hashes. The fitting audit verifies the declared
+training/normalizer content, not all metadata such as source acquisition history.
+Callers must archive source/config/data provenance separately through P1/P2.
+Raw quality flags remain in the source/preprocessing lineage; the evaluation
+boundary carries their derived Boolean validity masks and provenance identities.
+It does not invent flag meanings or operational availability.
+
+For a deterministic classical reference, repeat its identical fixed forecasts
+under the neural model's paired seed labels when constructing a paired panel;
+report one fitted reference, not multiple independent classical training runs.
+With only one stochastic run, the joint seed-bootstrap API is unavailable.
+Calendar-block inference requires documented UTC epoch nanoseconds supplied by
+the caller. Integer coordinates alone do not prove a time scale; native SoLEXS
+coordinates must never be relabeled as UTC to enter this interface.
+
+Diagnostics retain per-channel native units. Unit-sensitive native aggregates
+are unavailable across incompatible units; dimensionless coverage can aggregate.
+Only relatively symmetric quantile tail masses receive the symmetric proper
+interval score. Logarithmic references are declared, never silently assumed.
 
 ## Acceptance and limits
 

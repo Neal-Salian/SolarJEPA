@@ -29,10 +29,10 @@ isolated authorized feature branch, with explicit files staged.
 Files: `docs/V2_M0_RESOLUTION.md`, `docs/V2_M1_DESIGN.md`, this plan.
 Produces: documented source audit, exposure ledger, decision gates and interface proposal.
 
-- [ ] Compare refs/ancestry/worktrees and source/tests/configs/tracked manifests.
-- [ ] Independently audit scientific protocol, provenance and architecture.
-- [ ] Record proposed decisions and blockers, preserving older reports.
-- [ ] Commit M0 evidence before implementing M1.
+- [x] Compare refs/ancestry/worktrees and source/tests/configs/tracked manifests.
+- [x] Independently audit scientific protocol, provenance and architecture.
+- [x] Record proposed decisions and blockers, preserving older reports.
+- [x] Commit M0 evidence before implementing M1.
 
 ## Task 2: Temporal and record contracts
 
@@ -42,11 +42,11 @@ Consumes: P1 canonical classes/window builder; P2 Normalization.
 Produces: explicit `embargo_ns`, `EvaluationIdentity`, `EvaluationRecord`,
 `validate_fitting_artifacts`; exact signatures recorded in implementation docs.
 
-- [ ] Write failing tests for minimum gaps and schema/roundtrip/support mismatch.
-- [ ] Run targeted pytest; missing API or assertion failure proves RED.
-- [ ] Implement canonical snapshots and strict provenance/normalization checks.
-- [ ] Add synthetic boundary/gap/mask/future-feature/heldout-perturbation regressions.
-- [ ] Run targeted pytest; require all pass. Commit logical contract changes.
+- [x] Write failing tests for minimum gaps and schema/roundtrip/support mismatch.
+- [x] Run targeted pytest; missing API or assertion failure proves RED.
+- [x] Implement canonical snapshots and strict provenance/normalization checks.
+- [x] Add synthetic boundary/gap/mask/future-feature/heldout-perturbation regressions.
+- [x] Run targeted pytest; require all pass. Commit logical contract changes.
 
 ## Task 3: Paired statistics and calibration
 
@@ -55,12 +55,12 @@ Files: new `evaluation/{comparison,diagnostics}.py`,
 Consumes: P1 canonical predictions/targets; panels from caller losses.
 Produces: `LossPanel`, `paired_comparison`, `calibration_diagnostics`.
 
-- [ ] Write literal paired-effect/calibration tests plus bad-pair/calendar cases.
-- [ ] Run tests and observe RED before implementation.
-- [ ] Implement shared seed/day resampling, sums/counts and finite JSON outputs.
-- [ ] Verify deterministic outputs, exact effect signs/weights, empty draws,
+- [x] Write literal paired-effect/calibration tests plus bad-pair/calendar cases.
+- [x] Run tests and observe RED before implementation.
+- [x] Implement shared seed/day resampling, sums/counts and finite JSON outputs.
+- [x] Verify deterministic outputs, exact effect signs/weights, empty draws,
   zero reference, ordered cohorts, quantile domains and empty mask diagnostics.
-- [ ] Run targeted pytest; require all pass. Commit logical statistical changes.
+- [x] Run targeted pytest; require all pass. Commit logical statistical changes.
 
 ## Task 4: Independent review, verification and publication
 
@@ -68,11 +68,11 @@ Files: new `docs/V2_M1_VERIFICATION.md`; update design with exact APIs.
 Consumes: complete implementation and all test evidence.
 Produces: reproducible verification report and published feature branch.
 
-- [ ] Independently review complete branch and scientific methodology.
-- [ ] Reproduce correctness findings with failing tests and fix root causes.
-- [ ] Reinstall normally; run targeted/full suites and installed import smoke.
-- [ ] Inspect complete diff/check/status/history, data ignores/index and ref isolation.
-- [ ] Document observed warnings/limitations and readiness; commit and push.
+- [x] Independently review complete branch and scientific methodology.
+- [x] Reproduce correctness findings with failing tests and fix root causes.
+- [x] Reinstall normally; run targeted/full suites and installed import smoke.
+- [x] Inspect complete diff/check/status/history, data ignores/index and ref isolation.
+- [x] Document observed warnings/limitations and readiness; commit and push.
 
 ## Execution ledger
 
@@ -84,3 +84,27 @@ protocol approval remains pending in the decision register.
 Pre-flight: Task 2 reuses canonical P1 targets/predictions; Task 3 diagnostics use
 the same canonical classes and comparisons bind caller-provided support identity.
 No concurrent edits to shared files; model/experiment training code is read-only.
+
+
+Task 1: complete — source/ref/config/tracked-evidence reconnaissance and three
+independent audits; M0 documentation committed before implementation.
+Task 2: complete —58 new contract/integrity tests, normalizer/schema/empty-record
+review corrections RED→GREEN. Reused existing P1 support logic.
+Task 3: complete —63 comparison/diagnostic/integration tests; paired calendar
+arithmetic, units and model/spec identity review corrections RED→GREEN.
+Task 4: verification complete —full suite1292passed/1existingwarning, targeted
+121passed, normal installed isolated imports/pipcheck and branch/storage audit.
+Publication follows this documentation commit as the final authorized action.
+
+Ruling: a draft seed-list transcription was corrected by checking the exact
+existing V2.1 SHA-generated cohort; no experiment used the draft values.
+Ruling: disjoint fold calendars are required because this kernel draws each
+fold's calendar independently; overlapping physical paths need another contract.
+Ruling: raw LossPanel labels are trusted inputs; a canonical-record adapter
+provides observed support/quantile/spec binding for primary equal-cell dex loss.
+Ruling: mixed native units have no pooled unit-sensitive score; proper central
+interval scores require relatively symmetric tail masses.
+Final review: independent statistical and fresh whole-branch reviewers; all
+reproduced correctness findings fixed with failing-then-passing tests. Declined
+scientific/authentication topics remain limitations in V2_M1_VERIFICATION.md.
+No deferred implementation finding remains; scientific decision gates persist.
