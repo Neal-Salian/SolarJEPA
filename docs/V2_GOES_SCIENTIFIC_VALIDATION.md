@@ -102,6 +102,7 @@ XRS-A and XRS-B status-flag counts are identical in every month of this period.
 | Valid bins with < 30 samples | 177 | 179 |
 | Zero or invalid count | 2,181 | 2,181 |
 
+Evidence fields: `quality_total.xrs?.samples_*`, `valid_samples_1_to_59` and `valid_samples_lt_30`.
 The 11,237 valid XRS-A figure reproduces the V1 audit's DOCUMENTED number exactly.
 
 ## 4. Missing-data observations
@@ -123,7 +124,7 @@ These checks ran through `goes_training`, then the P1 windows, then the V2 train
 | Validation windows | 412 retained / 68 excluded origins. Context `[412, 120, 2]`, targets `[412, 30, 2]`. Masks complete |
 | V2 preparation | 108,199 eligible stride-1 complete training windows. Deterministic evenly spaced subset of 20,000 used. Window tensors `[·, 150, 2]` (context + future for SSL), targets `[·, 30, 2]`. Validation tensors `features/feature_mask [412, 120, 2]`, `targets/target_mask [412, 30, 2]`, all finite. Normalization fingerprint identical to the direct `Normalization.fit` |
 | Determinism | Rebuilding windows gives identical split fingerprints and origin lists (train `faa586db…`, validation `024bfa6f…`) |
-| Train-only normalization | Feature mean/std (log10): A −6.9752 / 0.5742, B −5.4753 / 0.3416. These come from 113,926 (A) and 116,125 (B) valid unique training bins. **Equal** (|Δ| ≤ 1e-12) to an independent recomputation from rows inside the training partition only, and **different** from a train+validation fit. So the check can detect validation leakage, and none occurs |
+| Train-only normalization | Feature mean/std (log10): A −6.9752 / 0.5742, B −5.4753 / 0.3416. These come from 113,926 (A) and 116,125 (B) valid unique training bins. **Equal** (|Δ| ≤ 1e-12) to a direct recomputation from the dataset's training-partition rows, and **different** from a train+validation fit. So the check detects extra or wrong rows (for example validation rows), and none occur. It is not fully independent: it reuses the window builder's partition-boundary rule, so a boundary rule wrong in both places would not be caught. Containment (above) checks that rule separately |
 
 The V1 audit's DOCUMENTED counts are 3,609 / 327 (train) and 412 / 68 (validation). Both are reproduced exactly.
 
@@ -133,7 +134,7 @@ The V1 audit's DOCUMENTED counts are 3,609 / 327 (train) and 412 / 68 (validatio
 |---|---|
 | Training windows cross forbidden boundaries | **No.** Every retained origin's context and targets lie inside its own partition (`context_inside`, `targets_inside` true). V2 stride-1 windows are built from training-partition rows only |
 | Forecast targets inside authorized partitions | **Yes**, by containment. Validation contexts start at or after the training end (`validation_starts_after_training` true) |
-| Validation used for normalization | **No.** See §5 (independent recomputation) |
+| Validation used for normalization | **No.** See §5 (direct recomputation from training rows) |
 | Embargo | **None defined on this branch.** V1 partitions touch (train end = validation start = 2024-07-22 00:00; validation end = test start = 08-01 00:00). Containment prevents shared windows or targets, but autocorrelated flux crosses each boundary. `embargo_ns` exists only on the M0/M1 evaluation branch. The V2 protocol's one-day embargo is proposed for new folds, not for this calendar. **No embargo length was invented. Decision required (D09)** |
 | Overlapping horizons | Stride 30 = horizon 30, so target intervals are disjoint. Contexts overlap by 90 min and earlier targets become later context. Consistent with the protocol's causal rolling design; evaluation dependence is a statistics question (M3.1) |
 | Evaluation identities | Split fingerprints are deterministic. The dataset fingerprint covers all four months, so a May–July-only dataset would change every identity |

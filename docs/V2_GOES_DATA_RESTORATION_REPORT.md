@@ -55,14 +55,20 @@ named on other refs, the `data/raw/noaa/` reference files of `configs/data/noaa_
 
 ## 2. Pre-restoration inventory (OBSERVED)
 
-The search covered the repository's own data locations (`data/`, `results/`, `.cache/`) for GOES files,
-`.part`/`.tmp` partial downloads and caches. No unrestricted personal-directory scan was performed. M4A had already
-recorded that no GOES copies existed in `~/Documents`, `~/Downloads` or `~/Desktop`.
+Two searches were made:
+
+- **Manual search, before restoration.** A shell command searched the repository's own data locations (`data/`, `results/`, `.cache/`) and the
+  checkout for `.nc`, `.part` and `.tmp` files. It found only `.gitkeep` placeholders. The command and result are recorded in
+  `pre_restoration_search` of the runs evidence; the output itself was not machine-captured.
+- **Tool inventory.** `inventory()` scans only the managed tree `data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/`. Its runs are recorded in full.
+
+No unrestricted personal-directory scan was performed. M4A had already recorded that no GOES copies existed in
+`~/Documents`, `~/Downloads` or `~/Desktop`.
 
 | Category | Count |
 |---|---|
 | Present and verified | 0 |
-| Present but unverified | 0 |
+| Present but unverified | n/a (the tool hashes every present file, so this category cannot arise) |
 | Missing | **123** |
 | Corrupt or mismatched | 0 |
 | Partial downloads | 0 |
@@ -112,7 +118,7 @@ PYTHONPATH=src .venv/bin/python scripts/validate_goes_development.py --official-
 - **Tracked manifests:** byte-identical (no `git diff`).
 - **Raw files:** git-ignored by `data/raw/**` (`git check-ignore` confirmed). 38 MB on disk.
 - **Independent check:** the original verifier `scripts/acquire_goes_history.py --verify` reports `VERIFIED_RAW_IDENTITIES`
-  for all four manifests (31/30/31/31).
+  for all four manifests (31/30/31/31). Recorded as `original_verifier` in the runs evidence.
 
 ## 5. Integrity verification
 
@@ -156,3 +162,34 @@ None. 123/123 are present and verified. No substitution of product, version or s
 - **Reprocessing.** The reprocessing date (2025-12-05) postdates the observation period. Earlier analyses on pre-reprocessing bytes, if any
   existed outside these pins, are not comparable byte-for-byte (UNKNOWN whether any existed).
 - **Exposure.** All restored data are exposed development data. They cannot support confirmatory claims ([M5 readiness](V2_GOES_M5_READINESS.md)).
+
+## 8. Independent review
+
+An independent reviewer with read-only access, its own probes and no network reviewed `ac3428f..d57a4e9`.
+It reported **no BLOCKER and no HIGH**. It confirmed:
+
+- authorization ordering (rejections happen before any network or file access)
+- the canonical-identity binding of URL, path and version
+- no-replace installation, the disk-check arithmetic and idempotence
+- that the `_download` stats change preserves behaviour (404 → no retry; 503 → bounded retries)
+- leakage containment, and the absence of test windows
+- every documented number against the evidence
+- that no raw data are tracked
+
+| ID | Severity | Finding | Disposition |
+|---|---|---|---|
+| F1 | MEDIUM | Valid-bin partial-sample counts (11,237 / 2,440; < 30: 177 / 179) were documented but absent from the evidence | **Fixed**: `quality_summary` emits `valid_samples_1_to_59` and `valid_samples_lt_30`; evidence regenerated (values unchanged) |
+| F2 | LOW | Resource figures: 0.74 GiB was really 0.69 GiB; 0.58 GiB and 15–18 s were unbacked | **Fixed**: evidence-backed figures, with the remainder labelled INFERRED |
+| F3 | LOW | Pre-restoration search scope, the impossible "present but unverified" row, and the original-verifier result were not in the evidence | **Fixed**: recorded in the runs evidence (manual search labelled as such); row marked n/a |
+| F4 | LOW–MEDIUM | Failure counters were lost when a restore raised | **Fixed**: caller-owned `stats`; the CLI writes a `restore_failed` report, then re-raises. Test asserts 3 attempts, 2 retries and 3 recorded failures |
+| F5 | LOW | Tracked-manifest identity was only checked after acquisition | **Fixed**: checked against the plan before acquisition too (test) |
+| F6 | LOW | A symlink at a pinned path crashed `inventory` | **Fixed**: classified as `mismatch`, never followed; restore refuses (test: real and dangling links) |
+| F7 | LOW | A test name claimed retry counting it did not assert | **Fixed**: counts asserted |
+| F8 | LOW | `test_windows_built` was hard-coded | **Fixed**: derived from the built partitions |
+| F9 | LOW | The normalization recomputation shares the window builder's boundary rule | **Documented**: wording changed from "independent" to "direct recomputation", with the limitation stated |
+| F10 | LOW | The experiment config's identity was not recorded | **Fixed**: `experiment_config.sha256` in the evidence; `git_dirty` also covers `configs/` and `data/manifests/` |
+| F11 | LOW | Coverage times used a prefix match, which accepted UTC offsets | **Fixed**: exact UTC-midnight parse (test with a +05:30 offset) |
+| F12 | trivial | A missing `plan_id` raised a raw `KeyError` | **Fixed**: reported as a malformed plan |
+
+All new or tightened behavioural tests were confirmed to fail on the pre-fix code (7 failures) and pass after the fix.
+Full suite: **1348 passed**, 1 pre-existing warning.

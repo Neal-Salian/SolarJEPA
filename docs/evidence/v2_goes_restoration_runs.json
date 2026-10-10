@@ -7,6 +7,28 @@
  },
  "full_reports": "results/v2_goes_restoration/*.json on the restoring host (git-ignored; per-file before/after rows)",
  "kind": "solarjepa_goes_development_restoration_runs",
+ "original_verifier": {
+  "command": "scripts/acquire_goes_history.py --verify --manifest <manifest>",
+  "results": {
+   "goes_p2_july2024": {
+    "file_count": 31,
+    "status": "VERIFIED_RAW_IDENTITIES"
+   },
+   "goes_v1_202405": {
+    "file_count": 31,
+    "status": "VERIFIED_RAW_IDENTITIES"
+   },
+   "goes_v1_202406": {
+    "file_count": 30,
+    "status": "VERIFIED_RAW_IDENTITIES"
+   },
+   "goes_v1_202408": {
+    "file_count": 31,
+    "status": "VERIFIED_RAW_IDENTITIES"
+   }
+  },
+  "run": "after restoration, committed code"
+ },
  "plan": {
   "interval": [
    "2024-05-01",
@@ -45,6 +67,12 @@
   "path": "configs/data/v2_goes_development_restoration.json",
   "plan_id": "v2-goes16-development-restoration-2024-05-08",
   "sha256": "f782c942f40a79ba0fe2ceded8752f30fd4f4e9ede54fbd6bcb74141a15a5dba"
+ },
+ "pre_restoration_search": {
+  "command": "find data results .cache -type f; find . -name '*.part' -o -name '*.nc' -o -name '*.tmp' (excluding .venv)",
+  "evidence": "OBSERVED by a manual shell command before restoration; output not machine-captured",
+  "result": "only .gitkeep placeholders under data/raw, data/interim, data/processed and results; no .nc, .part or .tmp files",
+  "scope_note": "inventory() itself scans only data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/; its runs are recorded above"
  },
  "required_bytes": 36535474,
  "required_files": 123,

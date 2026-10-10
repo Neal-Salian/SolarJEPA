@@ -83,9 +83,10 @@ so steps per epoch, and the M4A compute projections, are unaffected (INFERRED).
 3. **Windows.** Build `train` and `validation` windows only. Keep `StagedRun` test release disabled, and stop at `D_LOCKED`.
 4. **No changes during the pilot.** Do not alter masks, quality rules, normalization or windows. Any change is a new protocol version.
 5. **Resources.**
-   - Data loading plus windowing peaked at **0.58 GiB RSS**. The full validator, including Torch import and the V2 preparation, peaked at **0.74 GiB**.
-     Both are well under the proposed 4 GiB job ceiling.
-   - Loading and windowing take about 15–18 s per job. Budget for it in per-job timeouts. M4A's synthetic data preparation took about 5.5 s.
+   - The full validator peaked at **0.69 GiB RSS** (739,655,680 B in the evidence). That run includes data loading, windowing,
+     Torch import and the V2 preparation, and is well under the proposed 4 GiB job ceiling.
+   - Its `pipeline_smoke` phase (loading, windows built twice, normalization, V2 preparation) took **17.8 s**. Per-job real-data
+     preparation is therefore of order 10–20 s (INFERRED). Budget for it in per-job timeouts. M4A's synthetic preparation took about 5.5 s.
 6. **Record per job:** code commit, evidence file hash, dataset/split/normalization fingerprints, and per-job RSS.
 
 ## 7. Verification summary
@@ -97,6 +98,6 @@ so steps per epoch, and the M4A compute projections, are unaffected (INFERRED).
 | Manifest verification | 123/123 SHA-256 and size match |
 | Authoritative provenance | 123/123 native identity checks. Official listings consistent (names, version, dates, sizes) |
 | Time series | 0 missing, 0 duplicate, 0 off-grid timestamps. Valid fractions A 97.47%, B 98.72% |
-| Pipeline | Loader, P1 windows and V2 preparation compatible. V1 counts reproduced. Normalization train-only (independently confirmed) |
+| Pipeline | Loader, P1 windows and V2 preparation compatible. V1 counts reproduced. Normalization train-only (recomputed from training rows) |
 | Test isolation | No test windows built. No sealed or external data accessed |
 | Training | None. No optimizer step |
