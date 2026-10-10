@@ -6,7 +6,7 @@ nothing here changes quality rules, fills gaps, normalizes differently or trains
 ``pipeline_smoke`` builds training and validation windows only: test windows are
 never constructed, scored or released.
 """
-from datetime import timedelta
+from datetime import datetime, time, timedelta
 from pathlib import Path
 
 import numpy as np
@@ -25,6 +25,17 @@ PROVENANCE_ATTRIBUTES = ('date_created', 'algorithm', 'algorithm_version', 'algo
 DEVELOPMENT_SPLITS = ('train', 'validation')
 
 
+def _utc_midnight(value):
+    """The date of an exact UTC-midnight ISO timestamp, else None (offsets and other times are rejected)."""
+    try:
+        parsed = datetime.fromisoformat(str(value).replace('Z', '+00:00'))
+    except ValueError:
+        return None
+    if parsed.utcoffset() != timedelta(0) or parsed.timetz().replace(tzinfo=None) != time(0):
+        return None
+    return parsed.date()
+
+
 def native_identity(path, row):
     """Check native metadata against the pinned identity; return checks and provenance (no data decode)."""
     import netCDF4
@@ -38,9 +49,8 @@ def native_identity(path, row):
     checks.update(
         id_equals_filename=attrs.get('id') == path.name,
         filename_version=path.name.endswith(f'_v{acquisition.VERSION}.nc'),
-        coverage_start_is_nominal_day=str(attrs.get('time_coverage_start', '')).startswith(f'{day.isoformat()}T00:00:00'),
-        coverage_end_is_next_day=str(attrs.get('time_coverage_end', '')).startswith(
-            f'{(day + timedelta(days=1)).isoformat()}T00:00:00'),
+        coverage_start_is_nominal_day=_utc_midnight(attrs.get('time_coverage_start')) == day,
+        coverage_end_is_next_day=_utc_midnight(attrs.get('time_coverage_end')) == day + timedelta(days=1),
         flux_units_w_m2=units.get('xrsa_flux') == 'W/m2' and units.get('xrsb_flux') == 'W/m2',
         time_units=units.get('time') == TIME_UNITS)
     provenance = {name: (np.asarray(attrs[name]).tolist() if name in attrs else None) for name in PROVENANCE_ATTRIBUTES}
@@ -63,6 +73,8 @@ def quality_summary(frame):
                 *np.unique(native[ch + '_flag'].to_numpy(float), return_counts=True))},
             nonfinite_raw=int((~np.isfinite(raw)).sum()), nonpositive_raw=int((np.isfinite(raw) & (raw <= 0)).sum()),
             samples_full_60=int((count == 60).sum()), samples_1_to_59=int(((count > 0) & (count < 60)).sum()),
+            valid_samples_1_to_59=int((valid & (count > 0) & (count < 60)).sum()),
+            valid_samples_lt_30=int((valid & (count > 0) & (count < 30)).sum()),
             samples_zero_or_invalid=int((~np.isfinite(count) | (count <= 0) | (count > 60)).sum()),
             valid_log10_min=float(np.log10(raw[valid]).min()) if valid.any() else None,
             valid_log10_max=float(np.log10(raw[valid]).max()) if valid.any() else None)
@@ -157,7 +169,7 @@ def pipeline_smoke_from_dataset(dataset, config, plan, *, max_train_windows=2000
     fitted = list(zip(normalization.feature_mean, normalization.feature_scale))
     validation = windows['validation']
     result = dict(
-        roles=roles, built_partitions=sorted(windows), test_windows_built=False,
+        roles=roles, built_partitions=sorted(windows), test_windows_built='test' in windows,
         dataset=dict(rows=len(dataset.starts_ns), fingerprint=dataset.fingerprint, channels=list(dataset.feature_names),
                      units=list(dataset.feature_units), cadence_seconds=dataset.cadence_seconds),
         spec=spec.as_dict(),

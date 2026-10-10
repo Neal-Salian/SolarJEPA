@@ -35,7 +35,8 @@ def _code_identity(root):
             return subprocess.run(['git', *command], cwd=root, capture_output=True, text=True, check=True).stdout.strip()
         except (OSError, subprocess.CalledProcessError):
             return None
-    return dict(git_head=git('rev-parse', 'HEAD'), git_dirty=bool(git('status', '--porcelain', '--', 'src', 'scripts')),
+    return dict(git_head=git('rev-parse', 'HEAD'),
+                git_dirty=bool(git('status', '--porcelain', '--', 'src', 'scripts', 'configs', 'data/manifests')),
                 script_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest())
 
 
@@ -48,7 +49,8 @@ def _sum_quality(parts):
         for p in parts:
             for key, value in p[ch].items():
                 if key in ('valid_bins', 'invalid_observed_bins', 'nonfinite_raw', 'nonpositive_raw', 'samples_full_60',
-                           'samples_1_to_59', 'samples_zero_or_invalid'):
+                           'samples_1_to_59', 'samples_zero_or_invalid', 'valid_samples_1_to_59',
+                           'valid_samples_lt_30'):
                     merged[key] = merged.get(key, 0) + value
                 elif key == 'status_flag_counts':
                     flags = merged.setdefault(key, {})
@@ -109,6 +111,8 @@ def main(argv=None):
                                    max(json.loads(v) for v in provenance['date_created'])],
         manifests=manifests, quality_total=_sum_quality([m['quality'] for m in manifests]),
         official_listing=listing, pipeline_smoke=smoke,
+        experiment_config=dict(path=args.experiment.as_posix(), sha256=hashlib.sha256(
+            (args.experiment if args.experiment.is_absolute() else root / args.experiment).read_bytes()).hexdigest()),
         resources=dict(wall_seconds=time.perf_counter() - began, phase_seconds=timings,
                        peak_rss_bytes=int(peak if sys.platform == 'darwin' else peak * 1024),
                        raw_bytes_on_disk=sum(r['bytes'] for r in files['files'])))

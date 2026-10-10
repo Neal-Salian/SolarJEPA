@@ -45,6 +45,8 @@ def native_day(directory, day='2024-07-01', minutes=None, defect=None):
         ds.attrs['processing_level'] = 'Level 1b'
     if defect == 'coverage':
         ds.attrs['time_coverage_start'] = '2024-07-02T00:00:00.000Z'
+    if defect == 'offset':
+        ds.attrs['time_coverage_start'] = f'{stamp:%Y-%m-%d}T00:00:00.000+05:30'
     if defect == 'units':
         ds.xrsa_flux.attrs['units'] = 'counts'
     path.unlink()
@@ -66,6 +68,7 @@ def test_native_identity_passes_for_the_official_product_and_records_provenance(
 
 @pytest.mark.parametrize('defect,check', [('title', 'title'), ('level', 'processing_level'),
                                           ('coverage', 'coverage_start_is_nominal_day'),
+                                          ('offset', 'coverage_start_is_nominal_day'),
                                           ('units', 'flux_units_w_m2'), ('version', 'filename_version')])
 def test_native_identity_flags_wrong_product_level_version_coverage_or_units(tmp_path, defect, check):
     path, row = native_day(tmp_path, defect=defect)
@@ -82,7 +85,25 @@ def test_missing_timestamps_are_counted_never_filled(tmp_path):
     summary = api().quality_summary(frame)
     assert summary['missing_bins'] == report['missing_bins'] == 30
     assert summary['observed_bins'] == 1410 and summary['observed_bins_per_day']['days_below_1440'] == 1
+    assert summary['xrsa']['valid_samples_1_to_59'] == summary['xrsa']['valid_samples_lt_30'] == 0
     assert frame['xrsa_flux'].iloc[100:130].isna().all()   # absent bins stay absent
+
+
+def test_partial_sample_counts_distinguish_observed_from_valid_bins(tmp_path):
+    # Review F1: valid-bin partial-sample counts are computed, not only observed-bin counts.
+    foundation = importlib.import_module('solar_flare_jepa.data.foundation')
+    path, _ = native_day(tmp_path)
+    with xr.open_dataset(path, decode_times=False) as original:
+        ds = original.load()
+    ds['xrsa_num'].values[:5] = [10, 45, 59, 60, 0]
+    ds['xrsa_flag'].values[1] = 2   # bad data: observed partial-sample bin that is not valid
+    path.unlink()
+    ds.to_netcdf(path)
+    frame, _ = foundation.validate_goes_files([path], start_utc='2024-07-01T00:00:00Z',
+                                              end_utc='2024-07-02T00:00:00Z')
+    a = api().quality_summary(frame)['xrsa']
+    assert (a['samples_1_to_59'], a['valid_samples_1_to_59'], a['valid_samples_lt_30']) == (3, 2, 1)
+    assert a['samples_zero_or_invalid'] == 1
 
 
 def test_duplicate_or_off_grid_timestamps_are_rejected(tmp_path):

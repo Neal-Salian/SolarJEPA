@@ -252,10 +252,16 @@ def test_transient_failures_are_retried_counted_and_partial_download_resumes(tmp
         api().restore(plan, tmp_path)
     partial = api().inventory(plan, tmp_path)
     assert partial['counts']['present_verified'] == 1 and partial['counts']['missing'] == 1
+    monkeypatch.setattr(acquisition(), 'open_history_url', outage_on_second)
+    stats = {}
+    with pytest.raises(URLError):
+        api().restore(plan, tmp_path, stats=stats)   # review F4: counters survive the failure
+    assert stats['attempts'] == 3 and stats['retries'] == 2 and stats['downloaded_files'] == 0
+    assert [f['attempt'] for f in stats['failures']] == [1, 2, 3]
     monkeypatch.setattr(acquisition(), 'open_history_url', serve)
     result = api().restore(plan, tmp_path)
     assert result['before']['counts']['missing'] == 1 and result['after']['counts']['present_verified'] == 2
-    assert result['stats']['downloaded_files'] == 1
+    assert result['stats']['downloaded_files'] == 1 and result['stats']['retries'] == 0
 
 
 def test_restore_stops_when_disk_space_is_insufficient(tmp_path, monkeypatch):
@@ -283,3 +289,32 @@ def test_official_listing_comparison_detects_missing_extra_and_version_changes(t
         result = api().compare_official_listing(plan, lambda url, listed=listed: listing_html(listed))
         assert result['consistent'] is False and result['months']['2024-07'][field]
     assert api().compare_official_listing(plan, lambda url: listing_html(names, '9K'))['consistent'] is False
+
+
+def test_manifest_changed_after_plan_load_is_refused_before_network(tmp_path, monkeypatch):
+    # Review F5: tracked manifests are re-checked against the plan before any acquisition.
+    name = make_selection(tmp_path)
+    plan = api().load_plan(make_plan(tmp_path, [name]), tmp_path)
+    path = tmp_path / name
+    path.write_text(path.read_text() + '\n')
+    monkeypatch.setattr(acquisition(), 'open_history_url', no_network)
+    with pytest.raises(api().IntegrityError, match='since the plan was loaded'):
+        api().restore(plan, tmp_path)
+
+
+@pytest.mark.parametrize('dangling', [False, True])
+def test_symlink_at_a_pinned_path_is_classified_as_mismatch_and_never_followed(tmp_path, monkeypatch, dangling):
+    # Review F6: inventory classifies instead of crashing; restore then refuses before network.
+    plan = api().load_plan(make_plan(tmp_path, [make_selection(tmp_path, days=1)]), tmp_path)
+    target = tmp_path / plan['files'][0]['path']
+    target.parent.mkdir(parents=True, exist_ok=True)
+    source = tmp_path / 'elsewhere.nc'
+    if not dangling:
+        source.write_bytes(payload('20240701'))
+    target.symlink_to(source)
+    report = api().inventory(plan, tmp_path)
+    assert report['files'][0]['status'] == 'mismatch' and 'Symlink' in report['files'][0]['reason']
+    monkeypatch.setattr(acquisition(), 'open_history_url', no_network)
+    with pytest.raises(api().IntegrityError):
+        api().restore(plan, tmp_path)
+    assert target.is_symlink()

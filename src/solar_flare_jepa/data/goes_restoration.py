@@ -56,6 +56,9 @@ def load_plan(plan_path, root):
     plan_path = plan_path if plan_path.is_absolute() else root / plan_path
     plan = acquisition._json(acquisition._path(plan_path.relative_to(root).as_posix(), root))
     try:
+        plan_id = plan['plan_id']
+        if not isinstance(plan_id, str) or not plan_id:
+            raise ValueError('Plan requires a nonempty plan_id')
         if type(plan['schema_version']) is not int or plan['schema_version'] != 1:
             raise ValueError('Unsupported restoration plan schema')
         if (plan['platform'], plan['product'], plan['version']) != (
@@ -110,7 +113,7 @@ def load_plan(plan_path, root):
             raise ValueError(f'Pinned selection ({required} B) exceeds the plan budget ({budget} B)')
     except (KeyError, TypeError, AttributeError) as error:
         raise ValueError('Malformed restoration plan or manifest') from error
-    return dict(plan_id=plan['plan_id'], path=plan_path.relative_to(root).as_posix(),
+    return dict(plan_id=plan_id, path=plan_path.relative_to(root).as_posix(),
                 sha256=sha256_file(plan_path), interval=interval, max_total_bytes=budget,
                 disk_margin_bytes=margin, manifests=manifests, files=files, required_bytes=required)
 
@@ -128,7 +131,11 @@ def check_split_authorization(splits, plan):
     return roles
 
 
-def _status(target, row):
+def _status(root, row):
+    try:
+        target = acquisition._path(row['path'], root)
+    except ValueError as error:  # e.g. a symlink at or above the pinned path: never followed or adopted
+        return 'mismatch', str(error)
     if not target.exists():
         return 'missing', None
     try:
@@ -143,9 +150,8 @@ def inventory(plan, root):
     root = Path(root).resolve()
     rows, expected = [], set()
     for row in plan['files']:
-        target = acquisition._path(row['path'], root)
         expected.add(row['path'])
-        status, reason = _status(target, row)
+        status, reason = _status(root, row)
         rows.append(dict(path=row['path'], nominal_date=row['nominal_date'], manifest=row['manifest'],
                          bytes=row['bytes'], sha256=row['sha256'], status=status, reason=reason))
     partial, unexpected = [], []
@@ -163,9 +169,21 @@ def inventory(plan, root):
     return dict(counts=counts, files=rows, partial=partial, unexpected=unexpected)
 
 
-def restore(plan, root, *, free_bytes=lambda path: shutil.disk_usage(path).free):
-    """Download only missing authorized identities; refuse mismatches; idempotent."""
+def _check_manifests(plan, root, when):
+    for manifest in plan['manifests']:
+        if sha256_file(root / manifest['path']) != manifest['sha256']:
+            raise IntegrityError(f"Tracked manifest {manifest['path']} changed {when}")
+
+
+def restore(plan, root, *, free_bytes=lambda path: shutil.disk_usage(path).free, stats=None):
+    """Download only missing authorized identities; refuse mismatches; idempotent.
+
+    ``stats`` (caller-owned) receives attempt/retry/byte/failure counters and keeps
+    them even when acquisition raises.
+    """
     root = Path(root).resolve()
+    stats = acquisition._new_stats({} if stats is None else stats)
+    _check_manifests(plan, root, 'since the plan was loaded')
     before = inventory(plan, root)
     mismatched = [r['path'] for r in before['files'] if r['status'] == 'mismatch']
     if mismatched:
@@ -177,12 +195,9 @@ def restore(plan, root, *, free_bytes=lambda path: shutil.disk_usage(path).free)
     if missing and free < needed:
         raise InsufficientSpace(f'Restoration requires {needed} free bytes (missing data plus margin); {free} available')
     manifests = {m['path']: m for m in plan['manifests']}
-    stats = acquisition._new_stats({})
     for relative in sorted({r['manifest'] for r in missing}, key=list(manifests).index):
         acquisition.acquire_history(manifests[relative]['config_path'], root, stats=stats)
-    for manifest in plan['manifests']:
-        if sha256_file(root / manifest['path']) != manifest['sha256']:
-            raise IntegrityError(f"Tracked manifest {manifest['path']} changed during restoration")
+    _check_manifests(plan, root, 'during restoration')
     after = inventory(plan, root)
     if after['counts']['present_verified'] != after['counts']['required']:
         raise IntegrityError('Restoration finished without verifying every authorized identity')

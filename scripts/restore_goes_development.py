@@ -29,10 +29,18 @@ def main(argv=None):
     root = args.root.resolve()
     began, started = time.perf_counter(), datetime.now(timezone.utc)
     plan = load_plan(args.plan, root)
-    result = restore(plan, root) if args.restore else dict(before=inventory(plan, root), after=None, stats=None)
+    stats, error = {}, None
+    try:
+        result = (restore(plan, root, stats=stats) if args.restore
+                  else dict(before=inventory(plan, root), after=None, stats=None))
+        mode = 'restore' if args.restore else 'inventory'
+    except Exception as failure:  # record counters and the failure, then re-raise after writing
+        error, mode = failure, 'restore_failed'
+        result = dict(before=None, after=inventory(plan, root), stats=stats,
+                      error=f'{type(failure).__name__}: {failure}')
     peak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
     report = dict(kind='solarjepa_goes_development_restoration', schema_version=1,
-                  mode='restore' if args.restore else 'inventory', started_utc=started.isoformat(),
+                  mode=mode, started_utc=started.isoformat(),
                   plan=dict(plan_id=plan['plan_id'], path=plan['path'], sha256=plan['sha256'],
                             interval=[d.isoformat() for d in plan['interval']], manifests=plan['manifests']),
                   required_files=len(plan['files']), required_bytes=plan['required_bytes'],
@@ -46,6 +54,8 @@ def main(argv=None):
     final = result['after'] or result['before']
     print(json.dumps(dict(out=str(out), mode=report['mode'], counts=final['counts'], stats=result['stats']),
                      indent=1))
+    if error is not None:
+        raise error
     return 0 if final['counts']['present_verified'] == final['counts']['required'] else 2
 
 
