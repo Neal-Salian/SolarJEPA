@@ -110,13 +110,16 @@ def loss_panel_from_records(records, *, calendar_start_ns, calendar_end_ns):
         identity = record.identity.as_dict()
         seeds.append(identity.pop('seed'))
         if (identity != recipe or record.support_fingerprint != support
-                or record.prediction.quantile_levels != first.prediction.quantile_levels):
+                or record.prediction.quantile_levels != first.prediction.quantile_levels
+                or record.prediction.model_id != first.prediction.model_id
+                or record.prediction.point_interpretation != first.prediction.point_interpretation):
             raise ValueError('Seed records must align in actual support, quantiles and recipe')
         if not record.targets.mask.all():
             raise ValueError('Primary dex pinball adapter requires complete common target support')
         score = calibration_diagnostics(record.targets, record.prediction, space='log10', intervals=())
         losses.append(score['per_origin_mean_pinball'])
     metric = fingerprint_payload(dict(name='equal_cell_dex_mean_pinball', schema_version=1,
+                                     spec_fingerprint=first.targets.grid.spec.fingerprint,
                                      quantile_levels=list(first.prediction.quantile_levels)))
     return LossPanel(tuple(seeds), first.targets.grid.origin_ids, first.targets.grid.issue_times_ns,
                      np.asarray(losses), support, f'dex_pinball/v1:{metric}', 'dex',

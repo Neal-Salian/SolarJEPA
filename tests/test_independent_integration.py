@@ -60,7 +60,8 @@ def test_reproducible_synthetic_records_to_common_support_comparison():
     json.dumps(result, allow_nan=False)
 
 
-@pytest.mark.parametrize('damage', ['observations', 'mask', 'recipe', 'duplicate_seed', 'point_only', 'quantiles'])
+@pytest.mark.parametrize('damage', ['observations', 'mask', 'recipe', 'duplicate_seed',
+                                  'point_only', 'quantiles', 'model_id', 'point_interpretation'])
 def test_loss_extraction_rejects_invalid_common_support_or_recipe(damage):
     bundle = records()
     second = bundle[1]
@@ -74,8 +75,12 @@ def test_loss_extraction_rejects_invalid_common_support_or_recipe(damage):
         second = replace(second, identity=replace(second.identity, seed=11))
     elif damage == 'point_only':
         second = replace(second, prediction=replace(second.prediction, quantiles=None, quantile_levels=()))
-    else:
+    elif damage == 'quantiles':
         second = replace(second, prediction=replace(second.prediction, quantile_levels=(.2, .5, .8)))
+    elif damage == 'model_id':
+        second = replace(second, prediction=replace(second.prediction, model_id='different-family'))
+    else:
+        second = replace(second, prediction=replace(second.prediction, point_interpretation='inverse_transformed_point'))
     with pytest.raises(ValueError):
         loss_panel_from_records([bundle[0], second], calendar_start_ns=2 * DAY, calendar_end_ns=4 * DAY)
 
@@ -87,3 +92,15 @@ def test_different_quantile_cohorts_cannot_be_paired_by_the_same_metric_name():
     b = loss_panel_from_records(changed, calendar_start_ns=2 * DAY, calendar_end_ns=4 * DAY)
     with pytest.raises(ValueError, match='align'):
         paired_comparison({'f': a}, {'f': b}, block_days=1, replicates=2, rng_seed=0, confidence=.95)
+
+
+def test_metric_definition_binds_the_experimental_spec_across_folds():
+    original = records()
+    changed = []
+    for record in original:
+        grid = replace(record.targets.grid, spec=replace(record.targets.grid.spec, target_reference=(2.,)))
+        changed.append(replace(record, targets=replace(record.targets, grid=grid),
+                               prediction=replace(record.prediction, grid=grid)))
+    a = loss_panel_from_records(original, calendar_start_ns=2 * DAY, calendar_end_ns=4 * DAY)
+    b = loss_panel_from_records(changed, calendar_start_ns=2 * DAY, calendar_end_ns=4 * DAY)
+    assert a.metric != b.metric
