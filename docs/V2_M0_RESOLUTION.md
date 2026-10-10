@@ -127,9 +127,10 @@ Explicit temporal gaps prevent support overlap but do not prove active-region
 independence. Same timestamps, target masks, units, quantiles and metric version
 must be used by all paired models; model failure preserves an unavailable result.
 
-The earlier proposal specifies 20 paired primary seeds (17, 29, 43, 59, 71, 89,
-101, 113, 127, 139, 151, 163, 179, 191, 211, 223, 239, 251, 269, 281), first five
-for diagnostic neural arms, fixed bounded grids, no adaptive test-driven search,
+The earlier proposal §6 specifies 20 fresh paired primary seeds generated from
+SHA-256 labels, explicitly excluding V1 seeds 17/29/43; use its exact recorded
+list, with the first five for diagnostic neural arms. It proposes fixed bounded
+grids, no adaptive test-driven search,
 8 SSL/warmup and 15 downstream epochs, no early stopping for primary controlled
 arms, validation-only fixed-epoch checkpoint selection, and deterministic
 20,000-window training caps. These remain PROPOSED. Exact learning-rate/optimizer
