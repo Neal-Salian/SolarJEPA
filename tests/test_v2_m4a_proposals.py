@@ -118,12 +118,37 @@ def test_pilot_never_releases_test_data_and_has_bounded_resources():
     assert all(0 < v <= 3600 for v in ceilings['per_job_timeout_seconds'].values())
 
 
-def test_benchmark_projection_counts_warmup_once_and_uses_per_lambda_times():
+def benchmark():
     import importlib.util
     path = Path(__file__).resolve().parents[1] / 'scripts' / 'benchmark_v2_feasibility.py'
     spec = importlib.util.spec_from_file_location('benchmark_v2_feasibility', path)
     bench = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(bench)
+    return bench
+
+
+def test_benchmark_schedule_is_read_from_the_proposal():
+    s = load('training_protocol_proposal.json')['settings']
+    assert benchmark().PROPOSED == dict(
+        ssl_epochs=s['ssl_epochs']['value'], warmup_epochs=s['supervised_warmup_epochs']['value'],
+        downstream_epochs=s['downstream_epochs']['value'], linear_epochs=s['quantile_linear']['value']['epochs'],
+        linear_lambdas=len(s['quantile_linear']['value']['lambdas']))
+
+
+def test_benchmark_ssl_job_output_feeds_the_ssl_projection(tmp_path):
+    # Review F1: the real ssl job output (not a hand-built dict) must yield an ssl_phase projection.
+    import argparse
+    bench = benchmark()
+    args = argparse.Namespace(train_days=2, validation_days=1, max_train_windows=64, threads=1, ssl_epochs=1,
+                              downstream_epochs=1, linear_epochs=1)
+    result = bench.run_job('ssl', args, tmp_path)
+    assert [e['phase'] for e in result['epochs']] == ['pretrain'] and result['artifact_bytes'] > 0
+    seconds = bench.project(dict(ssl=result))['seconds']
+    assert seconds['ssl_phase'] == pytest.approx(result['epochs'][0]['wall_seconds'] * bench.PROPOSED['ssl_epochs'])
+
+
+def test_benchmark_projection_counts_warmup_once_and_uses_per_lambda_times():
+    bench = benchmark()
     epochs = lambda phase, *values: [dict(phase=phase, epoch=i + 1, wall_seconds=v) for i, v in enumerate(values)]
     results = dict(
         ssl=dict(data_seconds=5., epochs=epochs('pretrain', 3.)),
@@ -137,4 +162,5 @@ def test_benchmark_projection_counts_warmup_once_and_uses_per_lambda_times():
     assert seconds['supervised_job_excluding_ssl'] == 5. + 4. + 14 * 2.
     assert seconds['supervised_extra_updates_job_excluding_ssl'] == 5. + 4. + 14 * 2. + 3. * 8
     assert seconds['quantile_linear_per_lambda'] == pytest.approx(0.1 * 50)
-    assert seconds['quantile_linear_5_lambdas'] == pytest.approx(5. + 0.4 + 5 * 5.)
+    lambdas = bench.PROPOSED['linear_lambdas']
+    assert seconds['quantile_linear_proposed_lambdas'] == pytest.approx(5. + 0.4 + lambdas * 5.)

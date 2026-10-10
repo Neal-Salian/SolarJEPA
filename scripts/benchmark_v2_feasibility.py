@@ -13,6 +13,7 @@ Usage::
     python scripts/benchmark_v2_feasibility.py --out results/v2_m4a/benchmark.json
 """
 import argparse
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -32,7 +33,18 @@ LEVELS = (0.05, 0.25, 0.5, 0.75, 0.95)
 # First proposed V2.1 paired seed (docs/V2_EXPERIMENTAL_PROTOCOL.md on research/v2-independent-validation).
 SEED = 1261866429
 # Proposed V2.1 schedule used only for extrapolation (PROPOSED - REQUIRES APPROVAL).
-PROPOSED = dict(ssl_epochs=8, warmup_epochs=8, downstream_epochs=15, linear_epochs=100, linear_lambdas=5)
+PROPOSAL = Path(__file__).resolve().parents[1] / 'configs' / 'v2_proposed' / 'training_protocol_proposal.json'
+
+
+def _proposed_schedule():
+    settings = json.loads(PROPOSAL.read_text())['settings']
+    linear = settings['quantile_linear']['value']
+    return dict(ssl_epochs=settings['ssl_epochs']['value'], warmup_epochs=settings['supervised_warmup_epochs']['value'],
+                downstream_epochs=settings['downstream_epochs']['value'], linear_epochs=linear['epochs'],
+                linear_lambdas=len(linear['lambdas']))
+
+
+PROPOSED = _proposed_schedule()
 JOBS = ('ssl', 'jepa_finetune', 'jepa_frozen', 'supervised', 'supervised_extra_updates', 'random_frozen',
         'tcn', 'quantile_linear', 'microbench')
 
@@ -136,6 +148,8 @@ def run_job(job, args, workdir):
                                 seconds_per_step_incl_overhead=budget['wall_seconds'] / budget['optimizer_steps'])],
                    train_windows=artifact.record['identity']['train_windows'],
                    artifact_bytes=ssl_path.stat().st_size)
+        out['epochs'] = [dict(phase='pretrain', epoch=h['epoch'], wall_seconds=h['wall_seconds'], steps=h.get('steps'))
+                         for h in artifact.record['history']]
     elif job in controlled.ARMS:
         config = controlled.ControlledConfig(_jepa_config(args), _schedule(job, args))
         reuse = controlled.PretrainingArtifact.load(ssl_path) if job in controlled.SSL_ARMS else None
@@ -254,7 +268,7 @@ def environment():
     import torch
     info = dict(python=sys.version.split()[0], platform=platform.platform(), machine=platform.machine(),
                 processor=platform.processor(), cpu_count=os.cpu_count(), torch=torch.__version__,
-                numpy=np.__version__, device='cpu', precision='float32',
+                numpy=np.__version__, precision='float32',
                 mps_available=bool(torch.backends.mps.is_available()),
                 cuda_available=bool(torch.cuda.is_available()))
     if sys.platform == 'darwin':
@@ -266,6 +280,20 @@ def environment():
             except (OSError, subprocess.CalledProcessError):
                 info[key] = None
     return info
+
+
+def code_identity():
+    """Commit, dirty state and harness hash so a report names the code that produced it."""
+    root = Path(__file__).resolve().parents[1]
+    def git(*command):
+        try:
+            return subprocess.run(['git', *command], cwd=root, capture_output=True, text=True,
+                                  check=True).stdout.strip()
+        except (OSError, subprocess.CalledProcessError):
+            return None
+    return dict(git_head=git('rev-parse', 'HEAD'), git_dirty=bool(git('status', '--porcelain', '--', 'src', 'scripts')),
+                script_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+                proposal_sha256=hashlib.sha256(PROPOSAL.read_bytes()).hexdigest())
 
 
 def project(results):
@@ -300,7 +328,7 @@ def project(results):
         per_lambda = [c['wall_seconds'] for c in linear['lambda_candidates']]
         steady = per_lambda[-1] * PROPOSED['linear_epochs'] / linear['epochs_per_lambda']
         projection['seconds']['quantile_linear_per_lambda'] = steady
-        projection['seconds']['quantile_linear_5_lambdas'] = (
+        projection['seconds']['quantile_linear_proposed_lambdas'] = (
             linear['data_seconds'] + per_lambda[0] - per_lambda[-1] + PROPOSED['linear_lambdas'] * steady)
     return projection
 
@@ -362,12 +390,13 @@ def main(argv=None):
                 continue
             results[job] = json.loads(completed.stdout.strip().splitlines()[-1])
     report = dict(kind='solarjepa_v2_m4a_compute_benchmark', schema_version=1,
-                  status='SYNTHETIC_DEVELOPMENT_BENCHMARK', environment=environment(),
+                  status='SYNTHETIC_DEVELOPMENT_BENCHMARK', environment=environment(), code=code_identity(),
                   settings=dict(train_days=args.train_days, validation_days=args.validation_days,
                                 cadence_seconds=MINUTE, context_steps=120, horizon_steps=30, stride_steps=30,
                                 threads=args.threads, batch_size=256, max_train_windows=args.max_train_windows,
                                 ssl_epochs=args.ssl_epochs, downstream_epochs=args.downstream_epochs,
-                                linear_epochs=args.linear_epochs, seed=SEED, precision='float32', device='cpu',
+                                linear_epochs=args.linear_epochs, seed=SEED, precision='float32',
+                                job_device='cpu', microbench_devices=list(args.micro_devices),
                                 train_loss='dex_pinball_equal_channel_v2',
                                 diagnostic_metric='normalized_pinball_v1',
                                 rss_scope='per-job subprocess ru_maxrss (process high-water mark)'),
