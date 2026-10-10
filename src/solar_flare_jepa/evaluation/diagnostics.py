@@ -48,7 +48,7 @@ def calibration_diagnostics(targets, prediction, *, space, intervals=None):
             raise ValueError('Each central interval requires two quantiles')
         low, high = pair
         if (type(low) not in (int, float) or type(high) not in (int, float)
-                or not 0 < low < .5 < high < 1 or not np.isclose(low + high, 1., rtol=0, atol=1e-12)):
+                or not 0 < low < .5 < high < 1 or not np.isclose(low, 1 - high, rtol=1e-12, atol=0)):
             raise ValueError('Central intervals require symmetric ordered quantiles')
         if low not in levels or high not in levels:
             raise ValueError('Requested interval quantile is unavailable')
@@ -56,6 +56,7 @@ def calibration_diagnostics(targets, prediction, *, space, intervals=None):
             raise ValueError('Duplicate central interval')
         pairs.append((low, high))
     mask = targets.mask
+    mixed_units = space == 'native' and len(set(targets.grid.spec.target_units)) > 1
     observed = np.where(mask, targets.values, 1.)
     quantiles = np.where(mask[..., None], prediction.quantiles, 1.)
     if space == 'log10':
@@ -83,18 +84,22 @@ def calibration_diagnostics(targets, prediction, *, space, intervals=None):
                           quantile_reliability=_mean(reliability, np.broadcast_to(mask[..., None], pinball.shape), axis=0),
                           pinball_by_quantile=_mean(pinball, np.broadcast_to(mask[..., None], pinball.shape), axis=0),
                           mean_pinball=_mean(cell_pinball, mask, axis=0),
-                          aggregate_mean_pinball=_mean(cell_pinball, mask), intervals=[])
+                          per_origin_mean_pinball=[None] * len(mask) if mixed_units
+                          else _mean(cell_pinball, mask, axis=(1, 2)),
+                          aggregate_mean_pinball=None if mixed_units else _mean(cell_pinball, mask),
+                          aggregate_reason='mixed_target_units' if mixed_units else None, intervals=[])
             for low, high in pairs:
                 lo, hi = quantiles[..., levels.index(low)], quantiles[..., levels.index(high)]
-                alpha = 1 - (high - low)
+                alpha = 2 * low
                 width = hi - lo
                 score = width + (2 / alpha) * np.maximum(lo - observed, 0.) + (2 / alpha) * np.maximum(observed - hi, 0.)
                 inside = ((observed >= lo) & (observed <= hi)).astype(float)
                 result['intervals'].append(dict(low=low, high=high, nominal_coverage=high - low,
                     coverage=_mean(inside, mask, axis=0), width=_mean(width, mask, axis=0),
                     interval_score=_mean(score, mask, axis=0),
-                    aggregate_coverage=_mean(inside, mask), aggregate_width=_mean(width, mask),
-                    aggregate_interval_score=_mean(score, mask)))
+                    aggregate_coverage=_mean(inside, mask),
+                    aggregate_width=None if mixed_units else _mean(width, mask),
+                    aggregate_interval_score=None if mixed_units else _mean(score, mask)))
     except FloatingPointError as error:
         raise ValueError('Nonfinite diagnostic arithmetic') from error
     return result

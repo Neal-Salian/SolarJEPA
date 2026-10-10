@@ -44,13 +44,16 @@ def test_paired_effect_and_seed_uncertainty_are_not_origin_iid():
 def test_seed_draw_is_shared_across_fixed_folds_and_folds_are_equally_weighted():
     a1 = panel(((10.,) * 4, (0.,) * 4))
     b1 = panel(((0.,) * 4, (10.,) * 4))
-    a2 = panel(((0.,) * 4, (10.,) * 4))
-    b2 = panel(((10.,) * 4, (0.,) * 4))
+    later = dict(calendar_start_ns=4 * DAY, calendar_end_ns=8 * DAY,
+                 issue_times_ns=np.arange(4, 8, dtype=np.int64) * DAY + HOUR)
+    a2 = panel(((0.,) * 4, (10.,) * 4), **later)
+    b2 = panel(((10.,) * 4, (0.,) * 4), **later)
     result = compare({'first': a1, 'second': a2}, {'second': b2, 'first': b1})
     assert result['mean_difference'] == 0.
     assert result['difference_interval'] == [0., 0.]
     short_a = panel(((4.,), (4.,)), origin_ids=('a',),
-                    issue_times_ns=np.array([HOUR], np.int64))
+                    issue_times_ns=np.array([4 * DAY + HOUR], np.int64),
+                    calendar_start_ns=4 * DAY, calendar_end_ns=8 * DAY)
     short_b = replace(short_a, losses=np.zeros((2, 1)))
     result = compare({'long': a1, 'short': short_a}, {'long': b1, 'short': short_b})
     assert result['mean_difference'] == 2.  # equal folds, not 4/5 origin weight
@@ -145,3 +148,28 @@ def test_calendar_indices_do_not_wrap_across_int64_span():
     result = compare({'f': a}, {'f': a}, block_days=100_000, replicates=2)
     assert result['mean_difference'] == 0
     assert result['folds']['f']['observed_days'] == 4
+
+
+def test_overlapping_fold_calendars_cannot_be_resampled_as_independent_paths():
+    with pytest.raises(ValueError, match='overlap'):
+        compare({'f': panel(), 'duplicated_path': panel()},
+                {'f': panel(), 'duplicated_path': panel()})
+
+
+def test_nonconstant_seeds_share_the_same_calendar_block_draw(monkeypatch):
+    class LiteralDraws:
+        def __init__(self):
+            self.draws = iter(([0, 1], [0, 0], [0, 1], [2, 2]))
+
+        def integers(self, low, high, size):
+            result = np.array(next(self.draws))
+            assert result.shape == (size,)
+            return result
+
+    # With seed cohort [0,1], each common-day pair averages exactly 15.
+    # Independent day vectors for the two opposing seed paths would not.
+    monkeypatch.setattr(np.random, 'default_rng', lambda seed: LiteralDraws())
+    a = panel(((0., 10., 20., 30.), (30., 20., 10., 0.)))
+    b = replace(a, losses=np.ones((2, 4)))
+    result = compare({'f': a}, {'f': b}, replicates=2)
+    assert result['difference_interval'] == [14., 14.]

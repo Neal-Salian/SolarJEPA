@@ -81,6 +81,48 @@ class LossPanel:
         object.__setattr__(self, 'losses', _immutable(losses, np.float64))
 
 
+def loss_panel_from_records(records, *, calendar_start_ns, calendar_end_ns):
+    """Bind complete-support equal-cell dex pinball to canonical seed records.
+
+    Records in one panel must share model/experiment/recipe/provenance and actual
+    targets, grid, masks and quantile levels. Between panels, model identities
+    may differ, but quantile levels are included in metric identity so pairs
+    cannot compare different prediction targets. Point-only and partial-mask
+    records require a separately defined metric; this adapter never fills them.
+    """
+    from .diagnostics import calibration_diagnostics
+    from .records import EvaluationRecord
+    from ..forecasting.contracts import fingerprint_payload
+
+    if not isinstance(records, (tuple, list)) or not records:
+        raise ValueError('An ordered nonempty cohort of EvaluationRecords is required')
+    snapshots = []
+    for record in records:
+        if not isinstance(record, EvaluationRecord):
+            raise ValueError('Expected EvaluationRecord')
+        snapshots.append(EvaluationRecord(**_canonical_fields(record, EvaluationRecord)))
+    first = snapshots[0]
+    recipe = first.identity.as_dict()
+    recipe.pop('seed')
+    support = first.support_fingerprint
+    losses, seeds = [], []
+    for record in snapshots:
+        identity = record.identity.as_dict()
+        seeds.append(identity.pop('seed'))
+        if (identity != recipe or record.support_fingerprint != support
+                or record.prediction.quantile_levels != first.prediction.quantile_levels):
+            raise ValueError('Seed records must align in actual support, quantiles and recipe')
+        if not record.targets.mask.all():
+            raise ValueError('Primary dex pinball adapter requires complete common target support')
+        score = calibration_diagnostics(record.targets, record.prediction, space='log10', intervals=())
+        losses.append(score['per_origin_mean_pinball'])
+    metric = fingerprint_payload(dict(name='equal_cell_dex_mean_pinball', schema_version=1,
+                                     quantile_levels=list(first.prediction.quantile_levels)))
+    return LossPanel(tuple(seeds), first.targets.grid.origin_ids, first.targets.grid.issue_times_ns,
+                     np.asarray(losses), support, f'dex_pinball/v1:{metric}', 'dex',
+                     calendar_start_ns, calendar_end_ns)
+
+
 def _panels(value):
     if not isinstance(value, Mapping) or not value:
         raise ValueError('Named fixed folds are required')
@@ -126,6 +168,9 @@ def _compare(folds_a, folds_b, *, block_days, replicates, rng_seed, confidence):
     if set(a) != set(b):
         raise ValueError('Paired fold identities must align')
     names = sorted(a)
+    calendars = sorted((p.calendar_start_ns, p.calendar_end_ns) for p in a.values())
+    if any(left[1] > right[0] for left, right in zip(calendars, calendars[1:])):
+        raise ValueError('Fixed fold calendars must not overlap: separate day draws require distinct paths')
     first = a[names[0]]
     seeds = first.seed_ids
     if len(seeds) < 2:

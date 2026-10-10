@@ -34,6 +34,7 @@ def test_literal_quantile_reliability_interval_score_and_counts():
     assert interval['width'] == [[4.], [4.]]
     assert interval['interval_score'] == [[4.], [8.]]
     assert result['aggregate_mean_pinball'] == pytest.approx(5/6)
+    assert result['per_origin_mean_pinball'] == pytest.approx([5/6])
     assert interval['aggregate_coverage'] == .5
     assert interval['aggregate_interval_score'] == 6.
     json.dumps(result, allow_nan=False)
@@ -110,3 +111,31 @@ def test_log_diagnostics_require_explicit_dimensioned_references():
     target, prediction = replace(target, grid=grid), replace(prediction, grid=grid)
     with pytest.raises(ValueError, match='reference'):
         calibration_diagnostics(target, prediction, space='log10')
+
+
+def test_incompatible_native_units_have_no_pooled_loss_width_or_interval_score():
+    from solar_flare_jepa.forecasting.contracts import ForecastSpec, FutureGrid
+    task = ForecastSpec(1, 1, 1, ('x', 'temperature'), ('x', 'temperature'),
+                        ('W/m2', 'K'), ('W/m2', 'K'),
+                        availability_mode='retrospective_bin_end')
+    grid = FutureGrid(np.array([[1_000_000_000]], np.int64),
+                      np.array([[2_000_000_000]], np.int64),
+                      np.array([1_000_000_000], np.int64), ('o',), task, 'toy')
+    target = ForecastTargets(np.array([[[1., 100.]]]), np.ones((1, 1, 2), bool), grid)
+    prediction = ForecastPrediction(target.values, grid, 'toy', (.25, .5, .75),
+                                    np.array([[[[0., 1., 2.], [0., 100., 200.]]]]))
+    result = calibration_diagnostics(target, prediction, space='native')
+    assert result['aggregate_mean_pinball'] is None
+    assert result['aggregate_reason'] == 'mixed_target_units'
+    assert result['per_origin_mean_pinball'] == [None]
+    assert result['intervals'][0]['aggregate_width'] is None
+    assert result['intervals'][0]['aggregate_interval_score'] is None
+    assert result['intervals'][0]['aggregate_coverage'] == 1.
+
+
+def test_numerically_extreme_asymmetric_tails_are_not_called_central():
+    target, prediction = example()
+    prediction = replace(prediction, quantile_levels=(1e-20, .5, float(np.nextafter(1., 0.))))
+    with pytest.raises(ValueError, match='symmetric'):
+        calibration_diagnostics(target, prediction, space='native',
+                                intervals=((1e-20, float(np.nextafter(1., 0.))),))
