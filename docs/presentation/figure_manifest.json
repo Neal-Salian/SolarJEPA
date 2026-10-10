@@ -1,0 +1,541 @@
+{
+  "analysis_sources": [
+    {
+      "path": "configs/experiments/v1_goes_2024.json",
+      "sha256": "230a3037910d995e8113ae90e69dc8e71c0ad8e26e89ecc4628c4dd8c31daccb"
+    },
+    {
+      "path": "configs/experiments/v1_models.json",
+      "sha256": "a7b9cb5606c108fc65fc542d4ee1a9544c604555c59e24810a565622d7854508"
+    },
+    {
+      "path": "requirements-v1-lock.txt",
+      "sha256": "ac690d1683f4cee2b767bce4d94a9a756f333e2cd70de7ea88689b0adb977635"
+    },
+    {
+      "path": "requirements-presentation.txt",
+      "sha256": "6eff2b75a9c3c3b04e935ce673991edf98756ce77ba721b520566968e551f826"
+    },
+    {
+      "path": "scripts/build_presentation.py",
+      "sha256": "7a190d8ab6812230a8a38e8a2a1d7d6fcdb34c4ba3aed5267336961ec80fbaf4"
+    },
+    {
+      "path": "scripts/verify_presentation.py",
+      "sha256": "4d38429d26bb78d12b3f5637d6e2914fb446adc5795bcf156d2a16c464963d36"
+    },
+    {
+      "path": "notebooks/presentation_goes_eda.ipynb",
+      "sha256": "cb9e466900b34dba13246a8b55c41ddc60a9556960c6c58634c957928a53a8e9"
+    },
+    {
+      "path": "src/solar_flare_jepa/training/jepa.py",
+      "sha256": "ef7cd2222317367fcf2dc05b1ca474c1560f35c8941efcb0ed92c6d6aa69a8bc"
+    },
+    {
+      "path": "src/solar_flare_jepa/data/goes.py",
+      "sha256": "a8ad4f8fd4626cf0cfa0fefee226a05281d3d6b927e4ed6dffff93009b018d26"
+    },
+    {
+      "path": "src/solar_flare_jepa/data/foundation.py",
+      "sha256": "a9df01720d285204b0d49f1f0279a599f6de690395ee023121d3f5a021a50c4d"
+    },
+    {
+      "path": "src/solar_flare_jepa/data/eda.py",
+      "sha256": "40cc0539b66ffcc362fd21524b64f34e0746daf4c1fed6b08d3c0e8614ded9ef"
+    },
+    {
+      "path": "src/solar_flare_jepa/data/goes_acquisition.py",
+      "sha256": "40d47db938d7b55bead2a2d44096e4dccab4e210045184e831fc077ba4a281ec"
+    },
+    {
+      "path": "src/solar_flare_jepa/evaluation/probabilistic.py",
+      "sha256": "ee83c3561d4c442a957e0afeb5a88465efa878aaa25bc8e2ab23a7b95bb3f2ae"
+    },
+    {
+      "path": "src/solar_flare_jepa/presentation/__init__.py",
+      "sha256": "247e41ad2db2c662054a1d83ff3136711c12d20f968143974da58a388bedaae0"
+    },
+    {
+      "path": "src/solar_flare_jepa/presentation/eda.py",
+      "sha256": "395a27c9f7cad02f82301ea26b7b8375cc3bf4b5af728aa1d114edcdfc850b22"
+    },
+    {
+      "path": "src/solar_flare_jepa/presentation/comparison.py",
+      "sha256": "6e3a18fea1018cc8d60b305c7ecc7353784fc384ebbbf4b41794ca2471a1fdc1"
+    },
+    {
+      "path": "src/solar_flare_jepa/presentation/figures.py",
+      "sha256": "b61f901a7086fffca90f291567f224f52ce688b16d93914114eda95104087ddd"
+    },
+    {
+      "path": "src/solar_flare_jepa/presentation/pipeline.py",
+      "sha256": "e7da5f91a404400a4328769f79449101bbccaef4ce98fc601a5d640703098e0e"
+    }
+  ],
+  "base_commit": "644648f7d555fcbcb3eed4495d37fecffdd1863a",
+  "generated": [
+    {
+      "caption": "Native electron-corrected primary irradiance before repository QC, on a linear scale. Red marks finite rejected values; nonfinite values are gaps. These are not raw detector counts.",
+      "files": [
+        "docs/figures/presentation/eda_raw_flux.png",
+        "docs/figures/presentation/eda_raw_flux.svg"
+      ],
+      "identities": [
+        {
+          "bytes": 182927,
+          "path": "docs/figures/presentation/eda_raw_flux.png",
+          "sha256": "75e3ee11be167c043587522d74f04eb185c86d36ff07aaca75b81ff743bf1b99"
+        },
+        {
+          "bytes": 105350,
+          "path": "docs/figures/presentation/eda_raw_flux.svg",
+          "sha256": "97a4e3a2c5271c7d52fa51f462887ed5ad046ae3e882ed0f2f7c98b51f215423"
+        }
+      ],
+      "source": [
+        "data/manifests/goes_v1_202405.json",
+        "data/manifests/goes_v1_202406.json",
+        "data/manifests/goes_p2_july2024.json",
+        "data/manifests/goes_v1_202408.json"
+      ],
+      "stem": "eda_raw_flux"
+    },
+    {
+      "caption": "Base-10 log of QC-valid irradiance relative to 1 W m\u207b\u00b2. Every one-minute observation is supplied to the plot; rejected data remain gaps, without interpolation.",
+      "files": [
+        "docs/figures/presentation/eda_log_flux.png",
+        "docs/figures/presentation/eda_log_flux.svg"
+      ],
+      "identities": [
+        {
+          "bytes": 421632,
+          "path": "docs/figures/presentation/eda_log_flux.png",
+          "sha256": "79c933b7ea7ae6ae0818709b26e9b3bc3149c450d40fc0db33ff2aa43a4a13d6"
+        },
+        {
+          "bytes": 332496,
+          "path": "docs/figures/presentation/eda_log_flux.svg",
+          "sha256": "046652ab0cc3f4cde016be8ebd58d397fb9d4a1c604566218d24dab61d6220a7"
+        }
+      ],
+      "source": [
+        "data/manifests/goes_v1_202405.json",
+        "data/manifests/goes_v1_202406.json",
+        "data/manifests/goes_p2_july2024.json",
+        "data/manifests/goes_v1_202408.json"
+      ],
+      "stem": "eda_log_flux"
+    },
+    {
+      "caption": "Each panel counts valid minute bins, not independent events. Native-unit and log-space histograms have equal-width bins in their respective spaces.",
+      "files": [
+        "docs/figures/presentation/eda_distribution.png",
+        "docs/figures/presentation/eda_distribution.svg"
+      ],
+      "identities": [
+        {
+          "bytes": 130889,
+          "path": "docs/figures/presentation/eda_distribution.png",
+          "sha256": "f8569e74b1039e1af9c8f8bca9b787ac25287d89ccb3824061c50a31dd4fb732"
+        },
+        {
+          "bytes": 39589,
+          "path": "docs/figures/presentation/eda_distribution.svg",
+          "sha256": "6d86e1043462d00410ff636424283404fe15bc002be08787a10e01f963b0bb03"
+        }
+      ],
+      "source": [
+        "data/manifests/goes_v1_202405.json",
+        "data/manifests/goes_v1_202406.json",
+        "data/manifests/goes_p2_july2024.json",
+        "data/manifests/goes_v1_202408.json"
+      ],
+      "stem": "eda_distribution"
+    },
+    {
+      "caption": "Trailing six-hour log-flux mean and sample variance (ddof=1). A missing/rejected minute invalidates that full rolling window. Changing variance alone does not decide unit-root stationarity.",
+      "files": [
+        "docs/figures/presentation/eda_rolling_statistics.png",
+        "docs/figures/presentation/eda_rolling_statistics.svg"
+      ],
+      "identities": [
+        {
+          "bytes": 574118,
+          "path": "docs/figures/presentation/eda_rolling_statistics.png",
+          "sha256": "48c465ecc8535fccfc6021f123cecf75049915e07b761397a65d0a648d9d404d"
+        },
+        {
+          "bytes": 381804,
+          "path": "docs/figures/presentation/eda_rolling_statistics.svg",
+          "sha256": "14f610f15163c2bdf3513607847827e7f90729da0ffe7dffa90ae70f3f1d419d"
+        }
+      ],
+      "source": [
+        "data/manifests/goes_v1_202405.json",
+        "data/manifests/goes_v1_202406.json",
+        "data/manifests/goes_p2_july2024.json",
+        "data/manifests/goes_v1_202408.json"
+      ],
+      "stem": "eda_rolling_statistics"
+    },
+    {
+      "caption": "ACF on the longest jointly valid training run (10,149 minute bins). Log levels and differences use the same segment. ACF uses FFT with biased covariance normalization. No iid significance bands are asserted; neither plot is a stationarity proof.",
+      "files": [
+        "docs/figures/presentation/eda_acf.png",
+        "docs/figures/presentation/eda_acf.svg"
+      ],
+      "identities": [
+        {
+          "bytes": 149653,
+          "path": "docs/figures/presentation/eda_acf.png",
+          "sha256": "378fcc9b94d4203a80e269cd6e2e8985eda26fe5098198269dcbb04965c4d29b"
+        },
+        {
+          "bytes": 101458,
+          "path": "docs/figures/presentation/eda_acf.svg",
+          "sha256": "8c73b2cd375eb955899024df63c4610371dedc1cfbede0a56adf046b42ce6c08"
+        }
+      ],
+      "source": [
+        "data/manifests/goes_v1_202405.json",
+        "data/manifests/goes_v1_202406.json",
+        "data/manifests/goes_p2_july2024.json",
+        "data/manifests/goes_v1_202408.json"
+      ],
+      "stem": "eda_acf"
+    },
+    {
+      "caption": "PACF on the longest jointly valid training run (10,149 minute bins). Log levels and differences use the same segment. PACF uses Yule\u2013Walker MLE (ywm). No iid significance bands are asserted; neither plot is a stationarity proof.",
+      "files": [
+        "docs/figures/presentation/eda_pacf.png",
+        "docs/figures/presentation/eda_pacf.svg"
+      ],
+      "identities": [
+        {
+          "bytes": 149122,
+          "path": "docs/figures/presentation/eda_pacf.png",
+          "sha256": "80532e7ce3f525462f14dc987e271c421c42be2e1171b24d76950647182d867d"
+        },
+        {
+          "bytes": 65536,
+          "path": "docs/figures/presentation/eda_pacf.svg",
+          "sha256": "122906edcbce6ec527714b2d89a8d5949aa5dd8cb0f579523706cf64d4081030"
+        }
+      ],
+      "source": [
+        "data/manifests/goes_v1_202405.json",
+        "data/manifests/goes_v1_202406.json",
+        "data/manifests/goes_p2_july2024.json",
+        "data/manifests/goes_v1_202408.json"
+      ],
+      "stem": "eda_pacf"
+    },
+    {
+      "caption": "Daily median and 25\u201375% spread of available QC-valid log measurements. Days can have different valid counts; see data-quality figure. IQR is within-day variability, not uncertainty of the median and not evidence of daily seasonality.",
+      "files": [
+        "docs/figures/presentation/eda_daily_variability.png",
+        "docs/figures/presentation/eda_daily_variability.svg"
+      ],
+      "identities": [
+        {
+          "bytes": 500970,
+          "path": "docs/figures/presentation/eda_daily_variability.png",
+          "sha256": "c7681e0c6d5cec1d4d02e8de8e5137edcc36b890eb2b23694e4b46153056819a"
+        },
+        {
+          "bytes": 36178,
+          "path": "docs/figures/presentation/eda_daily_variability.svg",
+          "sha256": "69a26f19241a68d14b6104b7e1f810153d1d20b9b74e72bebc85586d4c28f018"
+        }
+      ],
+      "source": [
+        "data/manifests/goes_v1_202405.json",
+        "data/manifests/goes_v1_202406.json",
+        "data/manifests/goes_p2_july2024.json",
+        "data/manifests/goes_v1_202408.json"
+      ],
+      "stem": "eda_daily_variability"
+    },
+    {
+      "caption": "There are zero absent/duplicate timestamps; nonfinite native flux is a subset of all rejected bins, so bars are not additive. QC also tests status, channel-specific electron bits, valid range and averaged-measurement count.",
+      "files": [
+        "docs/figures/presentation/eda_data_quality.png",
+        "docs/figures/presentation/eda_data_quality.svg"
+      ],
+      "identities": [
+        {
+          "bytes": 158740,
+          "path": "docs/figures/presentation/eda_data_quality.png",
+          "sha256": "e80effbed8632b123387046aeb24743c66e303eb591c4db8fb059ff2cd51e0c0"
+        },
+        {
+          "bytes": 25857,
+          "path": "docs/figures/presentation/eda_data_quality.svg",
+          "sha256": "86ef4abaaf86a9ea39bb0e23065a7451de4b5913b49b5a7420294ccf3bf662d1"
+        }
+      ],
+      "source": [
+        "data/manifests/goes_v1_202405.json",
+        "data/manifests/goes_v1_202406.json",
+        "data/manifests/goes_p2_july2024.json",
+        "data/manifests/goes_v1_202408.json"
+      ],
+      "stem": "eda_data_quality"
+    },
+    {
+      "caption": "Mean five-quantile pinball loss (dex); 1,436 origins \u00d7 30 leads \u00d7 two channels. Neural bars average the three fitted-seed scores. Axes start at zero; no confidence interval over seed populations is implied. See comparator optimizer qualifications.",
+      "files": [
+        "docs/figures/presentation/comparison_pinball.png",
+        "docs/figures/presentation/comparison_pinball.svg"
+      ],
+      "identities": [
+        {
+          "bytes": 185562,
+          "path": "docs/figures/presentation/comparison_pinball.png",
+          "sha256": "4f4583bec30ab50584b1503dfe946e1025bd1216dbbbb065b06790103a4732dc"
+        },
+        {
+          "bytes": 15725,
+          "path": "docs/figures/presentation/comparison_pinball.svg",
+          "sha256": "abe37f9dea3d182dfc8de53983d4ef59c04e4cc53c50df91a58c641689f7c3f0"
+        }
+      ],
+      "source": [
+        "results/experiments/v1-full-20261009/summary.json",
+        "results/experiments/v1-full-20261009/per_origin.json",
+        "results/experiments/v1-full-20261009/test_predictions.npz"
+      ],
+      "stem": "comparison_pinball"
+    },
+    {
+      "caption": "MAE of log median forecast (dex); 1,436 origins \u00d7 30 leads \u00d7 two channels. Neural bars average the three fitted-seed scores. Axes start at zero; no confidence interval over seed populations is implied. See comparator optimizer qualifications.",
+      "files": [
+        "docs/figures/presentation/comparison_log_mae.png",
+        "docs/figures/presentation/comparison_log_mae.svg"
+      ],
+      "identities": [
+        {
+          "bytes": 192238,
+          "path": "docs/figures/presentation/comparison_log_mae.png",
+          "sha256": "2b0a37be7b2140437d2054585afc140d6eae23dfa2bcb2597a9e0259aef91ac5"
+        },
+        {
+          "bytes": 16357,
+          "path": "docs/figures/presentation/comparison_log_mae.svg",
+          "sha256": "ab6fed5bbaf3e68001aac9b31069b36833316dd943ed88d6a2e0329e48078293"
+        }
+      ],
+      "source": [
+        "results/experiments/v1-full-20261009/summary.json",
+        "results/experiments/v1-full-20261009/per_origin.json",
+        "results/experiments/v1-full-20261009/test_predictions.npz"
+      ],
+      "stem": "comparison_log_mae"
+    },
+    {
+      "caption": "Equal-channel per-lead losses; neural curves average three fitted-seed losses. Fine-tuned JEPA has higher pinball than GJR at leads 1\u20135 despite lower aggregate loss. Lead 1 predicts the minute bin starting at issue time and ending one minute later.",
+      "files": [
+        "docs/figures/presentation/comparison_lead_errors.png",
+        "docs/figures/presentation/comparison_lead_errors.svg"
+      ],
+      "identities": [
+        {
+          "bytes": 253361,
+          "path": "docs/figures/presentation/comparison_lead_errors.png",
+          "sha256": "f9fa5e8a7f0acb3f41d73288bbb060ba87b8c878a9d5bdd2d12b7d2cb22c1e76"
+        },
+        {
+          "bytes": 32321,
+          "path": "docs/figures/presentation/comparison_lead_errors.svg",
+          "sha256": "1327647656c411c5c1510af464f0c7a6862db386ccd71d7d256d526cc731f573"
+        }
+      ],
+      "source": [
+        "results/experiments/v1-full-20261009/summary.json",
+        "results/experiments/v1-full-20261009/per_origin.json",
+        "results/experiments/v1-full-20261009/test_predictions.npz"
+      ],
+      "stem": "comparison_lead_errors"
+    },
+    {
+      "caption": "Marginal coverage pools channels/leads and averages neural-seed coverages. It is not simultaneous trajectory coverage. Fine-tuned JEPA pooled 90% coverage (89.72%) hides XRS-A 87.03% versus XRS-B 92.41%; widths are in the comparison table.",
+      "files": [
+        "docs/figures/presentation/comparison_coverage.png",
+        "docs/figures/presentation/comparison_coverage.svg"
+      ],
+      "identities": [
+        {
+          "bytes": 187609,
+          "path": "docs/figures/presentation/comparison_coverage.png",
+          "sha256": "de2038ee7af4d526c289cf6ed913138669be65c3db55220213d3610fe216b1a6"
+        },
+        {
+          "bytes": 23353,
+          "path": "docs/figures/presentation/comparison_coverage.svg",
+          "sha256": "f25fad7f861056cfe1973eb9778aa4466c9a3d44fb8d485ce4d85a8603f3dcb1"
+        }
+      ],
+      "source": [
+        "results/experiments/v1-full-20261009/summary.json",
+        "results/experiments/v1-full-20261009/per_origin.json",
+        "results/experiments/v1-full-20261009/test_predictions.npz"
+      ],
+      "stem": "comparison_coverage"
+    },
+    {
+      "caption": "Paired seed differences and mean-loss contrasts with 2,000 UTC-day bootstrap draws (seed 17; 31 days). Excluding seed 43 reverses the aggregate direction. This influence diagnostic is exploratory, not a reason to discard seed 43.",
+      "files": [
+        "docs/figures/presentation/jepa_seed_comparison.png",
+        "docs/figures/presentation/jepa_seed_comparison.svg"
+      ],
+      "identities": [
+        {
+          "bytes": 92594,
+          "path": "docs/figures/presentation/jepa_seed_comparison.png",
+          "sha256": "34843527e03ef65669b02dc4b6e0d80f2010d2b7a6a837dd58a302c8d17c950f"
+        },
+        {
+          "bytes": 14216,
+          "path": "docs/figures/presentation/jepa_seed_comparison.svg",
+          "sha256": "b996ec91d8fed33aefcd00081e6b334ee408b409c66f6d244d96892b130eba0d"
+        }
+      ],
+      "source": [
+        "results/experiments/v1-full-20261009/summary.json",
+        "results/experiments/v1-full-20261009/per_origin.json",
+        "results/experiments/v1-full-20261009/test_predictions.npz"
+      ],
+      "stem": "jepa_seed_comparison"
+    },
+    {
+      "caption": "Compact rendering of all three pretraining histories and all nine downstream validation histories. Latent loss and standardized validation pinball use different units; neither is the held-out dex score.",
+      "files": [
+        "docs/figures/presentation/jepa_training_curves.png",
+        "docs/figures/presentation/jepa_training_curves.svg"
+      ],
+      "identities": [
+        {
+          "bytes": 254158,
+          "path": "docs/figures/presentation/jepa_training_curves.png",
+          "sha256": "aaa5f85f9cbadd8bfbcd378c69ca751894d50190d2af33a2c909d8e4ac11d333"
+        },
+        {
+          "bytes": 35798,
+          "path": "docs/figures/presentation/jepa_training_curves.svg",
+          "sha256": "f3bfd61c65c923c9f657fb84f99016968e1d5f3a42777a4a4b31812866ace7e3"
+        }
+      ],
+      "source": [
+        "results/experiments/v1-full-20261009/summary.json",
+        "results/experiments/v1-full-20261009/per_origin.json",
+        "results/experiments/v1-full-20261009/test_predictions.npz"
+      ],
+      "stem": "jepa_training_curves"
+    },
+    {
+      "caption": "Verified V1 computation graph. EMA updates copy student encoder parameters into the teacher after pretraining steps. The downstream head uses softplus cumulative increments for ordered quantiles. Fine-tuning auxiliary JEPA weight is zero. No physical dynamics constraint, neural autoregressive rollout or joint trajectory sampler is implemented.",
+      "files": [
+        "docs/figures/presentation/jepa_architecture.png",
+        "docs/figures/presentation/jepa_architecture.svg"
+      ],
+      "identities": [
+        {
+          "bytes": 320324,
+          "path": "docs/figures/presentation/jepa_architecture.png",
+          "sha256": "4f50138897c8c9afc120862c3996808b46cf175db4a936211e07165e0eb0148f"
+        },
+        {
+          "bytes": 15722,
+          "path": "docs/figures/presentation/jepa_architecture.svg",
+          "sha256": "df834a4bae9d1c13bf6facc30e246ca44f09d048db9d1e0a8eead0950d240712"
+        }
+      ],
+      "source": [
+        "src/solar_flare_jepa/training/jepa.py",
+        "configs/experiments/v1_models.json"
+      ],
+      "stem": "jepa_architecture"
+    }
+  ],
+  "packages": {
+    "arch": "7.2.0",
+    "ipykernel": "6.30.1",
+    "matplotlib": "3.11.2",
+    "nbclient": "0.10.2",
+    "netCDF4": "1.7.2",
+    "numpy": "2.2.6",
+    "pandas": "2.3.3",
+    "scipy": "1.18.1",
+    "statsmodels": "0.14.5",
+    "torch": "2.6.0",
+    "xarray": "2026.7.0"
+  },
+  "reused": [
+    {
+      "caption": "Single validation-selected JEPA seed 43, GJR-t, ARIMA(2,1,0), and persistence. Not the neural seed-mean plot; prefer new comparison_lead_errors for the main slide.",
+      "files": [
+        "docs/figures/v1/fig_lead_log_mae.png"
+      ],
+      "identities": [
+        {
+          "bytes": 86030,
+          "path": "docs/figures/v1/fig_lead_log_mae.png",
+          "sha256": "331db02b50f4f6613bc3cdbfd130a99cc5cca50f076c18b664e4e8aa86db6b50"
+        }
+      ],
+      "source": [
+        "results/experiments/v1-full-20261009/fig_lead_log_mae.png"
+      ]
+    },
+    {
+      "caption": "Retrospective largest XRS-B rise: August 8 19:00 UTC, \u00d721.0776. Validation-selected JEPA seed 43, GJR-t and ARIMA(2,1,0); all upper 90% bands miss the peak. Horizontal positive lead labels denote target-bin ends. This is a difficult selected example, not average skill.",
+      "files": [
+        "docs/figures/v1/fig_fan_largest_rise.png"
+      ],
+      "identities": [
+        {
+          "bytes": 98386,
+          "path": "docs/figures/v1/fig_fan_largest_rise.png",
+          "sha256": "0a34ba25b2ca4e14904c4b426a83350e95b15788da40f50c49f993f625d56163"
+        }
+      ],
+      "source": [
+        "results/experiments/v1-full-20261009/fig_fan_largest_rise.png"
+      ]
+    },
+    {
+      "caption": "All 16 probabilistic model/seed records; marginal 50%/90% coverage. Dense appendix asset.",
+      "files": [
+        "docs/figures/v1/fig_coverage.png"
+      ],
+      "identities": [
+        {
+          "bytes": 68939,
+          "path": "docs/figures/v1/fig_coverage.png",
+          "sha256": "3c0a12ec40dff2769d668b99d7a5b87d723b87aa52f354e384e30f31e449ce69"
+        }
+      ],
+      "source": [
+        "results/experiments/v1-full-20261009/fig_coverage.png"
+      ]
+    },
+    {
+      "caption": "Original 3\u00d74 history/collapse-diagnostic grid; preserved, appendix only. Compact new histories figure preferred.",
+      "files": [
+        "docs/figures/v1/jepa_training_curves.png"
+      ],
+      "identities": [
+        {
+          "bytes": 288162,
+          "path": "docs/figures/v1/jepa_training_curves.png",
+          "sha256": "8f9d6717d7715a8d89b3f2d2d940d0fe2c3550ab56299696385fffc752d67be0"
+        }
+      ],
+      "source": [
+        "results/experiments/v1-full-20261009/summary.json",
+        "docs/V1_RESULTS.md"
+      ]
+    }
+  ]
+}

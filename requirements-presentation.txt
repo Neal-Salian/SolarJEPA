@@ -1,0 +1,3 @@
+# Optional notebook execution tools; scientific dependencies remain in requirements-v1-lock.txt.
+nbclient==0.10.2
+ipykernel==6.30.1
