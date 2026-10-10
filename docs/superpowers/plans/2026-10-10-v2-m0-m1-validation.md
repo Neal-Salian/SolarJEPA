@@ -88,13 +88,14 @@ No concurrent edits to shared files; model/experiment training code is read-only
 
 Task 1: complete — source/ref/config/tracked-evidence reconnaissance and three
 independent audits; M0 documentation committed before implementation.
-Task 2: complete —58 new contract/integrity tests, normalizer/schema/empty-record
+Task 2: complete — 58 new contract/integrity tests, normalizer/schema/empty-record
 review corrections RED→GREEN. Reused existing P1 support logic.
-Task 3: complete —63 comparison/diagnostic/integration tests; paired calendar
+Task 3: complete — 63 comparison/diagnostic/integration tests; paired calendar
 arithmetic, units and model/spec identity review corrections RED→GREEN.
-Task 4: verification complete —full suite1292passed/1existingwarning, targeted
-121passed, normal installed isolated imports/pipcheck and branch/storage audit.
-Publication follows this documentation commit as the final authorized action.
+Task 4: complete — full suite 1,292 passed with one existing warning; targeted
+121 passed; normal installed isolated imports, pip check and branch/storage audit.
+Publication: feature branch pushed and upstream confirmed at 0/0 divergence.
+Existing main, V1, research V2 and presentation remote refs remain unchanged.
 
 Ruling: a draft seed-list transcription was corrected by checking the exact
 existing V2.1 SHA-generated cohort; no experiment used the draft values.
