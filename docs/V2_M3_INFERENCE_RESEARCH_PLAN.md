@@ -229,3 +229,13 @@ Independent review also distinguished the scale-mixture location theorem from
 mean inference: the experimental Design now requires explicit finite_mean;
 undefined means are unsupported. All frozen DGPs, including t1.5, have finite
 means. Neither change modifies frozen scenarios, seeds, budgets or thresholds.
+
+Pilot/development completed at 64629f6 (R5/B99: 1.313 s; R100/B199: 11.940 s).
+Before final evaluation, review reproduced two out-of-preset contract issues:
+integer assumptions passed JSON validation before later rejection, and tiny
+nonzero effects were labeled a zero null. Explicit Boolean checks and exact-null
+classification fix them. No candidate settings were tuned from development.
+HAC L7 has no eligible development DGP because those periods are shorter than
+its 32-day guard; its first eligible Monte Carlo assessment is frozen evaluation.
+Fixed lag/block settings have no general growing-bandwidth/block asymptotic
+guarantee. These restrictions are retained rather than tuned after development.

@@ -66,6 +66,9 @@ def validate_config(raw:dict)->dict:
         expected=dict(independent_seeds=cfg.seed_correlation==0,seed_score_law='gaussian' if cfg.distribution=='normal' else 'normal_scale_mixture',
                       calendar_dependence='heteroskedastic_weak' if cfg.heteroskedastic else 'stationary_weak',
                       finite_variance=cfg.distribution!='t1.5',independent_folds=True)
+        if type(row['assumptions']) is not dict or any(type(row['assumptions'].get(k)) is not bool
+                for k in ('independent_seeds','finite_variance','independent_folds')):
+            raise ValueError('Explicit Boolean synthetic assumptions required')
         if row['assumptions']!=expected: raise ValueError('Synthetic law and assumption declarations conflict')
     if len(names)!=len(set(names)): raise ValueError('Duplicate synthetic case name')
     draws=len(config['cases'])*config['replications']*config['bootstrap_replicates']*(1+sum(m['method']=='stationary_basic' for m in methods))
@@ -93,7 +96,7 @@ def null_status(case,estimand):
     if estimand=='calendar_conditional' and cfg.sigma_seed!=0: return 'varying'
     if estimand not in ('seed_conditional','calendar_conditional','joint'): raise ValueError('Unknown estimand')
     delta=float(np.mean(cfg.effects))
-    return 'null' if abs(delta)<=1e-12 else 'positive_alternative' if delta>0 else 'negative_alternative'
+    return 'null' if delta==0 else 'positive_alternative' if delta>0 else 'negative_alternative'
 
 
 def gate_eligible(case,method):

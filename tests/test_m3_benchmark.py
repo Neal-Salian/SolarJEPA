@@ -48,6 +48,8 @@ def test_conditional_null_and_power_classification_uses_latent_truth():
     assert null_status(case,'seed_conditional')=='null'
     case['scenario']['delta']=[.35]
     assert null_status(case,'seed_conditional')=='positive_alternative'
+    case['scenario']['delta']=[1e-13]
+    assert null_status(case,'seed_conditional')=='positive_alternative'
 
 
 def test_callbacks_cannot_mutate_frozen_effects_or_replication_count():
@@ -106,6 +108,11 @@ def test_missing_and_failed_run_catalog_never_drops_runs():
     assert len(results)==15
     assert all(x['rejected'] for x in results)
     assert {x['violation'] for x in results}=={'one_model_missing','both_models_missing','failed_fitting_record'}
+
+
+def test_integer_assumption_cannot_masquerade_as_boolean():
+    config=tiny_config();config['cases'][0]['assumptions']['independent_seeds']=1
+    with pytest.raises(ValueError,match='Boolean'):validate_config(config)
 
 
 @pytest.mark.parametrize('drift',['git_commit','git_branch','source'])
