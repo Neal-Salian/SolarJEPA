@@ -138,13 +138,13 @@ def _panels(value):
     return result
 
 
-def _daily(panel):
+def _daily(panel, values=None):
     days = (panel.calendar_end_ns - panel.calendar_start_ns) // DAY_NS
     indices = np.asarray([(int(t) - panel.calendar_start_ns) // DAY_NS
                           for t in panel.issue_times_ns], np.int64)
     sums = np.zeros((len(panel.seed_ids), days), float)
     counts = np.bincount(indices, minlength=days)
-    for seed, losses in enumerate(panel.losses):
+    for seed, losses in enumerate(panel.losses if values is None else values):
         np.add.at(sums[seed], indices, losses)
     return sums, counts
 
@@ -185,7 +185,7 @@ def _compare(folds_a, folds_b, *, block_days, replicates, rng_seed, confidence):
             or not 0 < confidence < 1):
         raise ValueError('Confidence must be finite and strictly within (0,1)')
     daily = []
-    fold_report, fold_means_a, fold_means_b = {}, [], []
+    fold_report, fold_means_a, fold_means_b, fold_differences = {}, [], [], []
     for name in names:
         left, right = a[name], b[name]
         if (left.seed_ids != seeds or right.seed_ids != seeds
@@ -197,27 +197,33 @@ def _compare(folds_a, folds_b, *, block_days, replicates, rng_seed, confidence):
             raise ValueError('Paired seeds, targets/support, times and metric identities must align')
         sums_a, counts = _daily(left)
         sums_b, _ = _daily(right)
+        # Subtract paired observations before reducing: a small representable
+        # effect can disappear when large model means are subtracted later.
+        paired_losses = left.losses - right.losses
+        sums_difference, _ = _daily(left, paired_losses)
         days = len(counts)
         if days < 2 or block_days > days:
             raise ValueError('At least two calendar days and a block no longer than the fold required')
         means_a, means_b = left.losses.mean(axis=1), right.losses.mean(axis=1)
         fold_means_a.append(means_a)
         fold_means_b.append(means_b)
-        daily.append((sums_a, sums_b, counts))
-        fold_report[name] = dict(mean_difference=float((means_a - means_b).mean()),
-                                 per_seed_difference=(means_a - means_b).tolist(),
+        paired_means = paired_losses.mean(axis=1)
+        fold_differences.append(paired_means)
+        daily.append((sums_a, sums_b, sums_difference, counts))
+        fold_report[name] = dict(mean_difference=float(paired_means.mean()),
+                                 per_seed_difference=paired_means.tolist(),
                                  origins=len(left.origin_ids), calendar_days=days,
                                  observed_days=int((counts > 0).sum()))
     seed_a, seed_b = np.mean(fold_means_a, axis=0), np.mean(fold_means_b, axis=0)
-    seed_difference = seed_a - seed_b
+    seed_difference = np.mean(fold_differences, axis=0)
     mean_a, mean_b = float(seed_a.mean()), float(seed_b.mean())
     rng = np.random.default_rng(rng_seed)
     differences, relatives = [], []
     empty, nonpositive = 0, 0
     for _ in range(replicates):
         sampled_seeds = rng.integers(0, len(seeds), size=len(seeds))
-        draw_a, draw_b = [], []
-        for sums_a, sums_b, counts in daily:
+        draw_a, draw_b, draw_difference = [], [], []
+        for sums_a, sums_b, sums_difference, counts in daily:
             days = len(counts)
             starts = rng.integers(0, days, size=(days + block_days - 1) // block_days)
             selected = ((starts[:, None] + np.arange(block_days)) % days).ravel()[:days]
@@ -225,27 +231,31 @@ def _compare(folds_a, folds_b, *, block_days, replicates, rng_seed, confidence):
             if denominator == 0:
                 draw_a.append(np.nan)
                 draw_b.append(np.nan)
+                draw_difference.append(np.nan)
             else:
                 draw_a.append(float(sums_a[sampled_seeds][:, selected].sum()
                                     / (denominator * len(seeds))))
                 draw_b.append(float(sums_b[sampled_seeds][:, selected].sum()
                                     / (denominator * len(seeds))))
+                draw_difference.append(float(sums_difference[sampled_seeds][:, selected].sum()
+                                             / (denominator * len(seeds))))
         aa, bb = float(np.mean(draw_a)), float(np.mean(draw_b))
         if not np.isfinite(aa + bb):
             empty += 1
             continue  # final interval is unavailable; never condition on these draws
-        differences.append(aa - bb)
+        difference = float(np.mean(draw_difference))
+        differences.append(difference)
         if bb <= 0:
             nonpositive += 1
         else:
-            relatives.append(float(1 - np.divide(aa, bb)))
+            relatives.append(float(-np.divide(difference, bb)))
     percentiles = [50 * (1 - confidence), 50 * (1 + confidence)]
     reason = 'empty_resampled_fold' if empty else None
     relative_reason = reason or ('nonpositive_reference' if mean_b <= 0 or nonpositive else None)
     return dict(schema_version=1, estimand='equal_fixed_fold_mean_origin_loss',
                 metric=first.metric, unit=first.unit, seed_ids=list(seeds),
                 mean_a=mean_a, mean_b=mean_b, mean_difference=float(seed_difference.mean()),
-                relative_reduction=None if mean_b <= 0 else float(1 - np.divide(mean_a, mean_b)),
+                relative_reduction=None if mean_b <= 0 else float(-np.divide(seed_difference.mean(), mean_b)),
                 per_seed_difference=seed_difference.tolist(),
                 seed_difference_sd=float(seed_difference.std(ddof=1)),
                 seed_win_fraction=float((seed_difference < 0).mean()),

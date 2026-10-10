@@ -107,7 +107,11 @@ For each DGP report empirical estimator SD against oracle SD where applicable.
 
 Independent direct-origin resampler must match M1's draws at atol=1e−12,
 rtol=1e−12 on non-extreme fixtures with unequal counts, empty days and two folds.
-Literal calibration/weighting arithmetic atol=1e−12. Gaussian calibration coverage
+Literal calibration/weighting arithmetic atol=1e−12. Large calibration
+reductions use error/max(1, abs(reference)) <=1e−12: 20,000-cell constant
+width sums exhibited about 2e−12 absolute rounding, so this scale-aware check
+uses an independent math.fsum reference rather than asserting exact sums.
+Coverage inclusion allows 1e−12*max(1,abs(truth)) rounding for degenerate truths. Gaussian calibration coverage
 must agree with analytic probabilities within 5 binomial SE per cell plus 1e−12;
 this is a deterministic seeded smoke criterion, not a simultaneous formal test.
 Use 20,000 calibration origins, two leads, one artificial channel. Compare
