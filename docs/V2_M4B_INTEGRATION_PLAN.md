@@ -105,7 +105,7 @@ TrainingSlice + Normalization + validation context/targets
   arms plus TCN and quantile-linear over two seeds and a classical baseline;
   verify reload, pairing, validation-only selection, metrics, provenance and
   no-replace development publication. Poison all test-release entry points.
-- [ ] **6. Independent review and final publication.** Fresh read-only review
+- [x] **6. Independent review and final publication.** Fresh read-only review
   covers scientific identities, leakage, fairness, inference, provenance,
   immutability and V1 compatibility. Reproduce/fix confirmed findings with TDD.
   Run full suite after final source edits/reinstallation, normal imports,
@@ -151,3 +151,8 @@ Two independent final reviewers verified fixes for scientific identity,
 execution-mode, publication metadata and post-lock payload consistency findings.
 Detailed results and dispositions are in
 [the integration report](V2_M4B_INTEGRATION_REPORT.md).
+Publication audit at `c028c3aa8e59173e7272ada1c59ef0b914a1241b` confirmed a
+clean milestone worktree, exact origin/upstream equality, strict clean installed
+provenance, unchanged protected/M4A refs and no prohibited data paths. This
+documentation closure records that observed audit; its final branch tip is
+reported in Git and the final user-facing response.

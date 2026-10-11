@@ -199,6 +199,23 @@ Verified implementation commit:
 the expanded secondary-comparison assertions. Only documentation and preserved
 historical aggregate evidence are added after this source/test commit.
 
+**OBSERVED publication audit:** commit
+`c028c3aa8e59173e7272ada1c59ef0b914a1241b` was pushed to
+`origin/feat/v2-model-evaluation-integration`; upstream ahead/behind was `0/0`
+and the worktree was clean. `git ls-remote` independently matched the dedicated
+branch and confirmed unchanged main
+`1a4991da4dda9676caeb1d7e35a03408528c3188`, v1
+`644648f7d555fcbcb3eed4495d37fecffdd1863a` and M4A
+`ac3428f910b36b7f10cc0fbb0740ce6de62df5a7`. The original checkout remains on
+`660f469683557a0f3134f72ec69b174a5bcdd917` with its original two untracked paths.
+Full committed-tree/index/history inspection found no scientific bulk data,
+checkpoints or generated results. All copied M3.1 files still equal their source
+Git blobs. Clean installed provenance matched all source modules and the 74-file
+execution inventory fingerprint was
+`67aa5562f182a54c1c6cb3ea15bdf82cc405542f25d9385f3133b384eb93a9d4`.
+This publication-ledger closure changes documentation only; resolve the branch
+tip from Git for its final commit, also supplied in the final response.
+
 Proceed to a **separately authorized development-only** GOES feasibility milestone
 only after the [M5 handoff](V2_M4B_M5_HANDOFF.md) prerequisites: verified restored
 development inputs and exact data semantics; no-test loader behavior; resolved
