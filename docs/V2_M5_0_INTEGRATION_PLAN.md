@@ -97,7 +97,7 @@ The regression assertions are owned by `test_mode_rejected_before_any_source_acc
 - [x] Enumerate 20 planned jobs: two SSL phases, ten primary controlled-arm jobs, two TCN jobs, two quantile-linear paths and four separate loss-comparison jobs. Each linear path includes seven lambdas, so record 14 candidate fits. No model job runs in M5.0. Classical policy remains blocked on its owner's evidence; schedule no classical fit.
 - [x] Bind all 17 decision entries to the exact configuration fingerprint: D09/D10/D11, data access, August, quality, seeds, budgets, losses, checkpoint, TCN, linear, classical, failure/retry, statistics, test prohibition and reproducibility. Do not fabricate approval timestamps/approvers/references.
 - [x] Run `python -m pytest -q tests/test_v2_m5_preflight.py`; verify metadata dry run reports `PILOT_NOT_AUTHORIZED`, `training_executed=false`, `test_release_permitted=false`, 17 outstanding decisions and explicit not-checked data status.
-- [ ] After isolated raw reuse, run the no-fit real-data preflight twice and compare scientific identities/support. Record actual retained/excluded windows, normalization, fingerprints, data readiness and limitations in the final evidence/report; success must still report pilot unauthorized.
+- [x] After isolated raw reuse, run the no-fit real-data preflight twice and compare scientific identities/support. Record actual retained/excluded windows, normalization, fingerprints, data readiness and limitations in the final evidence/report; success must still report pilot unauthorized.
 
 ### Task 4: Enforce future job budgets with synthetic subprocess tests
 

@@ -1,0 +1,54 @@
+{
+  "kind": "solarjepa_v2_m5_0_preflight_verification",
+  "schema_version": 1,
+  "implementation_commit": "18b5528666e4d9112db816c852e74ce16829bbcf",
+  "identical_records": true,
+  "identical_canonical_bytes": true,
+  "sha256": "c858905ebdbff7122a84a3201cbb3db90cb022e13c13c37bd17e242887aa4487",
+  "native_cli_exit_codes": [
+    3,
+    3
+  ],
+  "torch_unavailable_loader_smoke": "Passed before publication: sys.modules[torch]=None; no optimizer/model execution",
+  "raw_selection": "92 explicit May-July files only; August/January/sealed sources not read",
+  "baseline": {
+    "passed": 1583,
+    "warnings": 1,
+    "seconds": 120.77,
+    "source_commit": "2e3f87111ab7c3a881064aaad9dbd6d6298c69cd"
+  },
+  "final_regression": {
+    "passed": 1705,
+    "warnings": 1,
+    "seconds": 304.22
+  },
+  "independent_new_tests": {
+    "passed": 84,
+    "seconds": 114.42
+  },
+  "resource_tests": {
+    "passed": 40,
+    "seconds": 4.61
+  },
+  "initial_environment_run": {
+    "passed": 1581,
+    "failed": 2,
+    "seconds": 125.76,
+    "reasons": [
+      "Shared environment contained an older installed package",
+      "A GOES merge during the first run invalidated executed-source capture"
+    ],
+    "resolution": "Fresh unchanged M4B baseline in separate venv passed1583; final stable M5 installation passed1705"
+  },
+  "earlier_m5_regression": {
+    "passed": 1703,
+    "warnings": 1,
+    "seconds": 184.14,
+    "scope": "Before final initializer/crash-recovery cases"
+  },
+  "interrupted_recheck": "An intermediate regression was deliberately interrupted after the final crash-recovery fix; replaced by complete1705-test run",
+  "warning": "Existing numpy.ndarray size changed RuntimeWarning from netCDF/numpy boundary; no warnings suppressed",
+  "no_real_model_training": true,
+  "no_scientific_test_windows": true,
+  "no_locked_release": true
+}

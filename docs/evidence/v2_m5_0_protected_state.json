@@ -1,0 +1,35 @@
+{
+  "kind": "solarjepa_v2_m5_0_protected_state",
+  "schema_version": 1,
+  "implementation_commit": "18b5528666e4d9112db816c852e74ce16829bbcf",
+  "protected_refs": {
+    "refs/heads/feat/v2-model-evaluation-integration": "2e3f87111ab7c3a881064aaad9dbd6d6298c69cd",
+    "refs/heads/feat/v2-training-protocol-feasibility": "ac3428f910b36b7f10cc0fbb0740ce6de62df5a7",
+    "refs/heads/main": "1a4991da4dda9676caeb1d7e35a03408528c3188",
+    "refs/heads/presentation/eda-model-comparison": "660f469683557a0f3134f72ec69b174a5bcdd917",
+    "refs/heads/research/v2-m3-inference-remediation": "5e88f3a7109296c9475378b77be0257a4f9363ab",
+    "refs/remotes/origin/data/v2-goes-development-restoration": "8a9c98db66eca545eeaf062f5fb07e47ec6bdc63",
+    "refs/remotes/origin/feat/v2-model-evaluation-integration": "2e3f87111ab7c3a881064aaad9dbd6d6298c69cd",
+    "refs/remotes/origin/feat/v2-training-protocol-feasibility": "ac3428f910b36b7f10cc0fbb0740ce6de62df5a7",
+    "refs/remotes/origin/main": "1a4991da4dda9676caeb1d7e35a03408528c3188",
+    "refs/remotes/origin/presentation/eda-model-comparison": "660f469683557a0f3134f72ec69b174a5bcdd917",
+    "refs/remotes/origin/research/v2-m3-inference-remediation": "5e88f3a7109296c9475378b77be0257a4f9363ab",
+    "refs/heads/v1": "644648f7d555fcbcb3eed4495d37fecffdd1863a",
+    "refs/remotes/origin/v1": "644648f7d555fcbcb3eed4495d37fecffdd1863a"
+  },
+  "local_identities_equal_initial": true,
+  "live_remote_protected_heads_equal_initial": true,
+  "active_raw_ignored_count": 92,
+  "tracked_scientific_directories": [
+    "data/interim/.gitkeep",
+    "data/processed/.gitkeep",
+    "data/raw/.gitkeep"
+  ],
+  "all_four_manifests_unchanged": true,
+  "historical_report_roots_unchanged": 13,
+  "original_worktrees_preserved": true,
+  "original_untracked_files_preserved": [
+    ".agents/",
+    "docs/P1_FINAL_INTEGRATION_REAUDIT.md"
+  ]
+}
