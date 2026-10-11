@@ -32,7 +32,7 @@ The J/B step counts match M4A's report. B's head receives 632 more updates than 
 
 ### 1.2 Data equality
 
-All arms share training rows, normalization, the 20,000-window subset and validation support (OBSERVED).
+All arms share training rows, normalization, the 20,000-window subset and validation support (OBSERVED on synthetic runs; the real-data equivalent follows from the same code but was not executed).
 
 M4B's validation **content** fingerprint is effective. Doubling validation values while keeping origin IDs leaves M4A's origin fingerprint unchanged, but both `check_paired_cohort` and M4B `check_comparator_cohort` reject the cohort.
 
@@ -59,9 +59,9 @@ Results are OBSERVED from evidence B.
 | Gradients | `gradcheck` passes |
 | Train vs validation | Batched validation metric equals the one-shot metric (difference 9.5e-11) |
 | Selection determinism | Earliest minimum; exact ties go to the earliest epoch. A 1e-12 difference decides, so thread-level noise can flip near-ties |
-| V1 compatibility | Patience mode reproduces V1 semantics (14 targeted tests passed) |
+| V1 compatibility | Patience mode reproduces V1 semantics. A targeted pytest selection (14 tests covering ties, pairing, seeds, steps and λ) passed |
 | Quantile ordering | J and TCN are monotone by construction. TCN spacing can underflow to exactly 0 (zero-width intervals). Linear trains on raw quantiles and is scored sorted |
-| Test independence | No fitting path accepts test data |
+| Test independence | No fit function takes a test partition. Loader-level reads are a separate issue (review R1) |
 
 ## 3. Baselines
 
@@ -69,7 +69,7 @@ Results are OBSERVED from evidence B.
 
 Re-verified at 44,620 parameters with a 253-bin receptive field. The receptive field exceeds the 120-bin context, so the dilation-16 and 32 taps mostly read padding.
 
-Measured on the M4 CPU at about 15 s per epoch, which is 18% above M4A's extrapolation. On MPS it runs about 10× faster (informational only).
+Measured in the clean rerun at 16.1–17.6 s per epoch on the M4 CPU (≈262 s per 15-epoch job), about 18% above M4A's 15 s per epoch (223 s). On MPS it runs about 10× faster (informational only).
 
 ### 3.2 Quantile-linear
 
@@ -86,7 +86,7 @@ Measured on the M4 CPU at about 15 s per epoch, which is 18% above M4A's extrapo
 - The M4A grid has no value below 1, where the synthetic optimum lies.
 - The second seed shifts validation loss by 2.9e-4 at λ = 0, three times the λ = 0 vs 0.1 gap.
 
-**Recommendation:** {0, 0.01, 0.1, 1, 10, 100, 1000, 10000} per seed, with the selected λ reported per seed. Synthetic data cannot identify the scientific optimum.
+**Options (owner decision, M5-LIN):** keep the M4A grid {0, 1, …, 10⁵}, or use {0, 0.01, 0.1, 1, 10, 100, 1000, 10000}, which covers the weak range but adds selection opportunities whose differences sit inside seed noise and partly reverses M4A's earlier removal of near-unregularized values. Either way: per seed, selected λ reported per seed. Synthetic data cannot identify the scientific optimum.
 
 **Cost:** 7.1–7.7 s per λ per 100 epochs on the M4 (quiet), so about 59 s per seed for 8 λ.
 
@@ -105,7 +105,7 @@ Measured on the M4 CPU at about 15 s per epoch, which is 18% above M4A's extrapo
 
 Same seed and same thread count give bitwise-equal weights across processes.
 
-Moving from 1 to 4 threads changes all five JEPA-family arms bitwise (validation metric difference up to 2.4e-6 after 3 epochs). TCN and linear are thread-invariant. Fix threads at 4 and record the host. Cross-host bitwise reproducibility is **UNKNOWN**.
+Moving from 1 to 4 threads changes all five JEPA-family arms bitwise (validation metric difference up to 2.4e-6 in a short synthetic run). TCN and linear are thread-invariant. Fix threads at 4 and record the host. Cross-host bitwise reproducibility is **UNKNOWN**.
 
 ## 5. Computational feasibility
 
@@ -116,7 +116,7 @@ Moving from 1 to 4 threads changes all five JEPA-family arms bitwise (validation
 | Per-epoch times vs M4A extrapolation (clean rerun) | SSL ×1.06; J ×1.10; S ×1.12; TCN ×1.18 (≈262 s vs 223 s) | C |
 | Quantile-linear | 7.12–7.65 s per λ per 100 epochs | C |
 | Real-data preparation per job (GOES integrity evidence) | 17.8 s `pipeline_smoke` + 1.7 s identity/time series; synthetic was 5.5 s | committed evidence |
-| Peak RSS | 0.55–0.65 GiB per job (synthetic); 0.69 GiB (real loader + V2 preparation). INFERRED 0.7–0.9 GiB per real training job | C |
+| Peak RSS | 0.53–0.61 GiB per job (synthetic; 546–625 MiB); 0.69 GiB (real loader + V2 preparation). INFERRED 0.7–0.9 GiB per real training job | C |
 | Concurrency penalty | One concurrent 4-thread process slowed epochs 1.4–2.2× and preparation 1.35–1.9× | C |
 | MPS | TCN and JEPA ran with the deterministic flag; repeats bitwise-equal; CPU vs MPS parameters differed by 3e-7 to 5e-6. Not a long-run determinism proof | C |
 
@@ -131,10 +131,11 @@ The pilot runs 20 processes:
 | Scenario | Rule | Total |
 |---|---|---|
 | M4A historical | 1 linear fit, synthetic preparation | 1,130 s |
-| Optimistic | measured compute + 17.8 s preparation per process | 1,449 s (24 min) |
+| Optimistic | M4A per-job compute + measured 17.8 s real preparation per process | 1,449 s (24 min) |
 | Expected | compute × 1.25 + 19.6 s preparation | 1,756 s (29 min) |
 | Conservative | (compute + preparation) × 3 | 4,450 s (74 min) |
 | Every job retried once | optimistic / expected / conservative | 2,897 / 3,513 / **8,900 s** |
+| Clean-rerun compute (6–18% heavier), INFERRED | optimistic / expected / conservative / all retried | ≈1,575 / 1,915 / 4,830 / 9,650 s |
 
 The M4A ×1.25 rationale cited 29-day validation partitions. The pilot validates on 10 days (412 origins), so that rationale does not apply; the factor is kept as a generic real-data allowance.
 
@@ -190,6 +191,8 @@ Reserve 1 GiB.
 | Neural downstream | 600 s | |
 | TCN | 1,800 s | |
 | Quantile-linear per seed | 600 s | revised from 1,800 s; still ≥ 2.4× conservative |
+
+With clean-rerun compute, the TCN timeout margin over its conservative estimate falls from about 2.5× to about 2.1×.
 
 **Other limits:**
 - 2 GiB per-job RSS kill, or 2.5× the measured real peak if larger. Keep the 4 GiB between-job check as a backstop.

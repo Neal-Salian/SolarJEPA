@@ -23,7 +23,7 @@ Evidence: [`docs/evidence/v2_m5_protocol_review_evidence.json`](evidence/v2_m5_p
 | `REQUIRES_OWNER_DECISION` | Several defensible options remain; the choice is a scientific or priority judgement |
 | `BLOCKED_ON_EVIDENCE` | A prerequisite artifact or behaviour must exist before the decision can be made safely |
 
-Register IDs D02–D18 refer to `docs/V2_M0_RESOLUTION.md`. New IDs use the prefix `M5-`.
+Register IDs D02–D18 refer to `docs/V2_M0_RESOLUTION.md` (present on M4B `2e3f871`, not on this branch). New IDs use the prefix `M5-`.
 
 ## Summary
 
@@ -36,7 +36,7 @@ Register IDs D02–D18 refer to `docs/V2_M0_RESOLUTION.md`. New IDs use the pref
 | M5-SEED | Seed-selection policy | First two protocol seeds, declared up front, no replacement, threads fixed at 4 | RECOMMENDED_NOT_APPROVED |
 | D10 | Experimental protocol (arms, schedules) | Five arms + TCN + per-seed linear; 8/8/15 fixed; separate loss-comparison cohort | RECOMMENDED_NOT_APPROVED |
 | M5-LOSS | Loss and checkpoint selection | Train and select on equal-channel dex pinball, earliest minimum; selected values labelled post-selection | RECOMMENDED_NOT_APPROVED |
-| M5-LIN | Quantile-linear regularization | Per seed; λ ∈ {0, 0.01, 0.1, 1, 10, 100, 1000, 10000}; 100 epochs; selected λ reported per seed | RECOMMENDED_NOT_APPROVED |
+| M5-LIN | Quantile-linear regularization | Per seed; owner chooses between the M4A 7-value grid and an 8-value grid adding 0.01 and 0.1 (dropping 10⁵); 100 epochs; selected λ reported per seed | REQUIRES_OWNER_DECISION |
 | M5-TCN | TCN configuration | Keep the M4A proposal (width 32, k = 3, dilations 1…32, 15 fixed epochs, CPU) | RECOMMENDED_NOT_APPROVED |
 | D11 | Resource ceilings | Parent driver; per-job kill timeouts; 2 GiB per-job RSS kill; 7,200 s total; 4 threads; serial | RECOMMENDED_NOT_APPROVED (enforcement BLOCKED_ON_EVIDENCE) |
 | M5-FAIL | Failure and retry handling | Classified failures; ≤ 1 identical infrastructure retry; no seed replacement; incomplete stays incomplete | RECOMMENDED_NOT_APPROVED (enforcement BLOCKED_ON_EVIDENCE) |
@@ -70,7 +70,7 @@ Register IDs D02–D18 refer to `docs/V2_M0_RESOLUTION.md`. New IDs use the pref
   | 2 d | 0.25 / 0.32 |
   | 5 d | 0.09 / 0.11 |
 
-- After 1-day detrending, the e-folding time is about 48 / 61 min, and block correlation falls to about 0 at gaps ≥ 120 min. So the fast component decorrelates within about 2 h. The multi-day level persistence does not vanish even at 2 d (INFERRED).
+- After 1-day detrending, the e-folding time is about 48 / 61 min, and block correlation falls to about 0 at gaps ≥ 120 min. So the fast component decorrelates within about 2 h. The multi-day level persists: raw block correlation is 0.33 / 0.40 at 1 d and 0.29 / 0.36 at 2 d (OBSERVED).
 - The V2 protocol's 1-day embargo is proposed for new folds and is stated not to prove independence.
 - M4B implements `embargo_ns` in `chronological_partitions` and in the fitting guard.
 
@@ -78,9 +78,9 @@ Register IDs D02–D18 refer to `docs/V2_M0_RESOLUTION.md`. New IDs use the pref
 - It keeps the full 412-origin selection set.
 - It costs 1.3% of training support.
 - It exercises the same embargo machinery and value proposed for later folds.
-- It removes the fast dependent component, with 12× margin over the detrended e-fold.
+- It removes the fast dependent component: 1 day is about 12× the ~2 h decorrelation time and 24–30× the detrended e-fold.
 
-**E0 is a defensible alternative** for a purely exposed-data feasibility pilot. It keeps V1 train identities (3,609 origins, train split `faa586db…`) at the cost of a documented boundary-dependence limitation. E_2d is not supported by the evidence: the multi-day level persists anyway, and it costs 16.7% of validation. Delaying validation costs 10–17% of a small selection set.
+**E0 is a defensible alternative** for a purely exposed-data feasibility pilot. It keeps V1's training origins and content (3,609 origins; training slice `8e5f200f…`; normalization `84862300…`) at the cost of a documented boundary-dependence limitation. Split fingerprints still change under a May–July-only dataset, because they include the dataset fingerprint. E_2d is not supported by the evidence: the multi-day level persists anyway, and it costs 16.7% of validation. Delaying validation costs 10–17% of a small selection set.
 
 **Risks.**
 - Any embargo changes training fingerprints and breaks bitwise V1 window reproduction.
@@ -155,7 +155,7 @@ Register IDs D02–D18 refer to `docs/V2_M0_RESOLUTION.md`. New IDs use the pref
 - The repository ignores `xrs?_flag_excluded` (OBSERVED).
 - Normalization is insensitive to the threshold. The cost is origin support, because complete-case windows need 150 consecutive valid bins.
 
-**Recommendation.** **Policy C.** Keep the V1 rule for the primary pilot, which preserves comparability. Predeclare a **count ≥ 30** sensitivity (development-only, descriptive) that targets the episode-edge bins and costs about 8% of origins. Do not adopt B59 or B60: they destroy support and would systematically select against particle-spike minutes, a space-weather-correlated condition. Record the limitation that partial-minute averages are treated as full observations.
+**Recommendation.** **Policy C.** Keep the V1 rule for the primary pilot, which preserves comparability. Predeclare a **count ≥ 30** sensitivity (development-only, descriptive) that targets the episode-edge bins and costs about 8% of origins. Do not adopt B59 or B60: they destroy support and would systematically remove particle-spike-flagged minutes. Partial-bin occurrence is not related to flux level in May–July (Spearman about −0.02 / −0.03, OBSERVED); any relation to space-weather conditions is INFERRED from domain knowledge, not established here. Record the limitation that partial-minute averages are treated as full observations.
 
 **Risks.**
 - The sensitivity run doubles some jobs. It may be limited to J and S for one seed if compute is tight; that is an owner decision.
@@ -173,7 +173,7 @@ Register IDs D02–D18 refer to `docs/V2_M0_RESOLUTION.md`. New IDs use the pref
 - **Changing Torch threads from 1 to 4 changes JEPA-family weights bitwise** (OBSERVED). The validation metric moved by up to 2.4e-6. TCN and linear were unaffected.
 - Initial-state fingerprints are identical across the five arms.
 - `PCG64(seed)` produces the same stream as `default_rng([seed,0])`, a NumPy SeedSequence property. This is harmless but undocumented.
-- Two seeds share data, windows, normalization and validation. Their spread measures optimisation variance only, with 1 degree of freedom: the 95% CI for the true standard deviation spans 0.45–31.9× the observed value.
+- Two seeds share data, windows, normalization and validation. Their spread measures optimisation variance only, with 1 degree of freedom. Under normality, the textbook χ²₁ 95% interval for the true standard deviation spans 0.45–31.9× the observed value (standard result, not computed from the data).
 
 **Recommendation.**
 - Use the first two protocol seeds in order (1261866429, 1291916211), declared before any fit, for every planned arm including TCN and linear.
@@ -193,7 +193,7 @@ Register IDs D02–D18 refer to `docs/V2_M0_RESOLUTION.md`. New IDs use the pref
 - **Schedules:** 8 SSL / 8 warmup / 15 downstream epochs, fixed (no early stopping); 20,000-window subset; batch 256; AdamW 1e-3 / 1e-4; clip 1.0.
 - **Loss-comparison cohort:** J and S trained and selected on `normalized_pinball_v1`, checked as a **separate cohort**.
 - **Classical:** per M5-CLASSICAL.
-- **SSL artifacts:** persist exactly one per seed. An SSL retry invalidates **both** J and frozen J for that seed, because the artifact fingerprint includes wall time (OBSERVED; `controlled.py:418`). A recomputed but weight-identical artifact therefore fails `check_paired_cohort`.
+- **SSL artifacts:** persist exactly one per seed. An SSL retry invalidates **both** J and frozen J for that seed, because the artifact fingerprint includes wall time (OBSERVED; `controlled.py:418` on this branch, `:435` on M4B). A recomputed but weight-identical artifact therefore fails `check_paired_cohort`.
 
 **Proposal amendments required.**
 - The pilot JSON's `quantile_linear_fits: 1` and the linear `seed_rule: first paired seed` contradict the M4B per-seed requirement. They must become two fits.
@@ -237,21 +237,22 @@ Register IDs D02–D18 refer to `docs/V2_M0_RESOLUTION.md`. New IDs use the pref
 - The M4A grid {0, 1, …, 10⁵} spans unregularized to dominant, but it has **no point below 1**, and 10⁵ is redundant.
 - A second seed changes validation loss by 2.9e-4 at λ = 0, three times the gap between λ = 0 and λ = 0.1. In the weak range, λ choice sits inside optimisation noise.
 - Measured cost is 7.1–7.7 s per λ (evidence C, quiet host).
+- M4A deliberately replaced the earlier grid {0, 0.001, 0.01, 0.1, 1} as near-unregularized (`training_protocol_proposal.json`, baseline audit B1). Adding 0.01 and 0.1 back partly reverses that choice.
 
-**Recommendation.**
-- Per seed, λ ∈ **{0, 0.01, 0.1, 1, 10, 100, 1000, 10000}** (8 values), 100 fixed epochs, Adam lr 0.01, batch 256.
-- Ties go to the smallest λ. Report the selected λ per seed.
-- Flag a boundary-selected maximum.
-- Synthetic data cannot identify the scientific optimum. Never tune using August.
+**Options.**
+1. **M4A grid** {0, 1, 10, 100, 1000, 10000, 100000}: fewer selection opportunities; no point between 0 and 1.
+2. **8-value grid** {0, 0.01, 0.1, 1, 10, 100, 1000, 10000}: covers the weak range where the synthetic optimum lies, and drops the redundant 10⁵. The extra low-λ points mainly add post-selection optimism, because weak-range differences sit inside seed noise.
 
-**Status.** RECOMMENDED_NOT_APPROVED.
+**Recommendation.** Either is defensible. Option 2 gives better coverage; option 1 gives fewer selection opportunities. Both run per seed, 100 fixed epochs, Adam lr 0.01, batch 256. Ties go to the smallest λ. Report the selected λ per seed and flag a boundary-selected maximum. Synthetic data cannot identify the scientific optimum. Never tune using August.
+
+**Status.** REQUIRES_OWNER_DECISION.
 
 ## M5-TCN — TCN configuration
 
 **Evidence.**
 - 44,620 parameters and a 253-bin receptive field (re-verified). Causal. Monotone head.
 - On synthetic data the minimum quantile spacing can hit 0.0 (softplus underflow): zero-width intervals, not crossings.
-- About 15 s per epoch on the M4 CPU (about 18% above M4A's extrapolation). About 10× faster on MPS (informational).
+- Measured 16.1–17.6 s per epoch on the M4 CPU in the clean rerun, against M4A's 15 s; the 15-epoch job is ≈262 s against M4A's 223 s (+18%). About 10× faster on MPS (informational).
 
 **Recommendation.**
 - Keep the M4A configuration: 15 fixed epochs, CPU, 2 seeds.
@@ -271,8 +272,10 @@ Register IDs D02–D18 refer to `docs/V2_M0_RESOLUTION.md`. New IDs use the pref
 | Expected | 1,756 s |
 | Conservative (×3) | 4,450 s |
 
+  These rows use M4A's per-job compute plus measured real-data preparation, and 7 λ per linear fit. With the clean-rerun compute (6–18% heavier), the reviewer's recomputation gives about 1,575 / 1,915 / 4,830 s, and 9,650 s if every job retries once (INFERRED). An 8-λ grid adds about 15 s.
+
   These include 20 real-data preparations (about 17.8 s each) and two per-seed linear fits (51.7 s each).
-- Per-job peak RSS is 0.55–0.69 GiB (real loader 0.69 GiB).
+- Per-job peak RSS is 0.53–0.61 GiB on synthetic data (546–625 MiB) and 0.69 GiB for the real loader with V2 preparation.
 - **No per-job timeout, total budget, per-job RSS limit or one-job-per-process exists in the runner** (OBSERVED). `max_rss_bytes` checks the cumulative process high-water mark only between jobs.
 
 **Recommendation.**

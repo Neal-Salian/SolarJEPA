@@ -10,15 +10,18 @@ Evidence: [`docs/evidence/v2_m5_protocol_review_evidence.json`](evidence/v2_m5_p
 
 ## 1. Verdict
 
-**PROTOCOL_RECOMMENDATIONS_READY.** Every requested area was reviewed with executed or source evidence. The decision
-register gives a recommended option for each decision.
+**PROTOCOL_RECOMMENDATIONS_READY.** This is the review verdict, not a decision status. Every requested area was reviewed with
+executed or source evidence. The decision register gives a recommended option, or the owner's options, for each decision.
 
 **The pilot itself is not ready to execute.** It needs:
 - owner decisions (D09, D10, D11, M5-AUG, M5-QC);
-- three engineering prerequisites that do not exist yet:
+- five engineering prerequisites, listed in the [handoff](V2_M5_INDEPENDENT_REVIEW_HANDOFF.md) §1:
   - a development-only May–July loader with a behavioural no-August test;
+  - an approved-identity preflight inside the run (dataset, split and calendar fingerprints; manifest allow-list);
   - an enforcing job driver for timeouts, per-job RSS, one job per process and retry caps;
-  - an amended, versioned pilot proposal with per-seed linear fits.
+  - an amended, versioned pilot proposal with per-seed linear fits;
+  - an explicit SSL-artifact rule (one artifact per seed; an SSL retry re-runs J and frozen J).
+- the GOES restoration and validation code (`8a9c98d`) on the integration branch, which currently lacks it.
 
 ## 2. Method
 
@@ -68,8 +71,9 @@ The last origin's targets end exactly at the partition end (OBSERVED).
 **Training-window overlap.** 108,199 eligible stride-1 windows. The 20,000-window subset has mean spacing of 5.9 rows and about 96% adjacent overlap.
 This is many dependent presentations, not 20,000 independent examples.
 
-**August and January 2025.** August loads in the historical all-manifest route. January 2025 is unreachable from HEAD, M4B or M5 code paths:
-its configs exist only on `origin/research/goes-external-validation`. Its exclusion is procedural, not technical (evidence D).
+**August and January 2025.** August loads in the historical all-manifest route. January 2025 is not referenced by any config on HEAD, M4B or the M5
+integration branch: its configs exist only on `origin/research/goes-external-validation`. Its exclusion is procedural, not technical,
+because the generic loader would accept any manifest supplied to it (evidence D).
 The M4A pilot proposal and the GOES readiness document (§6.1–6.2) relied on the all-manifest loader. This is **the review's one BLOCKER
 for execution**: see M5-AUG and M5-LOADER in the register.
 
@@ -149,7 +153,7 @@ an SSL retry invalidates J and frozen J (MEDIUM).
 
 **Baselines:**
 - TCN: re-verified at 44,620 parameters and a 253-bin receptive field.
-- Quantile-linear: must be **per seed** (seeded shuffling changes the fit). The M4A grid lacks values below 1, so the recommended grid adds 0.01 and 0.1 and drops 10⁵.
+- Quantile-linear: must be **per seed** (seeded shuffling changes the fit). The M4A grid lacks values below 1; whether to add 0.01 and 0.1 (and drop 10⁵) is an owner choice, because weak-range differences sit inside seed noise (M5-LIN).
 - Classical: persistence only; ARIMA and volatility excluded while acceptance is `POLICY_UNAVAILABLE`.
 
 ## 7. Resources, failure handling and provenance
@@ -162,7 +166,9 @@ an SSL retry invalidates J and frozen J (MEDIUM).
 | Expected | 29 min |
 | Conservative | 74 min |
 
-The 7,200 s budget holds, except under the conservative case with every job retried (8,900 s).
+These totals use M4A's per-job compute. With the clean-rerun compute (6–18% heavier) they become about 26 / 32 / 81 min (INFERRED).
+
+The 7,200 s budget holds, except under the conservative case with every job retried (8,900 s; about 9,650 s with rerun compute).
 
 **Enforcement gaps (HIGH, OBSERVED).** None of the following are enforced: per-job timeouts, the total budget, per-job RSS and
 one job per process. Crashed jobs re-run on resume without an attempt cap.
@@ -188,7 +194,7 @@ M3.1's verdict makes all pilot statistics **descriptive**:
 | R2 | HIGH | Guards cannot detect an all-manifest or mislabelled-calendar load. Provenance fields are unverified strings | D probes; M4B `v2_evaluation_safety.py` |
 | R3 | HIGH | No per-job timeout, total budget or per-job RSS enforcement; no one-job-per-process | C; grep of M4B runner and safety modules |
 | R4 | MEDIUM | Retry semantics: unlimited crash re-runs on resume; no timeout ledger outcome | C |
-| R5 | MEDIUM | SSL artifact fingerprint includes wall time, so a recomputed SSL fails the cohort check | B; `controlled.py:418` |
+| R5 | MEDIUM | SSL artifact fingerprint includes wall time, so a recomputed SSL fails the cohort check | B; `controlled.py:418` (this branch), `:435` (M4B) |
 | R6 | MEDIUM | Proposal JSONs contradict per-seed linear (`quantile_linear_fits: 1`); stale linear timeout | B, C, D |
 | R7 | MEDIUM | Thread count is part of the numerical result; cross-host reproducibility UNKNOWN; comparator checks do not bind threads | B |
 | R8 | MEDIUM | λ grid lacks values below 1; 10⁵ redundant; weak-range λ choice within seed noise | B |
@@ -210,3 +216,24 @@ approved amendment. Historical documents are not rewritten; supersessions are re
 - **Synthetic evidence.** The λ-grid and fairness evidence is synthetic and cannot establish real-data optima.
 - **Scripts.** Review scripts embed host-specific paths and are not committed. Their hashes are in the evidence file.
 - **Exposure attestations** (D03) and the custodian (D04) are outside this review and remain unresolved.
+
+## 11. Independent final review of this deliverable
+
+A separate read-only reviewer checked about 60 numbers against the evidence and committed sources, plus the status vocabulary,
+code references and git hygiene. It found **no BLOCKER and no HIGH**, and 4 MEDIUM and 7 LOW corrections. All were applied:
+
+| Finding | Correction |
+|---|---|
+| Pilot totals used M4A per-job compute although the clean rerun is 6–18% heavier | Rows relabelled; rerun-adjusted totals added (≈1,575 / 1,915 / 4,830 / 9,650 s, INFERRED); TCN timeout margin ≈2.1× noted |
+| The 8-value λ grid contradicted the "inside seed noise" finding and reversed M4A's earlier choice | M5-LIN changed to REQUIRES_OWNER_DECISION with both grids as options |
+| Handoff did not say the integration branch lacks the GOES restoration code | Prerequisite-merge note added; paths tagged [HEAD]/[M4B] |
+| Blocking prerequisites differed between this review (3) and the handoff (5) | §1 now lists all five |
+| E0 fingerprint wording; reproduction test scope | E0 keeps origins and content, not split fingerprints. The test is scoped to E0 |
+| Embargo margin miscomputed (12×) | Corrected: about 12× the ~2 h decorrelation, 24–30× the detrended e-fold |
+| Unsupported "space-weather-correlated" claim | Replaced by observed flux independence (Spearman ≈ −0.02 / −0.03); any space-weather link labelled INFERRED |
+| RSS units (0.55–0.65 GiB) and TCN epoch time (15 s) | 0.53–0.61 GiB (546–625 MiB); 16.1–17.6 s per epoch measured |
+| Evidence labels: 2-day persistence, χ²₁ interval, synthetic data equality, "14 tests", "after 3 epochs" | Relabelled or reworded |
+| Isolation wording ("no fitting path", "unreachable") | Narrowed to what the evidence shows |
+| References: `controlled.py:418` vs M4B `:435`; `descriptive_budget_table` location; `V2_M0_RESOLUTION.md` ref; 8-λ caveat in D11 | Corrected |
+
+The verdict token `PROTOCOL_RECOMMENDATIONS_READY` is the review verdict requested for this milestone. It is not a decision status.
