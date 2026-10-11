@@ -1,0 +1,62 @@
+{
+  "status": "PASS",
+  "native_files_verified": 61,
+  "source_identities": 17,
+  "summary": {
+    "rows": 87840,
+    "observed_rows": 87840,
+    "cadence_seconds": 60,
+    "xrsa_valid_rows": 85769,
+    "xrsb_valid_rows": 85891,
+    "start_utc": "2024-05-01T00:00:00+00:00",
+    "end_exclusive_utc": "2024-07-01T00:00:00+00:00"
+  },
+  "rendering": {
+    "xrsa": {
+      "drawn_points": 2252,
+      "gap_markers": 143,
+      "peak_preserved": true,
+      "histogram_total": 85769
+    },
+    "xrsb": {
+      "drawn_points": 2188,
+      "gap_markers": 125,
+      "peak_preserved": true,
+      "histogram_total": 85891
+    }
+  },
+  "diagnostic_rows": 10149,
+  "models": [
+    {
+      "model_id": "persistence_empirical",
+      "label": "Empirical persistence",
+      "log_mae": 0.1321037125645409
+    },
+    {
+      "model_id": "arima(2,1,0)",
+      "label": "ARIMA(2,1,0)",
+      "log_mae": 0.13080263416322369
+    },
+    {
+      "model_id": "supervised",
+      "label": "Supervised control (3-seed mean)",
+      "log_mae": 0.11798546004268894
+    },
+    {
+      "model_id": "jepa_frozen",
+      "label": "Frozen JEPA (3-seed mean)",
+      "log_mae": 0.12375867060397101
+    },
+    {
+      "model_id": "jepa_finetune",
+      "label": "Fine-tuned JEPA (3-seed mean)",
+      "log_mae": 0.1165932281363287
+    }
+  ],
+  "elapsed_seconds": 2.026,
+  "peak_process_rss_mib": 164.8,
+  "frame_mib": 4.28,
+  "offline_sockets_blocked": true,
+  "training_imports_blocked": true,
+  "native_access_allowlist": "May/June 2024 only; no experiment arrays"
+}
