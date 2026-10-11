@@ -237,10 +237,27 @@ def _window_record(all_windows, windows, cap):
 
 
 def _validation_identity(validation):
+    # Selection support includes observations/masks, not just origin labels.
+    # Keep this UI/evaluation-independent so all model families share it.
+    context, targets = validation.context, validation.targets
     return dict(origin_count=len(validation.context.origin_ids),
                 origin_fingerprint=fingerprint_payload(dict(
                     origin_ids=list(validation.context.origin_ids),
-                    issue_times_ns=logical_array(validation.context.issue_times_ns))))
+                    issue_times_ns=logical_array(validation.context.issue_times_ns))),
+                split_fingerprint=validation.split_fingerprint,
+                spec_fingerprint=context.spec.fingerprint,
+                dataset_fingerprint=context.dataset_fingerprint,
+                content_fingerprint=fingerprint_payload(dict(
+                    context_values=logical_array(np.where(context.mask, context.values, np.nan)),
+                    context_mask=logical_array(context.mask),
+                    context_starts_ns=logical_array(context.starts_ns),
+                    context_ends_ns=logical_array(context.ends_ns),
+                    context_availability_ns=None if context.availability_ns is None else
+                    logical_array(context.availability_ns),
+                    target_values=logical_array(np.where(targets.mask, targets.values, np.nan)),
+                    target_mask=logical_array(targets.mask),
+                    target_starts_ns=logical_array(targets.grid.starts_ns),
+                    target_ends_ns=logical_array(targets.grid.ends_ns))))
 
 
 def _validation_metric(model, batch, settings, version, normalization):

@@ -4,8 +4,9 @@ No new schema is defined for forecasts or evaluation: forecasts are P1
 ``ForecastPrediction`` objects, and evaluation identities use the field names of
 ``evaluation.records.EvaluationIdentity`` on the independent-validation branch
 (``origin/feat/v2-m0-m1-validation-foundation``, inspected at ``fd7203b``). That
-class is not on this branch, so this module returns plain mappings; adoption of
-the mapping below is PROPOSED and requires joint approval.
+class is integrated in M4B. This module continues to return plain mappings for
+backward compatibility; the development adapter constructs canonical records.
+Adoption of the mapping for an approved experiment remains a separate decision.
 
 Fields the model owner cannot know (code, data provenance, split and protocol
 identities, experiment id) are caller declarations and are never invented here.
