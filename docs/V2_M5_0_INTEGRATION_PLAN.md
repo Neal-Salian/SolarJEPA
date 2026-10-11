@@ -120,7 +120,7 @@ The regression assertions are owned by `test_mode_rejected_before_any_source_acc
 - [x] Run targeted new/changed tests, integrated full regression, normal installed imports/CLI smoke checks and the explicit no-fit May–July pipeline smoke. Record exact commands, counts and results; do not substitute source presence or old test reports.
 - [x] Obtain independent whole-change review and repair material findings; rerun the tests affected by repairs before the final verification.
 - [x] Run `git diff --check`, inspect final status/index/history and raw ignore rules, recheck preserved source/report/ref identities, and verify all deliverables match the approval/provenance declarations.
-- [ ] Commit focused Conventional Commits and push only `feat/v2-m5-pilot-readiness` with its existing upstream, within root's task authorization. Do not commit/push from this documentation subtask. No merge or push to `main` follows from readiness.
+- [x] Commit focused Conventional Commits and push only `feat/v2-m5-pilot-readiness` with its existing upstream, within root's task authorization. Publication was verified after implementation and evidence commits; no merge or push to `main` follows from readiness.
 
 ## Completion boundary
 
