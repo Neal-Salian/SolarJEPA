@@ -1,0 +1,46 @@
+{
+  "kind": "solarjepa_v2_m5_0_preflight_amendment",
+  "schema_version": 1,
+  "status": "PROPOSED_REQUIRES_APPROVAL",
+  "approved": false,
+  "execution_scope": "PREFLIGHT_ONLY",
+  "source_sha256": {
+    "feasibility_pilot_proposal.json": "90c198715eec19185ce180f3291d7e2ea4d6d2bc22e0bd8045e6ba492590b669",
+    "training_protocol_proposal.json": "eadbdc81465677a41ad57603dc860ebcd9ea17638b4d9bda037851981c51d4fe"
+  },
+  "development_manifests": [
+    "data/manifests/goes_v1_202405.json",
+    "data/manifests/goes_v1_202406.json",
+    "data/manifests/goes_p2_july2024.json"
+  ],
+  "splits_utc_half_open": {
+    "train": [
+      "2024-05-01T00:00:00Z",
+      "2024-07-22T00:00:00Z"
+    ],
+    "validation": [
+      "2024-07-22T00:00:00Z",
+      "2024-08-01T00:00:00Z"
+    ]
+  },
+  "quantile_linear_fits": "one full lambda path per paired seed (M4B requirement); supersedes historical single-fit proposal",
+  "classical_policy": "BLOCKED_ON_EVIDENCE: fit-acceptance owner must specify inclusion, configuration, per-seed identity, timeout and acceptance; no classical jobs scheduled",
+  "statistical_reporting": [
+    "DESCRIPTIVE_ONLY",
+    "INFERENCE_UNAVAILABLE"
+  ],
+  "test_release_permitted": false,
+  "august_policy": "Excluded from M5 loader and jobs; already development-exposed V1 test, never untouched holdout",
+  "resource_ceilings": {
+    "process_peak_rss_bytes": 4294967296,
+    "per_job_timeout_seconds": {
+      "neural_downstream": 600,
+      "ssl_phase": 300,
+      "tcn": 1800,
+      "quantile_linear": 1800
+    },
+    "total_wall_budget_seconds": 7200,
+    "torch_threads": 4,
+    "one_job_per_process": true
+  }
+}

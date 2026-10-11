@@ -188,6 +188,16 @@ def goes_training(config, root):
     root = Path(root).resolve()
     selections = [_pinned_frame(value, root) for value in
                   ([cfg['dataset']['manifest']] if kind == 'goes_historical' else cfg['dataset']['manifests'])]
+    return _goes_dataset(selections, root, kind)
+
+
+def _goes_dataset(selections, root, kind):
+    """Assemble already verified selections without inventing a test partition.
+
+    Shared by the unchanged V1 loader and the separately pinned V2 development
+    loader. Native validation and manifest access remain the callers' concerns;
+    this preserves the historical dataset's exact semantic identity construction.
+    """
     for (_, _, _, left, _), (_, _, _, right, _) in zip(selections, selections[1:]):
         if left['time_end'].iloc[-1] != right.index[0]:
             raise ValueError('Multi-manifest GOES selections must be chronologically contiguous')

@@ -1,0 +1,315 @@
+{
+  "kind": "solarjepa_v2_m5_0_approval_register",
+  "schema_version": 1,
+  "configuration_fingerprint": "2f095fbef7ae1e4de714110dd379a88fcc864f2caeb3eef4b1c295faf9a26b9c",
+  "authorization_scope": "M5_0_PREFLIGHT_ONLY",
+  "decisions": [
+    {
+      "identifier": "D09",
+      "title": "Embargo",
+      "proposed_policy": "none configured on this branch (partitions touch; support containment only); decision D09",
+      "evidence": [
+        "docs/V2_M0_RESOLUTION.md"
+      ],
+      "status": "REQUIRES_APPROVAL",
+      "required_approver": "project scientific owner",
+      "configuration_fingerprint": "2f095fbef7ae1e4de714110dd379a88fcc864f2caeb3eef4b1c295faf9a26b9c",
+      "implementation_dependency": "raw partition/window calendar",
+      "approval": null
+    },
+    {
+      "identifier": "D10",
+      "title": "Experimental protocol",
+      "proposed_policy": "Two-seed primary cohort plus separately paired loss comparison; amended per-seed quantile-linear fits",
+      "evidence": [
+        "docs/V2_TRAINING_PROTOCOL.md"
+      ],
+      "status": "REQUIRES_APPROVAL",
+      "required_approver": "project scientific owner",
+      "configuration_fingerprint": "2f095fbef7ae1e4de714110dd379a88fcc864f2caeb3eef4b1c295faf9a26b9c",
+      "implementation_dependency": "all pilot execution",
+      "approval": null
+    },
+    {
+      "identifier": "D11",
+      "title": "Resource ceilings",
+      "proposed_policy": {
+        "process_peak_rss_bytes": 4294967296,
+        "per_job_timeout_seconds": {
+          "neural_downstream": 600,
+          "ssl_phase": 300,
+          "tcn": 1800,
+          "quantile_linear": 1800
+        },
+        "total_wall_budget_seconds": 7200,
+        "torch_threads": 4,
+        "one_job_per_process": true
+      },
+      "evidence": [
+        "configs/v2_proposed/feasibility_pilot_proposal.json#/resource_ceilings"
+      ],
+      "status": "REQUIRES_APPROVAL",
+      "required_approver": "project scientific owner",
+      "configuration_fingerprint": "2f095fbef7ae1e4de714110dd379a88fcc864f2caeb3eef4b1c295faf9a26b9c",
+      "implementation_dependency": "process supervisor invocation",
+      "approval": null
+    },
+    {
+      "identifier": "DATA_ACCESS",
+      "title": "Dataset access",
+      "proposed_policy": "Only the three pinned May-July manifests for verification now; model fitting requires separate approval",
+      "evidence": [
+        "User M5.0 instruction: verify/reuse, no real training"
+      ],
+      "status": "REQUIRES_APPROVAL",
+      "required_approver": "project scientific owner",
+      "configuration_fingerprint": "2f095fbef7ae1e4de714110dd379a88fcc864f2caeb3eef4b1c295faf9a26b9c",
+      "implementation_dependency": "future real-data fitting",
+      "approval": null
+    },
+    {
+      "identifier": "AUGUST",
+      "title": "August handling",
+      "proposed_policy": "Excluded from M5 loader and jobs; already development-exposed V1 test, never untouched holdout",
+      "evidence": [
+        "docs/V1_SCIENTIFIC_AUDIT.md#F10"
+      ],
+      "status": "REQUIRES_APPROVAL",
+      "required_approver": "project scientific owner",
+      "configuration_fingerprint": "2f095fbef7ae1e4de714110dd379a88fcc864f2caeb3eef4b1c295faf9a26b9c",
+      "implementation_dependency": "selection guard",
+      "approval": null
+    },
+    {
+      "identifier": "QUALITY",
+      "title": "Quality threshold",
+      "proposed_policy": "Preserve strict status/electron masks and positive counts <=60; acceptance of partial-count bins needs a decision",
+      "evidence": [
+        "src/solar_flare_jepa/data/goes.py#read_goes"
+      ],
+      "status": "REQUIRES_APPROVAL",
+      "required_approver": "project scientific owner",
+      "configuration_fingerprint": "2f095fbef7ae1e4de714110dd379a88fcc864f2caeb3eef4b1c295faf9a26b9c",
+      "implementation_dependency": "scientific preprocessing",
+      "approval": null
+    },
+    {
+      "identifier": "SEEDS",
+      "title": "Seed selection",
+      "proposed_policy": [
+        1261866429,
+        1291916211
+      ],
+      "evidence": [
+        "configs/v2_proposed/training_protocol_proposal.json#/settings/seeds"
+      ],
+      "status": "REQUIRES_APPROVAL",
+      "required_approver": "project scientific owner",
+      "configuration_fingerprint": "2f095fbef7ae1e4de714110dd379a88fcc864f2caeb3eef4b1c295faf9a26b9c",
+      "implementation_dependency": "paired job cohort",
+      "approval": null
+    },
+    {
+      "identifier": "BUDGETS",
+      "title": "Training budgets",
+      "proposed_policy": {
+        "ssl_epochs": 8,
+        "supervised_warmup_epochs": 8,
+        "downstream_epochs": 15,
+        "batch_size": 256,
+        "max_train_windows": 20000,
+        "early_stopping": null
+      },
+      "evidence": [
+        "configs/v2_proposed/training_protocol_proposal.json#/settings"
+      ],
+      "status": "REQUIRES_APPROVAL",
+      "required_approver": "project scientific owner",
+      "configuration_fingerprint": "2f095fbef7ae1e4de714110dd379a88fcc864f2caeb3eef4b1c295faf9a26b9c",
+      "implementation_dependency": "training schedules",
+      "approval": null
+    },
+    {
+      "identifier": "LOSSES",
+      "title": "Loss functions",
+      "proposed_policy": {
+        "train_loss": "dex_pinball_equal_channel_v2",
+        "diagnostic_metrics": [
+          "normalized_pinball_v1"
+        ],
+        "quantiles": [
+          0.05,
+          0.25,
+          0.5,
+          0.75,
+          0.95
+        ]
+      },
+      "evidence": [
+        "configs/v2_proposed/training_protocol_proposal.json#/settings/train_loss"
+      ],
+      "status": "REQUIRES_APPROVAL",
+      "required_approver": "project scientific owner",
+      "configuration_fingerprint": "2f095fbef7ae1e4de714110dd379a88fcc864f2caeb3eef4b1c295faf9a26b9c",
+      "implementation_dependency": "primary and secondary cohort recipes",
+      "approval": null
+    },
+    {
+      "identifier": "CHECKPOINT",
+      "title": "Checkpoint selection",
+      "proposed_policy": {
+        "partition": "validation",
+        "metric": "dex_pinball_equal_channel_v2",
+        "eligible": "downstream epochs only",
+        "tie_rule": "earliest epoch"
+      },
+      "evidence": [
+        "configs/v2_proposed/training_protocol_proposal.json#/settings/checkpoint_selection"
+      ],
+      "status": "REQUIRES_APPROVAL",
+      "required_approver": "project scientific owner",
+      "configuration_fingerprint": "2f095fbef7ae1e4de714110dd379a88fcc864f2caeb3eef4b1c295faf9a26b9c",
+      "implementation_dependency": "validation-only selection",
+      "approval": null
+    },
+    {
+      "identifier": "TCN",
+      "title": "TCN configuration",
+      "proposed_policy": {
+        "width": 32,
+        "kernel_size": 3,
+        "dilations": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "dropout": 0.0,
+        "batch_size": 256,
+        "lr": 0.001,
+        "weight_decay": 0.0001,
+        "gradient_clip": 1.0,
+        "downstream_epochs": 15,
+        "early_stopping_patience": null,
+        "max_train_windows": 20000
+      },
+      "evidence": [
+        "configs/v2_proposed/training_protocol_proposal.json#/settings/tcn"
+      ],
+      "status": "REQUIRES_APPROVAL",
+      "required_approver": "project scientific owner",
+      "configuration_fingerprint": "2f095fbef7ae1e4de714110dd379a88fcc864f2caeb3eef4b1c295faf9a26b9c",
+      "implementation_dependency": "TCN jobs",
+      "approval": null
+    },
+    {
+      "identifier": "LINEAR",
+      "title": "Quantile-linear regularization",
+      "proposed_policy": {
+        "settings": {
+          "lambdas": [
+            0.0,
+            1.0,
+            10.0,
+            100.0,
+            1000.0,
+            10000.0,
+            100000.0
+          ],
+          "optimizer": "Adam",
+          "lr": 0.01,
+          "batch_size": 256,
+          "epochs": 100,
+          "gradient_clip": null,
+          "seed_rule": "first paired seed",
+          "max_train_windows": 20000
+        },
+        "seed_rule": "each paired seed; two full lambda paths",
+        "boundary_rule": "if validation selects the largest lambda, report BOUNDARY_SELECTED; in development only, one documented decade extension is allowed before the protocol is frozen; no extension after freeze"
+      },
+      "evidence": [
+        "docs/V2_M4B_M5_HANDOFF.md"
+      ],
+      "status": "REQUIRES_APPROVAL",
+      "required_approver": "project scientific owner",
+      "configuration_fingerprint": "2f095fbef7ae1e4de714110dd379a88fcc864f2caeb3eef4b1c295faf9a26b9c",
+      "implementation_dependency": "quantile-linear jobs",
+      "approval": null
+    },
+    {
+      "identifier": "CLASSICAL",
+      "title": "Classical baseline policy",
+      "proposed_policy": "BLOCKED_ON_EVIDENCE: fit-acceptance owner must specify inclusion, configuration, per-seed identity, timeout and acceptance; no classical jobs scheduled",
+      "evidence": [
+        "docs/V2_M4B_M5_HANDOFF.md"
+      ],
+      "status": "BLOCKED_ON_EVIDENCE",
+      "required_approver": "project scientific owner and fit-acceptance owner",
+      "configuration_fingerprint": "2f095fbef7ae1e4de714110dd379a88fcc864f2caeb3eef4b1c295faf9a26b9c",
+      "implementation_dependency": "complete job plan and fit-acceptance evidence",
+      "approval": null
+    },
+    {
+      "identifier": "FAILURE_RETRY",
+      "title": "Failure and retry handling",
+      "proposed_policy": {
+        "infrastructure_retries_per_job": 1,
+        "retry_identity": "same seed, config and code fingerprints; logged in the run ledger",
+        "numerical_failure": "recorded as model failure; no retry with changed settings; never drop or replace a seed",
+        "primary_cohort_incomplete": "formal primary analysis incomplete/inconclusive"
+      },
+      "evidence": [
+        "configs/v2_proposed/training_protocol_proposal.json#/settings/failure_policy"
+      ],
+      "status": "REQUIRES_APPROVAL",
+      "required_approver": "project scientific owner",
+      "configuration_fingerprint": "2f095fbef7ae1e4de714110dd379a88fcc864f2caeb3eef4b1c295faf9a26b9c",
+      "implementation_dependency": "supervisor/retry ledger",
+      "approval": null
+    },
+    {
+      "identifier": "STATISTICS",
+      "title": "Statistical reporting",
+      "proposed_policy": [
+        "DESCRIPTIVE_ONLY",
+        "INFERENCE_UNAVAILABLE"
+      ],
+      "evidence": [
+        "docs/V2_M3_INFERENCE_REMEDIATION_REPORT.md"
+      ],
+      "status": "REQUIRES_APPROVAL",
+      "required_approver": "project scientific owner",
+      "configuration_fingerprint": "2f095fbef7ae1e4de714110dd379a88fcc864f2caeb3eef4b1c295faf9a26b9c",
+      "implementation_dependency": "all reporting; no CI/p-values/superiority",
+      "approval": null
+    },
+    {
+      "identifier": "TEST_PROHIBITION",
+      "title": "Test-release prohibition",
+      "proposed_policy": "No release_test, test windows, test scoring, January2025 or sealed data; M5 is preflight-only",
+      "evidence": [
+        "User M5.0 instruction; M4B DevelopmentRun.release_test"
+      ],
+      "status": "REQUIRES_APPROVAL",
+      "required_approver": "project scientific owner",
+      "configuration_fingerprint": "2f095fbef7ae1e4de714110dd379a88fcc864f2caeb3eef4b1c295faf9a26b9c",
+      "implementation_dependency": "all execution interfaces",
+      "approval": null
+    },
+    {
+      "identifier": "REPRODUCIBILITY",
+      "title": "Execution provenance and freeze",
+      "proposed_policy": "Freeze code/config/data/splits and resume identities before any future authorized runner",
+      "evidence": [
+        "src/solar_flare_jepa/experiments/v2_evaluation_safety.py"
+      ],
+      "status": "REQUIRES_APPROVAL",
+      "required_approver": "project scientific owner",
+      "configuration_fingerprint": "2f095fbef7ae1e4de714110dd379a88fcc864f2caeb3eef4b1c295faf9a26b9c",
+      "implementation_dependency": "future approved pilot entrypoint",
+      "approval": null
+    }
+  ]
+}

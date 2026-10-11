@@ -1,0 +1,79 @@
+{
+  "kind": "solarjepa_v2_m5_0_independent_review",
+  "schema_version": 1,
+  "reviewer": "independent_review subagent; fresh task context",
+  "scope": "Data provenance, scientific integrity, leakage, exposure, loader safety, authorization, resources, statistical reporting, test isolation, reproducibility and backward compatibility",
+  "verdict": "NO_REMAINING_BLOCKER_HIGH_OR_MEDIUM",
+  "findings": [
+    {
+      "severity": "HIGH",
+      "topic": "Crash after spawn before PID persistence",
+      "status": "FIXED",
+      "repair": "Refuse recovered running attempts whose PID is unknown; manual investigation required",
+      "tests": [
+        "test_unknown_spawn_state_blocks_resume_instead_of_launching_retry"
+      ],
+      "independent_experiment": "Supervisor exited 81 immediately after real synthetic Popen; final resume refused unknown spawn state and durable attempt count remained 1; orphan group cleaned up"
+    },
+    {
+      "severity": "MEDIUM",
+      "topic": "Concurrent initialization replacing a different plan",
+      "status": "FIXED",
+      "repair": "Initial ledger uses atomic no-replace publication",
+      "tests": [
+        "test_racing_initializers_cannot_replace_another_execution_plan"
+      ]
+    },
+    {
+      "severity": "MEDIUM",
+      "topic": "Raw/source attribution during preparation",
+      "status": "FIXED",
+      "repair": "Recheck manifest/config pins, assembled source list against exact pins and all raw hashes at completion",
+      "tests": [
+        "test_assembly_source_hashes_must_equal_pins_at_completion",
+        "test_raw_bytes_are_reverified_after_preparation"
+      ]
+    },
+    {
+      "severity": "MEDIUM",
+      "topic": "Stale code/config/approval attribution",
+      "status": "FIXED",
+      "repair": "Recheck executed-source provenance, commit, configuration and register after preparation",
+      "tests": [
+        "test_source_change_during_data_check_blocks_result"
+      ]
+    },
+    {
+      "severity": "LOW",
+      "topic": "Malformed approval records",
+      "status": "FIXED",
+      "repair": "Strict integer schema, mapping entries and string statuses; reject inconsistent policy/config fingerprints",
+      "tests": [
+        "test_malformed_register_is_consistently_rejected"
+      ]
+    }
+  ],
+  "tests": {
+    "command": "PYTHONPATH=src .venv/bin/python -m pytest -q tests/test_goes_v2_development.py tests/test_v2_m5_preflight.py tests/test_v2_resource_controls.py",
+    "passed": 84,
+    "seconds": 114.42
+  },
+  "final_source_sha256": {
+    "src/solar_flare_jepa/data/goes_v2_development.py": "6af57f74d11636107c26176340cd6adfcec32adb905cf168dcaa7d3afa3935b0",
+    "src/solar_flare_jepa/experiments/v2_m5_preflight.py": "54fe1e74c30fd3768bb76defd7af5d9dfe1c538bd2ecc0e61b99679df18a6060",
+    "src/solar_flare_jepa/experiments/v2_resource_controls.py": "b93e87fc9aacbb741143a8ff5f54efa5a21857bfd5326d5f7d4968dc329379b8"
+  },
+  "remaining_limits": [
+    "macOS synthetic enforcement tested; Linux support not executed",
+    "RSS polling can miss short peaks and is not an OS allocation cap",
+    "Native-library thread environment caps are not OS thread-count enforcement",
+    "Workers are trusted not to daemonize or leave their session",
+    "Caller-supplied code/config identities are declarations, not authentication",
+    "Unknown spawn state and live orphan group require manual investigation; no automatic retry",
+    "Conservative UTC crash accounting fails closed on backward clocks"
+  ],
+  "no_real_data_reads_by_reviewer": true,
+  "no_real_model_training": true,
+  "pilot_authorized": false,
+  "protocol_review_scope": "Separate Claude Code experimental-protocol review not incorporated or attributed"
+}

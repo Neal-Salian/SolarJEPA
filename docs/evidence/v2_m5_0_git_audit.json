@@ -1,0 +1,375 @@
+{
+  "ancestry_before_merge": [
+    {
+      "ancestor": "m4a",
+      "descendant": "m4b",
+      "is_ancestor": true
+    },
+    {
+      "ancestor": "m4a",
+      "descendant": "goes_restoration",
+      "is_ancestor": true
+    },
+    {
+      "ancestor": "m2",
+      "descendant": "m4b",
+      "is_ancestor": true
+    },
+    {
+      "ancestor": "m3_1",
+      "descendant": "m4b",
+      "is_ancestor": false
+    },
+    {
+      "ancestor": "goes_restoration",
+      "descendant": "m4b",
+      "is_ancestor": false
+    }
+  ],
+  "audit_workspace": "/Users/nealsalian/.codex/worktrees/v2-m5-pilot-readiness/SolarJEPA",
+  "checks_executed": [
+    "git status --short --branch on desktop and M4B worktree",
+    "git log/branch/ref and merge-base ancestry inspection",
+    "git diff --name-status and source/test inspection of GOES branch",
+    "direct92-file lstat/size/SHA256 verification across known managed worktrees",
+    "original verify_history plus validate_goes_files for May,June,July only",
+    "native attributes of92 explicit files only",
+    "git check-ignore -v on actual May/June/July representative paths",
+    "git ls-tree data/raw,data/interim,data/processed,results: placeholders only on M4B/GOES trees",
+    "git diff --check ac3428f..8a9c98d",
+    "source-commit byte equality and SHA256 of preserved historical report roots"
+  ],
+  "compatibility_findings": [
+    "GOES branch changes14 paths and only adds optional stats counters to an existing acquisition API; remaining modules/CLIs/config/evidence/tests are additive.",
+    "Generic goes_training eagerly verifies/decodes every listed manifest; V1 config includes August and must not be the M5.0 entry point.",
+    "Generic config/splitting APIs require a test declaration; development loader should construct only train and validation directly while reusing verified native assembly.",
+    "goes_restoration.inventory scans the entire managed product tree with rglob; it must not run on a shared source tree containing unapproved data.",
+    "M4B retains byte-identical M3.1 report/summary roots but has no M3.1 commit ancestry or experimental inference code; no M3 code merge is required.",
+    "M4B executable descriptive publication retains DESCRIPTIVE_ONLY, INFERENCE_UNAVAILABLE, NO_VALIDATED_REPLACEMENT, and POLICY_UNAVAILABLE."
+  ],
+  "evidence_scope": "OBSERVED Git/source audit and explicit May-July pinned-file/native-contract audit; no August/January/sealed raw access, network acquisition, model training, or test release",
+  "generated_utc": "2026-10-11T06:32:29.367278+00:00",
+  "goes_merge_base": "ac3428f910b36b7f10cc0fbb0740ce6de62df5a7",
+  "historical_report_roots": [
+    {
+      "matches_source_commit": true,
+      "path": "docs/V2_TRAINING_PROTOCOL.md",
+      "sha256": "2d4b2681476ce31eb2232810fe457ce80318709dfec2150ad56ca37ba66b1172",
+      "source_commit": "ac3428f910b36b7f10cc0fbb0740ce6de62df5a7"
+    },
+    {
+      "matches_source_commit": true,
+      "path": "docs/V2_COMPUTE_FEASIBILITY.md",
+      "sha256": "b4c8fc00567f41dd93e55683a2090333571d1e9b532bff21f9f910b11c377a44",
+      "source_commit": "ac3428f910b36b7f10cc0fbb0740ce6de62df5a7"
+    },
+    {
+      "matches_source_commit": true,
+      "path": "docs/V2_M4_INTEGRATION_HANDOFF.md",
+      "sha256": "237d70bcb4cd1a8c9311593b759cad3198006bff3b68756f8666857d8c254371",
+      "source_commit": "ac3428f910b36b7f10cc0fbb0740ce6de62df5a7"
+    },
+    {
+      "matches_source_commit": true,
+      "path": "configs/v2_proposed/training_protocol_proposal.json",
+      "sha256": "eadbdc81465677a41ad57603dc860ebcd9ea17638b4d9bda037851981c51d4fe",
+      "source_commit": "ac3428f910b36b7f10cc0fbb0740ce6de62df5a7"
+    },
+    {
+      "matches_source_commit": true,
+      "path": "configs/v2_proposed/feasibility_pilot_proposal.json",
+      "sha256": "90c198715eec19185ce180f3291d7e2ea4d6d2bc22e0bd8045e6ba492590b669",
+      "source_commit": "ac3428f910b36b7f10cc0fbb0740ce6de62df5a7"
+    },
+    {
+      "matches_source_commit": true,
+      "path": "docs/V2_M4B_INTEGRATION_REPORT.md",
+      "sha256": "a8b19d903a747112bb18c11f521e6c9f003e7c8acc87cc415fa2e63d5ee5cb71",
+      "source_commit": "2e3f87111ab7c3a881064aaad9dbd6d6298c69cd"
+    },
+    {
+      "matches_source_commit": true,
+      "path": "docs/V2_M4B_INTERFACE_RECONCILIATION.md",
+      "sha256": "d675dfbc8804d4c1e4fa5098ecdedad33b94ddaa2e4fbd4884f4471f2d637ff2",
+      "source_commit": "2e3f87111ab7c3a881064aaad9dbd6d6298c69cd"
+    },
+    {
+      "matches_source_commit": true,
+      "path": "docs/V2_M4B_M5_HANDOFF.md",
+      "sha256": "8a5f71c16d4a7e45f68719d2e360223484bf38aa06ce6b7dce6f8974badf3bdb",
+      "source_commit": "2e3f87111ab7c3a881064aaad9dbd6d6298c69cd"
+    },
+    {
+      "matches_source_commit": true,
+      "path": "docs/V2_M3_INFERENCE_REMEDIATION_REPORT.md",
+      "sha256": "3cb051f52bebf02e5233dec26dcd4c7e1965b755d49e109674ab3a7f1ccd471e",
+      "source_commit": "5e88f3a7109296c9475378b77be0257a4f9363ab"
+    },
+    {
+      "matches_source_commit": true,
+      "path": "docs/evidence/v2_m3_inference_summary.json",
+      "sha256": "f4ed208cad6e83d2e24fcf2a2d41dcf47e30a44ca50a4f1691e7fd080b38d71a",
+      "source_commit": "5e88f3a7109296c9475378b77be0257a4f9363ab"
+    },
+    {
+      "matches_source_commit": true,
+      "path": "docs/V2_GOES_DATA_RESTORATION_REPORT.md",
+      "sha256": "69452d60f7a65899d8c08220a0343bc47769ecb5fec0f29ed59ee37355a9b848",
+      "source_commit": "8a9c98db66eca545eeaf062f5fb07e47ec6bdc63"
+    },
+    {
+      "matches_source_commit": true,
+      "path": "docs/V2_GOES_SCIENTIFIC_VALIDATION.md",
+      "sha256": "23c40c0ef96f2d23499f343e75f2d172bd6d99e3961ac4b4bc31aae4f47bec00",
+      "source_commit": "8a9c98db66eca545eeaf062f5fb07e47ec6bdc63"
+    },
+    {
+      "matches_source_commit": true,
+      "path": "docs/V2_GOES_M5_READINESS.md",
+      "sha256": "566a4efa999ba005667d2546e727893f9083816a49a123958bc23ede07b5a657",
+      "source_commit": "8a9c98db66eca545eeaf062f5fb07e47ec6bdc63"
+    }
+  ],
+  "historical_restoration_scope": {
+    "bytes": 36535474,
+    "current_m5_0_active_selection": "May-July only: 92 files / 27280082 bytes",
+    "default_restoration_and_validation_clis_are_m5_0_safe": false,
+    "evidence": "DOCUMENTED in immutable GOES restoration report/evidence; August raw bytes were not reopened in this audit",
+    "files": 123,
+    "interval_half_open": [
+      "2024-05-01",
+      "2024-09-01"
+    ]
+  },
+  "kind": "solarjepa_v2_m5_0_git_and_source_audit",
+  "m5_branch": {
+    "initial_published_commit": "2e3f87111ab7c3a881064aaad9dbd6d6298c69cd",
+    "local_ref": "refs/heads/feat/v2-m5-pilot-readiness",
+    "upstream_ref": "refs/remotes/origin/feat/v2-m5-pilot-readiness"
+  },
+  "merge": {
+    "changed_paths": [
+      {
+        "path": "configs/data/v2_goes_development_restoration.json",
+        "status": "A"
+      },
+      {
+        "path": "docs/V2_GOES_DATA_RESTORATION_REPORT.md",
+        "status": "A"
+      },
+      {
+        "path": "docs/V2_GOES_M5_READINESS.md",
+        "status": "A"
+      },
+      {
+        "path": "docs/V2_GOES_SCIENTIFIC_VALIDATION.md",
+        "status": "A"
+      },
+      {
+        "path": "docs/evidence/v2_goes_development_integrity.json",
+        "status": "A"
+      },
+      {
+        "path": "docs/evidence/v2_goes_restoration_runs.json",
+        "status": "A"
+      },
+      {
+        "path": "scripts/restore_goes_development.py",
+        "status": "A"
+      },
+      {
+        "path": "scripts/validate_goes_development.py",
+        "status": "A"
+      },
+      {
+        "path": "src/solar_flare_jepa/data/goes_acquisition.py",
+        "status": "M"
+      },
+      {
+        "path": "src/solar_flare_jepa/data/goes_development_validation.py",
+        "status": "A"
+      },
+      {
+        "path": "src/solar_flare_jepa/data/goes_restoration.py",
+        "status": "A"
+      },
+      {
+        "path": "tests/test_goes_acquisition.py",
+        "status": "M"
+      },
+      {
+        "path": "tests/test_goes_development_validation.py",
+        "status": "A"
+      },
+      {
+        "path": "tests/test_goes_restoration.py",
+        "status": "A"
+      }
+    ],
+    "commit": "c8da8d7ff0412584be1d2a5b648ea41140e923b4",
+    "m3_experimental_inference_tree_present": false,
+    "method": "normal two-parent Git merge (observed commit; no cherry-pick or squash)",
+    "overlapping_changed_paths_from_common_base": [],
+    "parents": [
+      "2e3f87111ab7c3a881064aaad9dbd6d6298c69cd",
+      "8a9c98db66eca545eeaf062f5fb07e47ec6bdc63"
+    ],
+    "raw_science_files_added": false,
+    "subject": "chore(v2): integrate verified GOES restoration for M5 readiness"
+  },
+  "not_executed_by_this_audit": [
+    "pytest suites",
+    "Git fetch/live remote query",
+    "August orJanuary2025 orsealed raw access",
+    "downloads",
+    "real-data model fitting",
+    "test windows/scoring/release",
+    "source-data mutations or deletion"
+  ],
+  "protected_ref_observation": "These local and origin tracking identities were observed before M5.0 integration and rechecked after the merge. This subagent did not fetch or independently query the live remote; root owns live remote verification.",
+  "protected_refs_initial_verified": {
+    "refs/heads/feat/v2-model-evaluation-integration": "2e3f87111ab7c3a881064aaad9dbd6d6298c69cd",
+    "refs/heads/feat/v2-training-protocol-feasibility": "ac3428f910b36b7f10cc0fbb0740ce6de62df5a7",
+    "refs/heads/main": "1a4991da4dda9676caeb1d7e35a03408528c3188",
+    "refs/heads/presentation/eda-model-comparison": "660f469683557a0f3134f72ec69b174a5bcdd917",
+    "refs/heads/research/v2-m3-inference-remediation": "5e88f3a7109296c9475378b77be0257a4f9363ab",
+    "refs/remotes/origin/data/v2-goes-development-restoration": "8a9c98db66eca545eeaf062f5fb07e47ec6bdc63",
+    "refs/remotes/origin/feat/v2-model-evaluation-integration": "2e3f87111ab7c3a881064aaad9dbd6d6298c69cd",
+    "refs/remotes/origin/feat/v2-training-protocol-feasibility": "ac3428f910b36b7f10cc0fbb0740ce6de62df5a7",
+    "refs/remotes/origin/main": "1a4991da4dda9676caeb1d7e35a03408528c3188",
+    "refs/remotes/origin/presentation/eda-model-comparison": "660f469683557a0f3134f72ec69b174a5bcdd917",
+    "refs/remotes/origin/research/v2-m3-inference-remediation": "5e88f3a7109296c9475378b77be0257a4f9363ab"
+  },
+  "raw_source_audit": {
+    "bytes": 27280082,
+    "evidence": "OBSERVED",
+    "files": 92,
+    "isolated_worktree_availability_at_initial_audit": {
+      "expected": 92,
+      "m4b_present": 0,
+      "m5_present": 0
+    },
+    "mismatched": 0,
+    "missing": 0,
+    "months": [
+      {
+        "bytes": 9169020,
+        "date_created_max": "2025-12-05T18:44:20.890Z",
+        "date_created_min": "2025-12-05T18:37:51.457Z",
+        "files": 31,
+        "manifest": "data/manifests/goes_v1_202405.json",
+        "manifest_sha256": "9828b714ecb4545af2711f2760d110b9d0dd963a67e1f3d1d1f711af0aeb2240",
+        "observed_rows": 44640,
+        "valid_bins": {
+          "xrsa": 42695,
+          "xrsb": 42696
+        },
+        "valid_partial_sample_bins_1_to_59": {
+          "xrsa": 2724,
+          "xrsb": 642
+        }
+      },
+      {
+        "bytes": 8910715,
+        "date_created_max": "2025-12-05T18:42:21.538Z",
+        "date_created_min": "2025-12-05T18:38:01.768Z",
+        "files": 30,
+        "manifest": "data/manifests/goes_v1_202406.json",
+        "manifest_sha256": "91e45449c61918c52786c4d4f45d4d9311ef313bbc8baace314a40bf135ecc79",
+        "observed_rows": 43200,
+        "valid_bins": {
+          "xrsa": 43074,
+          "xrsb": 43195
+        },
+        "valid_partial_sample_bins_1_to_59": {
+          "xrsa": 2859,
+          "xrsb": 745
+        }
+      },
+      {
+        "bytes": 9200347,
+        "date_created_max": "2025-12-05T18:42:23.317Z",
+        "date_created_min": "2025-12-05T18:38:11.012Z",
+        "files": 31,
+        "manifest": "data/manifests/goes_p2_july2024.json",
+        "manifest_sha256": "581a3c4b8cfba6b9b21ed1fdb0b2277e728e9bf329a8da1ddcc0bd49c3cc4b3d",
+        "observed_rows": 44640,
+        "valid_bins": {
+          "xrsa": 42329,
+          "xrsb": 44406
+        },
+        "valid_partial_sample_bins_1_to_59": {
+          "xrsa": 2798,
+          "xrsb": 589
+        }
+      }
+    ],
+    "native_contract_validation": {
+      "algorithm": "xrs04_avg.py",
+      "algorithm_version": [
+        2,
+        4
+      ],
+      "apis": [
+        "solar_flare_jepa.data.goes_acquisition.verify_history",
+        "solar_flare_jepa.data.foundation.validate_goes_files"
+      ],
+      "cadence_seconds": 60,
+      "grid_rows": 132480,
+      "instrument": "GOES R Series Extreme Ultraviolet Sensor and X-ray Irradiance Sensors (EXIS)",
+      "missing_timestamp_bins": 0,
+      "model_fit_executed": false,
+      "observed_rows": 132480,
+      "platform": "g16",
+      "processing_level": "Level 2",
+      "processing_parameters_file": "g16_xrs-avg-electron-contam-lut_v3.h5",
+      "production_git_commit": "162d7a2889b4f88020950d212b0dfcc40f7937b2",
+      "python": "/Users/nealsalian/Desktop/SolarJEPA/.venv/bin/python",
+      "quality_policy": "strict_status_zero_and_channel_specific_electron_bits",
+      "source_commit": "2e3f87111ab7c3a881064aaad9dbd6d6298c69cd",
+      "status": "VALIDATED_NATIVE_GOES_CONTRACT",
+      "test_windows_built": false,
+      "time_coverage_resolution": "PT1M",
+      "units": "W/m2",
+      "valid_bins": {
+        "xrsa": 128098,
+        "xrsb": 130297
+      }
+    },
+    "selection": "exact paths from the three May-July manifests, never a broad data-tree glob",
+    "size_and_sha256_verified": 92,
+    "source_path_pattern": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2024/{05,06,07}/sci_xrsf-l2-avg1m_g16_dYYYYMMDD_v2-2-1.nc",
+    "source_root": "/Users/nealsalian/Desktop/SolarJEPA",
+    "symlinks": 0
+  },
+  "root_reported_baseline_environment_correction": {
+    "correction": "Created isolated M5/.venv, installed unchanged M4B, and repeated against stable source; original environment retained",
+    "evidence": "DOCUMENTED from root message; these pytest runs were not executed by this audit subagent",
+    "fresh_m4b_repeat": {
+      "failed": 0,
+      "passed": 1583,
+      "wall_seconds": 120.77,
+      "warnings": 1
+    },
+    "future_verification_environment": "isolated M5/.venv with stable source and current package installation",
+    "initial_attempt": {
+      "failed": 2,
+      "passed": 1581,
+      "valid_clean_baseline": false,
+      "wall_seconds": 125.76,
+      "warnings": 1
+    },
+    "root_identified_causes": [
+      "older package in shared installed environment",
+      "concurrent merge changed source during execution"
+    ]
+  },
+  "schema_version": 1,
+  "source_roots": {
+    "goes_restoration": "8a9c98db66eca545eeaf062f5fb07e47ec6bdc63",
+    "m2": "94cae59398e52a65074ec66c73ad94bd47ca8867",
+    "m3_1": "5e88f3a7109296c9475378b77be0257a4f9363ab",
+    "m4a": "ac3428f910b36b7f10cc0fbb0740ce6de62df5a7",
+    "m4b": "2e3f87111ab7c3a881064aaad9dbd6d6298c69cd"
+  }
+}
