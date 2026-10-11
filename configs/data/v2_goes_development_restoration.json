@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "plan_id": "v2-goes16-development-restoration-2024-05-08",
+  "purpose": "Restore and verify the exposed May-August 2024 GOES-16 development data for the V2 feasibility pilot. Authorizes acquisition of exactly these manifest identities from their recorded official URLs; authorizes no training, scoring or test release.",
+  "authorization_basis": [
+    "User M4A-follow-up milestone instruction (2026-10-11): restore May-August 2024 development data; treat August as development-exposed",
+    "docs/V2_EXPERIMENTAL_PROTOCOL.md section 3 (research/v2-independent-validation and later): all May-August 2024 data are development/exposed",
+    "docs/V2_M0_RESOLUTION.md D02 (VERIFIED): May-Aug 2024 exposure established; never an independent V2 default",
+    "docs/V1_SCIENTIFIC_AUDIT.md F10: August 2024 was scored in V1 and cannot be presented as fresh confirmation"
+  ],
+  "platform": "GOES-16",
+  "product": "xrsf-l2-avg1m_science",
+  "version": "2-2-1",
+  "authorized_interval": {"start": "2024-05-01", "end_exclusive": "2024-09-01"},
+  "max_total_bytes": 38797312,
+  "disk_margin_bytes": 268435456,
+  "manifests": [
+    {"path": "data/manifests/goes_v1_202405.json", "role": "development_exposed", "v1_role": "train"},
+    {"path": "data/manifests/goes_v1_202406.json", "role": "development_exposed", "v1_role": "train"},
+    {"path": "data/manifests/goes_p2_july2024.json", "role": "development_exposed", "v1_role": "train (07-01..07-22) and validation (07-22..08-01); P2 used 07-27..08-01 as its test"},
+    {"path": "data/manifests/goes_v1_202408.json", "role": "development_exposed", "v1_role": "test, already scored in V1 (spent); its manifest basis text 'untouched v1 test holdout' predates the V1 audit"}
+  ],
+  "forbidden": [
+    "any identity outside authorized_interval (e.g. the January 2025 external-validation selection on other refs)",
+    "any other platform, product or version",
+    "replacing or adopting a file whose bytes differ from its manifest pin"
+  ]
+}
