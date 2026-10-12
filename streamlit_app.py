@@ -1,4 +1,4 @@
-"""SolarJEPA's offline presentation layer; no acquisition, fitting, or inference."""
+"""SolarJEPA's offline presentation layer, with verified saved-parameter inference."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -10,7 +10,7 @@ sys.path.insert(0, str(ROOT / "src"))
 import pandas as pd
 import streamlit as st
 
-from solar_flare_jepa.dashboard import data
+from solar_flare_jepa.dashboard import data, time_series
 from solar_flare_jepa.dashboard.charts import (
     dependence_figure, flux_figure, histogram_figure, model_figure,
 )
@@ -42,7 +42,7 @@ with st.sidebar:
     st.markdown("**GOES-16 · XRS**")
     st.caption("01 May – 30 June 2024 · UTC\n\nOne-minute science observations")
     st.divider()
-    st.caption("Presentation snapshot · 11 October 2026\n\nLocal evidence · offline operation")
+    st.caption("Archived snapshot · 11 October 2026\n\nTime-series report · 12 October 2026\n\nLocal evidence · offline operation")
 
 st.title("SolarJEPA")
 st.markdown("<p style='color:#8FA9CA;font-size:1.1rem;margin-top:-.3rem'>Solar X-Ray Time-Series Research</p>",
@@ -164,6 +164,7 @@ def explorer(registry: dict) -> None:
     st.caption("This display uses the EDA's log transformation and bin count on the smaller dashboard scope. "
                "It is not the original May–August histogram.")
     provenance(registry, "flux_histogram")
+    time_series.render_explorer(ROOT)
 
 
 def stationarity_table(rows: list[dict], channel: str) -> pd.DataFrame:
@@ -230,6 +231,7 @@ def analysis(registry: dict) -> None:
                "First log differences: 11 June 16:39 – 18 June 17:47 UTC, end exclusive. "
                "These local tests do not establish global stationarity or validated forecasting inference.")
     provenance(registry, "stationarity")
+    time_series.render_analysis(ROOT, channel)
 
 
 def models(registry: dict) -> None:
@@ -255,8 +257,9 @@ def models(registry: dict) -> None:
     for item in status["items"]:
         st.markdown("- " + item["label"])
     st.caption("Status snapshot: " + status["snapshot_utc"] + ". Infrastructure checks are not forecasting accuracy evidence. "
-               "A matched timestamp-level prediction display is omitted from this presentation.")
+               "A matched timestamp-level prediction display is omitted from the archived V1 comparison.")
     provenance(registry, "research_status")
+    time_series.render_models(ROOT)
 
 
 try:

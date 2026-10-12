@@ -102,7 +102,7 @@ def test_all_four_pages_render_native_artifacts_offline(offline):
     assert app.title[0].value == "SolarJEPA"
     assert len(app.metric) == 3
     assert len(app.get("plotly_chart")) == 1
-    for page, chart_count in [("Data Explorer", 2), ("Time-Series Analysis", 1), ("Model Results", 1)]:
+    for page, chart_count in [("Data Explorer", 4), ("Time-Series Analysis", 2), ("Model Results", 2)]:
         app.sidebar.radio[0].set_value(page).run()
         assert not app.exception, page
         assert len(app.get("plotly_chart")) == chart_count, page
