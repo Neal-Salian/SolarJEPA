@@ -54,6 +54,7 @@ def test_forecast_chart_has_native_channels_quantile_intervals_and_exact_time_bo
 def test_fifth_page_renders_forecast_and_controls_and_preserves_scope_labels():
     app=AppTest.from_file(str(APP),default_timeout=60).run()
     assert 'Solar Flux Prediction' in app.sidebar.radio[0].options, 'Fifth page route missing'
+    assert any('Stable Baseline v0.1' in caption.value for caption in app.caption)
     app.sidebar.radio[0].set_value('Solar Flux Prediction').run()
     assert not app.exception and not app.error
     assert len(app.get('plotly_chart'))==1
@@ -101,7 +102,11 @@ def run_legacy_boundary():
     def guard(original):
         def checked(file,*args,**kwargs):
             if isinstance(file,(str,bytes,Path)):
-                name=str(file); assert not any(x in name for x in forbidden),name; opened.append(name)
+                name=str(file)
+                # The TS identity verifies tracked August metadata without opening August science products.
+                metadata=Path(file).resolve()==ROOT/'data/manifests/goes_v1_202408.json'
+                assert metadata or not any(x in name for x in forbidden),name
+                opened.append(name)
             return original(file,*args,**kwargs)
         return checked
     builtins.open=guard(builtins.open); io.open=guard(io.open)
@@ -114,7 +119,7 @@ def run_legacy_boundary():
     app=AppTest.from_file(str(APP),default_timeout=60).run()
     assert not app.exception and not app.error and len(app.metric)==3
     assert app.metric[1].value=='87,840'
-    for page,count in [('Overview',1),('Data Explorer',2),('Time-Series Analysis',1),('Model Results',1)]:
+    for page,count in [('Overview',1),('Data Explorer',4),('Time-Series Analysis',2),('Model Results',2)]:
         app.sidebar.radio[0].set_value(page).run()
         assert not app.exception and not app.error,page
         assert len(app.get('plotly_chart'))==count,page
@@ -128,7 +133,7 @@ def run_legacy_boundary():
         if page=='Model Results': assert len(app.dataframe[0].value)==5
     assert len(set(native))==61
     assert not any(n.startswith(('torch','solar_flare_jepa.training','solar_flare_jepa.dashboard.prediction')) for n in sys.modules)
-    print(json.dumps({'status':'PASS','native_files':len(set(native)),'charts':[1,2,1,1]}))
+    print(json.dumps({'status':'PASS','native_files':len(set(native)),'charts':[1,4,2,2]}))
 
 
 def test_all_legacy_pages_render_without_models_august_or_prediction_arrays():
@@ -136,4 +141,4 @@ def test_all_legacy_pages_render_without_models_august_or_prediction_arrays():
     result=subprocess.run([sys.executable,'-c',code],cwd=ROOT,capture_output=True,text=True,timeout=120,
                           env={**os.environ,'PYTHONPATH':str(ROOT/'src')})
     assert result.returncode==0,result.stdout+result.stderr
-    assert json.loads(result.stdout.splitlines()[-1])=={'status':'PASS','native_files':61,'charts':[1,2,1,1]}
+    assert json.loads(result.stdout.splitlines()[-1])=={'status':'PASS','native_files':61,'charts':[1,4,2,2]}

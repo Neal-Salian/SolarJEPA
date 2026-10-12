@@ -1,0 +1,113 @@
+{
+  "report": {
+    "path": "docs/presentation/time_series_evidence.json",
+    "sha256": "650607c06c8f83b21ec2367d145ad759d2c764e13bcc5e8b839f25e2af466b9b"
+  },
+  "schema_version": 1,
+  "sources": [
+    {
+      "path": "configs/experiments/v1_goes_2024.json",
+      "sha256": "230a3037910d995e8113ae90e69dc8e71c0ad8e26e89ecc4628c4dd8c31daccb"
+    },
+    {
+      "path": "data/manifests/goes_v1_202405.json",
+      "sha256": "9828b714ecb4545af2711f2760d110b9d0dd963a67e1f3d1d1f711af0aeb2240"
+    },
+    {
+      "path": "data/manifests/goes_v1_202406.json",
+      "sha256": "91e45449c61918c52786c4d4f45d4d9311ef313bbc8baace314a40bf135ecc79"
+    },
+    {
+      "path": "data/manifests/goes_p2_july2024.json",
+      "sha256": "581a3c4b8cfba6b9b21ed1fdb0b2277e728e9bf329a8da1ddcc0bd49c3cc4b3d"
+    },
+    {
+      "path": "data/manifests/goes_v1_202408.json",
+      "sha256": "50164744c036e2c3776486a6657cf1c60bef4e9e81b0c27a154be9bdbd12faff"
+    },
+    {
+      "path": "src/solar_flare_jepa/presentation/time_series.py",
+      "sha256": "28c0157fd4e38122150378b55dcddd263131e290954eb8e52a894d7b230aa682"
+    },
+    {
+      "path": "src/solar_flare_jepa/presentation/classical.py",
+      "sha256": "f25bcc53b352447330c661898ee69da7c4e672c229112022b7bf25d88a50022b"
+    },
+    {
+      "path": "src/solar_flare_jepa/presentation/eda.py",
+      "sha256": "395a27c9f7cad02f82301ea26b7b8375cc3bf4b5af728aa1d114edcdfc850b22"
+    },
+    {
+      "path": "src/solar_flare_jepa/data/download.py",
+      "sha256": "da8df6ddf12f2212f2de8782217638188b6cbf6d6cd2ebf51b4884962fb6a909"
+    },
+    {
+      "path": "src/solar_flare_jepa/data/goes.py",
+      "sha256": "a8ad4f8fd4626cf0cfa0fefee226a05281d3d6b927e4ed6dffff93009b018d26"
+    },
+    {
+      "path": "src/solar_flare_jepa/data/eda.py",
+      "sha256": "40cc0539b66ffcc362fd21524b64f34e0746daf4c1fed6b08d3c0e8614ded9ef"
+    },
+    {
+      "path": "src/solar_flare_jepa/data/storage.py",
+      "sha256": "78e1aacf693e7d5b40a46aef0b30dd1aff452570fd82746bac6f8021d7ec5b59"
+    },
+    {
+      "path": "configs/data/v1_goes_202405.json",
+      "sha256": "14ea6112c83ead6ca2bc5ff32cf0e2e04c170d07dde83b78f6a606088e3345c8"
+    },
+    {
+      "path": "configs/data/v1_goes_202406.json",
+      "sha256": "079756378543e36c0bfd5264cf8b9915153e57514b63f4773b7f6a78074c9d05"
+    },
+    {
+      "path": "configs/data/p2_goes_july2024.json",
+      "sha256": "1c676e797c4c5bf3a03a144464106ef813348c18ab0d4531283a21377d68d5f3"
+    },
+    {
+      "path": "configs/data/v1_goes_202408.json",
+      "sha256": "cb8504689d2091dd31571403cc89e1c38cb86471db5d36960cb8ac757ce579e4"
+    },
+    {
+      "path": "src/solar_flare_jepa/data/goes_acquisition.py",
+      "sha256": "40d47db938d7b55bead2a2d44096e4dccab4e210045184e831fc077ba4a281ec"
+    },
+    {
+      "path": "src/solar_flare_jepa/data/foundation.py",
+      "sha256": "a9df01720d285204b0d49f1f0279a599f6de690395ee023121d3f5a021a50c4d"
+    },
+    {
+      "path": "src/solar_flare_jepa/forecasting/statistical.py",
+      "sha256": "7f928277494078bfba74f591e206f515283a99d4fc4fadbf945dd92258b13eb1"
+    },
+    {
+      "path": "src/solar_flare_jepa/forecasting/baselines.py",
+      "sha256": "87f5a60f7ee6007ea22cb9daf5777a1b8f0a18ca9c7753a35308f49fb65eaffa"
+    },
+    {
+      "path": "src/solar_flare_jepa/forecasting/contracts.py",
+      "sha256": "cd3eebf40b0768f893dd65fc623b6037e4952105a67db92ec8b7bc05f5a85115"
+    },
+    {
+      "path": "src/solar_flare_jepa/forecasting/windows.py",
+      "sha256": "0e84e41b9b991f56f685c61a7f7ae9dd5e5b3397e56da7a314d332de99dc57b1"
+    },
+    {
+      "path": "src/solar_flare_jepa/forecasting/splitting.py",
+      "sha256": "ea463b3ca049dc952615c083aa17dbdfeba1c33ca976d5a4e57e84e0337893e6"
+    },
+    {
+      "path": "docs/presentation/eda_evidence.json",
+      "sha256": "bc222c9b037f39efaebb1571ced2129ea3de8a0b096e7807ce4d09f8092e2893"
+    },
+    {
+      "path": "requirements-dashboard-lock.txt",
+      "sha256": "28355f576edd10948af0ae4995c787f66e96917055068e31af92088ab857bba3"
+    },
+    {
+      "path": "scripts/build_time_series_presentation.py",
+      "sha256": "5cc9a5cd3a4e6c829fb45e45a64ad38fa38d997102c1ce302d9612a6aaf4d8a4"
+    }
+  ]
+}
