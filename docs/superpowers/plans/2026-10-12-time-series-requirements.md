@@ -45,7 +45,7 @@ Files: docs/PRESENTATION_TIME_SERIES_CHECKLIST.md, docs/PRESENTATION_TIME_SERIES
 - [x] Recompute statistical outputs/artifact replay; targeted + relevant full regression tests, normal installation/import + CLI smoke, diff/check/status/prohibited-data/index/history checks.
 - [x] Independent scientific/code review; fix material findings with regression tests.
 - [x] Guide: all11 sections with actual observations, interpretation, viva answers, precise setup/rebuild/run commands; distinguish DOCUMENTED/OBSERVED/INFERRED/UNKNOWN.
-- [ ] Focused Conventional Commits, push only new branch, verify ls-remote/upstream/local identity and unchanged protected refs. No PR/merge.
+- [x] Focused Conventional Commits, push only new branch, verify ls-remote/upstream/local identity and unchanged protected refs. No PR/merge.
 
 ## Review focus
 
@@ -60,3 +60,5 @@ Original V1 replay passed 52 identities, 12 independently reconstructed stationa
 The timestamp helper finding was reproduced by two failing tests and fixed; both passed afterwards. Rebuilt scientific payload identity was unchanged. No code findings remain deferred.
 
 SARIMA fitting is intentionally omitted because stable seasonality is unestablished; checklist requirement 8 remains PARTIAL. Browser visual inspection was unavailable because IAB/native permission was unavailable; AppTest rendered all four pages and actual inference passed. See the final verification report for commands and environment boundaries.
+
+Implementation committed and pushed as `5618bc4042d4a88b019504768772880cc15d2fcd`. Documentation is published in a separate focused commit; final local/remote identity is checked after that push and reported to the user. Main, prior presentation branches and research branches are preserved.
