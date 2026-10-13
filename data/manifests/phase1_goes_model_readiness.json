@@ -1,0 +1,2749 @@
+{
+  "audit_date": "2026-10-13",
+  "checkpoint_audit": {
+    "artifact_locator": "original V1 storage root, supplied separately from code root; no absolute path is required by this ledger",
+    "artifact_root": "results/experiments/v1-full-20261009",
+    "artifacts": {
+      "fig_coverage.png": {
+        "bytes": 68939,
+        "sha256": "3c0a12ec40dff2769d668b99d7a5b87d723b87aa52f354e384e30f31e449ce69"
+      },
+      "fig_fan_largest_rise.png": {
+        "bytes": 98386,
+        "sha256": "0a34ba25b2ca4e14904c4b426a83350e95b15788da40f50c49f993f625d56163"
+      },
+      "fig_lead_log_mae.png": {
+        "bytes": 86030,
+        "sha256": "331db02b50f4f6613bc3cdbfd130a99cc5cca50f076c18b664e4e8aa86db6b50"
+      },
+      "jepa_finetune_seed17.pt": {
+        "bytes": 750082,
+        "sha256": "3d18e1067b7eeaf2b64ea572ff48831559f5171b82e765bf56841f2903fdaf48"
+      },
+      "jepa_finetune_seed29.pt": {
+        "bytes": 751362,
+        "sha256": "e1b97d4cc8587fd9fa9ff02da2cda2165e2bf5b8febb825b4b820af4ddf1540f"
+      },
+      "jepa_finetune_seed43.pt": {
+        "bytes": 752258,
+        "sha256": "6e36849378836f83847ae275561c65460fe4eb129eb1703302bbead7b342e4d5"
+      },
+      "jepa_frozen_seed17.pt": {
+        "bytes": 752258,
+        "sha256": "84772e256b7796978ca53154e4e5088b5b38e98f78a903b5cc33e51e76272c54"
+      },
+      "jepa_frozen_seed29.pt": {
+        "bytes": 749442,
+        "sha256": "1da1e6f474e7cf0e96522e3e391f7f1dc2998974c436e143b2920b488159fe33"
+      },
+      "jepa_frozen_seed43.pt": {
+        "bytes": 752258,
+        "sha256": "98ba8d6379100b2687b075754c15551d9960c8de175957bb6891fdd01ceaea4a"
+      },
+      "per_origin.json": {
+        "bytes": 1594482,
+        "sha256": "133025c6921bcd575b727287b504550ff15e6e1d3ade8bcc39a5ff432056aa7f"
+      },
+      "summary.json": {
+        "bytes": 15674689,
+        "sha256": "80eae588a706e4b4d84df0daa7e03dcfc54c53ee408d2d6aed30e4bcb9988daf"
+      },
+      "summary.md": {
+        "bytes": 12882,
+        "sha256": "889b6310cc6711d472b7757e06ee95cef3f124a66a2d8e2b970c5bbae3ad7e46"
+      },
+      "supervised_seed17.pt": {
+        "bytes": 748674,
+        "sha256": "973f784e2adecd5183bd11bd3f6d47f49c5a8786e603cac82c15e2854858273b"
+      },
+      "supervised_seed29.pt": {
+        "bytes": 747970,
+        "sha256": "0e77f5fd68a6972ca7f3335733fc873b109527a90e8e7758ab644ad3584c2585"
+      },
+      "supervised_seed43.pt": {
+        "bytes": 747714,
+        "sha256": "6ef24954846756544957363433c1fe000101154e6c9c814aaedd5c8bc3c3a550"
+      },
+      "test_predictions.npz": {
+        "bytes": 64965489,
+        "sha256": "59bcd596fefd6b10edeec93a69d7172343d4ffb7dc120f98a5185c1e35a3da82"
+      }
+    },
+    "checkpoints": [
+      {
+        "config": {
+          "batch_size": 256,
+          "context_block_mask": true,
+          "context_mask_patches": 4,
+          "depth": 3,
+          "dropout": 0.0,
+          "ema_end": 1.0,
+          "ema_start": 0.996,
+          "finetune_epochs": 15,
+          "gradient_clip": 1.0,
+          "head_hidden": 128,
+          "heads": 4,
+          "jepa_loss": "smooth_l1",
+          "jepa_weight_during_finetune": 0.0,
+          "lr": 0.001,
+          "max_train_windows": 20000,
+          "mlp_ratio": 4,
+          "monitor_windows": 2048,
+          "patch_steps": 5,
+          "patience": 3,
+          "predictor_depth": 2,
+          "pretrain_epochs": 8,
+          "quantiles": [
+            0.05,
+            0.25,
+            0.5,
+            0.75,
+            0.95
+          ],
+          "seed": 17,
+          "threads": 4,
+          "weight_decay": 0.0001,
+          "width": 32
+        },
+        "config_matches_models": true,
+        "encoder_equals_pre_finetune": false,
+        "finetune_epochs_observed": 8,
+        "finite_state": true,
+        "inference": {
+          "archived_point_exact": false,
+          "archived_quantile_exact": false,
+          "archived_quantile_max_abs_log10_error": 2.738228142007415e-07,
+          "archived_quantiles_allclose_rtol_1e5": true,
+          "finite": true,
+          "monotone": true,
+          "normalized_native_route_exact": true,
+          "origins": 2,
+          "point_is_saved_median": true,
+          "point_shape": [
+            2,
+            30,
+            2
+          ],
+          "positive": true,
+          "quantile_shape": [
+            2,
+            30,
+            2,
+            5
+          ],
+          "target_encoder_calls": 0,
+          "weights_unchanged": true
+        },
+        "model": "jepa_finetune_seed17",
+        "normalization_fingerprint": "848623009ce048a14e32c50b7c70d9c9728cdd77391f10115ec1c8fd46d039a9",
+        "normalization_matches_raw_recomputation": true,
+        "original_batch_replay": {
+          "archived_point_exact": true,
+          "archived_quantile_exact": true,
+          "max_abs_log10_error": 0.0,
+          "one_original_batch": true,
+          "origins": 256
+        },
+        "parameter_counts": {
+          "encoder": 39808,
+          "head": 67948,
+          "predictor": 28576,
+          "target_encoder_ema": 39808,
+          "trainable_total": 136332
+        },
+        "predictor_equals_pre_finetune": false,
+        "pretrain_epochs_observed": 8,
+        "record_matches_summary": true,
+        "safe_weights_only_load": true,
+        "selected": {
+          "epoch": 5,
+          "loss": 0.09943071145166471,
+          "metric": "mean_pinball_normalized",
+          "partition": "validation",
+          "patience": 3,
+          "tie_policy": "earliest_epoch"
+        },
+        "selection_matches_earliest_best_history": true,
+        "sha256": "3d18e1067b7eeaf2b64ea572ff48831559f5171b82e765bf56841f2903fdaf48",
+        "shape_dtype_match": true,
+        "spec_matches": true,
+        "state_parameter_elements": 176140,
+        "state_tensor_count": 120,
+        "torch_version": "2.6.0",
+        "train_windows": {
+          "eligible": 108199,
+          "policy": "complete_consecutive_raw_training_rows",
+          "stride": 1,
+          "subsample": "evenly_spaced_chronological",
+          "used": 20000
+        },
+        "training_dataset_fingerprint_matches": true,
+        "training_fingerprint_matches": true,
+        "weights_fingerprint": "81e072c7f818c08be398333c06ab2f85c4757435b36d357cabe1b23fe9fe101c",
+        "weights_fingerprint_exact": true
+      },
+      {
+        "config": {
+          "batch_size": 256,
+          "context_block_mask": true,
+          "context_mask_patches": 4,
+          "depth": 3,
+          "dropout": 0.0,
+          "ema_end": 1.0,
+          "ema_start": 0.996,
+          "finetune_epochs": 15,
+          "gradient_clip": 1.0,
+          "head_hidden": 128,
+          "heads": 4,
+          "jepa_loss": "smooth_l1",
+          "jepa_weight_during_finetune": 0.0,
+          "lr": 0.001,
+          "max_train_windows": 20000,
+          "mlp_ratio": 4,
+          "monitor_windows": 2048,
+          "patch_steps": 5,
+          "patience": 3,
+          "predictor_depth": 2,
+          "pretrain_epochs": 8,
+          "quantiles": [
+            0.05,
+            0.25,
+            0.5,
+            0.75,
+            0.95
+          ],
+          "seed": 29,
+          "threads": 4,
+          "weight_decay": 0.0001,
+          "width": 32
+        },
+        "config_matches_models": true,
+        "encoder_equals_pre_finetune": false,
+        "finetune_epochs_observed": 12,
+        "finite_state": true,
+        "inference": {
+          "archived_point_exact": false,
+          "archived_quantile_exact": false,
+          "archived_quantile_max_abs_log10_error": 2.738228142007415e-07,
+          "archived_quantiles_allclose_rtol_1e5": true,
+          "finite": true,
+          "monotone": true,
+          "normalized_native_route_exact": true,
+          "origins": 2,
+          "point_is_saved_median": true,
+          "point_shape": [
+            2,
+            30,
+            2
+          ],
+          "positive": true,
+          "quantile_shape": [
+            2,
+            30,
+            2,
+            5
+          ],
+          "target_encoder_calls": 0,
+          "weights_unchanged": true
+        },
+        "model": "jepa_finetune_seed29",
+        "normalization_fingerprint": "848623009ce048a14e32c50b7c70d9c9728cdd77391f10115ec1c8fd46d039a9",
+        "normalization_matches_raw_recomputation": true,
+        "original_batch_replay": {
+          "archived_point_exact": true,
+          "archived_quantile_exact": true,
+          "max_abs_log10_error": 0.0,
+          "one_original_batch": true,
+          "origins": 256
+        },
+        "parameter_counts": {
+          "encoder": 39808,
+          "head": 67948,
+          "predictor": 28576,
+          "target_encoder_ema": 39808,
+          "trainable_total": 136332
+        },
+        "predictor_equals_pre_finetune": false,
+        "pretrain_epochs_observed": 8,
+        "record_matches_summary": true,
+        "safe_weights_only_load": true,
+        "selected": {
+          "epoch": 9,
+          "loss": 0.10024218514416981,
+          "metric": "mean_pinball_normalized",
+          "partition": "validation",
+          "patience": 3,
+          "tie_policy": "earliest_epoch"
+        },
+        "selection_matches_earliest_best_history": true,
+        "sha256": "e1b97d4cc8587fd9fa9ff02da2cda2165e2bf5b8febb825b4b820af4ddf1540f",
+        "shape_dtype_match": true,
+        "spec_matches": true,
+        "state_parameter_elements": 176140,
+        "state_tensor_count": 120,
+        "torch_version": "2.6.0",
+        "train_windows": {
+          "eligible": 108199,
+          "policy": "complete_consecutive_raw_training_rows",
+          "stride": 1,
+          "subsample": "evenly_spaced_chronological",
+          "used": 20000
+        },
+        "training_dataset_fingerprint_matches": true,
+        "training_fingerprint_matches": true,
+        "weights_fingerprint": "4f57e4a7478925958d2ed08a730f0228d310bf0bdad79492966b77a411a7aa8d",
+        "weights_fingerprint_exact": true
+      },
+      {
+        "config": {
+          "batch_size": 256,
+          "context_block_mask": true,
+          "context_mask_patches": 4,
+          "depth": 3,
+          "dropout": 0.0,
+          "ema_end": 1.0,
+          "ema_start": 0.996,
+          "finetune_epochs": 15,
+          "gradient_clip": 1.0,
+          "head_hidden": 128,
+          "heads": 4,
+          "jepa_loss": "smooth_l1",
+          "jepa_weight_during_finetune": 0.0,
+          "lr": 0.001,
+          "max_train_windows": 20000,
+          "mlp_ratio": 4,
+          "monitor_windows": 2048,
+          "patch_steps": 5,
+          "patience": 3,
+          "predictor_depth": 2,
+          "pretrain_epochs": 8,
+          "quantiles": [
+            0.05,
+            0.25,
+            0.5,
+            0.75,
+            0.95
+          ],
+          "seed": 43,
+          "threads": 4,
+          "weight_decay": 0.0001,
+          "width": 32
+        },
+        "config_matches_models": true,
+        "encoder_equals_pre_finetune": false,
+        "finetune_epochs_observed": 15,
+        "finite_state": true,
+        "inference": {
+          "archived_point_exact": false,
+          "archived_quantile_exact": false,
+          "archived_quantile_max_abs_log10_error": 2.909367404768659e-07,
+          "archived_quantiles_allclose_rtol_1e5": true,
+          "finite": true,
+          "monotone": true,
+          "normalized_native_route_exact": true,
+          "origins": 2,
+          "point_is_saved_median": true,
+          "point_shape": [
+            2,
+            30,
+            2
+          ],
+          "positive": true,
+          "quantile_shape": [
+            2,
+            30,
+            2,
+            5
+          ],
+          "target_encoder_calls": 0,
+          "weights_unchanged": true
+        },
+        "model": "jepa_finetune_seed43",
+        "normalization_fingerprint": "848623009ce048a14e32c50b7c70d9c9728cdd77391f10115ec1c8fd46d039a9",
+        "normalization_matches_raw_recomputation": true,
+        "original_batch_replay": {
+          "archived_point_exact": true,
+          "archived_quantile_exact": true,
+          "max_abs_log10_error": 0.0,
+          "one_original_batch": true,
+          "origins": 256
+        },
+        "parameter_counts": {
+          "encoder": 39808,
+          "head": 67948,
+          "predictor": 28576,
+          "target_encoder_ema": 39808,
+          "trainable_total": 136332
+        },
+        "predictor_equals_pre_finetune": false,
+        "pretrain_epochs_observed": 8,
+        "record_matches_summary": true,
+        "safe_weights_only_load": true,
+        "selected": {
+          "epoch": 12,
+          "loss": 0.09839375020520201,
+          "metric": "mean_pinball_normalized",
+          "partition": "validation",
+          "patience": 3,
+          "tie_policy": "earliest_epoch"
+        },
+        "selection_matches_earliest_best_history": true,
+        "sha256": "6e36849378836f83847ae275561c65460fe4eb129eb1703302bbead7b342e4d5",
+        "shape_dtype_match": true,
+        "spec_matches": true,
+        "state_parameter_elements": 176140,
+        "state_tensor_count": 120,
+        "torch_version": "2.6.0",
+        "train_windows": {
+          "eligible": 108199,
+          "policy": "complete_consecutive_raw_training_rows",
+          "stride": 1,
+          "subsample": "evenly_spaced_chronological",
+          "used": 20000
+        },
+        "training_dataset_fingerprint_matches": true,
+        "training_fingerprint_matches": true,
+        "weights_fingerprint": "3effc31fa1dc2769a55c2e86ea86199b0c6b3625fe3c775b788e1a6113b4eb99",
+        "weights_fingerprint_exact": true
+      },
+      {
+        "config": {
+          "batch_size": 256,
+          "context_block_mask": true,
+          "context_mask_patches": 4,
+          "depth": 3,
+          "dropout": 0.0,
+          "ema_end": 1.0,
+          "ema_start": 0.996,
+          "finetune_epochs": 15,
+          "gradient_clip": 1.0,
+          "head_hidden": 128,
+          "heads": 4,
+          "jepa_loss": "smooth_l1",
+          "jepa_weight_during_finetune": 0.0,
+          "lr": 0.001,
+          "max_train_windows": 20000,
+          "mlp_ratio": 4,
+          "monitor_windows": 2048,
+          "patch_steps": 5,
+          "patience": 3,
+          "predictor_depth": 2,
+          "pretrain_epochs": 8,
+          "quantiles": [
+            0.05,
+            0.25,
+            0.5,
+            0.75,
+            0.95
+          ],
+          "seed": 17,
+          "threads": 4,
+          "weight_decay": 0.0001,
+          "width": 32
+        },
+        "config_matches_models": true,
+        "encoder_equals_pre_finetune": true,
+        "finetune_epochs_observed": 15,
+        "finite_state": true,
+        "inference": {
+          "archived_point_exact": false,
+          "archived_quantile_exact": false,
+          "archived_quantile_max_abs_log10_error": 2.738228142007415e-07,
+          "archived_quantiles_allclose_rtol_1e5": true,
+          "finite": true,
+          "monotone": true,
+          "normalized_native_route_exact": true,
+          "origins": 2,
+          "point_is_saved_median": true,
+          "point_shape": [
+            2,
+            30,
+            2
+          ],
+          "positive": true,
+          "quantile_shape": [
+            2,
+            30,
+            2,
+            5
+          ],
+          "target_encoder_calls": 0,
+          "weights_unchanged": true
+        },
+        "model": "jepa_frozen_seed17",
+        "normalization_fingerprint": "848623009ce048a14e32c50b7c70d9c9728cdd77391f10115ec1c8fd46d039a9",
+        "normalization_matches_raw_recomputation": true,
+        "original_batch_replay": {
+          "archived_point_exact": true,
+          "archived_quantile_exact": true,
+          "max_abs_log10_error": 0.0,
+          "one_original_batch": true,
+          "origins": 256
+        },
+        "parameter_counts": {
+          "encoder": 39808,
+          "head": 67948,
+          "predictor": 28576,
+          "target_encoder_ema": 39808,
+          "trainable_total": 136332
+        },
+        "predictor_equals_pre_finetune": true,
+        "pretrain_epochs_observed": 8,
+        "record_matches_summary": true,
+        "safe_weights_only_load": true,
+        "selected": {
+          "epoch": 12,
+          "loss": 0.10472683037079654,
+          "metric": "mean_pinball_normalized",
+          "partition": "validation",
+          "patience": 3,
+          "tie_policy": "earliest_epoch"
+        },
+        "selection_matches_earliest_best_history": true,
+        "sha256": "84772e256b7796978ca53154e4e5088b5b38e98f78a903b5cc33e51e76272c54",
+        "shape_dtype_match": true,
+        "spec_matches": true,
+        "state_parameter_elements": 176140,
+        "state_tensor_count": 120,
+        "torch_version": "2.6.0",
+        "train_windows": {
+          "eligible": 108199,
+          "policy": "complete_consecutive_raw_training_rows",
+          "stride": 1,
+          "subsample": "evenly_spaced_chronological",
+          "used": 20000
+        },
+        "training_dataset_fingerprint_matches": true,
+        "training_fingerprint_matches": true,
+        "weights_fingerprint": "22b580a4622f39882b62c30cb12e8486e8be0a2f7938add78f8b94325850882d",
+        "weights_fingerprint_exact": true
+      },
+      {
+        "config": {
+          "batch_size": 256,
+          "context_block_mask": true,
+          "context_mask_patches": 4,
+          "depth": 3,
+          "dropout": 0.0,
+          "ema_end": 1.0,
+          "ema_start": 0.996,
+          "finetune_epochs": 15,
+          "gradient_clip": 1.0,
+          "head_hidden": 128,
+          "heads": 4,
+          "jepa_loss": "smooth_l1",
+          "jepa_weight_during_finetune": 0.0,
+          "lr": 0.001,
+          "max_train_windows": 20000,
+          "mlp_ratio": 4,
+          "monitor_windows": 2048,
+          "patch_steps": 5,
+          "patience": 3,
+          "predictor_depth": 2,
+          "pretrain_epochs": 8,
+          "quantiles": [
+            0.05,
+            0.25,
+            0.5,
+            0.75,
+            0.95
+          ],
+          "seed": 29,
+          "threads": 4,
+          "weight_decay": 0.0001,
+          "width": 32
+        },
+        "config_matches_models": true,
+        "encoder_equals_pre_finetune": true,
+        "finetune_epochs_observed": 6,
+        "finite_state": true,
+        "inference": {
+          "archived_point_exact": false,
+          "archived_quantile_exact": false,
+          "archived_quantile_max_abs_log10_error": 4.1073422085702305e-07,
+          "archived_quantiles_allclose_rtol_1e5": true,
+          "finite": true,
+          "monotone": true,
+          "normalized_native_route_exact": true,
+          "origins": 2,
+          "point_is_saved_median": true,
+          "point_shape": [
+            2,
+            30,
+            2
+          ],
+          "positive": true,
+          "quantile_shape": [
+            2,
+            30,
+            2,
+            5
+          ],
+          "target_encoder_calls": 0,
+          "weights_unchanged": true
+        },
+        "model": "jepa_frozen_seed29",
+        "normalization_fingerprint": "848623009ce048a14e32c50b7c70d9c9728cdd77391f10115ec1c8fd46d039a9",
+        "normalization_matches_raw_recomputation": true,
+        "original_batch_replay": {
+          "archived_point_exact": true,
+          "archived_quantile_exact": true,
+          "max_abs_log10_error": 0.0,
+          "one_original_batch": true,
+          "origins": 256
+        },
+        "parameter_counts": {
+          "encoder": 39808,
+          "head": 67948,
+          "predictor": 28576,
+          "target_encoder_ema": 39808,
+          "trainable_total": 136332
+        },
+        "predictor_equals_pre_finetune": true,
+        "pretrain_epochs_observed": 8,
+        "record_matches_summary": true,
+        "safe_weights_only_load": true,
+        "selected": {
+          "epoch": 3,
+          "loss": 0.1070630640804189,
+          "metric": "mean_pinball_normalized",
+          "partition": "validation",
+          "patience": 3,
+          "tie_policy": "earliest_epoch"
+        },
+        "selection_matches_earliest_best_history": true,
+        "sha256": "1da1e6f474e7cf0e96522e3e391f7f1dc2998974c436e143b2920b488159fe33",
+        "shape_dtype_match": true,
+        "spec_matches": true,
+        "state_parameter_elements": 176140,
+        "state_tensor_count": 120,
+        "torch_version": "2.6.0",
+        "train_windows": {
+          "eligible": 108199,
+          "policy": "complete_consecutive_raw_training_rows",
+          "stride": 1,
+          "subsample": "evenly_spaced_chronological",
+          "used": 20000
+        },
+        "training_dataset_fingerprint_matches": true,
+        "training_fingerprint_matches": true,
+        "weights_fingerprint": "c313a6052083212a7cd0f69a76fa6a977eac2cb75dae71221f0394c2cd1019b4",
+        "weights_fingerprint_exact": true
+      },
+      {
+        "config": {
+          "batch_size": 256,
+          "context_block_mask": true,
+          "context_mask_patches": 4,
+          "depth": 3,
+          "dropout": 0.0,
+          "ema_end": 1.0,
+          "ema_start": 0.996,
+          "finetune_epochs": 15,
+          "gradient_clip": 1.0,
+          "head_hidden": 128,
+          "heads": 4,
+          "jepa_loss": "smooth_l1",
+          "jepa_weight_during_finetune": 0.0,
+          "lr": 0.001,
+          "max_train_windows": 20000,
+          "mlp_ratio": 4,
+          "monitor_windows": 2048,
+          "patch_steps": 5,
+          "patience": 3,
+          "predictor_depth": 2,
+          "pretrain_epochs": 8,
+          "quantiles": [
+            0.05,
+            0.25,
+            0.5,
+            0.75,
+            0.95
+          ],
+          "seed": 43,
+          "threads": 4,
+          "weight_decay": 0.0001,
+          "width": 32
+        },
+        "config_matches_models": true,
+        "encoder_equals_pre_finetune": true,
+        "finetune_epochs_observed": 15,
+        "finite_state": true,
+        "inference": {
+          "archived_point_exact": false,
+          "archived_quantile_exact": false,
+          "archived_quantile_max_abs_log10_error": 2.738228142007415e-07,
+          "archived_quantiles_allclose_rtol_1e5": true,
+          "finite": true,
+          "monotone": true,
+          "normalized_native_route_exact": true,
+          "origins": 2,
+          "point_is_saved_median": true,
+          "point_shape": [
+            2,
+            30,
+            2
+          ],
+          "positive": true,
+          "quantile_shape": [
+            2,
+            30,
+            2,
+            5
+          ],
+          "target_encoder_calls": 0,
+          "weights_unchanged": true
+        },
+        "model": "jepa_frozen_seed43",
+        "normalization_fingerprint": "848623009ce048a14e32c50b7c70d9c9728cdd77391f10115ec1c8fd46d039a9",
+        "normalization_matches_raw_recomputation": true,
+        "original_batch_replay": {
+          "archived_point_exact": true,
+          "archived_quantile_exact": true,
+          "max_abs_log10_error": 0.0,
+          "one_original_batch": true,
+          "origins": 256
+        },
+        "parameter_counts": {
+          "encoder": 39808,
+          "head": 67948,
+          "predictor": 28576,
+          "target_encoder_ema": 39808,
+          "trainable_total": 136332
+        },
+        "predictor_equals_pre_finetune": true,
+        "pretrain_epochs_observed": 8,
+        "record_matches_summary": true,
+        "safe_weights_only_load": true,
+        "selected": {
+          "epoch": 12,
+          "loss": 0.10791371285336689,
+          "metric": "mean_pinball_normalized",
+          "partition": "validation",
+          "patience": 3,
+          "tie_policy": "earliest_epoch"
+        },
+        "selection_matches_earliest_best_history": true,
+        "sha256": "98ba8d6379100b2687b075754c15551d9960c8de175957bb6891fdd01ceaea4a",
+        "shape_dtype_match": true,
+        "spec_matches": true,
+        "state_parameter_elements": 176140,
+        "state_tensor_count": 120,
+        "torch_version": "2.6.0",
+        "train_windows": {
+          "eligible": 108199,
+          "policy": "complete_consecutive_raw_training_rows",
+          "stride": 1,
+          "subsample": "evenly_spaced_chronological",
+          "used": 20000
+        },
+        "training_dataset_fingerprint_matches": true,
+        "training_fingerprint_matches": true,
+        "weights_fingerprint": "439fda7fdaa6e57a6f336188d339321a4aa23af6e18095d670fcc1c77da64de3",
+        "weights_fingerprint_exact": true
+      },
+      {
+        "config": {
+          "batch_size": 256,
+          "context_block_mask": true,
+          "context_mask_patches": 4,
+          "depth": 3,
+          "dropout": 0.0,
+          "ema_end": 1.0,
+          "ema_start": 0.996,
+          "finetune_epochs": 15,
+          "gradient_clip": 1.0,
+          "head_hidden": 128,
+          "heads": 4,
+          "jepa_loss": "smooth_l1",
+          "jepa_weight_during_finetune": 0.0,
+          "lr": 0.001,
+          "max_train_windows": 20000,
+          "mlp_ratio": 4,
+          "monitor_windows": 2048,
+          "patch_steps": 5,
+          "patience": 3,
+          "predictor_depth": 2,
+          "pretrain_epochs": 8,
+          "quantiles": [
+            0.05,
+            0.25,
+            0.5,
+            0.75,
+            0.95
+          ],
+          "seed": 17,
+          "threads": 4,
+          "weight_decay": 0.0001,
+          "width": 32
+        },
+        "config_matches_models": true,
+        "encoder_equals_pre_finetune": false,
+        "finetune_epochs_observed": 15,
+        "finite_state": true,
+        "inference": {
+          "archived_point_exact": false,
+          "archived_quantile_exact": false,
+          "archived_quantile_max_abs_log10_error": 2.738228142007415e-07,
+          "archived_quantiles_allclose_rtol_1e5": true,
+          "finite": true,
+          "monotone": true,
+          "normalized_native_route_exact": true,
+          "origins": 2,
+          "point_is_saved_median": true,
+          "point_shape": [
+            2,
+            30,
+            2
+          ],
+          "positive": true,
+          "quantile_shape": [
+            2,
+            30,
+            2,
+            5
+          ],
+          "target_encoder_calls": 0,
+          "weights_unchanged": true
+        },
+        "model": "supervised_seed17",
+        "normalization_fingerprint": "848623009ce048a14e32c50b7c70d9c9728cdd77391f10115ec1c8fd46d039a9",
+        "normalization_matches_raw_recomputation": true,
+        "original_batch_replay": {
+          "archived_point_exact": true,
+          "archived_quantile_exact": true,
+          "max_abs_log10_error": 0.0,
+          "one_original_batch": true,
+          "origins": 256
+        },
+        "parameter_counts": {
+          "encoder": 39808,
+          "head": 67948,
+          "predictor": 28576,
+          "target_encoder_ema": 39808,
+          "trainable_total": 136332
+        },
+        "predictor_equals_pre_finetune": false,
+        "pretrain_epochs_observed": 0,
+        "record_matches_summary": true,
+        "safe_weights_only_load": true,
+        "selected": {
+          "epoch": 15,
+          "loss": 0.09928451456780572,
+          "metric": "mean_pinball_normalized",
+          "partition": "validation",
+          "patience": 3,
+          "tie_policy": "earliest_epoch"
+        },
+        "selection_matches_earliest_best_history": true,
+        "sha256": "973f784e2adecd5183bd11bd3f6d47f49c5a8786e603cac82c15e2854858273b",
+        "shape_dtype_match": true,
+        "spec_matches": true,
+        "state_parameter_elements": 176140,
+        "state_tensor_count": 120,
+        "torch_version": "2.6.0",
+        "train_windows": {
+          "eligible": 108199,
+          "policy": "complete_consecutive_raw_training_rows",
+          "stride": 1,
+          "subsample": "evenly_spaced_chronological",
+          "used": 20000
+        },
+        "training_dataset_fingerprint_matches": true,
+        "training_fingerprint_matches": true,
+        "weights_fingerprint": "e4ec4e54d74d238c5ebdf1b18c196e250536faaa1408bc0e6814e214083b46a0",
+        "weights_fingerprint_exact": true
+      },
+      {
+        "config": {
+          "batch_size": 256,
+          "context_block_mask": true,
+          "context_mask_patches": 4,
+          "depth": 3,
+          "dropout": 0.0,
+          "ema_end": 1.0,
+          "ema_start": 0.996,
+          "finetune_epochs": 15,
+          "gradient_clip": 1.0,
+          "head_hidden": 128,
+          "heads": 4,
+          "jepa_loss": "smooth_l1",
+          "jepa_weight_during_finetune": 0.0,
+          "lr": 0.001,
+          "max_train_windows": 20000,
+          "mlp_ratio": 4,
+          "monitor_windows": 2048,
+          "patch_steps": 5,
+          "patience": 3,
+          "predictor_depth": 2,
+          "pretrain_epochs": 8,
+          "quantiles": [
+            0.05,
+            0.25,
+            0.5,
+            0.75,
+            0.95
+          ],
+          "seed": 29,
+          "threads": 4,
+          "weight_decay": 0.0001,
+          "width": 32
+        },
+        "config_matches_models": true,
+        "encoder_equals_pre_finetune": false,
+        "finetune_epochs_observed": 12,
+        "finite_state": true,
+        "inference": {
+          "archived_point_exact": false,
+          "archived_quantile_exact": false,
+          "archived_quantile_max_abs_log10_error": 2.738228142007415e-07,
+          "archived_quantiles_allclose_rtol_1e5": true,
+          "finite": true,
+          "monotone": true,
+          "normalized_native_route_exact": true,
+          "origins": 2,
+          "point_is_saved_median": true,
+          "point_shape": [
+            2,
+            30,
+            2
+          ],
+          "positive": true,
+          "quantile_shape": [
+            2,
+            30,
+            2,
+            5
+          ],
+          "target_encoder_calls": 0,
+          "weights_unchanged": true
+        },
+        "model": "supervised_seed29",
+        "normalization_fingerprint": "848623009ce048a14e32c50b7c70d9c9728cdd77391f10115ec1c8fd46d039a9",
+        "normalization_matches_raw_recomputation": true,
+        "original_batch_replay": {
+          "archived_point_exact": true,
+          "archived_quantile_exact": true,
+          "max_abs_log10_error": 0.0,
+          "one_original_batch": true,
+          "origins": 256
+        },
+        "parameter_counts": {
+          "encoder": 39808,
+          "head": 67948,
+          "predictor": 28576,
+          "target_encoder_ema": 39808,
+          "trainable_total": 136332
+        },
+        "predictor_equals_pre_finetune": false,
+        "pretrain_epochs_observed": 0,
+        "record_matches_summary": true,
+        "safe_weights_only_load": true,
+        "selected": {
+          "epoch": 9,
+          "loss": 0.10212026739004747,
+          "metric": "mean_pinball_normalized",
+          "partition": "validation",
+          "patience": 3,
+          "tie_policy": "earliest_epoch"
+        },
+        "selection_matches_earliest_best_history": true,
+        "sha256": "0e77f5fd68a6972ca7f3335733fc873b109527a90e8e7758ab644ad3584c2585",
+        "shape_dtype_match": true,
+        "spec_matches": true,
+        "state_parameter_elements": 176140,
+        "state_tensor_count": 120,
+        "torch_version": "2.6.0",
+        "train_windows": {
+          "eligible": 108199,
+          "policy": "complete_consecutive_raw_training_rows",
+          "stride": 1,
+          "subsample": "evenly_spaced_chronological",
+          "used": 20000
+        },
+        "training_dataset_fingerprint_matches": true,
+        "training_fingerprint_matches": true,
+        "weights_fingerprint": "d3789bf6e4ac74126bb5de9b501aca403c1a34b1b5691ee698edeba1a8200561",
+        "weights_fingerprint_exact": true
+      },
+      {
+        "config": {
+          "batch_size": 256,
+          "context_block_mask": true,
+          "context_mask_patches": 4,
+          "depth": 3,
+          "dropout": 0.0,
+          "ema_end": 1.0,
+          "ema_start": 0.996,
+          "finetune_epochs": 15,
+          "gradient_clip": 1.0,
+          "head_hidden": 128,
+          "heads": 4,
+          "jepa_loss": "smooth_l1",
+          "jepa_weight_during_finetune": 0.0,
+          "lr": 0.001,
+          "max_train_windows": 20000,
+          "mlp_ratio": 4,
+          "monitor_windows": 2048,
+          "patch_steps": 5,
+          "patience": 3,
+          "predictor_depth": 2,
+          "pretrain_epochs": 8,
+          "quantiles": [
+            0.05,
+            0.25,
+            0.5,
+            0.75,
+            0.95
+          ],
+          "seed": 43,
+          "threads": 4,
+          "weight_decay": 0.0001,
+          "width": 32
+        },
+        "config_matches_models": true,
+        "encoder_equals_pre_finetune": false,
+        "finetune_epochs_observed": 11,
+        "finite_state": true,
+        "inference": {
+          "archived_point_exact": false,
+          "archived_quantile_exact": false,
+          "archived_quantile_max_abs_log10_error": 2.738228142007415e-07,
+          "archived_quantiles_allclose_rtol_1e5": true,
+          "finite": true,
+          "monotone": true,
+          "normalized_native_route_exact": true,
+          "origins": 2,
+          "point_is_saved_median": true,
+          "point_shape": [
+            2,
+            30,
+            2
+          ],
+          "positive": true,
+          "quantile_shape": [
+            2,
+            30,
+            2,
+            5
+          ],
+          "target_encoder_calls": 0,
+          "weights_unchanged": true
+        },
+        "model": "supervised_seed43",
+        "normalization_fingerprint": "848623009ce048a14e32c50b7c70d9c9728cdd77391f10115ec1c8fd46d039a9",
+        "normalization_matches_raw_recomputation": true,
+        "original_batch_replay": {
+          "archived_point_exact": true,
+          "archived_quantile_exact": true,
+          "max_abs_log10_error": 0.0,
+          "one_original_batch": true,
+          "origins": 256
+        },
+        "parameter_counts": {
+          "encoder": 39808,
+          "head": 67948,
+          "predictor": 28576,
+          "target_encoder_ema": 39808,
+          "trainable_total": 136332
+        },
+        "predictor_equals_pre_finetune": false,
+        "pretrain_epochs_observed": 0,
+        "record_matches_summary": true,
+        "safe_weights_only_load": true,
+        "selected": {
+          "epoch": 8,
+          "loss": 0.10097383469053843,
+          "metric": "mean_pinball_normalized",
+          "partition": "validation",
+          "patience": 3,
+          "tie_policy": "earliest_epoch"
+        },
+        "selection_matches_earliest_best_history": true,
+        "sha256": "6ef24954846756544957363433c1fe000101154e6c9c814aaedd5c8bc3c3a550",
+        "shape_dtype_match": true,
+        "spec_matches": true,
+        "state_parameter_elements": 176140,
+        "state_tensor_count": 120,
+        "torch_version": "2.6.0",
+        "train_windows": {
+          "eligible": 108199,
+          "policy": "complete_consecutive_raw_training_rows",
+          "stride": 1,
+          "subsample": "evenly_spaced_chronological",
+          "used": 20000
+        },
+        "training_dataset_fingerprint_matches": true,
+        "training_fingerprint_matches": true,
+        "weights_fingerprint": "ba205eb0a3c03c336b5dabd6e681bf2655a8264e83318cd081d81376c26d6e89",
+        "weights_fingerprint_exact": true
+      }
+    ],
+    "checks": {
+      "architecture": {
+        "context_patches": 24,
+        "context_shape": "[B,120,2]",
+        "encoder_depth": 3,
+        "encoder_width": 32,
+        "frozen_variant_head_training_elements": 67948,
+        "future_patches": 6,
+        "head_hidden": 128,
+        "heads": 4,
+        "inference_trainable_architecture_elements": 136332,
+        "mlp_ratio": 4,
+        "normalized_output_shape": "[B,30,2,5]",
+        "patch_input_width": 20,
+        "predictor_depth": 2,
+        "quantiles": [
+          0.05,
+          0.25,
+          0.5,
+          0.75,
+          0.95
+        ],
+        "total_elements": 176140
+      },
+      "bounded_original_batch_replay": {
+        "all_nine_exact": true,
+        "cap": 256,
+        "external_inference": false,
+        "interpretation": "Changing from original batch256 to batch2 alters float32 neural outputs by up to 4.1073422085702305e-07 dex; original batch256 replay exact on first256 origins",
+        "scoring_performed": false
+      },
+      "configs": {
+        "config_fingerprint": "124a3878372956a5cd83c989d0e7580faeeec60082c83a2455c589e24c933daa",
+        "config_matches": true,
+        "models_bytes": 3305,
+        "models_matches": true,
+        "models_sha256": "a7b9cb5606c108fc65fc542d4ee1a9544c604555c59e24810a565622d7854508",
+        "recorded_config_fingerprint": "124a3878372956a5cd83c989d0e7580faeeec60082c83a2455c589e24c933daa",
+        "recorded_models_identity": {
+          "bytes": 3305,
+          "sha256": "a7b9cb5606c108fc65fc542d4ee1a9544c604555c59e24810a565622d7854508"
+        }
+      },
+      "final_git": {
+        "diff_check_returncode": 0,
+        "evidence_ignored": true,
+        "status": ""
+      },
+      "fit_methods_invoked": false,
+      "inference_signatures": {
+        "load": "(path)",
+        "predict": "(self, context, future_grid)",
+        "predict_normalized": "(self, features, feature_mask)"
+      },
+      "normalization": {
+        "all_nine_normalizers_identical": true,
+        "count_exact": true,
+        "method": "direct log10 means/std(ddof=0) over valid unique raw training rows; no fit method invoked",
+        "raw_support_fingerprint_recomputed": "c64ecca1b7a1ee6965f8a337a0ea5fe04a1f68ca05d7c421823b0d4bf6145d64",
+        "recomputed_statistics": {
+          "feature_counts": [
+            113926,
+            116125
+          ],
+          "feature_mean": [
+            -6.975172762067082,
+            -5.475295794509493
+          ],
+          "feature_scale": [
+            0.5742480619158656,
+            0.34159742190236464
+          ],
+          "target_counts": [
+            113926,
+            116125
+          ],
+          "target_mean": [
+            -6.975172762067082,
+            -5.475295794509493
+          ],
+          "target_scale": [
+            0.5742480619158656,
+            0.34159742190236464
+          ]
+        },
+        "record": {
+          "feature_counts": [
+            113926,
+            116125
+          ],
+          "feature_mean": [
+            -6.975172762067082,
+            -5.475295794509493
+          ],
+          "feature_scale": [
+            0.5742480619158656,
+            0.34159742190236464
+          ],
+          "fitting_scope": "UNIQUE_RAW_TRAINING_PARTITION",
+          "raw_support_fingerprint": "c64ecca1b7a1ee6965f8a337a0ea5fe04a1f68ca05d7c421823b0d4bf6145d64",
+          "schema_version": 1,
+          "spec": {
+            "availability_mode": "retrospective_bin_end",
+            "cadence_seconds": 60,
+            "context_steps": 120,
+            "eligibility_policy": "complete",
+            "feature_lookback_steps": 0,
+            "feature_names": [
+              "xrsa_flux",
+              "xrsb_flux"
+            ],
+            "feature_reference": [
+              1.0,
+              1.0
+            ],
+            "feature_units": [
+              "W/m2",
+              "W/m2"
+            ],
+            "horizon_steps": 30,
+            "label_maturity_steps": 0,
+            "stride_steps": 30,
+            "target_minimum": [
+              0.0,
+              0.0
+            ],
+            "target_names": [
+              "xrsa_flux",
+              "xrsb_flux"
+            ],
+            "target_reference": [
+              1.0,
+              1.0
+            ],
+            "target_units": [
+              "W/m2",
+              "W/m2"
+            ],
+            "transform": "log10"
+          },
+          "spec_fingerprint": "094df46d625380c4c812bb26c9320cff10e40a2de185cfcebfa5dfff04674d94",
+          "target_counts": [
+            113926,
+            116125
+          ],
+          "target_mean": [
+            -6.975172762067082,
+            -5.475295794509493
+          ],
+          "target_scale": [
+            0.5742480619158656,
+            0.34159742190236464
+          ]
+        },
+        "statistics_exact": true
+      },
+      "original_artifacts_unchanged_after_audit": {
+        "fig_coverage.png": {
+          "bytes_unchanged": true,
+          "sha256_unchanged": true
+        },
+        "fig_fan_largest_rise.png": {
+          "bytes_unchanged": true,
+          "sha256_unchanged": true
+        },
+        "fig_lead_log_mae.png": {
+          "bytes_unchanged": true,
+          "sha256_unchanged": true
+        },
+        "jepa_finetune_seed17.pt": {
+          "bytes_unchanged": true,
+          "sha256_unchanged": true
+        },
+        "jepa_finetune_seed29.pt": {
+          "bytes_unchanged": true,
+          "sha256_unchanged": true
+        },
+        "jepa_finetune_seed43.pt": {
+          "bytes_unchanged": true,
+          "sha256_unchanged": true
+        },
+        "jepa_frozen_seed17.pt": {
+          "bytes_unchanged": true,
+          "sha256_unchanged": true
+        },
+        "jepa_frozen_seed29.pt": {
+          "bytes_unchanged": true,
+          "sha256_unchanged": true
+        },
+        "jepa_frozen_seed43.pt": {
+          "bytes_unchanged": true,
+          "sha256_unchanged": true
+        },
+        "per_origin.json": {
+          "bytes_unchanged": true,
+          "sha256_unchanged": true
+        },
+        "summary.json": {
+          "bytes_unchanged": true,
+          "sha256_unchanged": true
+        },
+        "summary.md": {
+          "bytes_unchanged": true,
+          "sha256_unchanged": true
+        },
+        "supervised_seed17.pt": {
+          "bytes_unchanged": true,
+          "sha256_unchanged": true
+        },
+        "supervised_seed29.pt": {
+          "bytes_unchanged": true,
+          "sha256_unchanged": true
+        },
+        "supervised_seed43.pt": {
+          "bytes_unchanged": true,
+          "sha256_unchanged": true
+        },
+        "test_predictions.npz": {
+          "bytes_unchanged": true,
+          "sha256_unchanged": true
+        }
+      },
+      "paired_jepa_pre_finetune_weight_records_equal": {
+        "17": true,
+        "29": true,
+        "43": true
+      },
+      "reconstruction": {
+        "dataset_fingerprint": "d21b81b42643777f68855d8e02fc17cb7fb326805763117f8e5863233d68ba12",
+        "dataset_manifest_exact": true,
+        "forecast_spec": {
+          "availability_mode": "retrospective_bin_end",
+          "cadence_seconds": 60,
+          "context_steps": 120,
+          "eligibility_policy": "complete",
+          "feature_lookback_steps": 0,
+          "feature_names": [
+            "xrsa_flux",
+            "xrsb_flux"
+          ],
+          "feature_reference": [
+            1.0,
+            1.0
+          ],
+          "feature_units": [
+            "W/m2",
+            "W/m2"
+          ],
+          "horizon_steps": 30,
+          "label_maturity_steps": 0,
+          "stride_steps": 30,
+          "target_minimum": [
+            0.0,
+            0.0
+          ],
+          "target_names": [
+            "xrsa_flux",
+            "xrsb_flux"
+          ],
+          "target_reference": [
+            1.0,
+            1.0
+          ],
+          "target_units": [
+            "W/m2",
+            "W/m2"
+          ],
+          "transform": "log10"
+        },
+        "pinned_source_count": 123,
+        "raw_rows": 118080,
+        "recorded_dataset_fingerprint": "d21b81b42643777f68855d8e02fc17cb7fb326805763117f8e5863233d68ba12",
+        "retained_train_origins": 3609,
+        "spec_fingerprint": "094df46d625380c4c812bb26c9320cff10e40a2de185cfcebfa5dfff04674d94",
+        "train_manifest_exact": true,
+        "training_fingerprint": "8e5f200f701c73d37191009d66246cd3bd50b5c3da7bb290d4fc28612fff38fb"
+      },
+      "strict_provenance": {
+        "changed_source_files": [],
+        "current_branch": "research/goes-external-model-evaluation",
+        "current_git_commit": "644648f7d555fcbcb3eed4495d37fecffdd1863a",
+        "current_source_fingerprint": "e4418cd34a326e9e429df87214182253ca2b050f7d6fba593ead54e7bd2467d2",
+        "dev_mode": false,
+        "installed_source_matches": true,
+        "quick": false,
+        "recorded_branch": "v1",
+        "recorded_git_commit": "4a3f88227ce28dea0e885e68987282285963f38e",
+        "recorded_source_fingerprint": "e4418cd34a326e9e429df87214182253ca2b050f7d6fba593ead54e7bd2467d2",
+        "run_status": "complete",
+        "source_file_count": 53,
+        "source_files_match": true,
+        "v1_artifact_manifest_present": false
+      },
+      "training_windows_direct_recomputation": {
+        "all_records_match": true,
+        "eligible": 108199,
+        "method": "consecutive 150 raw rows, complete 120-row two-feature context and 30-row two-target future from revalidated exact train manifest"
+      }
+    },
+    "classical": [
+      {
+        "archived_point_exact": true,
+        "archived_point_max_abs_log10_error": 0.0,
+        "archived_test_prediction_available": true,
+        "finite": true,
+        "model": "ar1",
+        "no_fit": true,
+        "point_shape": [
+          2,
+          30,
+          2
+        ],
+        "public_prediction_dataset_guard": true,
+        "restore_method": "audit-only private field reconstruction from saved JSON parameters; no public loader",
+        "training_identity_matches": true
+      },
+      {
+        "archived_point_exact": true,
+        "archived_point_max_abs_log10_error": 0.0,
+        "archived_quantile_exact": true,
+        "archived_quantile_max_abs_log10_error": 0.0,
+        "archived_test_prediction_available": true,
+        "finite": true,
+        "model": "ar1-arch(1)-normal",
+        "no_fit": true,
+        "point_shape": [
+          2,
+          30,
+          2
+        ],
+        "public_prediction_dataset_guard": true,
+        "restore_method": "audit-only private field reconstruction from saved JSON parameters; no public loader",
+        "training_identity_matches": true
+      },
+      {
+        "archived_point_exact": true,
+        "archived_point_max_abs_log10_error": 0.0,
+        "archived_quantile_exact": true,
+        "archived_quantile_max_abs_log10_error": 0.0,
+        "archived_test_prediction_available": true,
+        "finite": true,
+        "model": "ar1-constant-normal",
+        "no_fit": true,
+        "point_shape": [
+          2,
+          30,
+          2
+        ],
+        "public_prediction_dataset_guard": true,
+        "restore_method": "audit-only private field reconstruction from saved JSON parameters; no public loader",
+        "training_identity_matches": true
+      },
+      {
+        "archived_point_exact": true,
+        "archived_point_max_abs_log10_error": 0.0,
+        "archived_quantile_exact": true,
+        "archived_quantile_max_abs_log10_error": 0.0,
+        "archived_test_prediction_available": true,
+        "finite": true,
+        "model": "ar1-garch(1,1)-normal",
+        "no_fit": true,
+        "point_shape": [
+          2,
+          30,
+          2
+        ],
+        "public_prediction_dataset_guard": true,
+        "restore_method": "audit-only private field reconstruction from saved JSON parameters; no public loader",
+        "training_identity_matches": true
+      },
+      {
+        "archived_point_exact": true,
+        "archived_point_max_abs_log10_error": 0.0,
+        "archived_quantile_exact": true,
+        "archived_quantile_max_abs_log10_error": 0.0,
+        "archived_test_prediction_available": true,
+        "finite": true,
+        "model": "ar1-garch(1,1)-t",
+        "no_fit": true,
+        "point_shape": [
+          2,
+          30,
+          2
+        ],
+        "public_prediction_dataset_guard": true,
+        "restore_method": "audit-only private field reconstruction from saved JSON parameters; no public loader",
+        "training_identity_matches": true
+      },
+      {
+        "archived_point_exact": true,
+        "archived_point_max_abs_log10_error": 0.0,
+        "archived_quantile_exact": true,
+        "archived_quantile_max_abs_log10_error": 0.0,
+        "archived_test_prediction_available": true,
+        "finite": true,
+        "model": "ar1-gjr-garch(1,1)-t",
+        "no_fit": true,
+        "point_shape": [
+          2,
+          30,
+          2
+        ],
+        "public_prediction_dataset_guard": true,
+        "restore_method": "audit-only private field reconstruction from saved JSON parameters; no public loader",
+        "training_identity_matches": true
+      },
+      {
+        "archived_test_prediction_available": false,
+        "finite": true,
+        "model": "arima(1,1,0)",
+        "no_fit": true,
+        "point_shape": [
+          2,
+          30,
+          2
+        ],
+        "public_prediction_dataset_guard": true,
+        "restore_method": "audit-only private field reconstruction from saved JSON parameters; no public loader",
+        "training_identity_matches": true
+      },
+      {
+        "archived_test_prediction_available": false,
+        "finite": true,
+        "model": "arima(1,1,1)",
+        "no_fit": true,
+        "point_shape": [
+          2,
+          30,
+          2
+        ],
+        "public_prediction_dataset_guard": true,
+        "restore_method": "audit-only private field reconstruction from saved JSON parameters; no public loader",
+        "training_identity_matches": true
+      },
+      {
+        "archived_point_exact": true,
+        "archived_point_max_abs_log10_error": 0.0,
+        "archived_quantile_exact": true,
+        "archived_quantile_max_abs_log10_error": 0.0,
+        "archived_test_prediction_available": true,
+        "finite": true,
+        "model": "arima(2,1,0)",
+        "no_fit": true,
+        "point_shape": [
+          2,
+          30,
+          2
+        ],
+        "public_prediction_dataset_guard": true,
+        "restore_method": "audit-only private field reconstruction from saved JSON parameters; no public loader",
+        "training_identity_matches": true
+      },
+      {
+        "archived_test_prediction_available": false,
+        "finite": true,
+        "model": "arima(2,1,1)",
+        "no_fit": true,
+        "point_shape": [
+          2,
+          30,
+          2
+        ],
+        "public_prediction_dataset_guard": true,
+        "restore_method": "audit-only private field reconstruction from saved JSON parameters; no public loader",
+        "training_identity_matches": true
+      },
+      {
+        "archived_point_exact": false,
+        "archived_point_max_abs_log10_error": 1.7763568394002505e-15,
+        "archived_test_prediction_available": true,
+        "finite": true,
+        "model": "direct_ridge",
+        "no_fit": true,
+        "point_shape": [
+          2,
+          30,
+          2
+        ],
+        "public_prediction_dataset_guard": true,
+        "restore_method": "audit-only private field reconstruction from saved JSON parameters; no public loader",
+        "training_identity_matches": true
+      },
+      {
+        "archived_point_exact": true,
+        "archived_point_max_abs_log10_error": 0.0,
+        "archived_test_prediction_available": true,
+        "finite": true,
+        "model": "drift",
+        "no_fit": true,
+        "point_shape": [
+          2,
+          30,
+          2
+        ],
+        "public_prediction_dataset_guard": true,
+        "restore_method": "audit-only private field reconstruction from saved JSON parameters; no public loader",
+        "training_identity_matches": true
+      },
+      {
+        "archived_point_exact": true,
+        "archived_point_max_abs_log10_error": 0.0,
+        "archived_test_prediction_available": true,
+        "finite": true,
+        "model": "persistence",
+        "no_fit": true,
+        "point_shape": [
+          2,
+          30,
+          2
+        ],
+        "public_prediction_dataset_guard": true,
+        "restore_method": "audit-only private field reconstruction from saved JSON parameters; no public loader",
+        "training_identity_matches": true
+      },
+      {
+        "archived_point_exact": true,
+        "archived_point_max_abs_log10_error": 0.0,
+        "archived_quantile_exact": true,
+        "archived_quantile_max_abs_log10_error": 0.0,
+        "archived_test_prediction_available": true,
+        "finite": true,
+        "model": "persistence_empirical",
+        "no_fit": true,
+        "point_shape": [
+          2,
+          30,
+          2
+        ],
+        "public_prediction_dataset_guard": true,
+        "restore_method": "audit-only private field reconstruction from saved JSON parameters; no public loader",
+        "training_identity_matches": true
+      },
+      {
+        "archived_point_exact": true,
+        "archived_point_max_abs_log10_error": 0.0,
+        "archived_test_prediction_available": true,
+        "finite": true,
+        "model": "trailing_mean",
+        "no_fit": true,
+        "point_shape": [
+          2,
+          30,
+          2
+        ],
+        "public_prediction_dataset_guard": true,
+        "restore_method": "audit-only private field reconstruction from saved JSON parameters; no public loader",
+        "training_identity_matches": true
+      },
+      {
+        "archived_point_exact": true,
+        "archived_point_max_abs_log10_error": 0.0,
+        "archived_test_prediction_available": true,
+        "finite": true,
+        "model": "training_mean",
+        "no_fit": true,
+        "point_shape": [
+          2,
+          30,
+          2
+        ],
+        "public_prediction_dataset_guard": true,
+        "restore_method": "audit-only private field reconstruction from saved JSON parameters; no public loader",
+        "training_identity_matches": true
+      }
+    ],
+    "elapsed_seconds": 43.364230040999246,
+    "limitations": [
+      "No external inference/scoring or training/refitting performed",
+      "Bounded replay proves first256 original neural origins and first2 classical origins only; does not repeat full1436-origin replay",
+      "Classical state replay used audit-only private reconstruction; no public loader exists",
+      "Classical public prediction requires original dataset identity; honest external dataset identity requires supported cross-dataset prediction contract",
+      "V1 outputs lack contemporaneous artifacts.json; ledger hashes measured at audit time identify present bytes",
+      "V1 summary omits historical scipy/statsmodels/arch dependency identities; current environment versions do not prove historical versions",
+      "No independent training reproduction performed; training history is saved provenance, not proof of independently replicated optimization",
+      "Original actual operational delivery latency and external generalization remain unestablished"
+    ],
+    "runtime": {
+      "packages": {
+        "arch": "7.2.0",
+        "netCDF4": "1.7.2",
+        "numpy": "2.2.6",
+        "pandas": "2.3.3",
+        "scipy": "1.18.1",
+        "statsmodels": "0.14.5",
+        "xarray": "2026.7.0"
+      },
+      "python": "3.13.3 (v3.13.3:6280bb54784, Apr  8 2025, 10:47:54) [Clang 15.0.0 (clang-1500.3.9.4)]",
+      "torch": "2.6.0"
+    },
+    "schema_version": 1,
+    "scope": "Read-only audit, no fit/refit, no external inference"
+  },
+  "dataset_audit": {
+    "acceptance": {
+      "c": {
+        "all_match_ledger": true,
+        "artifact_count": 13,
+        "artifacts": [
+          {
+            "bytes": 1473,
+            "matches_ledger": true,
+            "name": "artifacts.json",
+            "sha256": "0c82db2fd0a4f084451b0e51b5330418e0f9714f2f229b8e5d57653f1177b69e"
+          },
+          {
+            "bytes": 12005607,
+            "matches_ledger": true,
+            "name": "contexts.json",
+            "sha256": "37e23b2ebc56b2a405b261534ed696fd7bddf3498bb6fddf2127c3b48fe55ee8"
+          },
+          {
+            "bytes": 50084,
+            "matches_ledger": true,
+            "name": "dataset_manifest.json",
+            "sha256": "4b0571e6213819539a926bc06c4e8445469204dc3dd606eebf88c0c4dc6e7340"
+          },
+          {
+            "bytes": 14212544,
+            "matches_ledger": true,
+            "name": "event_alignment.json",
+            "sha256": "a4c38304857f79b5cb6d38ad4802da1231a163b72ea0742c37e2ff420b03ee59"
+          },
+          {
+            "bytes": 1262389,
+            "matches_ledger": true,
+            "name": "future_grid.json",
+            "sha256": "a56e471ab6c335049103d78b0468ebb313c7da0dfedaa565a940b996e6b1bf4f"
+          },
+          {
+            "bytes": 801871,
+            "matches_ledger": true,
+            "name": "onset_labels_C.json",
+            "sha256": "8fca3a372751d6f18a348ffdf18540f6fc7806abe30a39be0b2748dfedef0fd3"
+          },
+          {
+            "bytes": 752124,
+            "matches_ledger": true,
+            "name": "onset_labels_M.json",
+            "sha256": "803213ffa36e4536a30cd2a836b04a1e522dd4423f75639700cba0849d1a3dec"
+          },
+          {
+            "bytes": 741145,
+            "matches_ledger": true,
+            "name": "onset_labels_X.json",
+            "sha256": "2a08af64732480364261e07708e26f2e886b1fa22cca0502b133971d4bf3425e"
+          },
+          {
+            "bytes": 18245,
+            "matches_ledger": true,
+            "name": "provenance.json",
+            "sha256": "6c2cbd69e2c5fe559c5e7c1560cab4f26445aa7917b1602c9ee6f743c0b30f7d"
+          },
+          {
+            "bytes": 792,
+            "matches_ledger": true,
+            "name": "resolved_config.json",
+            "sha256": "3eb7a2d57fdc354631a4bc109992706b8436eb240c5e9b2056f8c23d0e08e0ee"
+          },
+          {
+            "bytes": 4657,
+            "matches_ledger": true,
+            "name": "summary.json",
+            "sha256": "a2155e7df99b5b29f2c096486014b298df15532b10ec6c95a21cbd30caf70933"
+          },
+          {
+            "bytes": 3044858,
+            "matches_ledger": true,
+            "name": "targets.json",
+            "sha256": "05679cf6e5fba29d2fb03232e5187d126a70f615f03cf526b9d560c918eddeff"
+          },
+          {
+            "bytes": 3511106,
+            "matches_ledger": true,
+            "name": "window_manifest.json",
+            "sha256": "a21584342c06b927d0389700da5fb6d1c7b5827144523b423ba20e1be64d1b64"
+          }
+        ]
+      },
+      "d": {
+        "all_match_ledger": true,
+        "artifact_count": 13,
+        "artifacts": [
+          {
+            "bytes": 1473,
+            "matches_ledger": true,
+            "name": "artifacts.json",
+            "sha256": "0c82db2fd0a4f084451b0e51b5330418e0f9714f2f229b8e5d57653f1177b69e"
+          },
+          {
+            "bytes": 12005607,
+            "matches_ledger": true,
+            "name": "contexts.json",
+            "sha256": "37e23b2ebc56b2a405b261534ed696fd7bddf3498bb6fddf2127c3b48fe55ee8"
+          },
+          {
+            "bytes": 50084,
+            "matches_ledger": true,
+            "name": "dataset_manifest.json",
+            "sha256": "4b0571e6213819539a926bc06c4e8445469204dc3dd606eebf88c0c4dc6e7340"
+          },
+          {
+            "bytes": 14212544,
+            "matches_ledger": true,
+            "name": "event_alignment.json",
+            "sha256": "a4c38304857f79b5cb6d38ad4802da1231a163b72ea0742c37e2ff420b03ee59"
+          },
+          {
+            "bytes": 1262389,
+            "matches_ledger": true,
+            "name": "future_grid.json",
+            "sha256": "a56e471ab6c335049103d78b0468ebb313c7da0dfedaa565a940b996e6b1bf4f"
+          },
+          {
+            "bytes": 801871,
+            "matches_ledger": true,
+            "name": "onset_labels_C.json",
+            "sha256": "8fca3a372751d6f18a348ffdf18540f6fc7806abe30a39be0b2748dfedef0fd3"
+          },
+          {
+            "bytes": 752124,
+            "matches_ledger": true,
+            "name": "onset_labels_M.json",
+            "sha256": "803213ffa36e4536a30cd2a836b04a1e522dd4423f75639700cba0849d1a3dec"
+          },
+          {
+            "bytes": 741145,
+            "matches_ledger": true,
+            "name": "onset_labels_X.json",
+            "sha256": "2a08af64732480364261e07708e26f2e886b1fa22cca0502b133971d4bf3425e"
+          },
+          {
+            "bytes": 18245,
+            "matches_ledger": true,
+            "name": "provenance.json",
+            "sha256": "6c2cbd69e2c5fe559c5e7c1560cab4f26445aa7917b1602c9ee6f743c0b30f7d"
+          },
+          {
+            "bytes": 792,
+            "matches_ledger": true,
+            "name": "resolved_config.json",
+            "sha256": "3eb7a2d57fdc354631a4bc109992706b8436eb240c5e9b2056f8c23d0e08e0ee"
+          },
+          {
+            "bytes": 4657,
+            "matches_ledger": true,
+            "name": "summary.json",
+            "sha256": "a2155e7df99b5b29f2c096486014b298df15532b10ec6c95a21cbd30caf70933"
+          },
+          {
+            "bytes": 3044858,
+            "matches_ledger": true,
+            "name": "targets.json",
+            "sha256": "05679cf6e5fba29d2fb03232e5187d126a70f615f03cf526b9d560c918eddeff"
+          },
+          {
+            "bytes": 3511106,
+            "matches_ledger": true,
+            "name": "window_manifest.json",
+            "sha256": "a21584342c06b927d0389700da5fb6d1c7b5827144523b423ba20e1be64d1b64"
+          }
+        ]
+      }
+    },
+    "audit_source_commit": "644648f7d555fcbcb3eed4495d37fecffdd1863a",
+    "audited_at_utc": "2026-10-13T16:50:55.152754+00:00",
+    "evidence": "OBSERVED unless otherwise labelled",
+    "external_commit": "f309921d776cf2deb632a886e8426e42bac1a050",
+    "final_reverification": {
+      "acceptance_artifacts": 26,
+      "all_bytes_and_hashes_unchanged": true,
+      "external_tracked_status": "",
+      "raw_files": 31
+    },
+    "forecast_spec": {
+      "exact_dataclass_equality": true,
+      "fingerprint": "094df46d625380c4c812bb26c9320cff10e40a2de185cfcebfa5dfff04674d94",
+      "resolved": {
+        "availability_mode": "retrospective_bin_end",
+        "cadence_seconds": 60,
+        "context_steps": 120,
+        "eligibility_policy": "complete",
+        "feature_lookback_steps": 0,
+        "feature_names": [
+          "xrsa_flux",
+          "xrsb_flux"
+        ],
+        "feature_reference": [
+          1.0,
+          1.0
+        ],
+        "feature_units": [
+          "W/m2",
+          "W/m2"
+        ],
+        "horizon_steps": 30,
+        "label_maturity_steps": 0,
+        "stride_steps": 30,
+        "target_minimum": [
+          0.0,
+          0.0
+        ],
+        "target_names": [
+          "xrsa_flux",
+          "xrsb_flux"
+        ],
+        "target_reference": [
+          1.0,
+          1.0
+        ],
+        "target_units": [
+          "W/m2",
+          "W/m2"
+        ],
+        "transform": "log10"
+      },
+      "v1_raw_config_equals_external_raw_config": true
+    },
+    "ledger": {
+      "matches_committed_bytes": true,
+      "path": "data/manifests/datasets/goes_external_january2025.json",
+      "sha256": "157903bc899498afe40cce9cd6c8371f24e55d9680599b68a683531156d486ba"
+    },
+    "raw_january": {
+      "all_native_identity_sets": {
+        "L1b_system_environment": [
+          "SCI"
+        ],
+        "algorithm": [
+          "xrs04_avg.py"
+        ],
+        "algorithm_date": [
+          "2025-08-13"
+        ],
+        "git_commit_date": [
+          "2025-11-21T00:13:48"
+        ],
+        "git_commit_hash": [
+          "162d7a2889b4f88020950d212b0dfcc40f7937b2"
+        ],
+        "instrument": [
+          "GOES R Series Extreme Ultraviolet Sensor and X-ray Irradiance Sensors (EXIS)"
+        ],
+        "instrument_id": [
+          "FM1"
+        ],
+        "platform": [
+          "g16"
+        ],
+        "processing_level": [
+          "Level 2"
+        ],
+        "processing_parameters_file": [
+          "g16_xrs-avg-electron-contam-lut_v3.h5"
+        ],
+        "time_coverage_resolution": [
+          "PT1M"
+        ]
+      },
+      "baseline_native_validation_report_matches_prepared": true,
+      "bytes": 9119470,
+      "channels": {
+        "xrsa": {
+          "nonfinite_raw": 313,
+          "nonpositive_finite_raw": 0,
+          "rejected_bins": 5470,
+          "sample_count_max_valid": 60,
+          "sample_count_min_valid": 1,
+          "status_counts": {
+            "0": 44325,
+            "2": 313,
+            "4": 2
+          },
+          "units": "W/m2",
+          "valid_bins": 39170,
+          "valid_partial_minute_counts": 2325
+        },
+        "xrsb": {
+          "nonfinite_raw": 313,
+          "nonpositive_finite_raw": 0,
+          "rejected_bins": 323,
+          "sample_count_max_valid": 60,
+          "sample_count_min_valid": 1,
+          "status_counts": {
+            "0": 44325,
+            "2": 313,
+            "4": 2
+          },
+          "units": "W/m2",
+          "valid_bins": 44317,
+          "valid_partial_minute_counts": 593
+        }
+      },
+      "creation_max": "2025-12-05T18:44:52.571Z",
+      "creation_min": "2025-12-05T18:40:05.281Z",
+      "electron_flag_counts": {
+        "0": 39485,
+        "3": 4,
+        "40": 5147,
+        "43": 4
+      },
+      "end_exclusive_utc": "2025-02-01T00:00:00+00:00",
+      "file_count": 31,
+      "files": [
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 300904,
+          "date_created": "2025-12-05T18:42:41.833Z",
+          "end_exclusive_utc": "2025-01-02T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20241231_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20241231_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250102_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250102_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250101_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "5822906927372ece6516399b61a9a7f3b7a2c67bb62f1c06d52174fe386508da",
+          "start_utc": "2025-01-01T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 296126,
+          "date_created": "2025-12-05T18:42:51.204Z",
+          "end_exclusive_utc": "2025-01-03T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250101_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250101_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250103_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250103_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250102_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "5706c7357b44411dd915c79e531eed49b09dd7896ef98f79f906d23df1e41afa",
+          "start_utc": "2025-01-02T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 296000,
+          "date_created": "2025-12-05T18:43:00.507Z",
+          "end_exclusive_utc": "2025-01-04T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250102_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250102_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250104_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250104_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250103_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "f016a096bee382bcf2cf1ab1f13c4ae337ebb83e67de22049c1de386616bffbd",
+          "start_utc": "2025-01-03T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 299004,
+          "date_created": "2025-12-05T18:43:09.635Z",
+          "end_exclusive_utc": "2025-01-05T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250103_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250103_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250105_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250105_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250104_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "9934c7183c6d90b26a5f1c4980fb819235b7c04ccd28671f6919a0cc0255cab8",
+          "start_utc": "2025-01-04T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 297675,
+          "date_created": "2025-12-05T18:43:18.924Z",
+          "end_exclusive_utc": "2025-01-06T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250104_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250104_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250106_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250106_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250105_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "a0500bf983019b46ad81fddc7a8d63e12f73805b30d32804683cf92f4e0033ac",
+          "start_utc": "2025-01-05T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 295432,
+          "date_created": "2025-12-05T18:43:28.181Z",
+          "end_exclusive_utc": "2025-01-07T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250105_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250105_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250107_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250107_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250106_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "71ccfb003408b89b1b42f461b05ed6fda897dc11334779f0b40d3312f7cd88d0",
+          "start_utc": "2025-01-06T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 290423,
+          "date_created": "2025-12-05T18:43:37.376Z",
+          "end_exclusive_utc": "2025-01-08T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250106_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250106_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250108_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250108_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250107_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "265b057e9bcff37868e73551c71663ff4553089cf8eee1750be981d794b5c5d0",
+          "start_utc": "2025-01-07T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 291896,
+          "date_created": "2025-12-05T18:43:47.396Z",
+          "end_exclusive_utc": "2025-01-09T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250107_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250107_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250109_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250109_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250108_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "d8ae411103298d2c58d05a6b6e8f47c8761e568f3ef14bb6d68c2d90afeafd7f",
+          "start_utc": "2025-01-08T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 290742,
+          "date_created": "2025-12-05T18:43:56.909Z",
+          "end_exclusive_utc": "2025-01-10T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250108_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250108_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250110_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250110_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250109_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "4269934df9d9fb75b49b29569518f928ea38e8fecd9ec0da911c670e6c200b7d",
+          "start_utc": "2025-01-09T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 292252,
+          "date_created": "2025-12-05T18:44:06.306Z",
+          "end_exclusive_utc": "2025-01-11T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250109_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250109_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250111_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250111_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250110_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "4ccf0a30d072bef07b6ba13e813e91ed512d61ab0c97b44fda8f727e0bed1418",
+          "start_utc": "2025-01-10T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 289645,
+          "date_created": "2025-12-05T18:44:15.457Z",
+          "end_exclusive_utc": "2025-01-12T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250110_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250110_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250112_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250112_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250111_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "4e11ba496c1d9a3670d100c286d4952b0705cde7b6e9c1b4fda1f039f2605f07",
+          "start_utc": "2025-01-11T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 289597,
+          "date_created": "2025-12-05T18:44:24.819Z",
+          "end_exclusive_utc": "2025-01-13T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250111_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250111_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250113_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250113_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250112_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "2290745b2835ad783a6b24b426c4c1e2e8e824b63185b7319c0339dce7c5596b",
+          "start_utc": "2025-01-12T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 292137,
+          "date_created": "2025-12-05T18:44:34.049Z",
+          "end_exclusive_utc": "2025-01-14T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250112_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250112_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250114_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250114_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250113_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "d45f9e41257822d08e62ea6717f4b4ae78899b2d929f58134e982cfc71236cd4",
+          "start_utc": "2025-01-13T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 292865,
+          "date_created": "2025-12-05T18:44:43.355Z",
+          "end_exclusive_utc": "2025-01-15T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250113_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250113_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250115_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250115_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250114_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "0f8350dcad4af7a0a77e0a507009b6b4592eeb1eafbc5f28a19ac1a24501591a",
+          "start_utc": "2025-01-14T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 293486,
+          "date_created": "2025-12-05T18:44:52.571Z",
+          "end_exclusive_utc": "2025-01-16T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250114_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250114_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250116_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250116_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250115_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "bdba1453930e8c3be6a12e6491be5c7c05e848ca59b34767d4a733daf3071556",
+          "start_utc": "2025-01-15T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 297078,
+          "date_created": "2025-12-05T18:40:05.281Z",
+          "end_exclusive_utc": "2025-01-17T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250115_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250115_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250117_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250117_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250116_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "999737f326b328c1ac45029566a3fd4fc112ec003518e44c2226ad5a203018d6",
+          "start_utc": "2025-01-16T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 301008,
+          "date_created": "2025-12-05T18:40:14.749Z",
+          "end_exclusive_utc": "2025-01-18T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250116_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250116_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250118_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250118_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250117_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "cb1bfedd7c1d56f87509a3e9d80f60c7f173394ccbe8d0bf297a86605e487e7f",
+          "start_utc": "2025-01-17T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 297019,
+          "date_created": "2025-12-05T18:40:28.295Z",
+          "end_exclusive_utc": "2025-01-19T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250117_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250117_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250119_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250119_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250118_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "4f693caad4beb7b0777eedb763cce640cfa96075e617bfbd2a256e3e5bc8d75e",
+          "start_utc": "2025-01-18T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 292903,
+          "date_created": "2025-12-05T18:40:37.787Z",
+          "end_exclusive_utc": "2025-01-20T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250118_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250118_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250120_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250120_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250119_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "5adb8bbc5506cba59a48192d03015a154dfe584075d841a0f489aad047969044",
+          "start_utc": "2025-01-19T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 294903,
+          "date_created": "2025-12-05T18:40:47.175Z",
+          "end_exclusive_utc": "2025-01-21T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250119_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250119_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250121_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250121_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250120_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "f3e260e1e0a7952c57d26402962bb55848b203434fb4fabf66ff34ada41e971b",
+          "start_utc": "2025-01-20T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 294257,
+          "date_created": "2025-12-05T18:40:56.709Z",
+          "end_exclusive_utc": "2025-01-22T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250120_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250120_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250122_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250122_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250121_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "ad628349b73b96ac6125bf68a7b8e2362f1a28074d96af63739065096b266676",
+          "start_utc": "2025-01-21T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 294144,
+          "date_created": "2025-12-05T18:41:05.932Z",
+          "end_exclusive_utc": "2025-01-23T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250121_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250121_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250123_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250123_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250122_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "10bd0a9addd2b5d934fd23cad58a4391fd3ecab8970b0ffa62871b9581b0915e",
+          "start_utc": "2025-01-22T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 295120,
+          "date_created": "2025-12-05T18:41:15.553Z",
+          "end_exclusive_utc": "2025-01-24T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250122_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250122_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250124_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250124_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250123_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "26a96f9d90a0debbca070165db3da4ed25b7e20973db9b53cd8687753f612886",
+          "start_utc": "2025-01-23T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 294638,
+          "date_created": "2025-12-05T18:41:24.987Z",
+          "end_exclusive_utc": "2025-01-25T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250123_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250123_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250125_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250125_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250124_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "6705c109d58ebd0fb80db885b6068d7f797ae582e710774a504a1f57483d9363",
+          "start_utc": "2025-01-24T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 293434,
+          "date_created": "2025-12-05T18:41:34.371Z",
+          "end_exclusive_utc": "2025-01-26T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250124_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250124_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250126_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250126_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250125_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "10dbe52cc9dd6e5acd72ab0e4f14f0a03ebeae8874bc7ff74d03e56460ee67b3",
+          "start_utc": "2025-01-25T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 292193,
+          "date_created": "2025-12-05T18:41:43.737Z",
+          "end_exclusive_utc": "2025-01-27T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250125_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250125_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250127_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250127_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250126_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "cda62c2d548d0768d8867402d09839e995474937c4adff0aa4df1afa1e6aefa2",
+          "start_utc": "2025-01-26T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 291968,
+          "date_created": "2025-12-05T18:41:53.392Z",
+          "end_exclusive_utc": "2025-01-28T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250126_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250126_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250128_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250128_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250127_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "7dfceea902c7e34e750f364abec4e3e0d1bdca058604fb24a26b4c8d18443dc5",
+          "start_utc": "2025-01-27T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 292326,
+          "date_created": "2025-12-05T18:42:03.061Z",
+          "end_exclusive_utc": "2025-01-29T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250127_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250127_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250129_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250129_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250128_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "939ee08b18c5397eb3833a6b8c49aa8b4d7abe2a063025ad4ff72a6b2af52258",
+          "start_utc": "2025-01-28T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 290940,
+          "date_created": "2025-12-05T18:42:12.838Z",
+          "end_exclusive_utc": "2025-01-30T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250128_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250128_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250130_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250130_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250129_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "e1b5a784693c88648f5118bba0e657d7942a4153f95ac7874d568de588d5781b",
+          "start_utc": "2025-01-29T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 292311,
+          "date_created": "2025-12-05T18:42:22.273Z",
+          "end_exclusive_utc": "2025-01-31T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250129_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250129_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250131_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250131_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250130_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "6c30b20663caf1c239de7f9fabaa0e93ae118417d3d099406300d9acf741c5e1",
+          "start_utc": "2025-01-30T00:00:00+00:00"
+        },
+        {
+          "algorithm_version": [
+            2,
+            4
+          ],
+          "bytes": 297044,
+          "date_created": "2025-12-05T18:42:31.757Z",
+          "end_exclusive_utc": "2025-02-01T00:00:00+00:00",
+          "identity_match": true,
+          "input_files_first": "sci_mpsh-l2-avg1m_g16_d20250130_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250130_v2-2-1.nc",
+          "input_files_last": "sci_mpsh-l2-avg1m_g16_d20250201_v2-0-3.nc, sci_xrsf-l2-flx1s_g16_d20250201_v2-2-1.nc",
+          "input_files_total": 6,
+          "path": "data/raw/noaa/history/goes16/xrsf-l2-avg1m_science/v2-2-1/2025/01/sci_xrsf-l2-avg1m_g16_d20250131_v2-2-1.nc",
+          "product_version": "2-2-1",
+          "rows": 1440,
+          "sha256": "3a6da5d2d44c2d071ea19a7491b209af96a63c09edd7177982f9a762b738ae50",
+          "start_utc": "2025-01-31T00:00:00+00:00"
+        }
+      ],
+      "missing_grid_bins": 0,
+      "off_grid_bins": 0,
+      "prepared_metadata_matches_native_headers_and_source_manifest": true,
+      "primary_selector_counts": {
+        "10": 19,
+        "5": 44564,
+        "6": 57
+      },
+      "rows": 44640,
+      "start_utc": "2025-01-01T00:00:00+00:00",
+      "unique_rows": 44640
+    },
+    "scientific_interpretation": {
+      "as_issued_availability": "UNKNOWN; no per-bin delivery records; December2025 science bytes are not January2025 as-issued products",
+      "coordinate_causality": "OBSERVED PASS",
+      "current_noaa_documentation": {
+        "document_date": "2026-10-06",
+        "latest_listed_product_version": "2-2-2",
+        "latest_listed_release_date": "2026-10-06",
+        "newer_version_relevance": "DOCUMENTED caveat only; no acquisition/repinning or comparison performed",
+        "pinned_product_release_date": "2025-12-15"
+      },
+      "generic_archive_latency": "DOCUMENTED current ReadMe section3: science <=3 days; operational archive 1 day; not evidence of per-bin January2025 live delivery",
+      "label_completeness": "UNKNOWN; outside continuous flux evaluation readiness",
+      "native_calibration_dependency": "UNKNOWN beyond retained NOAA processing/LUT/input metadata; raw-axis separation does not certify that upstream calibration/flag estimation used no future information",
+      "native_preprocessing_causality": "UNKNOWN; adjacent-day input lists do not establish per-value future influence or lack thereof",
+      "noaa_authority": [
+        {
+          "document_date": "2026-10-06",
+          "sections": "2.1,2.4,4 (PDF pages5-8)",
+          "supports": "Retrospective science fixes; leap-second-neglecting UTC; one-minute means; electron correction limitations and interpolation/decay flags",
+          "url": "https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/goes16/l2/docs/GOES-R_XRS_L2_Data_Users_Guide.pdf",
+          "verified_by": "web open 2026-10-13"
+        },
+        {
+          "document_date": "2026-10-06",
+          "sections": "3,4,5 (PDF pages4-5)",
+          "supports": "Science/operational differences and generic archive latency; residual SEP/proton contamination; v2-2-1 and v2-2-2 revision history",
+          "url": "https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/goes16/l2/docs/GOES-R_XRS_L2_Data_ReadMe.pdf",
+          "verified_by": "web click 2026-10-13"
+        }
+      ],
+      "operational_readiness": "BLOCKED_EXTERNAL_EVIDENCE",
+      "pinned_product_version": "2-2-1; preserved",
+      "quality_selection": "OBSERVED: complete-case attrition; conditional selected-window benchmark cannot claim full-month all-conditions skill",
+      "retrospective_flux_dataset_readiness": "READY for frozen retrospective continuous-flux evaluation on declared complete windows; model/runtime qualification audited separately",
+      "source_urls": [
+        "https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/goes16/l2/docs/GOES-R_XRS_L2_Data_Users_Guide.pdf",
+        "https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/goes16/l2/docs/GOES-R_XRS_L2_Data_ReadMe.pdf"
+      ],
+      "upstream_caveats": "DOCUMENTED: science products contain retrospective fixes/calibration; electron correction imperfect; short-gap electron interpolation uses retrospective data, excluded by current flags; retained partial-minute averages do not imply sixty valid 1s samples"
+    },
+    "scope": "read-only native/archive/preparation audit, no inference, scoring, fitting or acquisition",
+    "v1_raw_axis": {
+      "end_exclusive_utc": "2024-09-01T00:00:00+00:00",
+      "external_start_utc": "2025-01-01T00:00:00+00:00",
+      "file_count": 123,
+      "gap_days": 122,
+      "gap_seconds": 10540800,
+      "manifests": [
+        {
+          "all_files_size_sha256_match": true,
+          "committed_identity_match": true,
+          "end_exclusive_utc": "2024-06-01T00:00:00+00:00",
+          "files": 31,
+          "path": "data/manifests/goes_v1_202405.json",
+          "rows": 44640,
+          "sha256": "9828b714ecb4545af2711f2760d110b9d0dd963a67e1f3d1d1f711af0aeb2240",
+          "start_utc": "2024-05-01T00:00:00+00:00"
+        },
+        {
+          "all_files_size_sha256_match": true,
+          "committed_identity_match": true,
+          "end_exclusive_utc": "2024-07-01T00:00:00+00:00",
+          "files": 30,
+          "path": "data/manifests/goes_v1_202406.json",
+          "rows": 43200,
+          "sha256": "91e45449c61918c52786c4d4f45d4d9311ef313bbc8baace314a40bf135ecc79",
+          "start_utc": "2024-06-01T00:00:00+00:00"
+        },
+        {
+          "all_files_size_sha256_match": true,
+          "committed_identity_match": true,
+          "end_exclusive_utc": "2024-08-01T00:00:00+00:00",
+          "files": 31,
+          "path": "data/manifests/goes_p2_july2024.json",
+          "rows": 44640,
+          "sha256": "581a3c4b8cfba6b9b21ed1fdb0b2277e728e9bf329a8da1ddcc0bd49c3cc4b3d",
+          "start_utc": "2024-07-01T00:00:00+00:00"
+        },
+        {
+          "all_files_size_sha256_match": true,
+          "committed_identity_match": true,
+          "end_exclusive_utc": "2024-09-01T00:00:00+00:00",
+          "files": 31,
+          "path": "data/manifests/goes_v1_202408.json",
+          "rows": 44640,
+          "sha256": "50164744c036e2c3776486a6657cf1c60bef4e9e81b0c27a154be9bdbd12faff",
+          "start_utc": "2024-08-01T00:00:00+00:00"
+        }
+      ],
+      "native_bin_overlap": 0,
+      "raw_axis_disjoint": true,
+      "rows": 177120,
+      "scope": "entire May-Aug development/test support, not only July nominal exclusion",
+      "split_config": [
+        {
+          "end_utc": "2024-07-22T00:00:00Z",
+          "name": "train",
+          "start_utc": "2024-05-01T00:00:00Z"
+        },
+        {
+          "end_utc": "2024-08-01T00:00:00Z",
+          "name": "validation",
+          "start_utc": "2024-07-22T00:00:00Z"
+        },
+        {
+          "end_utc": "2024-09-01T00:00:00Z",
+          "name": "test",
+          "start_utc": "2024-08-01T00:00:00Z"
+        }
+      ],
+      "start_utc": "2024-05-01T00:00:00+00:00"
+    },
+    "windows": {
+      "all_context_ends_by_issue": true,
+      "all_masks_true": true,
+      "all_target_starts_at_or_after_issue": true,
+      "availability_ns": null,
+      "baseline_v1_window_builder_artifact_equality_pass": true,
+      "candidate_origins": 1488,
+      "catalog_derived_features": false,
+      "context_shape": [
+        1007,
+        120,
+        2
+      ],
+      "dataset_fingerprint": "b4ff51eff9d8a3d85f30375c07b7623915cd09be9c8f82e26ca17dca13dfcd7c",
+      "excluded_origins": 481,
+      "exclusion_reason_counts": {
+        "invalid_features": 442,
+        "invalid_targets": 297,
+        "support_before_partition": 4
+      },
+      "exclusion_reason_patterns": {
+        "invalid_features": 180,
+        "invalid_features+invalid_targets": 262,
+        "invalid_targets": 35,
+        "support_before_partition": 4
+      },
+      "first_issue_utc": "2025-01-01T02:00:00+00:00",
+      "independent_raw_mask_recalculation_pass": true,
+      "last_issue_utc": "2025-01-31T23:30:00+00:00",
+      "retained_origins": 1007,
+      "retention_fraction": 0.676747311827957,
+      "split_fingerprint": "8018d4c47c06250d988f992a261131e3ca25fd57a0039da4a1be1247a9506dcb",
+      "target_shape": [
+        1007,
+        30,
+        2
+      ],
+      "training_slice": null,
+      "valid_context_cells": 241680,
+      "valid_target_cells": 60420,
+      "values": "native units; transform deferred to frozen model; no fitted preprocessing"
+    }
+  },
+  "evidence_labels": "Nested checks are OBSERVED unless explicitly DOCUMENTED, INFERRED or UNKNOWN. Not model scores.",
+  "external_model_predictions": "NOT_RUN",
+  "external_model_scores": "NOT_COMPUTED",
+  "readiness": "PARTIALLY_READY",
+  "schema_version": 1,
+  "scope": "Frozen V1 readiness and bounded original internal-test replay only",
+  "source_audit_json_sha256": {
+    "checkpoint_evidence.json": "42bed0153a127e66a2d888d76cb3683da50ca23da802fb2ae3f5c538e2485b21",
+    "dataset_evidence.json": "234e90731bc9c3439e4709e02e434f6183f025850e6c496c59e4c0cad985f926"
+  },
+  "training_or_preprocessing_fit_performed": false,
+  "verification": {
+    "environment": {
+      "packages": {
+        "netCDF4": "1.7.2",
+        "numpy": "2.2.6",
+        "pandas": "2.3.3",
+        "pyarrow": "25.0.1",
+        "solar-flare-jepa": "0.1.0",
+        "xarray": "2026.7.0"
+      },
+      "platform": "macOS-26.3-arm64-arm-64bit-Mach-O",
+      "python": "3.13.3 (v3.13.3:6280bb54784, Apr  8 2025, 10:47:54) [Clang 15.0.0 (clang-1500.3.9.4)]"
+    },
+    "external_nontraining_tests": {
+      "passed": 67,
+      "seconds": 2.54,
+      "warnings": 1
+    },
+    "normal_installation_source_match": true,
+    "source_fingerprint": "e4418cd34a326e9e429df87214182253ca2b050f7d6fba593ead54e7bd2467d2",
+    "v1_nontraining_tests": {
+      "passed": 690,
+      "seconds": 52.57,
+      "warnings": 1
+    },
+    "warning": "Inherited numpy.ndarray size changed RuntimeWarning; cause and numerical impact not established"
+  }
+}
