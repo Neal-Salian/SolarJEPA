@@ -5,6 +5,7 @@ locate immutable inputs; portable byte identities describe scientific inputs.
 Checkpoint byte snapshots are deliberately outside the JSON identity records.
 """
 from copy import deepcopy
+from dataclasses import fields
 import hashlib
 import io
 import json
@@ -16,7 +17,7 @@ import numpy as np
 
 from solar_flare_jepa.forecasting.contracts import (
     ForecastContext, ForecastSpec, ForecastTargets, FutureGrid, canonical_json,
-    fingerprint_payload, validate_alignment,
+    _immutable, fingerprint_payload, validate_alignment,
 )
 from solar_flare_jepa.training.jepa import JepaConfig, MODEL_IDS, MODEL_KIND, SCHEMA_VERSION
 from solar_flare_jepa.training.normalization import Normalization
@@ -213,9 +214,8 @@ def _candidate_axis(window, context, targets, summary, protocol):
     if (summary['retained_origins'] != len(retained) or summary['excluded_origins'] != len(exclusions)
             or summary['valid_target_cells'] != int(targets.mask.sum())):
         raise ValueError('Preparation candidate/retained target count differs')
-    axis.setflags(write=False)
-    indices = np.searchsorted(axis, context.issue_times_ns)
-    indices.setflags(write=False)
+    axis = _immutable(axis, np.int64)
+    indices = _immutable(np.searchsorted(axis, context.issue_times_ns), np.int64)
     return axis, exclusions, indices
 
 
@@ -387,9 +387,35 @@ def load_frozen_inputs(v1_dir: Path, preparation_dir: Path, protocol: dict) -> d
         current_source=current_source)
 
 
+def _consumption_binding(value):
+    """Describe live payload content, independently of its claimed identities."""
+    if isinstance(value, np.ndarray):
+        if value.dtype.hasobject:
+            raise ValueError('Frozen consumption arrays must have primitive content')
+        return ['array', value.dtype.str, list(value.shape),
+                hashlib.sha256(value.tobytes(order='C')).hexdigest()]
+    if isinstance(value, bytes):
+        return ['bytes', len(value), hashlib.sha256(value).hexdigest()]
+    if type(value) in (ForecastContext, ForecastTargets, FutureGrid, ForecastSpec):
+        return ['contract', type(value).__name__,
+                {field.name: _consumption_binding(getattr(value, field.name))
+                 for field in fields(type(value))}]
+    if isinstance(value, dict):
+        return ['mapping', {key: _consumption_binding(part) for key, part in dict.items(value)}]
+    if isinstance(value, (list, tuple)):
+        return ['sequence', [_consumption_binding(part) for part in value]]
+    if value is None or type(value) in (str, bool, int, float):
+        return value
+    raise ValueError('Unsupported frozen consumption payload type')
+
+
 def reverify_frozen_inputs(frozen: dict, v1_dir: Path, preparation_dir: Path, protocol: dict) -> None:
-    """Fail publication if original bytes, source or frozen protocol changed."""
+    """Bind live consumption state to freshly authenticated original snapshots.
+
+    This checks every returned field, including byte snapshots, fitted state,
+    canonical contracts, candidate mapping, exclusions and source declarations.
+    Caller-supplied identity/fingerprint assertions are never proof of that state.
+    """
     current = load_frozen_inputs(v1_dir, preparation_dir, protocol)
-    if (current['input_identities'] != frozen['input_identities']
-            or current['current_source'] != frozen['current_source']):
-        raise ValueError('Frozen input/source identity changed before publication')
+    if fingerprint_payload(_consumption_binding(current)) != fingerprint_payload(_consumption_binding(frozen)):
+        raise ValueError('Frozen consumption/input/source identity changed before publication')

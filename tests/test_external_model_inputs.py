@@ -333,3 +333,60 @@ def test_checkpoint_nonfinite_json_rejected(frozen_fixture):
     torch.save(payload,path);seal(frozen_fixture)
     with pytest.raises(ValueError,match='finite JSON'):
         load(frozen_fixture)
+
+
+@pytest.mark.parametrize('mutation', [
+    'checkpoint_bytes','checkpoint_seed','checkpoint_record','normalization',
+    'classical_parameters','exclusions','context','targets','historical_provenance',
+    'window_manifest','v1_summary','candidate_axis','candidate_indices',
+])
+def test_reverification_rejects_altered_consumption_state(frozen_fixture,mutation):
+    from dataclasses import replace
+    frozen=load(frozen_fixture)
+    if mutation=='checkpoint_bytes':
+        frozen['checkpoint_records'][0]['checkpoint_bytes']=b'replaced checkpoint'
+    elif mutation=='checkpoint_seed':
+        frozen['checkpoint_records'][0]['seed']=999
+    elif mutation=='checkpoint_record':
+        frozen['checkpoint_records'][0]['record']['seed']=999
+    elif mutation=='normalization':
+        frozen['checkpoint_records'][0]['normalization']['feature_mean'][0]+=1
+    elif mutation=='classical_parameters':
+        frozen['classical_fit_records']['persistence']['transform']='identity'
+    elif mutation=='exclusions':
+        frozen['candidate_exclusions'][0]['reasons']=['changed exclusion']
+    elif mutation=='context':
+        context=frozen['context']
+        frozen['context']=replace(context,values=context.values*2)
+    elif mutation=='targets':
+        targets=frozen['targets']
+        frozen['targets']=replace(targets,values=targets.values*2)
+    elif mutation=='historical_provenance':
+        frozen['historical_source']['git_commit']='changed historical commit'
+    elif mutation=='window_manifest':
+        frozen['window_manifest']['support_manifest'][0]['start_ns']+=MINUTE
+    elif mutation=='v1_summary':
+        frozen['v1_summary']['fits']['persistence']['parameters']['transform']='identity'
+    elif mutation=='candidate_axis':
+        frozen['candidate_issue_times_ns']=frozen['candidate_issue_times_ns'].copy()
+        frozen['candidate_issue_times_ns'][0]+=MINUTE
+    elif mutation=='candidate_indices':
+        frozen['retained_candidate_indices']=np.array([5,5,7])
+    # Identity assertions remain untouched: publication must examine the live
+    # payload being consumed, rather than trust caller-provided fingerprints.
+    module=importlib.import_module('solar_flare_jepa.experiments.external_inputs')
+    with pytest.raises(ValueError,match='consumption|identity'):
+        module.reverify_frozen_inputs(frozen,*frozen_fixture)
+
+
+@pytest.mark.parametrize('key', ['candidate_issue_times_ns','retained_candidate_indices'])
+def test_candidate_arrays_cannot_reenable_writes(frozen_fixture,key):
+    frozen=load(frozen_fixture)
+    with pytest.raises(ValueError):
+        frozen[key].setflags(write=True)
+
+
+def test_reverification_accepts_unchanged_consumption_state(frozen_fixture):
+    frozen=load(frozen_fixture)
+    module=importlib.import_module('solar_flare_jepa.experiments.external_inputs')
+    assert module.reverify_frozen_inputs(frozen,*frozen_fixture) is None
