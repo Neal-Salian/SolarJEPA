@@ -1,0 +1,34 @@
+{
+  "status": "PASS",
+  "slides": 20,
+  "speaker_notes": 20,
+  "minimum_note_characters": 1043,
+  "native_table_slides": [
+    2,
+    7,
+    8,
+    13,
+    14,
+    16,
+    20
+  ],
+  "embedded_verified_scientific_figures": 9,
+  "embedded_real_dashboard_captures": 2,
+  "chart_files_hash_checked": 10,
+  "dashboard_files_hash_checked": 4,
+  "source_commit": "abe4b79d2fe7549552b0a1f467be1cd949b652a7",
+  "payload_sha256": "69935892e311ef4aacd00a7e9e6ccb055aac8abb1cda7ee988195d6f2fcc5675",
+  "pdf_pages": 20,
+  "pdf_format": "192-dpi rendered-slide facsimile, 16:9",
+  "outputs": {
+    "SolarJEPA_Final_Time_Series_Presentation.pptx": {
+      "sha256": "9d72e96b0cf02e83b606f4b9126ef6afb082d4598c7ab8fdde44c98ef435171e",
+      "bytes": 2306338
+    },
+    "SolarJEPA_Final_Time_Series_Presentation.pdf": {
+      "sha256": "2798754f70a5be4bff863cc9becebb237186bdd91570e85aa90e632715281f89",
+      "bytes": 5753228
+    }
+  },
+  "claim_boundary": "Package, values and asset identities only. Visual review and scientific replay are separate checks. Native PowerPoint was not executed."
+}

@@ -1,0 +1,1394 @@
+{
+  "charts": [
+    {
+      "caption": "GOES-16 EXIS/XRS, 01 May\u201331 August 2024; channel-specific QC masks are preserved as gaps.",
+      "display_policy": "All 177,120 UTC minute grid rows; rejected observations become NaN line breaks; no interpolation or averaging.",
+      "dpi": 200,
+      "height_pixels": 1050,
+      "observations": {
+        "absent_bins": 0,
+        "grid_rows": 177120,
+        "xrsa_valid": 172646,
+        "xrsb_valid": 174845
+      },
+      "output_sha256": "2c906eebbe3496c3a1e8cd8f591a6fde059d733e3896558789ea039d5b57cd5e",
+      "path": "chart_raw.png",
+      "payload": {
+        "path": "results/presentation_time_series/diagnostics.json",
+        "sha256": "69935892e311ef4aacd00a7e9e6ccb055aac8abb1cda7ee988195d6f2fcc5675"
+      },
+      "source_commit": "abe4b79d2fe7549552b0a1f467be1cd949b652a7",
+      "source_files": [
+        {
+          "path": "configs/experiments/v1_goes_2024.json",
+          "sha256": "230a3037910d995e8113ae90e69dc8e71c0ad8e26e89ecc4628c4dd8c31daccb"
+        },
+        {
+          "path": "data/manifests/goes_v1_202405.json",
+          "sha256": "9828b714ecb4545af2711f2760d110b9d0dd963a67e1f3d1d1f711af0aeb2240"
+        },
+        {
+          "path": "data/manifests/goes_v1_202406.json",
+          "sha256": "91e45449c61918c52786c4d4f45d4d9311ef313bbc8baace314a40bf135ecc79"
+        },
+        {
+          "path": "data/manifests/goes_p2_july2024.json",
+          "sha256": "581a3c4b8cfba6b9b21ed1fdb0b2277e728e9bf329a8da1ddcc0bd49c3cc4b3d"
+        },
+        {
+          "path": "data/manifests/goes_v1_202408.json",
+          "sha256": "50164744c036e2c3776486a6657cf1c60bef4e9e81b0c27a154be9bdbd12faff"
+        },
+        {
+          "path": "src/solar_flare_jepa/presentation/time_series.py",
+          "sha256": "28c0157fd4e38122150378b55dcddd263131e290954eb8e52a894d7b230aa682"
+        },
+        {
+          "path": "src/solar_flare_jepa/presentation/classical.py",
+          "sha256": "f25bcc53b352447330c661898ee69da7c4e672c229112022b7bf25d88a50022b"
+        },
+        {
+          "path": "src/solar_flare_jepa/presentation/eda.py",
+          "sha256": "395a27c9f7cad02f82301ea26b7b8375cc3bf4b5af728aa1d114edcdfc850b22"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/download.py",
+          "sha256": "da8df6ddf12f2212f2de8782217638188b6cbf6d6cd2ebf51b4884962fb6a909"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/goes.py",
+          "sha256": "a8ad4f8fd4626cf0cfa0fefee226a05281d3d6b927e4ed6dffff93009b018d26"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/eda.py",
+          "sha256": "40cc0539b66ffcc362fd21524b64f34e0746daf4c1fed6b08d3c0e8614ded9ef"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/storage.py",
+          "sha256": "78e1aacf693e7d5b40a46aef0b30dd1aff452570fd82746bac6f8021d7ec5b59"
+        },
+        {
+          "path": "configs/data/v1_goes_202405.json",
+          "sha256": "14ea6112c83ead6ca2bc5ff32cf0e2e04c170d07dde83b78f6a606088e3345c8"
+        },
+        {
+          "path": "configs/data/v1_goes_202406.json",
+          "sha256": "079756378543e36c0bfd5264cf8b9915153e57514b63f4773b7f6a78074c9d05"
+        },
+        {
+          "path": "configs/data/p2_goes_july2024.json",
+          "sha256": "1c676e797c4c5bf3a03a144464106ef813348c18ab0d4531283a21377d68d5f3"
+        },
+        {
+          "path": "configs/data/v1_goes_202408.json",
+          "sha256": "cb8504689d2091dd31571403cc89e1c38cb86471db5d36960cb8ac757ce579e4"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/goes_acquisition.py",
+          "sha256": "40d47db938d7b55bead2a2d44096e4dccab4e210045184e831fc077ba4a281ec"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/foundation.py",
+          "sha256": "a9df01720d285204b0d49f1f0279a599f6de690395ee023121d3f5a021a50c4d"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/statistical.py",
+          "sha256": "7f928277494078bfba74f591e206f515283a99d4fc4fadbf945dd92258b13eb1"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/baselines.py",
+          "sha256": "87f5a60f7ee6007ea22cb9daf5777a1b8f0a18ca9c7753a35308f49fb65eaffa"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/contracts.py",
+          "sha256": "cd3eebf40b0768f893dd65fc623b6037e4952105a67db92ec8b7bc05f5a85115"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/windows.py",
+          "sha256": "0e84e41b9b991f56f685c61a7f7ae9dd5e5b3397e56da7a314d332de99dc57b1"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/splitting.py",
+          "sha256": "ea463b3ca049dc952615c083aa17dbdfeba1c33ca976d5a4e57e84e0337893e6"
+        },
+        {
+          "path": "docs/presentation/eda_evidence.json",
+          "sha256": "bc222c9b037f39efaebb1571ced2129ea3de8a0b096e7807ce4d09f8092e2893"
+        },
+        {
+          "path": "requirements-dashboard-lock.txt",
+          "sha256": "28355f576edd10948af0ae4995c787f66e96917055068e31af92088ab857bba3"
+        },
+        {
+          "path": "scripts/build_time_series_presentation.py",
+          "sha256": "5cc9a5cd3a4e6c829fb45e45a64ad38fa38d997102c1ce302d9612a6aaf4d8a4"
+        },
+        {
+          "path": "docs/presentation/time_series_evidence.json",
+          "sha256": "650607c06c8f83b21ec2367d145ad759d2c764e13bcc5e8b839f25e2af466b9b"
+        },
+        {
+          "path": "docs/presentation/time_series_identity.json",
+          "sha256": "84615cf8389e8952567f6ef2676db7461144618c596f4e1361552225e9a091ce"
+        }
+      ],
+      "title": "Native X-ray flux",
+      "units": "W m\u207b\u00b2; linear y-axis",
+      "width_pixels": 2640
+    },
+    {
+      "caption": "GOES-16 EXIS/XRS, 01 May\u201331 August 2024; channel-specific QC masks are preserved as gaps.",
+      "display_policy": "All 177,120 UTC minute grid rows; rejected observations become NaN line breaks; no interpolation or averaging.",
+      "dpi": 200,
+      "height_pixels": 1050,
+      "observations": {
+        "absent_bins": 0,
+        "grid_rows": 177120,
+        "xrsa_valid": 172646,
+        "xrsb_valid": 174845
+      },
+      "output_sha256": "b9d8f49a6165e454f949767935ddca21e6a9b54d1c3221962f1219265a4b6b62",
+      "path": "chart_log.png",
+      "payload": {
+        "path": "results/presentation_time_series/diagnostics.json",
+        "sha256": "69935892e311ef4aacd00a7e9e6ccb055aac8abb1cda7ee988195d6f2fcc5675"
+      },
+      "source_commit": "abe4b79d2fe7549552b0a1f467be1cd949b652a7",
+      "source_files": [
+        {
+          "path": "configs/experiments/v1_goes_2024.json",
+          "sha256": "230a3037910d995e8113ae90e69dc8e71c0ad8e26e89ecc4628c4dd8c31daccb"
+        },
+        {
+          "path": "data/manifests/goes_v1_202405.json",
+          "sha256": "9828b714ecb4545af2711f2760d110b9d0dd963a67e1f3d1d1f711af0aeb2240"
+        },
+        {
+          "path": "data/manifests/goes_v1_202406.json",
+          "sha256": "91e45449c61918c52786c4d4f45d4d9311ef313bbc8baace314a40bf135ecc79"
+        },
+        {
+          "path": "data/manifests/goes_p2_july2024.json",
+          "sha256": "581a3c4b8cfba6b9b21ed1fdb0b2277e728e9bf329a8da1ddcc0bd49c3cc4b3d"
+        },
+        {
+          "path": "data/manifests/goes_v1_202408.json",
+          "sha256": "50164744c036e2c3776486a6657cf1c60bef4e9e81b0c27a154be9bdbd12faff"
+        },
+        {
+          "path": "src/solar_flare_jepa/presentation/time_series.py",
+          "sha256": "28c0157fd4e38122150378b55dcddd263131e290954eb8e52a894d7b230aa682"
+        },
+        {
+          "path": "src/solar_flare_jepa/presentation/classical.py",
+          "sha256": "f25bcc53b352447330c661898ee69da7c4e672c229112022b7bf25d88a50022b"
+        },
+        {
+          "path": "src/solar_flare_jepa/presentation/eda.py",
+          "sha256": "395a27c9f7cad02f82301ea26b7b8375cc3bf4b5af728aa1d114edcdfc850b22"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/download.py",
+          "sha256": "da8df6ddf12f2212f2de8782217638188b6cbf6d6cd2ebf51b4884962fb6a909"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/goes.py",
+          "sha256": "a8ad4f8fd4626cf0cfa0fefee226a05281d3d6b927e4ed6dffff93009b018d26"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/eda.py",
+          "sha256": "40cc0539b66ffcc362fd21524b64f34e0746daf4c1fed6b08d3c0e8614ded9ef"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/storage.py",
+          "sha256": "78e1aacf693e7d5b40a46aef0b30dd1aff452570fd82746bac6f8021d7ec5b59"
+        },
+        {
+          "path": "configs/data/v1_goes_202405.json",
+          "sha256": "14ea6112c83ead6ca2bc5ff32cf0e2e04c170d07dde83b78f6a606088e3345c8"
+        },
+        {
+          "path": "configs/data/v1_goes_202406.json",
+          "sha256": "079756378543e36c0bfd5264cf8b9915153e57514b63f4773b7f6a78074c9d05"
+        },
+        {
+          "path": "configs/data/p2_goes_july2024.json",
+          "sha256": "1c676e797c4c5bf3a03a144464106ef813348c18ab0d4531283a21377d68d5f3"
+        },
+        {
+          "path": "configs/data/v1_goes_202408.json",
+          "sha256": "cb8504689d2091dd31571403cc89e1c38cb86471db5d36960cb8ac757ce579e4"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/goes_acquisition.py",
+          "sha256": "40d47db938d7b55bead2a2d44096e4dccab4e210045184e831fc077ba4a281ec"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/foundation.py",
+          "sha256": "a9df01720d285204b0d49f1f0279a599f6de690395ee023121d3f5a021a50c4d"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/statistical.py",
+          "sha256": "7f928277494078bfba74f591e206f515283a99d4fc4fadbf945dd92258b13eb1"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/baselines.py",
+          "sha256": "87f5a60f7ee6007ea22cb9daf5777a1b8f0a18ca9c7753a35308f49fb65eaffa"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/contracts.py",
+          "sha256": "cd3eebf40b0768f893dd65fc623b6037e4952105a67db92ec8b7bc05f5a85115"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/windows.py",
+          "sha256": "0e84e41b9b991f56f685c61a7f7ae9dd5e5b3397e56da7a314d332de99dc57b1"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/splitting.py",
+          "sha256": "ea463b3ca049dc952615c083aa17dbdfeba1c33ca976d5a4e57e84e0337893e6"
+        },
+        {
+          "path": "docs/presentation/eda_evidence.json",
+          "sha256": "bc222c9b037f39efaebb1571ced2129ea3de8a0b096e7807ce4d09f8092e2893"
+        },
+        {
+          "path": "requirements-dashboard-lock.txt",
+          "sha256": "28355f576edd10948af0ae4995c787f66e96917055068e31af92088ab857bba3"
+        },
+        {
+          "path": "scripts/build_time_series_presentation.py",
+          "sha256": "5cc9a5cd3a4e6c829fb45e45a64ad38fa38d997102c1ce302d9612a6aaf4d8a4"
+        },
+        {
+          "path": "docs/presentation/time_series_evidence.json",
+          "sha256": "650607c06c8f83b21ec2367d145ad759d2c764e13bcc5e8b839f25e2af466b9b"
+        },
+        {
+          "path": "docs/presentation/time_series_identity.json",
+          "sha256": "84615cf8389e8952567f6ef2676db7461144618c596f4e1361552225e9a091ce"
+        }
+      ],
+      "title": "Flux on a logarithmic axis",
+      "units": "W m\u207b\u00b2; logarithmic y-axis",
+      "width_pixels": 2640
+    },
+    {
+      "caption": "Correlation uses all 172,646 jointly valid pairs; the plot displays the saved chronological subset.",
+      "display_policy": "deterministic evenly spaced chronological joint-valid observations; no averaging",
+      "dpi": 200,
+      "height_pixels": 1040,
+      "observations": {
+        "display_pairs": 2500,
+        "full_sample_correlation": 0.963905768093713,
+        "total_pairs": 172646
+      },
+      "output_sha256": "899076dc5b5fd3c0413c489b405937f1fc4e28efe28e5443b442869cae1fd00c",
+      "path": "chart_scatter.png",
+      "payload": {
+        "path": "results/presentation_time_series/diagnostics.json",
+        "sha256": "69935892e311ef4aacd00a7e9e6ccb055aac8abb1cda7ee988195d6f2fcc5675"
+      },
+      "source_commit": "abe4b79d2fe7549552b0a1f467be1cd949b652a7",
+      "source_files": [
+        {
+          "path": "configs/experiments/v1_goes_2024.json",
+          "sha256": "230a3037910d995e8113ae90e69dc8e71c0ad8e26e89ecc4628c4dd8c31daccb"
+        },
+        {
+          "path": "data/manifests/goes_v1_202405.json",
+          "sha256": "9828b714ecb4545af2711f2760d110b9d0dd963a67e1f3d1d1f711af0aeb2240"
+        },
+        {
+          "path": "data/manifests/goes_v1_202406.json",
+          "sha256": "91e45449c61918c52786c4d4f45d4d9311ef313bbc8baace314a40bf135ecc79"
+        },
+        {
+          "path": "data/manifests/goes_p2_july2024.json",
+          "sha256": "581a3c4b8cfba6b9b21ed1fdb0b2277e728e9bf329a8da1ddcc0bd49c3cc4b3d"
+        },
+        {
+          "path": "data/manifests/goes_v1_202408.json",
+          "sha256": "50164744c036e2c3776486a6657cf1c60bef4e9e81b0c27a154be9bdbd12faff"
+        },
+        {
+          "path": "src/solar_flare_jepa/presentation/time_series.py",
+          "sha256": "28c0157fd4e38122150378b55dcddd263131e290954eb8e52a894d7b230aa682"
+        },
+        {
+          "path": "src/solar_flare_jepa/presentation/classical.py",
+          "sha256": "f25bcc53b352447330c661898ee69da7c4e672c229112022b7bf25d88a50022b"
+        },
+        {
+          "path": "src/solar_flare_jepa/presentation/eda.py",
+          "sha256": "395a27c9f7cad02f82301ea26b7b8375cc3bf4b5af728aa1d114edcdfc850b22"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/download.py",
+          "sha256": "da8df6ddf12f2212f2de8782217638188b6cbf6d6cd2ebf51b4884962fb6a909"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/goes.py",
+          "sha256": "a8ad4f8fd4626cf0cfa0fefee226a05281d3d6b927e4ed6dffff93009b018d26"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/eda.py",
+          "sha256": "40cc0539b66ffcc362fd21524b64f34e0746daf4c1fed6b08d3c0e8614ded9ef"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/storage.py",
+          "sha256": "78e1aacf693e7d5b40a46aef0b30dd1aff452570fd82746bac6f8021d7ec5b59"
+        },
+        {
+          "path": "configs/data/v1_goes_202405.json",
+          "sha256": "14ea6112c83ead6ca2bc5ff32cf0e2e04c170d07dde83b78f6a606088e3345c8"
+        },
+        {
+          "path": "configs/data/v1_goes_202406.json",
+          "sha256": "079756378543e36c0bfd5264cf8b9915153e57514b63f4773b7f6a78074c9d05"
+        },
+        {
+          "path": "configs/data/p2_goes_july2024.json",
+          "sha256": "1c676e797c4c5bf3a03a144464106ef813348c18ab0d4531283a21377d68d5f3"
+        },
+        {
+          "path": "configs/data/v1_goes_202408.json",
+          "sha256": "cb8504689d2091dd31571403cc89e1c38cb86471db5d36960cb8ac757ce579e4"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/goes_acquisition.py",
+          "sha256": "40d47db938d7b55bead2a2d44096e4dccab4e210045184e831fc077ba4a281ec"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/foundation.py",
+          "sha256": "a9df01720d285204b0d49f1f0279a599f6de690395ee023121d3f5a021a50c4d"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/statistical.py",
+          "sha256": "7f928277494078bfba74f591e206f515283a99d4fc4fadbf945dd92258b13eb1"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/baselines.py",
+          "sha256": "87f5a60f7ee6007ea22cb9daf5777a1b8f0a18ca9c7753a35308f49fb65eaffa"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/contracts.py",
+          "sha256": "cd3eebf40b0768f893dd65fc623b6037e4952105a67db92ec8b7bc05f5a85115"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/windows.py",
+          "sha256": "0e84e41b9b991f56f685c61a7f7ae9dd5e5b3397e56da7a314d332de99dc57b1"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/splitting.py",
+          "sha256": "ea463b3ca049dc952615c083aa17dbdfeba1c33ca976d5a4e57e84e0337893e6"
+        },
+        {
+          "path": "docs/presentation/eda_evidence.json",
+          "sha256": "bc222c9b037f39efaebb1571ced2129ea3de8a0b096e7807ce4d09f8092e2893"
+        },
+        {
+          "path": "requirements-dashboard-lock.txt",
+          "sha256": "28355f576edd10948af0ae4995c787f66e96917055068e31af92088ab857bba3"
+        },
+        {
+          "path": "scripts/build_time_series_presentation.py",
+          "sha256": "5cc9a5cd3a4e6c829fb45e45a64ad38fa38d997102c1ce302d9612a6aaf4d8a4"
+        },
+        {
+          "path": "docs/presentation/time_series_evidence.json",
+          "sha256": "650607c06c8f83b21ec2367d145ad759d2c764e13bcc5e8b839f25e2af466b9b"
+        },
+        {
+          "path": "docs/presentation/time_series_identity.json",
+          "sha256": "84615cf8389e8952567f6ef2676db7461144618c596f4e1361552225e9a091ce"
+        }
+      ],
+      "title": "The channels move together in log space",
+      "units": "log\u2081\u2080(F / (1 W m\u207b\u00b2)) on both axes",
+      "width_pixels": 2640
+    },
+    {
+      "caption": "Each histogram uses every channel-valid observation in May\u2013August; equal-width bins are computed in log10 flux.",
+      "display_policy": "All channel-valid values; 60 equal-width log10 bins per channel; no subsampling.",
+      "dpi": 200,
+      "height_pixels": 1040,
+      "observations": {
+        "xrsa": {
+          "bins": 60,
+          "lower_edge": -7.929193974309041,
+          "rows": 172646,
+          "upper_edge": -3.360057330019847
+        },
+        "xrsb": {
+          "bins": 60,
+          "lower_edge": -6.090338975485383,
+          "rows": 174845,
+          "upper_edge": -3.0610557281663415
+        }
+      },
+      "output_sha256": "932eaae66fb78589d2492c2719abc894d0f797adb707f068ab73198636785217",
+      "path": "chart_histogram.png",
+      "payload": {
+        "path": "results/presentation_time_series/diagnostics.json",
+        "sha256": "69935892e311ef4aacd00a7e9e6ccb055aac8abb1cda7ee988195d6f2fcc5675"
+      },
+      "source_commit": "abe4b79d2fe7549552b0a1f467be1cd949b652a7",
+      "source_files": [
+        {
+          "path": "configs/experiments/v1_goes_2024.json",
+          "sha256": "230a3037910d995e8113ae90e69dc8e71c0ad8e26e89ecc4628c4dd8c31daccb"
+        },
+        {
+          "path": "data/manifests/goes_v1_202405.json",
+          "sha256": "9828b714ecb4545af2711f2760d110b9d0dd963a67e1f3d1d1f711af0aeb2240"
+        },
+        {
+          "path": "data/manifests/goes_v1_202406.json",
+          "sha256": "91e45449c61918c52786c4d4f45d4d9311ef313bbc8baace314a40bf135ecc79"
+        },
+        {
+          "path": "data/manifests/goes_p2_july2024.json",
+          "sha256": "581a3c4b8cfba6b9b21ed1fdb0b2277e728e9bf329a8da1ddcc0bd49c3cc4b3d"
+        },
+        {
+          "path": "data/manifests/goes_v1_202408.json",
+          "sha256": "50164744c036e2c3776486a6657cf1c60bef4e9e81b0c27a154be9bdbd12faff"
+        },
+        {
+          "path": "src/solar_flare_jepa/presentation/time_series.py",
+          "sha256": "28c0157fd4e38122150378b55dcddd263131e290954eb8e52a894d7b230aa682"
+        },
+        {
+          "path": "src/solar_flare_jepa/presentation/classical.py",
+          "sha256": "f25bcc53b352447330c661898ee69da7c4e672c229112022b7bf25d88a50022b"
+        },
+        {
+          "path": "src/solar_flare_jepa/presentation/eda.py",
+          "sha256": "395a27c9f7cad02f82301ea26b7b8375cc3bf4b5af728aa1d114edcdfc850b22"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/download.py",
+          "sha256": "da8df6ddf12f2212f2de8782217638188b6cbf6d6cd2ebf51b4884962fb6a909"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/goes.py",
+          "sha256": "a8ad4f8fd4626cf0cfa0fefee226a05281d3d6b927e4ed6dffff93009b018d26"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/eda.py",
+          "sha256": "40cc0539b66ffcc362fd21524b64f34e0746daf4c1fed6b08d3c0e8614ded9ef"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/storage.py",
+          "sha256": "78e1aacf693e7d5b40a46aef0b30dd1aff452570fd82746bac6f8021d7ec5b59"
+        },
+        {
+          "path": "configs/data/v1_goes_202405.json",
+          "sha256": "14ea6112c83ead6ca2bc5ff32cf0e2e04c170d07dde83b78f6a606088e3345c8"
+        },
+        {
+          "path": "configs/data/v1_goes_202406.json",
+          "sha256": "079756378543e36c0bfd5264cf8b9915153e57514b63f4773b7f6a78074c9d05"
+        },
+        {
+          "path": "configs/data/p2_goes_july2024.json",
+          "sha256": "1c676e797c4c5bf3a03a144464106ef813348c18ab0d4531283a21377d68d5f3"
+        },
+        {
+          "path": "configs/data/v1_goes_202408.json",
+          "sha256": "cb8504689d2091dd31571403cc89e1c38cb86471db5d36960cb8ac757ce579e4"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/goes_acquisition.py",
+          "sha256": "40d47db938d7b55bead2a2d44096e4dccab4e210045184e831fc077ba4a281ec"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/foundation.py",
+          "sha256": "a9df01720d285204b0d49f1f0279a599f6de690395ee023121d3f5a021a50c4d"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/statistical.py",
+          "sha256": "7f928277494078bfba74f591e206f515283a99d4fc4fadbf945dd92258b13eb1"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/baselines.py",
+          "sha256": "87f5a60f7ee6007ea22cb9daf5777a1b8f0a18ca9c7753a35308f49fb65eaffa"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/contracts.py",
+          "sha256": "cd3eebf40b0768f893dd65fc623b6037e4952105a67db92ec8b7bc05f5a85115"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/windows.py",
+          "sha256": "0e84e41b9b991f56f685c61a7f7ae9dd5e5b3397e56da7a314d332de99dc57b1"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/splitting.py",
+          "sha256": "ea463b3ca049dc952615c083aa17dbdfeba1c33ca976d5a4e57e84e0337893e6"
+        },
+        {
+          "path": "docs/presentation/eda_evidence.json",
+          "sha256": "bc222c9b037f39efaebb1571ced2129ea3de8a0b096e7807ce4d09f8092e2893"
+        },
+        {
+          "path": "requirements-dashboard-lock.txt",
+          "sha256": "28355f576edd10948af0ae4995c787f66e96917055068e31af92088ab857bba3"
+        },
+        {
+          "path": "scripts/build_time_series_presentation.py",
+          "sha256": "5cc9a5cd3a4e6c829fb45e45a64ad38fa38d997102c1ce302d9612a6aaf4d8a4"
+        },
+        {
+          "path": "docs/presentation/time_series_evidence.json",
+          "sha256": "650607c06c8f83b21ec2367d145ad759d2c764e13bcc5e8b839f25e2af466b9b"
+        },
+        {
+          "path": "docs/presentation/time_series_identity.json",
+          "sha256": "84615cf8389e8952567f6ef2676db7461144618c596f4e1361552225e9a091ce"
+        }
+      ],
+      "title": "Flux distributions after the log transform",
+      "units": "x: log\u2081\u2080(F / (1 W m\u207b\u00b2)); y: minute-observation count",
+      "width_pixels": 2640
+    },
+    {
+      "caption": "Saved order-statistic ranks reveal departures from the fitted Normal reference, especially in the upper tail.",
+      "display_policy": "301 saved evenly spaced order-statistic ranks per channel; fitted reference uses every valid channel value.",
+      "dpi": 200,
+      "height_pixels": 1040,
+      "observations": {
+        "xrsa": {
+          "display_points": 301,
+          "full_rows": 172646,
+          "reference_intercept": -6.951984176163281,
+          "reference_slope": 0.5189171324926418
+        },
+        "xrsb": {
+          "display_points": 301,
+          "full_rows": 174845,
+          "reference_intercept": -5.439995351324806,
+          "reference_slope": 0.3062805443665436
+        }
+      },
+      "output_sha256": "ccbebf11a12a2e30edf5d1407b2e8601b98dd7e65e68280db81813144a9ebafb",
+      "path": "chart_qq.png",
+      "payload": {
+        "path": "results/presentation_time_series/diagnostics.json",
+        "sha256": "69935892e311ef4aacd00a7e9e6ccb055aac8abb1cda7ee988195d6f2fcc5675"
+      },
+      "source_commit": "abe4b79d2fe7549552b0a1f467be1cd949b652a7",
+      "source_files": [
+        {
+          "path": "configs/experiments/v1_goes_2024.json",
+          "sha256": "230a3037910d995e8113ae90e69dc8e71c0ad8e26e89ecc4628c4dd8c31daccb"
+        },
+        {
+          "path": "data/manifests/goes_v1_202405.json",
+          "sha256": "9828b714ecb4545af2711f2760d110b9d0dd963a67e1f3d1d1f711af0aeb2240"
+        },
+        {
+          "path": "data/manifests/goes_v1_202406.json",
+          "sha256": "91e45449c61918c52786c4d4f45d4d9311ef313bbc8baace314a40bf135ecc79"
+        },
+        {
+          "path": "data/manifests/goes_p2_july2024.json",
+          "sha256": "581a3c4b8cfba6b9b21ed1fdb0b2277e728e9bf329a8da1ddcc0bd49c3cc4b3d"
+        },
+        {
+          "path": "data/manifests/goes_v1_202408.json",
+          "sha256": "50164744c036e2c3776486a6657cf1c60bef4e9e81b0c27a154be9bdbd12faff"
+        },
+        {
+          "path": "src/solar_flare_jepa/presentation/time_series.py",
+          "sha256": "28c0157fd4e38122150378b55dcddd263131e290954eb8e52a894d7b230aa682"
+        },
+        {
+          "path": "src/solar_flare_jepa/presentation/classical.py",
+          "sha256": "f25bcc53b352447330c661898ee69da7c4e672c229112022b7bf25d88a50022b"
+        },
+        {
+          "path": "src/solar_flare_jepa/presentation/eda.py",
+          "sha256": "395a27c9f7cad02f82301ea26b7b8375cc3bf4b5af728aa1d114edcdfc850b22"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/download.py",
+          "sha256": "da8df6ddf12f2212f2de8782217638188b6cbf6d6cd2ebf51b4884962fb6a909"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/goes.py",
+          "sha256": "a8ad4f8fd4626cf0cfa0fefee226a05281d3d6b927e4ed6dffff93009b018d26"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/eda.py",
+          "sha256": "40cc0539b66ffcc362fd21524b64f34e0746daf4c1fed6b08d3c0e8614ded9ef"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/storage.py",
+          "sha256": "78e1aacf693e7d5b40a46aef0b30dd1aff452570fd82746bac6f8021d7ec5b59"
+        },
+        {
+          "path": "configs/data/v1_goes_202405.json",
+          "sha256": "14ea6112c83ead6ca2bc5ff32cf0e2e04c170d07dde83b78f6a606088e3345c8"
+        },
+        {
+          "path": "configs/data/v1_goes_202406.json",
+          "sha256": "079756378543e36c0bfd5264cf8b9915153e57514b63f4773b7f6a78074c9d05"
+        },
+        {
+          "path": "configs/data/p2_goes_july2024.json",
+          "sha256": "1c676e797c4c5bf3a03a144464106ef813348c18ab0d4531283a21377d68d5f3"
+        },
+        {
+          "path": "configs/data/v1_goes_202408.json",
+          "sha256": "cb8504689d2091dd31571403cc89e1c38cb86471db5d36960cb8ac757ce579e4"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/goes_acquisition.py",
+          "sha256": "40d47db938d7b55bead2a2d44096e4dccab4e210045184e831fc077ba4a281ec"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/foundation.py",
+          "sha256": "a9df01720d285204b0d49f1f0279a599f6de690395ee023121d3f5a021a50c4d"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/statistical.py",
+          "sha256": "7f928277494078bfba74f591e206f515283a99d4fc4fadbf945dd92258b13eb1"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/baselines.py",
+          "sha256": "87f5a60f7ee6007ea22cb9daf5777a1b8f0a18ca9c7753a35308f49fb65eaffa"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/contracts.py",
+          "sha256": "cd3eebf40b0768f893dd65fc623b6037e4952105a67db92ec8b7bc05f5a85115"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/windows.py",
+          "sha256": "0e84e41b9b991f56f685c61a7f7ae9dd5e5b3397e56da7a314d332de99dc57b1"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/splitting.py",
+          "sha256": "ea463b3ca049dc952615c083aa17dbdfeba1c33ca976d5a4e57e84e0337893e6"
+        },
+        {
+          "path": "docs/presentation/eda_evidence.json",
+          "sha256": "bc222c9b037f39efaebb1571ced2129ea3de8a0b096e7807ce4d09f8092e2893"
+        },
+        {
+          "path": "requirements-dashboard-lock.txt",
+          "sha256": "28355f576edd10948af0ae4995c787f66e96917055068e31af92088ab857bba3"
+        },
+        {
+          "path": "scripts/build_time_series_presentation.py",
+          "sha256": "5cc9a5cd3a4e6c829fb45e45a64ad38fa38d997102c1ce302d9612a6aaf4d8a4"
+        },
+        {
+          "path": "docs/presentation/time_series_evidence.json",
+          "sha256": "650607c06c8f83b21ec2367d145ad759d2c764e13bcc5e8b839f25e2af466b9b"
+        },
+        {
+          "path": "docs/presentation/time_series_identity.json",
+          "sha256": "84615cf8389e8952567f6ef2676db7461144618c596f4e1361552225e9a091ce"
+        }
+      ],
+      "title": "Normal Q\u2013Q plots of log flux",
+      "units": "x: standard-Normal quantile; y: log\u2081\u2080(F / (1 W m\u207b\u00b2))",
+      "width_pixels": 2640
+    },
+    {
+      "caption": "The same complete training block is shown before and after log10 and one-minute differencing; no points are filled.",
+      "display_policy": "All 10,149 native minute observations per channel; 10,148 first differences aligned to the later timestamp.",
+      "dpi": 200,
+      "height_pixels": 1100,
+      "observations": {
+        "block": {
+          "end_exclusive_utc": "2024-06-18T17:47:00+00:00",
+          "rows": 10149,
+          "selection": "earliest longest jointly valid consecutive training run; no imputation",
+          "start_utc": "2024-06-11T16:38:00+00:00"
+        },
+        "difference_rows": 10148,
+        "native_and_log_rows": 10149
+      },
+      "output_sha256": "f71729df7c050e684c4d7c23de2f87d70e9eef27ab01cac192bca4f93bbe99fe",
+      "path": "chart_transform.png",
+      "payload": {
+        "path": "results/presentation_time_series/diagnostics.json",
+        "sha256": "69935892e311ef4aacd00a7e9e6ccb055aac8abb1cda7ee988195d6f2fcc5675"
+      },
+      "source_commit": "abe4b79d2fe7549552b0a1f467be1cd949b652a7",
+      "source_files": [
+        {
+          "path": "configs/experiments/v1_goes_2024.json",
+          "sha256": "230a3037910d995e8113ae90e69dc8e71c0ad8e26e89ecc4628c4dd8c31daccb"
+        },
+        {
+          "path": "data/manifests/goes_v1_202405.json",
+          "sha256": "9828b714ecb4545af2711f2760d110b9d0dd963a67e1f3d1d1f711af0aeb2240"
+        },
+        {
+          "path": "data/manifests/goes_v1_202406.json",
+          "sha256": "91e45449c61918c52786c4d4f45d4d9311ef313bbc8baace314a40bf135ecc79"
+        },
+        {
+          "path": "data/manifests/goes_p2_july2024.json",
+          "sha256": "581a3c4b8cfba6b9b21ed1fdb0b2277e728e9bf329a8da1ddcc0bd49c3cc4b3d"
+        },
+        {
+          "path": "data/manifests/goes_v1_202408.json",
+          "sha256": "50164744c036e2c3776486a6657cf1c60bef4e9e81b0c27a154be9bdbd12faff"
+        },
+        {
+          "path": "src/solar_flare_jepa/presentation/time_series.py",
+          "sha256": "28c0157fd4e38122150378b55dcddd263131e290954eb8e52a894d7b230aa682"
+        },
+        {
+          "path": "src/solar_flare_jepa/presentation/classical.py",
+          "sha256": "f25bcc53b352447330c661898ee69da7c4e672c229112022b7bf25d88a50022b"
+        },
+        {
+          "path": "src/solar_flare_jepa/presentation/eda.py",
+          "sha256": "395a27c9f7cad02f82301ea26b7b8375cc3bf4b5af728aa1d114edcdfc850b22"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/download.py",
+          "sha256": "da8df6ddf12f2212f2de8782217638188b6cbf6d6cd2ebf51b4884962fb6a909"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/goes.py",
+          "sha256": "a8ad4f8fd4626cf0cfa0fefee226a05281d3d6b927e4ed6dffff93009b018d26"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/eda.py",
+          "sha256": "40cc0539b66ffcc362fd21524b64f34e0746daf4c1fed6b08d3c0e8614ded9ef"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/storage.py",
+          "sha256": "78e1aacf693e7d5b40a46aef0b30dd1aff452570fd82746bac6f8021d7ec5b59"
+        },
+        {
+          "path": "configs/data/v1_goes_202405.json",
+          "sha256": "14ea6112c83ead6ca2bc5ff32cf0e2e04c170d07dde83b78f6a606088e3345c8"
+        },
+        {
+          "path": "configs/data/v1_goes_202406.json",
+          "sha256": "079756378543e36c0bfd5264cf8b9915153e57514b63f4773b7f6a78074c9d05"
+        },
+        {
+          "path": "configs/data/p2_goes_july2024.json",
+          "sha256": "1c676e797c4c5bf3a03a144464106ef813348c18ab0d4531283a21377d68d5f3"
+        },
+        {
+          "path": "configs/data/v1_goes_202408.json",
+          "sha256": "cb8504689d2091dd31571403cc89e1c38cb86471db5d36960cb8ac757ce579e4"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/goes_acquisition.py",
+          "sha256": "40d47db938d7b55bead2a2d44096e4dccab4e210045184e831fc077ba4a281ec"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/foundation.py",
+          "sha256": "a9df01720d285204b0d49f1f0279a599f6de690395ee023121d3f5a021a50c4d"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/statistical.py",
+          "sha256": "7f928277494078bfba74f591e206f515283a99d4fc4fadbf945dd92258b13eb1"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/baselines.py",
+          "sha256": "87f5a60f7ee6007ea22cb9daf5777a1b8f0a18ca9c7753a35308f49fb65eaffa"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/contracts.py",
+          "sha256": "cd3eebf40b0768f893dd65fc623b6037e4952105a67db92ec8b7bc05f5a85115"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/windows.py",
+          "sha256": "0e84e41b9b991f56f685c61a7f7ae9dd5e5b3397e56da7a314d332de99dc57b1"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/splitting.py",
+          "sha256": "ea463b3ca049dc952615c083aa17dbdfeba1c33ca976d5a4e57e84e0337893e6"
+        },
+        {
+          "path": "docs/presentation/eda_evidence.json",
+          "sha256": "bc222c9b037f39efaebb1571ced2129ea3de8a0b096e7807ce4d09f8092e2893"
+        },
+        {
+          "path": "requirements-dashboard-lock.txt",
+          "sha256": "28355f576edd10948af0ae4995c787f66e96917055068e31af92088ab857bba3"
+        },
+        {
+          "path": "scripts/build_time_series_presentation.py",
+          "sha256": "5cc9a5cd3a4e6c829fb45e45a64ad38fa38d997102c1ce302d9612a6aaf4d8a4"
+        },
+        {
+          "path": "docs/presentation/time_series_evidence.json",
+          "sha256": "650607c06c8f83b21ec2367d145ad759d2c764e13bcc5e8b839f25e2af466b9b"
+        },
+        {
+          "path": "docs/presentation/time_series_identity.json",
+          "sha256": "84615cf8389e8952567f6ef2676db7461144618c596f4e1361552225e9a091ce"
+        }
+      ],
+      "title": "A transformation does not remove changing activity",
+      "units": "Native: W m\u207b\u00b2; log: log\u2081\u2080(F / (1 W m\u207b\u00b2)); difference: one-minute \u0394log10 F",
+      "width_pixels": 2640
+    },
+    {
+      "caption": "Robust STL of log10 flux on the 10,149-minute complete June block. The 1,440-minute period is assumed; stable seasonality is not established.",
+      "display_policy": "1,100 saved deterministic display positions from the full fitted block; no observed-data interpolation. Trend/low-pass LOESS jumps are recorded in source evidence.",
+      "dpi": 200,
+      "height_pixels": 1270,
+      "observations": {
+        "display_rows": 1100,
+        "full_rows": 10149,
+        "limitations": "STL imposes the period; its seasonal component does not prove seasonality. One training segment, about seven daily cycles; flares and changing variance limit interpretation. Trend/low-pass jumps use linear interpolation between LOESS fits for bounded computation; observed data and missing values are never interpolated.",
+        "period_minutes": 1440,
+        "reconstruction_max_error": 8.881784197001252e-16,
+        "settings": {
+          "low_pass_jump": 144,
+          "period": 1440,
+          "robust": true,
+          "seasonal": 7,
+          "seasonal_jump": 1,
+          "trend_jump": 144
+        }
+      },
+      "output_sha256": "d535fa5069c18ba202bb1982738c2c1500ad7285a666da1553cb078a4a3b3997",
+      "path": "chart_stl.png",
+      "payload": {
+        "path": "results/presentation_time_series/diagnostics.json",
+        "sha256": "69935892e311ef4aacd00a7e9e6ccb055aac8abb1cda7ee988195d6f2fcc5675"
+      },
+      "source_commit": "abe4b79d2fe7549552b0a1f467be1cd949b652a7",
+      "source_files": [
+        {
+          "path": "configs/experiments/v1_goes_2024.json",
+          "sha256": "230a3037910d995e8113ae90e69dc8e71c0ad8e26e89ecc4628c4dd8c31daccb"
+        },
+        {
+          "path": "data/manifests/goes_v1_202405.json",
+          "sha256": "9828b714ecb4545af2711f2760d110b9d0dd963a67e1f3d1d1f711af0aeb2240"
+        },
+        {
+          "path": "data/manifests/goes_v1_202406.json",
+          "sha256": "91e45449c61918c52786c4d4f45d4d9311ef313bbc8baace314a40bf135ecc79"
+        },
+        {
+          "path": "data/manifests/goes_p2_july2024.json",
+          "sha256": "581a3c4b8cfba6b9b21ed1fdb0b2277e728e9bf329a8da1ddcc0bd49c3cc4b3d"
+        },
+        {
+          "path": "data/manifests/goes_v1_202408.json",
+          "sha256": "50164744c036e2c3776486a6657cf1c60bef4e9e81b0c27a154be9bdbd12faff"
+        },
+        {
+          "path": "src/solar_flare_jepa/presentation/time_series.py",
+          "sha256": "28c0157fd4e38122150378b55dcddd263131e290954eb8e52a894d7b230aa682"
+        },
+        {
+          "path": "src/solar_flare_jepa/presentation/classical.py",
+          "sha256": "f25bcc53b352447330c661898ee69da7c4e672c229112022b7bf25d88a50022b"
+        },
+        {
+          "path": "src/solar_flare_jepa/presentation/eda.py",
+          "sha256": "395a27c9f7cad02f82301ea26b7b8375cc3bf4b5af728aa1d114edcdfc850b22"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/download.py",
+          "sha256": "da8df6ddf12f2212f2de8782217638188b6cbf6d6cd2ebf51b4884962fb6a909"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/goes.py",
+          "sha256": "a8ad4f8fd4626cf0cfa0fefee226a05281d3d6b927e4ed6dffff93009b018d26"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/eda.py",
+          "sha256": "40cc0539b66ffcc362fd21524b64f34e0746daf4c1fed6b08d3c0e8614ded9ef"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/storage.py",
+          "sha256": "78e1aacf693e7d5b40a46aef0b30dd1aff452570fd82746bac6f8021d7ec5b59"
+        },
+        {
+          "path": "configs/data/v1_goes_202405.json",
+          "sha256": "14ea6112c83ead6ca2bc5ff32cf0e2e04c170d07dde83b78f6a606088e3345c8"
+        },
+        {
+          "path": "configs/data/v1_goes_202406.json",
+          "sha256": "079756378543e36c0bfd5264cf8b9915153e57514b63f4773b7f6a78074c9d05"
+        },
+        {
+          "path": "configs/data/p2_goes_july2024.json",
+          "sha256": "1c676e797c4c5bf3a03a144464106ef813348c18ab0d4531283a21377d68d5f3"
+        },
+        {
+          "path": "configs/data/v1_goes_202408.json",
+          "sha256": "cb8504689d2091dd31571403cc89e1c38cb86471db5d36960cb8ac757ce579e4"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/goes_acquisition.py",
+          "sha256": "40d47db938d7b55bead2a2d44096e4dccab4e210045184e831fc077ba4a281ec"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/foundation.py",
+          "sha256": "a9df01720d285204b0d49f1f0279a599f6de690395ee023121d3f5a021a50c4d"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/statistical.py",
+          "sha256": "7f928277494078bfba74f591e206f515283a99d4fc4fadbf945dd92258b13eb1"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/baselines.py",
+          "sha256": "87f5a60f7ee6007ea22cb9daf5777a1b8f0a18ca9c7753a35308f49fb65eaffa"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/contracts.py",
+          "sha256": "cd3eebf40b0768f893dd65fc623b6037e4952105a67db92ec8b7bc05f5a85115"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/windows.py",
+          "sha256": "0e84e41b9b991f56f685c61a7f7ae9dd5e5b3397e56da7a314d332de99dc57b1"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/splitting.py",
+          "sha256": "ea463b3ca049dc952615c083aa17dbdfeba1c33ca976d5a4e57e84e0337893e6"
+        },
+        {
+          "path": "docs/presentation/eda_evidence.json",
+          "sha256": "bc222c9b037f39efaebb1571ced2129ea3de8a0b096e7807ce4d09f8092e2893"
+        },
+        {
+          "path": "requirements-dashboard-lock.txt",
+          "sha256": "28355f576edd10948af0ae4995c787f66e96917055068e31af92088ab857bba3"
+        },
+        {
+          "path": "scripts/build_time_series_presentation.py",
+          "sha256": "5cc9a5cd3a4e6c829fb45e45a64ad38fa38d997102c1ce302d9612a6aaf4d8a4"
+        },
+        {
+          "path": "docs/presentation/time_series_evidence.json",
+          "sha256": "650607c06c8f83b21ec2367d145ad759d2c764e13bcc5e8b839f25e2af466b9b"
+        },
+        {
+          "path": "docs/presentation/time_series_identity.json",
+          "sha256": "84615cf8389e8952567f6ef2676db7461144618c596f4e1361552225e9a091ce"
+        }
+      ],
+      "title": "STL at an imposed daily period",
+      "units": "All components are additive in log\u2081\u2080(F / (1 W m\u207b\u00b2))",
+      "width_pixels": 2640
+    },
+    {
+      "caption": "Saved ACF diagnostics on the complete June training block; lag zero is included. No inferential confidence bands are added.",
+      "display_policy": "All saved ACF values, lags 0\u2013120, for both channels and both transforms; no refitting.",
+      "dpi": 200,
+      "height_pixels": 1080,
+      "observations": {
+        "block": {
+          "end_exclusive_utc": "2024-06-18T17:47:00+00:00",
+          "rows": 10149,
+          "selection": "earliest longest jointly valid consecutive training run; no imputation",
+          "start_utc": "2024-06-11T16:38:00+00:00"
+        },
+        "lags": [
+          0,
+          120
+        ],
+        "method": "FFT ACF; adjusted=False"
+      },
+      "output_sha256": "a2007d9f1f151f56463daba00fc133fa1fce7018767cd6578724921ebdf81189",
+      "path": "chart_acf.png",
+      "payload": {
+        "path": "results/presentation_time_series/diagnostics.json",
+        "sha256": "69935892e311ef4aacd00a7e9e6ccb055aac8abb1cda7ee988195d6f2fcc5675"
+      },
+      "source_commit": "abe4b79d2fe7549552b0a1f467be1cd949b652a7",
+      "source_files": [
+        {
+          "path": "src/solar_flare_jepa/presentation/eda.py",
+          "sha256": "395a27c9f7cad02f82301ea26b7b8375cc3bf4b5af728aa1d114edcdfc850b22"
+        },
+        {
+          "path": "docs/presentation/eda_evidence.json",
+          "sha256": "bc222c9b037f39efaebb1571ced2129ea3de8a0b096e7807ce4d09f8092e2893"
+        },
+        {
+          "path": "docs/presentation/time_series_evidence.json",
+          "sha256": "650607c06c8f83b21ec2367d145ad759d2c764e13bcc5e8b839f25e2af466b9b"
+        },
+        {
+          "path": "docs/presentation/time_series_identity.json",
+          "sha256": "84615cf8389e8952567f6ef2676db7461144618c596f4e1361552225e9a091ce"
+        }
+      ],
+      "title": "ACF: log levels and first differences",
+      "units": "Dimensionless correlation; lag in minutes",
+      "width_pixels": 2640
+    },
+    {
+      "caption": "Saved PACF diagnostics on the complete June training block; lag zero is included. No inferential confidence bands are added.",
+      "display_policy": "All saved PACF values, lags 0\u201360, for both channels and both transforms; no refitting.",
+      "dpi": 200,
+      "height_pixels": 1080,
+      "observations": {
+        "block": {
+          "end_exclusive_utc": "2024-06-18T17:47:00+00:00",
+          "rows": 10149,
+          "selection": "earliest longest jointly valid consecutive training run; no imputation",
+          "start_utc": "2024-06-11T16:38:00+00:00"
+        },
+        "lags": [
+          0,
+          60
+        ],
+        "method": "Yule\u2013Walker PACF; method=ywm"
+      },
+      "output_sha256": "dd800fc2bee0d8f83d8f20df05ae0e6811d38ba1e5c54d08f5ed9f27db8caaab",
+      "path": "chart_pacf.png",
+      "payload": {
+        "path": "results/presentation_time_series/diagnostics.json",
+        "sha256": "69935892e311ef4aacd00a7e9e6ccb055aac8abb1cda7ee988195d6f2fcc5675"
+      },
+      "source_commit": "abe4b79d2fe7549552b0a1f467be1cd949b652a7",
+      "source_files": [
+        {
+          "path": "src/solar_flare_jepa/presentation/eda.py",
+          "sha256": "395a27c9f7cad02f82301ea26b7b8375cc3bf4b5af728aa1d114edcdfc850b22"
+        },
+        {
+          "path": "docs/presentation/eda_evidence.json",
+          "sha256": "bc222c9b037f39efaebb1571ced2129ea3de8a0b096e7807ce4d09f8092e2893"
+        },
+        {
+          "path": "docs/presentation/time_series_evidence.json",
+          "sha256": "650607c06c8f83b21ec2367d145ad759d2c764e13bcc5e8b839f25e2af466b9b"
+        },
+        {
+          "path": "docs/presentation/time_series_identity.json",
+          "sha256": "84615cf8389e8952567f6ef2676db7461144618c596f4e1361552225e9a091ce"
+        }
+      ],
+      "title": "PACF: log levels and first differences",
+      "units": "Dimensionless correlation; lag in minutes",
+      "width_pixels": 2640
+    },
+    {
+      "caption": "Issue time: 01 August 2024, 02:00 UTC. Saved forecasts are compared with 30 actual target minutes after 120 context minutes. This single example does not estimate average skill.",
+      "display_policy": "Only stored 120-minute context, 30-minute actual target and 30-minute saved forecast, displayed after log10 transformation; timestamp alignment and saved-parameter replay verified; no extrapolated plotting points or intervals.",
+      "dpi": 200,
+      "height_pixels": 1060,
+      "observations": {
+        "actual_rows": 30,
+        "context_rows": 120,
+        "forecast_rows": 30,
+        "interpretation": "One held-out forecast illustration; not an estimate of average skill or calibration. Native predictions are inverse-log predictive medians, conditional on fitted parameters.",
+        "issue_utc": "2024-08-01T02:00:00+00:00",
+        "verified_replay_metrics": {
+          "xrsa": {
+            "log_mae": 0.21883529572062846,
+            "log_rmse": 0.25663548513798795
+          },
+          "xrsb": {
+            "log_mae": 0.09434742383206549,
+            "log_rmse": 0.10905534882056377
+          }
+        }
+      },
+      "output_sha256": "c3f54ce72218861c9d491af69ca26a686252661e605fdfbc6d562626d59adb2c",
+      "path": "chart_forecast.png",
+      "payload": {
+        "path": "results/presentation_time_series/diagnostics.json",
+        "sha256": "69935892e311ef4aacd00a7e9e6ccb055aac8abb1cda7ee988195d6f2fcc5675"
+      },
+      "source_commit": "abe4b79d2fe7549552b0a1f467be1cd949b652a7",
+      "source_files": [
+        {
+          "path": "configs/experiments/v1_goes_2024.json",
+          "sha256": "230a3037910d995e8113ae90e69dc8e71c0ad8e26e89ecc4628c4dd8c31daccb"
+        },
+        {
+          "path": "data/manifests/goes_v1_202405.json",
+          "sha256": "9828b714ecb4545af2711f2760d110b9d0dd963a67e1f3d1d1f711af0aeb2240"
+        },
+        {
+          "path": "data/manifests/goes_v1_202406.json",
+          "sha256": "91e45449c61918c52786c4d4f45d4d9311ef313bbc8baace314a40bf135ecc79"
+        },
+        {
+          "path": "data/manifests/goes_p2_july2024.json",
+          "sha256": "581a3c4b8cfba6b9b21ed1fdb0b2277e728e9bf329a8da1ddcc0bd49c3cc4b3d"
+        },
+        {
+          "path": "data/manifests/goes_v1_202408.json",
+          "sha256": "50164744c036e2c3776486a6657cf1c60bef4e9e81b0c27a154be9bdbd12faff"
+        },
+        {
+          "path": "src/solar_flare_jepa/presentation/time_series.py",
+          "sha256": "28c0157fd4e38122150378b55dcddd263131e290954eb8e52a894d7b230aa682"
+        },
+        {
+          "path": "src/solar_flare_jepa/presentation/classical.py",
+          "sha256": "f25bcc53b352447330c661898ee69da7c4e672c229112022b7bf25d88a50022b"
+        },
+        {
+          "path": "src/solar_flare_jepa/presentation/eda.py",
+          "sha256": "395a27c9f7cad02f82301ea26b7b8375cc3bf4b5af728aa1d114edcdfc850b22"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/download.py",
+          "sha256": "da8df6ddf12f2212f2de8782217638188b6cbf6d6cd2ebf51b4884962fb6a909"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/goes.py",
+          "sha256": "a8ad4f8fd4626cf0cfa0fefee226a05281d3d6b927e4ed6dffff93009b018d26"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/eda.py",
+          "sha256": "40cc0539b66ffcc362fd21524b64f34e0746daf4c1fed6b08d3c0e8614ded9ef"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/storage.py",
+          "sha256": "78e1aacf693e7d5b40a46aef0b30dd1aff452570fd82746bac6f8021d7ec5b59"
+        },
+        {
+          "path": "configs/data/v1_goes_202405.json",
+          "sha256": "14ea6112c83ead6ca2bc5ff32cf0e2e04c170d07dde83b78f6a606088e3345c8"
+        },
+        {
+          "path": "configs/data/v1_goes_202406.json",
+          "sha256": "079756378543e36c0bfd5264cf8b9915153e57514b63f4773b7f6a78074c9d05"
+        },
+        {
+          "path": "configs/data/p2_goes_july2024.json",
+          "sha256": "1c676e797c4c5bf3a03a144464106ef813348c18ab0d4531283a21377d68d5f3"
+        },
+        {
+          "path": "configs/data/v1_goes_202408.json",
+          "sha256": "cb8504689d2091dd31571403cc89e1c38cb86471db5d36960cb8ac757ce579e4"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/goes_acquisition.py",
+          "sha256": "40d47db938d7b55bead2a2d44096e4dccab4e210045184e831fc077ba4a281ec"
+        },
+        {
+          "path": "src/solar_flare_jepa/data/foundation.py",
+          "sha256": "a9df01720d285204b0d49f1f0279a599f6de690395ee023121d3f5a021a50c4d"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/statistical.py",
+          "sha256": "7f928277494078bfba74f591e206f515283a99d4fc4fadbf945dd92258b13eb1"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/baselines.py",
+          "sha256": "87f5a60f7ee6007ea22cb9daf5777a1b8f0a18ca9c7753a35308f49fb65eaffa"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/contracts.py",
+          "sha256": "cd3eebf40b0768f893dd65fc623b6037e4952105a67db92ec8b7bc05f5a85115"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/windows.py",
+          "sha256": "0e84e41b9b991f56f685c61a7f7ae9dd5e5b3397e56da7a314d332de99dc57b1"
+        },
+        {
+          "path": "src/solar_flare_jepa/forecasting/splitting.py",
+          "sha256": "ea463b3ca049dc952615c083aa17dbdfeba1c33ca976d5a4e57e84e0337893e6"
+        },
+        {
+          "path": "docs/presentation/eda_evidence.json",
+          "sha256": "bc222c9b037f39efaebb1571ced2129ea3de8a0b096e7807ce4d09f8092e2893"
+        },
+        {
+          "path": "requirements-dashboard-lock.txt",
+          "sha256": "28355f576edd10948af0ae4995c787f66e96917055068e31af92088ab857bba3"
+        },
+        {
+          "path": "scripts/build_time_series_presentation.py",
+          "sha256": "5cc9a5cd3a4e6c829fb45e45a64ad38fa38d997102c1ce302d9612a6aaf4d8a4"
+        },
+        {
+          "path": "docs/presentation/time_series_evidence.json",
+          "sha256": "650607c06c8f83b21ec2367d145ad759d2c764e13bcc5e8b839f25e2af466b9b"
+        },
+        {
+          "path": "docs/presentation/time_series_identity.json",
+          "sha256": "84615cf8389e8952567f6ef2676db7461144618c596f4e1361552225e9a091ce"
+        }
+      ],
+      "title": "One held-out forecast replay",
+      "units": "log\u2081\u2080(F / (1 W m\u207b\u00b2))",
+      "width_pixels": 2640
+    }
+  ],
+  "environment": {
+    "matplotlib": "3.11.2",
+    "numpy": "2.2.6",
+    "pandas": "2.3.3",
+    "scipy": "1.18.1",
+    "statsmodels": "0.14.6"
+  },
+  "evidence_status": "OBSERVED: strict evidence identity checks, native-file verification and saved-parameter forecast replay passed.",
+  "native_manifests": [
+    {
+      "bytes": 9169020,
+      "files": 31,
+      "path": "data/manifests/goes_v1_202405.json",
+      "sha256": "9828b714ecb4545af2711f2760d110b9d0dd963a67e1f3d1d1f711af0aeb2240"
+    },
+    {
+      "bytes": 8910715,
+      "files": 30,
+      "path": "data/manifests/goes_v1_202406.json",
+      "sha256": "91e45449c61918c52786c4d4f45d4d9311ef313bbc8baace314a40bf135ecc79"
+    },
+    {
+      "bytes": 9200347,
+      "files": 31,
+      "path": "data/manifests/goes_p2_july2024.json",
+      "sha256": "581a3c4b8cfba6b9b21ed1fdb0b2277e728e9bf329a8da1ddcc0bd49c3cc4b3d"
+    },
+    {
+      "bytes": 9255392,
+      "files": 31,
+      "path": "data/manifests/goes_v1_202408.json",
+      "sha256": "50164744c036e2c3776486a6657cf1c60bef4e9e81b0c27a154be9bdbd12faff"
+    }
+  ],
+  "native_source_bytes": 36535474,
+  "native_source_files": 123,
+  "payload": {
+    "path": "results/presentation_time_series/diagnostics.json",
+    "sha256": "69935892e311ef4aacd00a7e9e6ccb055aac8abb1cda7ee988195d6f2fcc5675"
+  },
+  "producer": "scripts/presentation/build_charts.py",
+  "producer_sha256": "48bc6da8edc58b8edbd5fb1e29069263ac877ff2d6ac436c99bcf10c87362ddd",
+  "rendering": {
+    "background": "#080F1D",
+    "canvas_policy": "Fixed figure sizes; no tight bounding-box crop",
+    "channel_colors": {
+      "xrsa": "#FFAB49",
+      "xrsb": "#4CD9E8"
+    },
+    "dpi": 200,
+    "foreground": "#F1F5FB",
+    "muted": "#9AACCA"
+  },
+  "schema_version": 1,
+  "source_commit": "abe4b79d2fe7549552b0a1f467be1cd949b652a7",
+  "source_files": [
+    {
+      "path": "configs/experiments/v1_goes_2024.json",
+      "sha256": "230a3037910d995e8113ae90e69dc8e71c0ad8e26e89ecc4628c4dd8c31daccb"
+    },
+    {
+      "path": "data/manifests/goes_v1_202405.json",
+      "sha256": "9828b714ecb4545af2711f2760d110b9d0dd963a67e1f3d1d1f711af0aeb2240"
+    },
+    {
+      "path": "data/manifests/goes_v1_202406.json",
+      "sha256": "91e45449c61918c52786c4d4f45d4d9311ef313bbc8baace314a40bf135ecc79"
+    },
+    {
+      "path": "data/manifests/goes_p2_july2024.json",
+      "sha256": "581a3c4b8cfba6b9b21ed1fdb0b2277e728e9bf329a8da1ddcc0bd49c3cc4b3d"
+    },
+    {
+      "path": "data/manifests/goes_v1_202408.json",
+      "sha256": "50164744c036e2c3776486a6657cf1c60bef4e9e81b0c27a154be9bdbd12faff"
+    },
+    {
+      "path": "src/solar_flare_jepa/presentation/time_series.py",
+      "sha256": "28c0157fd4e38122150378b55dcddd263131e290954eb8e52a894d7b230aa682"
+    },
+    {
+      "path": "src/solar_flare_jepa/presentation/classical.py",
+      "sha256": "f25bcc53b352447330c661898ee69da7c4e672c229112022b7bf25d88a50022b"
+    },
+    {
+      "path": "src/solar_flare_jepa/presentation/eda.py",
+      "sha256": "395a27c9f7cad02f82301ea26b7b8375cc3bf4b5af728aa1d114edcdfc850b22"
+    },
+    {
+      "path": "src/solar_flare_jepa/data/download.py",
+      "sha256": "da8df6ddf12f2212f2de8782217638188b6cbf6d6cd2ebf51b4884962fb6a909"
+    },
+    {
+      "path": "src/solar_flare_jepa/data/goes.py",
+      "sha256": "a8ad4f8fd4626cf0cfa0fefee226a05281d3d6b927e4ed6dffff93009b018d26"
+    },
+    {
+      "path": "src/solar_flare_jepa/data/eda.py",
+      "sha256": "40cc0539b66ffcc362fd21524b64f34e0746daf4c1fed6b08d3c0e8614ded9ef"
+    },
+    {
+      "path": "src/solar_flare_jepa/data/storage.py",
+      "sha256": "78e1aacf693e7d5b40a46aef0b30dd1aff452570fd82746bac6f8021d7ec5b59"
+    },
+    {
+      "path": "configs/data/v1_goes_202405.json",
+      "sha256": "14ea6112c83ead6ca2bc5ff32cf0e2e04c170d07dde83b78f6a606088e3345c8"
+    },
+    {
+      "path": "configs/data/v1_goes_202406.json",
+      "sha256": "079756378543e36c0bfd5264cf8b9915153e57514b63f4773b7f6a78074c9d05"
+    },
+    {
+      "path": "configs/data/p2_goes_july2024.json",
+      "sha256": "1c676e797c4c5bf3a03a144464106ef813348c18ab0d4531283a21377d68d5f3"
+    },
+    {
+      "path": "configs/data/v1_goes_202408.json",
+      "sha256": "cb8504689d2091dd31571403cc89e1c38cb86471db5d36960cb8ac757ce579e4"
+    },
+    {
+      "path": "src/solar_flare_jepa/data/goes_acquisition.py",
+      "sha256": "40d47db938d7b55bead2a2d44096e4dccab4e210045184e831fc077ba4a281ec"
+    },
+    {
+      "path": "src/solar_flare_jepa/data/foundation.py",
+      "sha256": "a9df01720d285204b0d49f1f0279a599f6de690395ee023121d3f5a021a50c4d"
+    },
+    {
+      "path": "src/solar_flare_jepa/forecasting/statistical.py",
+      "sha256": "7f928277494078bfba74f591e206f515283a99d4fc4fadbf945dd92258b13eb1"
+    },
+    {
+      "path": "src/solar_flare_jepa/forecasting/baselines.py",
+      "sha256": "87f5a60f7ee6007ea22cb9daf5777a1b8f0a18ca9c7753a35308f49fb65eaffa"
+    },
+    {
+      "path": "src/solar_flare_jepa/forecasting/contracts.py",
+      "sha256": "cd3eebf40b0768f893dd65fc623b6037e4952105a67db92ec8b7bc05f5a85115"
+    },
+    {
+      "path": "src/solar_flare_jepa/forecasting/windows.py",
+      "sha256": "0e84e41b9b991f56f685c61a7f7ae9dd5e5b3397e56da7a314d332de99dc57b1"
+    },
+    {
+      "path": "src/solar_flare_jepa/forecasting/splitting.py",
+      "sha256": "ea463b3ca049dc952615c083aa17dbdfeba1c33ca976d5a4e57e84e0337893e6"
+    },
+    {
+      "path": "docs/presentation/eda_evidence.json",
+      "sha256": "bc222c9b037f39efaebb1571ced2129ea3de8a0b096e7807ce4d09f8092e2893"
+    },
+    {
+      "path": "requirements-dashboard-lock.txt",
+      "sha256": "28355f576edd10948af0ae4995c787f66e96917055068e31af92088ab857bba3"
+    },
+    {
+      "path": "scripts/build_time_series_presentation.py",
+      "sha256": "5cc9a5cd3a4e6c829fb45e45a64ad38fa38d997102c1ce302d9612a6aaf4d8a4"
+    },
+    {
+      "path": "docs/presentation/time_series_evidence.json",
+      "sha256": "650607c06c8f83b21ec2367d145ad759d2c764e13bcc5e8b839f25e2af466b9b"
+    },
+    {
+      "path": "docs/presentation/time_series_identity.json",
+      "sha256": "84615cf8389e8952567f6ef2676db7461144618c596f4e1361552225e9a091ce"
+    }
+  ]
+}

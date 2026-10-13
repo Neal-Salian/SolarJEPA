@@ -1,0 +1,77 @@
+{
+  "captured_utc": "2026-10-12T16:18:02.493Z",
+  "source_url": "http://127.0.0.1:8512/",
+  "source_root": "/Users/nealsalian/.codex/worktrees/time-series-requirements/SolarJEPA",
+  "source_commit": "abe4b79d2fe7549552b0a1f467be1cd949b652a7",
+  "source_git_status": "",
+  "browser": "155.0.8059.40",
+  "browser_executable": "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
+  "headless": true,
+  "screenshot_method": "Playwright native screenshot of real live Streamlit DOM; no CSS or data modification",
+  "browser_errors": [],
+  "captures": [
+    {
+      "file": "presentations/assets/dashboard_overview.png",
+      "captured_utc": "2026-10-12T16:13:06.083Z",
+      "sha256": "a4de1ed92f28e2e16672593749289a27004cc658bd2fcb35e2477f1c45ccc466",
+      "selected_page": [
+        "Overview"
+      ],
+      "width": 1600,
+      "height": 955,
+      "action": "Initial Overview page",
+      "observed_records": 87840,
+      "cadence_seconds": 60,
+      "scope": "01 May 2024 00:00 – 30 June 2024 23:59 UTC; observed records before channel quality rejection"
+    },
+    {
+      "file": "presentations/assets/dashboard_explorer.png",
+      "captured_utc": "2026-10-12T16:13:06.827Z",
+      "sha256": "f6f9388c3bb5a65af2f85a37509b62498a563ce220e065e4e343075d8339e1b3",
+      "selected_page": [
+        "Data Explorer"
+      ],
+      "width": 1600,
+      "height": 875,
+      "action": "Clicked Data Explorer navigation label",
+      "scope": "Interactive comparison and histogram use verified May–June native observations; added report sections below use the distinct full May–August selection",
+      "chart_count": 4
+    },
+    {
+      "file": "presentations/assets/dashboard_model_inference.png",
+      "captured_utc": "2026-10-12T16:13:07.656Z",
+      "sha256": "926afd16f04413927f67c7c0ff2f8077d23dea3b47a1de235b8eaba874a27dc4",
+      "selected_page": [
+        "Model Results"
+      ],
+      "width": 1600,
+      "height": 945,
+      "action": "Clicked Model Results, then Run saved-model inference; scrolled actual saved-model inference heading into view",
+      "observed_success_message": "Saved-model inference verified against the pinned forecast and metrics.",
+      "section_heading": "Saved-model inference · observed and forecast flux",
+      "scope": "Single held-out forecast origin from saved classical parameters; retrospective realized future is displayed but not passed into inference",
+      "issue_context_caption": "Issue time: 2024-08-01T02:00:00+00:00; context: 120 completed past minute bins; horizon: 30 target bins. The vertical line is issue time. Plotted timestamps denote target-bin starts: lead 1 starts at issue time and ends one minute later. Realized future values are shown for retrospective evaluation and are not passed into inference."
+    },
+    {
+      "file": "presentations/assets/dashboard_replay_detail.png",
+      "captured_utc": "2026-10-12T16:18:02.469Z",
+      "sha256": "0d4c0bb8467c55cafde8506f899095c01cc7742f51b79b62b3f76f9088486a07",
+      "selected_page": [
+        "Model Results"
+      ],
+      "width": 1220,
+      "height": 506,
+      "screenshot_clip": {
+        "x": 318,
+        "y": 48,
+        "width": 1220,
+        "height": 506
+      },
+      "action": "Clicked Model Results and Run saved-model inference, then clipped the real heading, controls, success message and complete XRS-A subplot; sidebar and XRS-B excluded",
+      "observed_success_message": "Saved-model inference verified against the pinned forecast and metrics.",
+      "section_heading": "Saved-model inference · observed and forecast flux",
+      "scope": "Detail of the single held-out saved-model replay; XRS-A panel only",
+      "issue_context_caption": "Issue time: 2024-08-01T02:00:00+00:00; context: 120 completed past minute bins; horizon: 30 target bins. The vertical line is issue time. Plotted timestamps denote target-bin starts: lead 1 starts at issue time and ends one minute later. Realized future values are shown for retrospective evaluation and are not passed into inference."
+    }
+  ]
+}
