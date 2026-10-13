@@ -390,3 +390,69 @@ def test_reverification_accepts_unchanged_consumption_state(frozen_fixture):
     frozen=load(frozen_fixture)
     module=importlib.import_module('solar_flare_jepa.experiments.external_inputs')
     assert module.reverify_frozen_inputs(frozen,*frozen_fixture) is None
+
+
+def test_reverification_rejects_array_subclass_with_spoofed_bytes(frozen_fixture):
+    frozen=load(frozen_fixture)
+    original=frozen['retained_candidate_indices']
+    class SpoofedArray(np.ndarray):
+        def tobytes(self,order='C'):
+            return original.tobytes(order=order)
+    altered=np.array([999,5,7],dtype=np.int64).view(SpoofedArray)
+    assert altered[0]==999
+    frozen['retained_candidate_indices']=altered
+    module=importlib.import_module('solar_flare_jepa.experiments.external_inputs')
+    with pytest.raises(ValueError,match='consumption|type'):
+        module.reverify_frozen_inputs(frozen,*frozen_fixture)
+
+
+def test_reverification_rejects_list_subclass_with_spoofed_iteration(frozen_fixture):
+    frozen=load(frozen_fixture)
+    original=frozen['candidate_exclusions']
+    class SpoofedList(list):
+        def __iter__(self):
+            return iter(original)
+    changed=deepcopy(original)
+    changed[0]['reasons']=['changed live exclusion']
+    altered=SpoofedList(changed)
+    assert altered[0]['reasons']==['changed live exclusion']
+    frozen['candidate_exclusions']=altered
+    module=importlib.import_module('solar_flare_jepa.experiments.external_inputs')
+    with pytest.raises(ValueError,match='consumption|type'):
+        module.reverify_frozen_inputs(frozen,*frozen_fixture)
+
+
+@pytest.mark.parametrize('kind', ['dict','tuple','bytes','mapping_key','contract'])
+def test_reverification_rejects_noncanonical_payload_subclasses(frozen_fixture,kind):
+    from dataclasses import fields
+    from solar_flare_jepa.forecasting.contracts import ForecastContext
+    frozen=load(frozen_fixture)
+    if kind=='dict':
+        class SpoofedDict(dict):
+            def __getitem__(self,key):
+                if key=='git_commit':
+                    return 'spoofed historical provenance'
+                return super().__getitem__(key)
+        frozen['historical_source']=SpoofedDict(frozen['historical_source'])
+    elif kind=='tuple':
+        class TupleSubclass(tuple):
+            pass
+        spec=frozen['context'].spec
+        object.__setattr__(spec,'feature_names',TupleSubclass(spec.feature_names))
+    elif kind=='bytes':
+        class BytesSubclass(bytes):
+            pass
+        record=frozen['checkpoint_records'][0]
+        record['checkpoint_bytes']=BytesSubclass(record['checkpoint_bytes'])
+    elif kind=='mapping_key':
+        class StringSubclass(str):
+            pass
+        frozen['historical_source']={StringSubclass(key):value for key,value in frozen['historical_source'].items()}
+    elif kind=='contract':
+        class ContextSubclass(ForecastContext):
+            pass
+        context=frozen['context']
+        frozen['context']=ContextSubclass(**{field.name:getattr(context,field.name) for field in fields(ForecastContext)})
+    module=importlib.import_module('solar_flare_jepa.experiments.external_inputs')
+    with pytest.raises(ValueError,match='consumption|type'):
+        module.reverify_frozen_inputs(frozen,*frozen_fixture)

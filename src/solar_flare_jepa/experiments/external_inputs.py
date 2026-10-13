@@ -388,23 +388,26 @@ def load_frozen_inputs(v1_dir: Path, preparation_dir: Path, protocol: dict) -> d
 
 
 def _consumption_binding(value):
-    """Describe live payload content, independently of its claimed identities."""
-    if isinstance(value, np.ndarray):
+    """Bind primitive live content without invoking subclass serialization hooks."""
+    value_type = type(value)
+    if value_type is np.ndarray:
         if value.dtype.hasobject:
             raise ValueError('Frozen consumption arrays must have primitive content')
         return ['array', value.dtype.str, list(value.shape),
                 hashlib.sha256(value.tobytes(order='C')).hexdigest()]
-    if isinstance(value, bytes):
+    if value_type is bytes:
         return ['bytes', len(value), hashlib.sha256(value).hexdigest()]
-    if type(value) in (ForecastContext, ForecastTargets, FutureGrid, ForecastSpec):
-        return ['contract', type(value).__name__,
+    if any(value_type is contract for contract in (ForecastContext, ForecastTargets, FutureGrid, ForecastSpec)):
+        return ['contract', value_type.__name__,
                 {field.name: _consumption_binding(getattr(value, field.name))
-                 for field in fields(type(value))}]
-    if isinstance(value, dict):
+                 for field in fields(value_type)}]
+    if value_type is dict:
+        if any(type(key) is not str for key in value):
+            raise ValueError('Frozen consumption mapping keys must be primitive strings')
         return ['mapping', {key: _consumption_binding(part) for key, part in dict.items(value)}]
-    if isinstance(value, (list, tuple)):
+    if value_type is list or value_type is tuple:
         return ['sequence', [_consumption_binding(part) for part in value]]
-    if value is None or type(value) in (str, bool, int, float):
+    if value is None or any(value_type is primitive for primitive in (str, bool, int, float)):
         return value
     raise ValueError('Unsupported frozen consumption payload type')
 
