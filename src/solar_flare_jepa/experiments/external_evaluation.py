@@ -13,6 +13,9 @@ from pathlib import Path
 import tempfile
 
 from solar_flare_jepa.evaluation.external_model import score_external_prediction, validate_external_score
+# Cohort pairing imports this dependency lazily. Load it before the strict
+# baseline provenance snapshot so its inspection/executed-source state is stable.
+from solar_flare_jepa.evaluation import uncertainty as _calendar_dependency
 from solar_flare_jepa.evaluation.trajectory import prediction_snapshot, _prediction_content
 from solar_flare_jepa.forecasting.contracts import ForecastPrediction, canonical_json, fingerprint_payload, logical_array
 from solar_flare_jepa.forecasting.frozen import load_frozen_baseline

@@ -334,3 +334,55 @@ def test_saved_256_batch_size_controls_actual_forecast_calls(execution_fixture, 
     assert all(batches == [256,1] for batches in calls.values())
     assert all(prediction.values.shape == (257,30,2) for prediction in outputs.values())
     assert all(not path.exists() for path in private_paths)
+
+
+def test_fresh_runner_dependency_closure_preserves_strict_provenance(tmp_path):
+    """Late calendar import must not invalidate a fresh process's source record.
+
+    This clean copied Git fixture exercises both strict guards without mutating
+    the repository or relaxing production provenance. Installed qualification is
+    a separate coordinator check against the committed normal installation.
+    """
+    import os
+    import shutil
+    import subprocess
+    import sys
+    copied = tmp_path/'clean-source-fixture'
+    copied.mkdir()
+    for name in ('src','scripts','configs','schemas'):
+        shutil.copytree(ROOT/name,copied/name,ignore=shutil.ignore_patterns('__pycache__','*.egg-info'))
+    for name in ('pyproject.toml','requirements-lock.txt','.gitignore'):
+        shutil.copyfile(ROOT/name,copied/name)
+    for command in (['git','init','-q'], ['git','add','src','scripts','configs','schemas',
+                     'pyproject.toml','requirements-lock.txt','.gitignore'],
+                    ['git','-c','user.name=Synthetic Fixture','-c','user.email=fixture@example.invalid',
+                     'commit','-qm','test: synthetic clean source fixture']):
+        subprocess.run(command,cwd=copied,check=True,capture_output=True,text=True)
+    environment = dict(os.environ,PYTHONPATH=str(copied/'src'),PYTHONDONTWRITEBYTECODE='1')
+    program = '''
+import importlib
+import json
+from pathlib import Path
+import sys
+from solar_flare_jepa.experiments import external_evaluation
+from solar_flare_jepa.experiments.provenance import code_provenance
+
+def forbidden(*args, **kwargs):
+    raise AssertionError('No model loading, prediction or fitting in provenance regression')
+external_evaluation.TrainedJepa.load = forbidden
+external_evaluation.TrainedJepa.predict = forbidden
+external_evaluation.load_frozen_baseline = forbidden
+before = code_provenance(Path.cwd(), require_clean=True, require_installed_match=True)
+importlib.import_module('solar_flare_jepa.evaluation.uncertainty')
+after = code_provenance(Path.cwd(), require_clean=True, require_installed_match=True)
+print(json.dumps({'full_provenance_equal': before == after,
+                  'source_fingerprint_equal': before['source'] == after['source'],
+                  'changed_fields': [key for key in before if before[key] != after[key]],
+                  'inference_performed': False}))
+'''
+    completed = subprocess.run([sys.executable,'-c',program],cwd=copied,env=environment,
+                               capture_output=True,text=True,check=True)
+    evidence = json.loads(completed.stdout)
+    assert evidence['full_provenance_equal'], evidence
+    assert evidence['source_fingerprint_equal']
+    assert evidence['inference_performed'] is False
