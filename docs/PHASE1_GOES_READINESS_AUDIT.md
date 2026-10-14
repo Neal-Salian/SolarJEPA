@@ -276,3 +276,15 @@ No event detection, catalog completeness claim, model selection using January,
 new training, V2 development, PR, merge or push to a protected branch belongs
 to this milestone. The delivered audit/protocol/plan are the completed work;
 full external performance remains unknown.
+
+## Dated implementation follow-up — 2026-10-14
+
+The preceding October 13 audit and PARTIALLY_READY determination remain
+historical. The user subsequently approved the bounded retrospective scope and
+adapter implementation. The [implementation/verification report](PHASE1_GOES_ADAPTER_IMPLEMENTATION.md)
+records the current **READY** verdict for that scope, unchanged frozen inputs,
+1,417-test regression, normal installed preflight and bounded historical replay.
+The [processing/exposure supplement](PHASE1_GOES_PROCESSING_LIMITATIONS.md)
+records observed prior exposure and unresolved upstream causality. Neither this
+follow-up nor infrastructure readiness authorizes the full January experiment.
+No new January model predictions or metrics have been computed.

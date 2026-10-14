@@ -230,3 +230,17 @@ While the overall verdict remains PARTIALLY_READY, the implementation plan's
 non-code scope/authorization gate must be resolved before any adapter code is
 written. This protocol does not grant an exception to the user's conditional
 infrastructure authorization.
+
+## Implementation follow-up — 2026-10-14
+
+The original PROTOCOL_ONLY/PARTIALLY_READY status above records the October 13
+planning state. The user approved bounded retrospective implementation; the
+[verified adapter report](PHASE1_GOES_ADAPTER_IMPLEMENTATION.md) now records
+**READY** for that scope. The declared cohort, original normalization, product/QC
+pins, primary/secondary estimands, weights and uncertainty settings are unchanged.
+Default `scripts/evaluate_external_models.py` execution is metadata-only
+preflight. Full inference requires separate approval and an explicit caller
+reference; the code records that assertion without authenticating it. Task 6
+remains pending. Prior exposure, delivery and upstream processing unknowns,
+fixed-checkpoint uncertainty and simulation limits remain attached to all future
+results. No operational-causal or untouched-confirmatory claim is established.
