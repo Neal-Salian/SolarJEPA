@@ -1,0 +1,2080 @@
+{
+  "data_fitting_authorized": false,
+  "date_client": "2026-10-15",
+  "design": {
+    "audited_base_executable_source_fingerprint": "271e9f14caeb3bc5c984f4513ffdae598aa1e6fdc51c0a97e4ec4e9c955dd7c2",
+    "classical": {
+      "all_models_excluded": true,
+      "claim": "No V2-versus-classical conclusion from this pilot",
+      "job_count": 0,
+      "replicated_v1_predictions_permitted": false,
+      "scope": "EXCLUDED_FROM_THIS_PROTOCOL_VERSION"
+    },
+    "compute_reporting": {
+      "actual_pilot_cost": "count each SSL once with every actual process/preparation/sealing/final validation cost",
+      "adaptive_matching_permitted": false,
+      "claim": "matched encoder/predictor update opportunities only,not FLOPs,wall time,head updates or energy equality",
+      "cost_or_skill_acceptance_threshold": null,
+      "required": [
+        "actual per-module optimizer steps,examples,phase times,sampledRSS and full environment",
+        "supervised warmup head updates and SSL teacher cost disclosed",
+        "sharedSSL persisted once perseed; reused by J,frozenJ and alternateJ"
+      ],
+      "standalone_recipe_cost": "attribute full SSL cost to each JEPA recipe plus its own downstream cost; do not sum attributed views as actual pilot total"
+    },
+    "data": {
+      "allowed_manifests": [
+        {
+          "bytes": 9169020,
+          "config_path": "configs/data/v1_goes_202405.json",
+          "config_sha256": "14ea6112c83ead6ca2bc5ff32cf0e2e04c170d07dde83b78f6a606088e3345c8",
+          "files": 31,
+          "path": "data/manifests/goes_v1_202405.json",
+          "sha256": "9828b714ecb4545af2711f2760d110b9d0dd963a67e1f3d1d1f711af0aeb2240"
+        },
+        {
+          "bytes": 8910715,
+          "config_path": "configs/data/v1_goes_202406.json",
+          "config_sha256": "079756378543e36c0bfd5264cf8b9915153e57514b63f4773b7f6a78074c9d05",
+          "files": 30,
+          "path": "data/manifests/goes_v1_202406.json",
+          "sha256": "91e45449c61918c52786c4d4f45d4d9311ef313bbc8baace314a40bf135ecc79"
+        },
+        {
+          "bytes": 9200347,
+          "config_path": "configs/data/p2_goes_july2024.json",
+          "config_sha256": "1c676e797c4c5bf3a03a144464106ef813348c18ab0d4531283a21377d68d5f3",
+          "files": 31,
+          "path": "data/manifests/goes_p2_july2024.json",
+          "sha256": "581a3c4b8cfba6b9b21ed1fdb0b2277e728e9bf329a8da1ddcc0bd49c3cc4b3d"
+        }
+      ],
+      "availability": "retrospective_bin_end; actual delivery and upstream causality UNKNOWN",
+      "embargo_ns": 0,
+      "excluded_periods": [
+        "August2024",
+        "January2025",
+        "candidate2020/2022/2023",
+        "all other sources"
+      ],
+      "forecast": {
+        "availability_mode": "retrospective_bin_end",
+        "cadence_seconds": 60,
+        "context_steps": 120,
+        "eligibility_policy": "complete",
+        "feature_lookback_steps": 0,
+        "feature_names": [
+          "xrsa_flux",
+          "xrsb_flux"
+        ],
+        "feature_reference": [
+          1.0,
+          1.0
+        ],
+        "feature_units": [
+          "W/m2",
+          "W/m2"
+        ],
+        "horizon_steps": 30,
+        "label_maturity_steps": 0,
+        "stride_steps": 30,
+        "target_minimum": [
+          0.0,
+          0.0
+        ],
+        "target_names": [
+          "xrsa_flux",
+          "xrsb_flux"
+        ],
+        "target_reference": [
+          1.0,
+          1.0
+        ],
+        "target_units": [
+          "W/m2",
+          "W/m2"
+        ],
+        "transform": "log10"
+      },
+      "normalization": {
+        "evidence_scope": "retained prior native preflight,not newly decoded/refitted here; future authorized loader must reverify actual identities",
+        "fit_on_validation_or_test": false,
+        "historical_expected_dataset_fingerprint": "080d6128a398259e2112ce812b13d599b2131f9992bccced9720fe215e05cb72",
+        "historical_expected_fingerprint": "848623009ce048a14e32c50b7c70d9c9728cdd77391f10115ec1c8fd46d039a9",
+        "historical_expected_split_fingerprint": "69fac8443c0740b7504acbca31720ec5c52cd39a678999e0024debf6344987a4",
+        "historical_expected_training_fingerprint": "8e5f200f701c73d37191009d66246cd3bd50b5c3da7bb290d4fc28612fff38fb",
+        "method": "UNIQUE_RAW_TRAINING_PARTITION",
+        "transform": "dimensioned_log10",
+        "variance_divisor": "population"
+      },
+      "platform": "GOES-16",
+      "product": "xrsf-l2-avg1m_science",
+      "prohibited_access": [
+        "native files/arrays/windows/targets/catalogs from excluded sources",
+        "test partitions,release or scoring",
+        "new acquisition",
+        "new pseudo-test calendar"
+      ],
+      "quality": {
+        "count_max_inclusive": 60,
+        "count_min_exclusive": 0,
+        "electron_flag_range_inclusive": [
+          0,
+          511
+        ],
+        "eligibility": "complete",
+        "finite_positive_flux": true,
+        "imputation": false,
+        "integer_coded_quality_and_counts": true,
+        "preserve_native_valid_range": true,
+        "sensitivity_cohorts": [],
+        "status_flag": 0,
+        "xrsa_electron_excluded_bits": 15,
+        "xrsb_electron_excluded_bits": 23
+      },
+      "splits_utc_half_open": {
+        "train": [
+          "2024-05-01T00:00:00Z",
+          "2024-07-22T00:00:00Z"
+        ],
+        "validation": [
+          "2024-07-22T00:00:00Z",
+          "2024-08-01T00:00:00Z"
+        ]
+      },
+      "version": "2-2-1"
+    },
+    "decisions": [
+      {
+        "alternatives_not_selected": [
+          "One-day training truncation changes loader, support and normalization without enabling inference."
+        ],
+        "evidence": [
+          "src/solar_flare_jepa/data/goes_v2_development.py:27-48",
+          "docs/V2_M0_RESOLUTION.md",
+          "c872e4a:docs/V2_M5_EXPERIMENTAL_DECISION_REGISTER.md#D09"
+        ],
+        "id": "D09",
+        "owner_ratification": null,
+        "owner_ratification_required_before_implementation": true,
+        "rationale": "Retain frozen loader calendar and V1 support for exposed feasibility; zero gap is a design choice, not an independence assertion.",
+        "risks": [
+          "Adjacent partitions remain dependent; upstream processing may have unestablished future support."
+        ],
+        "selected_default_pointer": "/data/embargo_ns",
+        "status": "DECIDED_FOR_DEVELOPMENT_DESIGN",
+        "title": "Embargo"
+      },
+      {
+        "alternatives_not_selected": [
+          "Full multi-fold20-seed study, extra cohorts and classical jobs excluded."
+        ],
+        "evidence": [
+          "src/solar_flare_jepa/experiments/v2_m5_preflight.py:43-72"
+        ],
+        "id": "D10",
+        "owner_ratification": null,
+        "owner_ratification_required_before_implementation": true,
+        "rationale": "Existing M5 corrected two-seed20-job matrix covers controlled, frozen/random, TCN, stochastic linear and separate alternate loss.",
+        "risks": [
+          "Engineering feasibility only; no model-value acceptance."
+        ],
+        "selected_default_pointer": "/jobs",
+        "status": "DECIDED_FOR_DEVELOPMENT_DESIGN",
+        "title": "Experimental matrix"
+      },
+      {
+        "alternatives_not_selected": [
+          "Prior4GiB/linear1800s/one-retry proposal not selected; no MPS or concurrency."
+        ],
+        "evidence": [
+          "src/solar_flare_jepa/experiments/v2_resource_controls.py:84-101",
+          "docs/V2_M5_0_READINESS_REPORT.md",
+          "c872e4a:docs/V2_M5_RESOURCE_AND_FAIRNESS_REVIEW.md"
+        ],
+        "id": "D11",
+        "owner_ratification": null,
+        "owner_ratification_required_before_implementation": true,
+        "rationale": "Choose conservative two-GiB sampled worker budget,600s linear path,zero retries and7200s total for a shared eight-GiB reference host. These are policy limits, not benchmark findings.",
+        "risks": [
+          "Sampling can miss peaks; no OS memory/thread guarantee.",
+          "Sum of first-attempt ceilings13800s exceeds total7200s; completion not guaranteed.",
+          "Host identity, feasibility and reservations require owner approval; free-space gate not implemented."
+        ],
+        "selected_default_pointer": "/resources",
+        "status": "DECIDED_FOR_DEVELOPMENT_DESIGN",
+        "title": "Resource ceilings"
+      },
+      {
+        "alternatives_not_selected": [
+          "No acquisition, candidate-year inspection, catalog access or pseudo-test construction."
+        ],
+        "evidence": [
+          "src/solar_flare_jepa/data/goes_v2_development.py:27-104"
+        ],
+        "id": "DATA_ACCESS",
+        "owner_ratification": null,
+        "owner_ratification_required_before_implementation": true,
+        "rationale": "Only existing explicit May-July manifest pins; no additional data are needed for bounded feasibility.",
+        "risks": [
+          "Documentation does not grant actual fitting access.",
+          "All selected periods are exposed development data."
+        ],
+        "selected_default_pointer": "/data/allowed_manifests",
+        "status": "DECIDED_FOR_DEVELOPMENT_DESIGN",
+        "title": "Data fitting scope"
+      },
+      {
+        "alternatives_not_selected": [
+          "No August development analysis or sealed/untouched wording."
+        ],
+        "evidence": [
+          "docs/PHASE2_V2_VALIDATION_READINESS.md"
+        ],
+        "id": "AUGUST",
+        "owner_ratification": null,
+        "owner_ratification_required_before_implementation": true,
+        "rationale": "Exclude August completely; previously scored and unnecessary for pilot feasibility.",
+        "risks": [
+          "No independent generalization endpoint is supplied."
+        ],
+        "selected_default_pointer": "/data/excluded_periods",
+        "status": "DECIDED_FOR_DEVELOPMENT_DESIGN",
+        "title": "August handling"
+      },
+      {
+        "alternatives_not_selected": [
+          "No count>=30/45/59/60 sensitivity in v1; any amendment changes support/budget."
+        ],
+        "evidence": [
+          "src/solar_flare_jepa/data/goes.py:48-81",
+          "docs/V2_M4B_M5_HANDOFF.md"
+        ],
+        "id": "QUALITY",
+        "owner_ratification": null,
+        "owner_ratification_required_before_implementation": true,
+        "rationale": "Retain existing masks/counts1-60 and complete contexts/targets; no new scientific threshold or extra cohort.",
+        "risks": [
+          "Partial-minute averages are treated as observations; QC-conditioned retention limits applicability."
+        ],
+        "selected_default_pointer": "/data/quality",
+        "status": "DECIDED_FOR_DEVELOPMENT_DESIGN",
+        "title": "QC and sensitivity"
+      },
+      {
+        "alternatives_not_selected": [
+          "No redraw, replacement, omission, favored seed selection or V1seed reuse."
+        ],
+        "evidence": [
+          "configs/v2_proposed/training_protocol_proposal.json#/settings/seeds"
+        ],
+        "id": "SEEDS",
+        "owner_ratification": null,
+        "owner_ratification_required_before_implementation": true,
+        "rationale": "First two previously SHA-derived protocol seeds for every stochastic arm/path, fixed before outcomes.",
+        "risks": [
+          "Two seeds share data and measure limited optimizer variability."
+        ],
+        "selected_default_pointer": "/seeds",
+        "status": "DECIDED_FOR_DEVELOPMENT_DESIGN",
+        "title": "Seed cohort"
+      },
+      {
+        "alternatives_not_selected": [
+          "No patience-based stopping, tuning or adaptive budgets."
+        ],
+        "evidence": [
+          "configs/v2_proposed/training_protocol_proposal.json",
+          "src/solar_flare_jepa/training/controlled.py:70-148"
+        ],
+        "id": "BUDGETS",
+        "owner_ratification": null,
+        "owner_ratification_required_before_implementation": true,
+        "rationale": "Keep fixed8SSL/8warmup/15downstream schedules, common cap20000 and batch256; no early stopping.",
+        "risks": [
+          "Selected epoch is not executed budget; optimization and compute differ across model families."
+        ],
+        "selected_default_pointer": "/training",
+        "status": "DECIDED_FOR_DEVELOPMENT_DESIGN",
+        "title": "Training schedules"
+      },
+      {
+        "alternatives_not_selected": [
+          "No post-outcome objective switch or mixture of cohorts."
+        ],
+        "evidence": [
+          "src/solar_flare_jepa/training/losses.py",
+          "docs/V2_TRAINING_PROTOCOL.md#6-loss-comparison-protocol-development-only"
+        ],
+        "id": "LOSSES",
+        "owner_ratification": null,
+        "owner_ratification_required_before_implementation": true,
+        "rationale": "Align primary training/selection with equal-channel dex pinball; alternate J/S bundle train and select normalized V1 loss.",
+        "risks": [
+          "Alternate cohort does not isolate training-loss causal effects."
+        ],
+        "selected_default_pointer": "/objectives",
+        "status": "DECIDED_FOR_DEVELOPMENT_DESIGN",
+        "title": "Objectives"
+      },
+      {
+        "alternatives_not_selected": [
+          "No training/warmup/test checkpoint selection, tolerance-based tie changes or extra lambda extension."
+        ],
+        "evidence": [
+          "src/solar_flare_jepa/training/controlled.py:193-202",
+          "src/solar_flare_jepa/training/comparators.py:304-400"
+        ],
+        "id": "CHECKPOINT",
+        "owner_ratification": null,
+        "owner_ratification_required_before_implementation": true,
+        "rationale": "Validation-only downstream exact earliest minimum,all15epochs; linear final epoch perlambda then smallest-lambda tie.",
+        "risks": [
+          "Validation results are post-selection; neural and linear search opportunities differ."
+        ],
+        "selected_default_pointer": "/selection",
+        "status": "DECIDED_FOR_DEVELOPMENT_DESIGN",
+        "title": "Selection"
+      },
+      {
+        "alternatives_not_selected": [
+          "No MPS, architecture search or extended observation context."
+        ],
+        "evidence": [
+          "src/solar_flare_jepa/training/comparators.py:76-243"
+        ],
+        "id": "TCN",
+        "owner_ratification": null,
+        "owner_ratification_required_before_implementation": true,
+        "rationale": "Use existing fixed causal width32/kernel3/dilations1-32 recipe and shared support/two seeds.",
+        "risks": [
+          "253-bin receptive field includes padding around120observed bins; collapsed predictive intervals can occur."
+        ],
+        "selected_default_pointer": "/training/tcn",
+        "status": "DECIDED_FOR_DEVELOPMENT_DESIGN",
+        "title": "TCN recipe"
+      },
+      {
+        "alternatives_not_selected": [
+          "Eight-value alternative not adopted from synthetic optima; no automatic extension."
+        ],
+        "evidence": [
+          "src/solar_flare_jepa/training/comparators.py:249-400",
+          "docs/V2_BASELINE_AUDIT.md"
+        ],
+        "id": "LINEAR",
+        "owner_ratification": null,
+        "owner_ratification_required_before_implementation": true,
+        "rationale": "Keep seven-value reviewed grid and two actual seeded full paths; sorted validation predictions and smallestlambda exact ties.",
+        "risks": [
+          "Weak regularization range is sparse; selection noise and boundary optima remain.",
+          "No dual per-epoch validation history exists for linear."
+        ],
+        "selected_default_pointer": "/training/quantile_linear",
+        "status": "DECIDED_FOR_DEVELOPMENT_DESIGN",
+        "title": "Linear regularization"
+      },
+      {
+        "alternatives_not_selected": [
+          "No persistence/empirical/ARIMA/volatility fits, restoredV1forecast relabeling or fabricated quantiles."
+        ],
+        "evidence": [
+          "src/solar_flare_jepa/experiments/v2_evaluation_safety.py:72-77",
+          "src/solar_flare_jepa/experiments/v2_evaluation_adapters.py:75-100"
+        ],
+        "id": "CLASSICAL",
+        "owner_ratification": null,
+        "owner_ratification_required_before_implementation": true,
+        "rationale": "Explicit exclusion resolves missing acceptance oracle without expanding existing model guards or20-job scope.",
+        "risks": [
+          "No classical comparisons or practical baseline superiority claims; future study needs separate scope."
+        ],
+        "selected_default_pointer": "/classical",
+        "status": "DECIDED_FOR_DEVELOPMENT_DESIGN",
+        "title": "Classical scope"
+      },
+      {
+        "alternatives_not_selected": [
+          "Inherited one-retry default and manual setting changes are not permitted under v1."
+        ],
+        "evidence": [
+          "src/solar_flare_jepa/experiments/v2_resource_controls.py:84-101,418-465"
+        ],
+        "id": "FAILURE_RETRY",
+        "owner_ratification": null,
+        "owner_ratification_required_before_implementation": true,
+        "rationale": "Zero automatic retries avoids uncertain scientific/host classification and repeated attempts; preserve all failed/pending jobs.",
+        "risks": [
+          "First infrastructure glitch can end pilot; INCOMPLETE is derived by future driver, not existing supervisor enum."
+        ],
+        "selected_default_pointer": "/failure_policy",
+        "status": "DECIDED_FOR_DEVELOPMENT_DESIGN",
+        "title": "Failures and retry"
+      },
+      {
+        "alternatives_not_selected": [
+          "No bootstrap/calendar ranges, seed-t/HAC/stationary fallback, significance margins or implicit positive-result acceptance."
+        ],
+        "evidence": [
+          "src/solar_flare_jepa/experiments/v2_descriptive.py:89-153",
+          "docs/V2_M3_INFERENCE_REMEDIATION_REPORT.md"
+        ],
+        "id": "STATISTICS",
+        "owner_ratification": null,
+        "owner_ratification_required_before_implementation": true,
+        "rationale": "Use existing complete-paired descriptive summaries and explicit null inference fields; retain NO_VALIDATED_REPLACEMENT.",
+        "risks": [
+          "No sampling inference, JEPA superiority, population variability or future-period generalization.",
+          "Generic JSON publisher does not enforce report semantics."
+        ],
+        "selected_default_pointer": "/evaluation",
+        "status": "DECIDED_FOR_DEVELOPMENT_DESIGN",
+        "title": "Evaluation and reporting"
+      },
+      {
+        "alternatives_not_selected": [
+          "No January confirmation, operational claims, fresh-data suitability inspection or test-release mode."
+        ],
+        "evidence": [
+          "docs/PHASE2_V2_VALIDATION_READINESS.md",
+          "a502d3f:docs/PHASE1_GOES_EXTERNAL_EVALUATION.md"
+        ],
+        "id": "TEST_PROHIBITION",
+        "owner_ratification": null,
+        "owner_ratification_required_before_implementation": true,
+        "rationale": "No August/January/candidate/sealed data or test objects; stop at D_LOCKED. January is outcome-exposed.",
+        "risks": [
+          "No fresh test endpoint; private exposure and historical availability remain UNKNOWN."
+        ],
+        "selected_default_pointer": "/data/prohibited_access",
+        "status": "DECIDED_FOR_DEVELOPMENT_DESIGN",
+        "title": "Test and outcome access"
+      },
+      {
+        "alternatives_not_selected": [
+          "No implicit library/model defaults, live config edits, broad data globs, untracked retries or replacing original artifacts."
+        ],
+        "evidence": [
+          "docs/V2_SHARED_INTERFACE_CONTRACT.md",
+          "src/solar_flare_jepa/experiments/v2_evaluation_safety.py",
+          "src/solar_flare_jepa/experiments/provenance.py"
+        ],
+        "id": "REPRODUCIBILITY",
+        "owner_ratification": null,
+        "owner_ratification_required_before_implementation": true,
+        "rationale": "Pin source/config/data/support/normalizer/environment/recipes/job order; complete ledgers and checkpoint parity; preserve original artifacts.",
+        "risks": [
+          "Declared provenance cannot authenticate private history or same-user tampering.",
+          "Current preflight does not consume this documentation register."
+        ],
+        "selected_default_pointer": "/reproducibility",
+        "status": "DECIDED_FOR_DEVELOPMENT_DESIGN",
+        "title": "Freeze and provenance"
+      }
+    ],
+    "evaluation": {
+      "all_reason_fields_equal": "NO_VALIDATED_REPLACEMENT",
+      "alternate_comparisons": "J-S in alternate cohort plus within-arm dex-versus-normalized bundled recipes; all reported,not used to choose v1settings",
+      "contrasts": [
+        {
+          "a": "jepa_finetune",
+          "b": "supervised",
+          "priority": "principal_development"
+        },
+        {
+          "a": "jepa_finetune",
+          "b": "supervised_extra_updates",
+          "priority": "secondary_descriptive"
+        },
+        {
+          "a": "jepa_frozen",
+          "b": "random_frozen",
+          "priority": "secondary_descriptive"
+        },
+        {
+          "a": "jepa_finetune",
+          "b": "jepa_frozen",
+          "priority": "secondary_descriptive"
+        },
+        {
+          "a": "supervised_extra_updates",
+          "b": "supervised",
+          "priority": "secondary_descriptive"
+        },
+        {
+          "a": "jepa_finetune",
+          "b": "tcn",
+          "priority": "secondary_descriptive"
+        },
+        {
+          "a": "jepa_finetune",
+          "b": "quantile_linear",
+          "priority": "secondary_descriptive"
+        }
+      ],
+      "diagnostics": [
+        "each arm/seed aggregate and A/B dex pinball",
+        "all30lead x2channel x5quantile pinball/reliability with support counts",
+        "central50%/90% inclusive marginal predictive coverage,width,interval score in dex and channel-specific nativeW/m2",
+        "saved median point MAE/MSE/RMSE in dex and channel-specific nativeW/m2; pooledRMSE=sqrt(pooledMSE)",
+        "complete neural epoch curves and selections; linear final-lambda path,crossings,boundary flag; collapsed predictive intervals",
+        "per-seed paired effects,two-seed mean,sampleSD,strict-negative win fraction,ties nonwins,leave-one-seed-out differences"
+      ],
+      "effect": "A-B; negative favorsA; pair before reduction",
+      "folds": [
+        "exposed_v1_development_calendar"
+      ],
+      "forbidden": [
+        "confidence/credible comparison intervals,bootstrap calendar ranges or sign probabilities",
+        "pvalues,significance,superiority/equivalence/noninferiority or acceptance thresholds",
+        "population seed-win probabilities,power,joint/calendar/seed sampling inference",
+        "fresh-test/generalization/operational readiness or equal-FLOP/runtime claims",
+        "event/activity strata or labels not separately approved"
+      ],
+      "future_driver_must_enforce_report_schema": true,
+      "generic_publisher_enforces_supplied_report_semantics": false,
+      "inference_status": "INFERENCE_UNAVAILABLE",
+      "legacy_interval_paths_permitted": false,
+      "mode": "DESCRIPTIVE_ONLY",
+      "pairing": "exact grids,observed targets,masks,quantiles,calendars,cohort and recipe/provenance; no model-dependent origin deletion",
+      "predictive_intervals_are_not_sampling_intervals": true,
+      "primary_metric": "mean dex pinball,equal quantile/lead/channel per origin,then equal origins within fold,then equal folds/seeds",
+      "quantiles": [
+        0.05,
+        0.25,
+        0.5,
+        0.75,
+        0.95
+      ],
+      "reason": "NO_VALIDATED_REPLACEMENT",
+      "reason_fields": [
+        "inference_reason",
+        "interval_reason",
+        "relative_interval_reason"
+      ],
+      "relative_reduction": "-mean_difference/mean_B only if mean_B>0; no mean of percentages",
+      "sampling_inference_fields_required_null": [
+        "difference_interval",
+        "relative_interval",
+        "standard_error",
+        "p_value",
+        "significance",
+        "bootstrap_negative_fraction"
+      ]
+    },
+    "failure_policy": {
+      "additional_attempts_allowed": false,
+      "automatic_retries": 0,
+      "crash_resume": "no repeated failed/interrupted attempt; no automatic resume. Future recovery requires owner investigation/approval and unchanged identities; new fit attempts require reviewed amendment",
+      "incomplete": "derived pilot-level status; no shrinking planned cohorts or ordinary complete-comparison publication",
+      "monitor_or_total_budget_failure": "stop immediately",
+      "numerical_or_integrity_failure": "terminal; stop and investigate",
+      "partial_diagnostics": "engineering/failure report only,clearly incomplete; never bypass fitting guard",
+      "pilot_complete_requires": "all20 processes and all18 selected-model artifacts/guards succeed",
+      "resource_or_infrastructure_failure": "terminal attempt; preserve failure and pending jobs; stop pilot",
+      "setting_or_seed_replacement": false,
+      "ssl_recompute": "not allowed under v1; any changed artifact invalidates all dependent J/frozenJ/alternateJ bindings"
+    },
+    "job_counts": {
+      "alternate_DevelopmentRun_selected_jobs": 4,
+      "alternate_loss": 4,
+      "classical": 0,
+      "linear_paths": 2,
+      "nested_linear_candidates": 14,
+      "primary_DevelopmentRun_selected_jobs": 14,
+      "primary_controlled": 10,
+      "ssl": 2,
+      "tcn": 2,
+      "total_processes": 20
+    },
+    "jobs": [
+      {
+        "arm": "ssl",
+        "cohort": "shared_ssl",
+        "dependencies": [],
+        "development_run": null,
+        "job_id": "00-1261866429-shared_ssl-ssl",
+        "kind": "ssl_phase",
+        "model_config": {
+          "architecture": {
+            "batch_size": 256,
+            "context_block_mask": true,
+            "context_mask_patches": 4,
+            "depth": 3,
+            "dropout": 0.0,
+            "ema_end": 1.0,
+            "ema_start": 0.996,
+            "gradient_clip": 1.0,
+            "head_hidden": 128,
+            "heads": 4,
+            "jepa_loss": "smooth_l1",
+            "lr": 0.001,
+            "max_train_windows": 20000,
+            "mlp_ratio": 4,
+            "monitor_windows": 2048,
+            "patch_steps": 5,
+            "predictor_depth": 2,
+            "quantiles": [
+              0.05,
+              0.25,
+              0.5,
+              0.75,
+              0.95
+            ],
+            "seed": 1261866429,
+            "threads": 4,
+            "weight_decay": 0.0001,
+            "width": 32
+          },
+          "schedule": {
+            "arm": "jepa_finetune",
+            "diagnostic_metrics": [
+              "normalized_pinball_v1"
+            ],
+            "downstream_epochs": 15,
+            "early_stopping_patience": null,
+            "pretrain_epochs": 8,
+            "selection_metric": "dex_pinball_equal_channel_v2",
+            "train_loss": "dex_pinball_equal_channel_v2",
+            "warmup_epochs": 0
+          },
+          "schema_version": 1
+        },
+        "model_config_fingerprint": "cb91f1399ed2ae2caaea5947ed39b184401fa48a9d491593ed96251d50784e4b",
+        "seed": 1261866429,
+        "timeout_seconds": 300
+      },
+      {
+        "arm": "jepa_finetune",
+        "cohort": "primary",
+        "dependencies": [
+          "00-1261866429-shared_ssl-ssl"
+        ],
+        "development_run": "primary",
+        "job_id": "01-1261866429-primary-jepa_finetune",
+        "kind": "neural_downstream",
+        "model_config": {
+          "architecture": {
+            "batch_size": 256,
+            "context_block_mask": true,
+            "context_mask_patches": 4,
+            "depth": 3,
+            "dropout": 0.0,
+            "ema_end": 1.0,
+            "ema_start": 0.996,
+            "gradient_clip": 1.0,
+            "head_hidden": 128,
+            "heads": 4,
+            "jepa_loss": "smooth_l1",
+            "lr": 0.001,
+            "max_train_windows": 20000,
+            "mlp_ratio": 4,
+            "monitor_windows": 2048,
+            "patch_steps": 5,
+            "predictor_depth": 2,
+            "quantiles": [
+              0.05,
+              0.25,
+              0.5,
+              0.75,
+              0.95
+            ],
+            "seed": 1261866429,
+            "threads": 4,
+            "weight_decay": 0.0001,
+            "width": 32
+          },
+          "schedule": {
+            "arm": "jepa_finetune",
+            "diagnostic_metrics": [
+              "normalized_pinball_v1"
+            ],
+            "downstream_epochs": 15,
+            "early_stopping_patience": null,
+            "pretrain_epochs": 8,
+            "selection_metric": "dex_pinball_equal_channel_v2",
+            "train_loss": "dex_pinball_equal_channel_v2",
+            "warmup_epochs": 0
+          },
+          "schema_version": 1
+        },
+        "model_config_fingerprint": "cb91f1399ed2ae2caaea5947ed39b184401fa48a9d491593ed96251d50784e4b",
+        "seed": 1261866429,
+        "timeout_seconds": 600
+      },
+      {
+        "arm": "supervised",
+        "cohort": "primary",
+        "dependencies": [],
+        "development_run": "primary",
+        "job_id": "02-1261866429-primary-supervised",
+        "kind": "neural_downstream",
+        "model_config": {
+          "architecture": {
+            "batch_size": 256,
+            "context_block_mask": true,
+            "context_mask_patches": 4,
+            "depth": 3,
+            "dropout": 0.0,
+            "ema_end": 1.0,
+            "ema_start": 0.996,
+            "gradient_clip": 1.0,
+            "head_hidden": 128,
+            "heads": 4,
+            "jepa_loss": "smooth_l1",
+            "lr": 0.001,
+            "max_train_windows": 20000,
+            "mlp_ratio": 4,
+            "monitor_windows": 2048,
+            "patch_steps": 5,
+            "predictor_depth": 2,
+            "quantiles": [
+              0.05,
+              0.25,
+              0.5,
+              0.75,
+              0.95
+            ],
+            "seed": 1261866429,
+            "threads": 4,
+            "weight_decay": 0.0001,
+            "width": 32
+          },
+          "schedule": {
+            "arm": "supervised",
+            "diagnostic_metrics": [
+              "normalized_pinball_v1"
+            ],
+            "downstream_epochs": 15,
+            "early_stopping_patience": null,
+            "pretrain_epochs": 0,
+            "selection_metric": "dex_pinball_equal_channel_v2",
+            "train_loss": "dex_pinball_equal_channel_v2",
+            "warmup_epochs": 0
+          },
+          "schema_version": 1
+        },
+        "model_config_fingerprint": "9a418bbb620de141a92f7903f36ccb96ad393fcaa4ed17c74ec4200602c4b5a4",
+        "seed": 1261866429,
+        "timeout_seconds": 600
+      },
+      {
+        "arm": "supervised_extra_updates",
+        "cohort": "primary",
+        "dependencies": [],
+        "development_run": "primary",
+        "job_id": "03-1261866429-primary-supervised_extra_updates",
+        "kind": "neural_downstream",
+        "model_config": {
+          "architecture": {
+            "batch_size": 256,
+            "context_block_mask": true,
+            "context_mask_patches": 4,
+            "depth": 3,
+            "dropout": 0.0,
+            "ema_end": 1.0,
+            "ema_start": 0.996,
+            "gradient_clip": 1.0,
+            "head_hidden": 128,
+            "heads": 4,
+            "jepa_loss": "smooth_l1",
+            "lr": 0.001,
+            "max_train_windows": 20000,
+            "mlp_ratio": 4,
+            "monitor_windows": 2048,
+            "patch_steps": 5,
+            "predictor_depth": 2,
+            "quantiles": [
+              0.05,
+              0.25,
+              0.5,
+              0.75,
+              0.95
+            ],
+            "seed": 1261866429,
+            "threads": 4,
+            "weight_decay": 0.0001,
+            "width": 32
+          },
+          "schedule": {
+            "arm": "supervised_extra_updates",
+            "diagnostic_metrics": [
+              "normalized_pinball_v1"
+            ],
+            "downstream_epochs": 15,
+            "early_stopping_patience": null,
+            "pretrain_epochs": 0,
+            "selection_metric": "dex_pinball_equal_channel_v2",
+            "train_loss": "dex_pinball_equal_channel_v2",
+            "warmup_epochs": 8
+          },
+          "schema_version": 1
+        },
+        "model_config_fingerprint": "e39e5d52fca534f90dbb7da9d40d293c0f4401cc15b8769550f5b527069ca759",
+        "seed": 1261866429,
+        "timeout_seconds": 600
+      },
+      {
+        "arm": "jepa_frozen",
+        "cohort": "primary",
+        "dependencies": [
+          "00-1261866429-shared_ssl-ssl"
+        ],
+        "development_run": "primary",
+        "job_id": "04-1261866429-primary-jepa_frozen",
+        "kind": "neural_downstream",
+        "model_config": {
+          "architecture": {
+            "batch_size": 256,
+            "context_block_mask": true,
+            "context_mask_patches": 4,
+            "depth": 3,
+            "dropout": 0.0,
+            "ema_end": 1.0,
+            "ema_start": 0.996,
+            "gradient_clip": 1.0,
+            "head_hidden": 128,
+            "heads": 4,
+            "jepa_loss": "smooth_l1",
+            "lr": 0.001,
+            "max_train_windows": 20000,
+            "mlp_ratio": 4,
+            "monitor_windows": 2048,
+            "patch_steps": 5,
+            "predictor_depth": 2,
+            "quantiles": [
+              0.05,
+              0.25,
+              0.5,
+              0.75,
+              0.95
+            ],
+            "seed": 1261866429,
+            "threads": 4,
+            "weight_decay": 0.0001,
+            "width": 32
+          },
+          "schedule": {
+            "arm": "jepa_frozen",
+            "diagnostic_metrics": [
+              "normalized_pinball_v1"
+            ],
+            "downstream_epochs": 15,
+            "early_stopping_patience": null,
+            "pretrain_epochs": 8,
+            "selection_metric": "dex_pinball_equal_channel_v2",
+            "train_loss": "dex_pinball_equal_channel_v2",
+            "warmup_epochs": 0
+          },
+          "schema_version": 1
+        },
+        "model_config_fingerprint": "3f3033b8ab51db123521558804ce25db63f6e26f6afbc798cf3a14d3a51f3c44",
+        "seed": 1261866429,
+        "timeout_seconds": 600
+      },
+      {
+        "arm": "random_frozen",
+        "cohort": "primary",
+        "dependencies": [],
+        "development_run": "primary",
+        "job_id": "05-1261866429-primary-random_frozen",
+        "kind": "neural_downstream",
+        "model_config": {
+          "architecture": {
+            "batch_size": 256,
+            "context_block_mask": true,
+            "context_mask_patches": 4,
+            "depth": 3,
+            "dropout": 0.0,
+            "ema_end": 1.0,
+            "ema_start": 0.996,
+            "gradient_clip": 1.0,
+            "head_hidden": 128,
+            "heads": 4,
+            "jepa_loss": "smooth_l1",
+            "lr": 0.001,
+            "max_train_windows": 20000,
+            "mlp_ratio": 4,
+            "monitor_windows": 2048,
+            "patch_steps": 5,
+            "predictor_depth": 2,
+            "quantiles": [
+              0.05,
+              0.25,
+              0.5,
+              0.75,
+              0.95
+            ],
+            "seed": 1261866429,
+            "threads": 4,
+            "weight_decay": 0.0001,
+            "width": 32
+          },
+          "schedule": {
+            "arm": "random_frozen",
+            "diagnostic_metrics": [
+              "normalized_pinball_v1"
+            ],
+            "downstream_epochs": 15,
+            "early_stopping_patience": null,
+            "pretrain_epochs": 0,
+            "selection_metric": "dex_pinball_equal_channel_v2",
+            "train_loss": "dex_pinball_equal_channel_v2",
+            "warmup_epochs": 0
+          },
+          "schema_version": 1
+        },
+        "model_config_fingerprint": "3006cfc123d1ea7cca95742125ee053a1f41865917442bb82b01d8cdc70fa383",
+        "seed": 1261866429,
+        "timeout_seconds": 600
+      },
+      {
+        "arm": "tcn",
+        "cohort": "baseline",
+        "dependencies": [],
+        "development_run": "primary",
+        "job_id": "06-1261866429-baseline-tcn",
+        "kind": "tcn",
+        "model_config": {
+          "schedule": {
+            "diagnostic_metrics": [
+              "normalized_pinball_v1"
+            ],
+            "downstream_epochs": 15,
+            "early_stopping_patience": null,
+            "selection_metric": "dex_pinball_equal_channel_v2",
+            "train_loss": "dex_pinball_equal_channel_v2"
+          },
+          "tcn": {
+            "batch_size": 256,
+            "dilations": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32
+            ],
+            "dropout": 0.0,
+            "gradient_clip": 1.0,
+            "kernel_size": 3,
+            "lr": 0.001,
+            "max_train_windows": 20000,
+            "quantiles": [
+              0.05,
+              0.25,
+              0.5,
+              0.75,
+              0.95
+            ],
+            "seed": 1261866429,
+            "threads": 4,
+            "weight_decay": 0.0001,
+            "width": 32
+          }
+        },
+        "model_config_fingerprint": "4d0cbb7d81149fa57bc0b45151f953b016459faf0f809925a145bc21f8e9ae65",
+        "seed": 1261866429,
+        "timeout_seconds": 1800
+      },
+      {
+        "arm": "quantile_linear",
+        "cohort": "baseline",
+        "dependencies": [],
+        "development_run": "primary",
+        "job_id": "07-1261866429-baseline-quantile_linear",
+        "kind": "quantile_linear",
+        "model_config": {
+          "linear": {
+            "batch_size": 256,
+            "epochs": 100,
+            "gradient_clip": null,
+            "lambdas": [
+              0.0,
+              1.0,
+              10.0,
+              100.0,
+              1000.0,
+              10000.0,
+              100000.0
+            ],
+            "lr": 0.01,
+            "max_train_windows": 20000,
+            "quantiles": [
+              0.05,
+              0.25,
+              0.5,
+              0.75,
+              0.95
+            ],
+            "seed": 1261866429,
+            "selection_metric": "dex_pinball_equal_channel_v2",
+            "threads": 4,
+            "train_loss": "dex_pinball_equal_channel_v2"
+          }
+        },
+        "model_config_fingerprint": "6ad24e6a9b5e2863710bb8aaf3176e7f0466887ae93a728e4ed56f3d7e304cc5",
+        "seed": 1261866429,
+        "timeout_seconds": 600
+      },
+      {
+        "arm": "jepa_finetune",
+        "cohort": "normalized_pinball_v1",
+        "dependencies": [
+          "00-1261866429-shared_ssl-ssl"
+        ],
+        "development_run": "alternate_loss",
+        "job_id": "08-1261866429-normalized_pinball_v1-jepa_finetune",
+        "kind": "neural_downstream",
+        "model_config": {
+          "architecture": {
+            "batch_size": 256,
+            "context_block_mask": true,
+            "context_mask_patches": 4,
+            "depth": 3,
+            "dropout": 0.0,
+            "ema_end": 1.0,
+            "ema_start": 0.996,
+            "gradient_clip": 1.0,
+            "head_hidden": 128,
+            "heads": 4,
+            "jepa_loss": "smooth_l1",
+            "lr": 0.001,
+            "max_train_windows": 20000,
+            "mlp_ratio": 4,
+            "monitor_windows": 2048,
+            "patch_steps": 5,
+            "predictor_depth": 2,
+            "quantiles": [
+              0.05,
+              0.25,
+              0.5,
+              0.75,
+              0.95
+            ],
+            "seed": 1261866429,
+            "threads": 4,
+            "weight_decay": 0.0001,
+            "width": 32
+          },
+          "schedule": {
+            "arm": "jepa_finetune",
+            "diagnostic_metrics": [
+              "dex_pinball_equal_channel_v2"
+            ],
+            "downstream_epochs": 15,
+            "early_stopping_patience": null,
+            "pretrain_epochs": 8,
+            "selection_metric": "normalized_pinball_v1",
+            "train_loss": "normalized_pinball_v1",
+            "warmup_epochs": 0
+          },
+          "schema_version": 1
+        },
+        "model_config_fingerprint": "798e4c6707c68ce0d9dca7fa2dbf08ba58ec69706b8a2c2e8ddf0a17f5057041",
+        "seed": 1261866429,
+        "timeout_seconds": 600
+      },
+      {
+        "arm": "supervised",
+        "cohort": "normalized_pinball_v1",
+        "dependencies": [],
+        "development_run": "alternate_loss",
+        "job_id": "09-1261866429-normalized_pinball_v1-supervised",
+        "kind": "neural_downstream",
+        "model_config": {
+          "architecture": {
+            "batch_size": 256,
+            "context_block_mask": true,
+            "context_mask_patches": 4,
+            "depth": 3,
+            "dropout": 0.0,
+            "ema_end": 1.0,
+            "ema_start": 0.996,
+            "gradient_clip": 1.0,
+            "head_hidden": 128,
+            "heads": 4,
+            "jepa_loss": "smooth_l1",
+            "lr": 0.001,
+            "max_train_windows": 20000,
+            "mlp_ratio": 4,
+            "monitor_windows": 2048,
+            "patch_steps": 5,
+            "predictor_depth": 2,
+            "quantiles": [
+              0.05,
+              0.25,
+              0.5,
+              0.75,
+              0.95
+            ],
+            "seed": 1261866429,
+            "threads": 4,
+            "weight_decay": 0.0001,
+            "width": 32
+          },
+          "schedule": {
+            "arm": "supervised",
+            "diagnostic_metrics": [
+              "dex_pinball_equal_channel_v2"
+            ],
+            "downstream_epochs": 15,
+            "early_stopping_patience": null,
+            "pretrain_epochs": 0,
+            "selection_metric": "normalized_pinball_v1",
+            "train_loss": "normalized_pinball_v1",
+            "warmup_epochs": 0
+          },
+          "schema_version": 1
+        },
+        "model_config_fingerprint": "828d89f381cf30d72c93ef9ee3081d34b80d4c029e22feb5e2563e9ba315bbf6",
+        "seed": 1261866429,
+        "timeout_seconds": 600
+      },
+      {
+        "arm": "ssl",
+        "cohort": "shared_ssl",
+        "dependencies": [],
+        "development_run": null,
+        "job_id": "10-1291916211-shared_ssl-ssl",
+        "kind": "ssl_phase",
+        "model_config": {
+          "architecture": {
+            "batch_size": 256,
+            "context_block_mask": true,
+            "context_mask_patches": 4,
+            "depth": 3,
+            "dropout": 0.0,
+            "ema_end": 1.0,
+            "ema_start": 0.996,
+            "gradient_clip": 1.0,
+            "head_hidden": 128,
+            "heads": 4,
+            "jepa_loss": "smooth_l1",
+            "lr": 0.001,
+            "max_train_windows": 20000,
+            "mlp_ratio": 4,
+            "monitor_windows": 2048,
+            "patch_steps": 5,
+            "predictor_depth": 2,
+            "quantiles": [
+              0.05,
+              0.25,
+              0.5,
+              0.75,
+              0.95
+            ],
+            "seed": 1291916211,
+            "threads": 4,
+            "weight_decay": 0.0001,
+            "width": 32
+          },
+          "schedule": {
+            "arm": "jepa_finetune",
+            "diagnostic_metrics": [
+              "normalized_pinball_v1"
+            ],
+            "downstream_epochs": 15,
+            "early_stopping_patience": null,
+            "pretrain_epochs": 8,
+            "selection_metric": "dex_pinball_equal_channel_v2",
+            "train_loss": "dex_pinball_equal_channel_v2",
+            "warmup_epochs": 0
+          },
+          "schema_version": 1
+        },
+        "model_config_fingerprint": "a5cd77927c4e7612379802dc0ce8a459745257e1b2d999a1f7bf176ac570725c",
+        "seed": 1291916211,
+        "timeout_seconds": 300
+      },
+      {
+        "arm": "jepa_finetune",
+        "cohort": "primary",
+        "dependencies": [
+          "10-1291916211-shared_ssl-ssl"
+        ],
+        "development_run": "primary",
+        "job_id": "11-1291916211-primary-jepa_finetune",
+        "kind": "neural_downstream",
+        "model_config": {
+          "architecture": {
+            "batch_size": 256,
+            "context_block_mask": true,
+            "context_mask_patches": 4,
+            "depth": 3,
+            "dropout": 0.0,
+            "ema_end": 1.0,
+            "ema_start": 0.996,
+            "gradient_clip": 1.0,
+            "head_hidden": 128,
+            "heads": 4,
+            "jepa_loss": "smooth_l1",
+            "lr": 0.001,
+            "max_train_windows": 20000,
+            "mlp_ratio": 4,
+            "monitor_windows": 2048,
+            "patch_steps": 5,
+            "predictor_depth": 2,
+            "quantiles": [
+              0.05,
+              0.25,
+              0.5,
+              0.75,
+              0.95
+            ],
+            "seed": 1291916211,
+            "threads": 4,
+            "weight_decay": 0.0001,
+            "width": 32
+          },
+          "schedule": {
+            "arm": "jepa_finetune",
+            "diagnostic_metrics": [
+              "normalized_pinball_v1"
+            ],
+            "downstream_epochs": 15,
+            "early_stopping_patience": null,
+            "pretrain_epochs": 8,
+            "selection_metric": "dex_pinball_equal_channel_v2",
+            "train_loss": "dex_pinball_equal_channel_v2",
+            "warmup_epochs": 0
+          },
+          "schema_version": 1
+        },
+        "model_config_fingerprint": "a5cd77927c4e7612379802dc0ce8a459745257e1b2d999a1f7bf176ac570725c",
+        "seed": 1291916211,
+        "timeout_seconds": 600
+      },
+      {
+        "arm": "supervised",
+        "cohort": "primary",
+        "dependencies": [],
+        "development_run": "primary",
+        "job_id": "12-1291916211-primary-supervised",
+        "kind": "neural_downstream",
+        "model_config": {
+          "architecture": {
+            "batch_size": 256,
+            "context_block_mask": true,
+            "context_mask_patches": 4,
+            "depth": 3,
+            "dropout": 0.0,
+            "ema_end": 1.0,
+            "ema_start": 0.996,
+            "gradient_clip": 1.0,
+            "head_hidden": 128,
+            "heads": 4,
+            "jepa_loss": "smooth_l1",
+            "lr": 0.001,
+            "max_train_windows": 20000,
+            "mlp_ratio": 4,
+            "monitor_windows": 2048,
+            "patch_steps": 5,
+            "predictor_depth": 2,
+            "quantiles": [
+              0.05,
+              0.25,
+              0.5,
+              0.75,
+              0.95
+            ],
+            "seed": 1291916211,
+            "threads": 4,
+            "weight_decay": 0.0001,
+            "width": 32
+          },
+          "schedule": {
+            "arm": "supervised",
+            "diagnostic_metrics": [
+              "normalized_pinball_v1"
+            ],
+            "downstream_epochs": 15,
+            "early_stopping_patience": null,
+            "pretrain_epochs": 0,
+            "selection_metric": "dex_pinball_equal_channel_v2",
+            "train_loss": "dex_pinball_equal_channel_v2",
+            "warmup_epochs": 0
+          },
+          "schema_version": 1
+        },
+        "model_config_fingerprint": "4797051eabad39543bd0be9d0c44df04ee97fe36950f79cbde7c7289a6e2d085",
+        "seed": 1291916211,
+        "timeout_seconds": 600
+      },
+      {
+        "arm": "supervised_extra_updates",
+        "cohort": "primary",
+        "dependencies": [],
+        "development_run": "primary",
+        "job_id": "13-1291916211-primary-supervised_extra_updates",
+        "kind": "neural_downstream",
+        "model_config": {
+          "architecture": {
+            "batch_size": 256,
+            "context_block_mask": true,
+            "context_mask_patches": 4,
+            "depth": 3,
+            "dropout": 0.0,
+            "ema_end": 1.0,
+            "ema_start": 0.996,
+            "gradient_clip": 1.0,
+            "head_hidden": 128,
+            "heads": 4,
+            "jepa_loss": "smooth_l1",
+            "lr": 0.001,
+            "max_train_windows": 20000,
+            "mlp_ratio": 4,
+            "monitor_windows": 2048,
+            "patch_steps": 5,
+            "predictor_depth": 2,
+            "quantiles": [
+              0.05,
+              0.25,
+              0.5,
+              0.75,
+              0.95
+            ],
+            "seed": 1291916211,
+            "threads": 4,
+            "weight_decay": 0.0001,
+            "width": 32
+          },
+          "schedule": {
+            "arm": "supervised_extra_updates",
+            "diagnostic_metrics": [
+              "normalized_pinball_v1"
+            ],
+            "downstream_epochs": 15,
+            "early_stopping_patience": null,
+            "pretrain_epochs": 0,
+            "selection_metric": "dex_pinball_equal_channel_v2",
+            "train_loss": "dex_pinball_equal_channel_v2",
+            "warmup_epochs": 8
+          },
+          "schema_version": 1
+        },
+        "model_config_fingerprint": "8d4c91719e6b58a67c783f0750dc23f8e0e9653180816b84b62a43bbe19eb227",
+        "seed": 1291916211,
+        "timeout_seconds": 600
+      },
+      {
+        "arm": "jepa_frozen",
+        "cohort": "primary",
+        "dependencies": [
+          "10-1291916211-shared_ssl-ssl"
+        ],
+        "development_run": "primary",
+        "job_id": "14-1291916211-primary-jepa_frozen",
+        "kind": "neural_downstream",
+        "model_config": {
+          "architecture": {
+            "batch_size": 256,
+            "context_block_mask": true,
+            "context_mask_patches": 4,
+            "depth": 3,
+            "dropout": 0.0,
+            "ema_end": 1.0,
+            "ema_start": 0.996,
+            "gradient_clip": 1.0,
+            "head_hidden": 128,
+            "heads": 4,
+            "jepa_loss": "smooth_l1",
+            "lr": 0.001,
+            "max_train_windows": 20000,
+            "mlp_ratio": 4,
+            "monitor_windows": 2048,
+            "patch_steps": 5,
+            "predictor_depth": 2,
+            "quantiles": [
+              0.05,
+              0.25,
+              0.5,
+              0.75,
+              0.95
+            ],
+            "seed": 1291916211,
+            "threads": 4,
+            "weight_decay": 0.0001,
+            "width": 32
+          },
+          "schedule": {
+            "arm": "jepa_frozen",
+            "diagnostic_metrics": [
+              "normalized_pinball_v1"
+            ],
+            "downstream_epochs": 15,
+            "early_stopping_patience": null,
+            "pretrain_epochs": 8,
+            "selection_metric": "dex_pinball_equal_channel_v2",
+            "train_loss": "dex_pinball_equal_channel_v2",
+            "warmup_epochs": 0
+          },
+          "schema_version": 1
+        },
+        "model_config_fingerprint": "c4a09a10227ef4d3bf2becc46041a8a802cc62d26f43f2d7322cedf5d1ed7845",
+        "seed": 1291916211,
+        "timeout_seconds": 600
+      },
+      {
+        "arm": "random_frozen",
+        "cohort": "primary",
+        "dependencies": [],
+        "development_run": "primary",
+        "job_id": "15-1291916211-primary-random_frozen",
+        "kind": "neural_downstream",
+        "model_config": {
+          "architecture": {
+            "batch_size": 256,
+            "context_block_mask": true,
+            "context_mask_patches": 4,
+            "depth": 3,
+            "dropout": 0.0,
+            "ema_end": 1.0,
+            "ema_start": 0.996,
+            "gradient_clip": 1.0,
+            "head_hidden": 128,
+            "heads": 4,
+            "jepa_loss": "smooth_l1",
+            "lr": 0.001,
+            "max_train_windows": 20000,
+            "mlp_ratio": 4,
+            "monitor_windows": 2048,
+            "patch_steps": 5,
+            "predictor_depth": 2,
+            "quantiles": [
+              0.05,
+              0.25,
+              0.5,
+              0.75,
+              0.95
+            ],
+            "seed": 1291916211,
+            "threads": 4,
+            "weight_decay": 0.0001,
+            "width": 32
+          },
+          "schedule": {
+            "arm": "random_frozen",
+            "diagnostic_metrics": [
+              "normalized_pinball_v1"
+            ],
+            "downstream_epochs": 15,
+            "early_stopping_patience": null,
+            "pretrain_epochs": 0,
+            "selection_metric": "dex_pinball_equal_channel_v2",
+            "train_loss": "dex_pinball_equal_channel_v2",
+            "warmup_epochs": 0
+          },
+          "schema_version": 1
+        },
+        "model_config_fingerprint": "053dac45a39af736a8e6bf3e21370a349f278cbcd1ef45d3c1689381d70e74e8",
+        "seed": 1291916211,
+        "timeout_seconds": 600
+      },
+      {
+        "arm": "tcn",
+        "cohort": "baseline",
+        "dependencies": [],
+        "development_run": "primary",
+        "job_id": "16-1291916211-baseline-tcn",
+        "kind": "tcn",
+        "model_config": {
+          "schedule": {
+            "diagnostic_metrics": [
+              "normalized_pinball_v1"
+            ],
+            "downstream_epochs": 15,
+            "early_stopping_patience": null,
+            "selection_metric": "dex_pinball_equal_channel_v2",
+            "train_loss": "dex_pinball_equal_channel_v2"
+          },
+          "tcn": {
+            "batch_size": 256,
+            "dilations": [
+              1,
+              2,
+              4,
+              8,
+              16,
+              32
+            ],
+            "dropout": 0.0,
+            "gradient_clip": 1.0,
+            "kernel_size": 3,
+            "lr": 0.001,
+            "max_train_windows": 20000,
+            "quantiles": [
+              0.05,
+              0.25,
+              0.5,
+              0.75,
+              0.95
+            ],
+            "seed": 1291916211,
+            "threads": 4,
+            "weight_decay": 0.0001,
+            "width": 32
+          }
+        },
+        "model_config_fingerprint": "bb955c57e42f980d4e983152338b7214e867ea3f4493b517aca0410b34164e76",
+        "seed": 1291916211,
+        "timeout_seconds": 1800
+      },
+      {
+        "arm": "quantile_linear",
+        "cohort": "baseline",
+        "dependencies": [],
+        "development_run": "primary",
+        "job_id": "17-1291916211-baseline-quantile_linear",
+        "kind": "quantile_linear",
+        "model_config": {
+          "linear": {
+            "batch_size": 256,
+            "epochs": 100,
+            "gradient_clip": null,
+            "lambdas": [
+              0.0,
+              1.0,
+              10.0,
+              100.0,
+              1000.0,
+              10000.0,
+              100000.0
+            ],
+            "lr": 0.01,
+            "max_train_windows": 20000,
+            "quantiles": [
+              0.05,
+              0.25,
+              0.5,
+              0.75,
+              0.95
+            ],
+            "seed": 1291916211,
+            "selection_metric": "dex_pinball_equal_channel_v2",
+            "threads": 4,
+            "train_loss": "dex_pinball_equal_channel_v2"
+          }
+        },
+        "model_config_fingerprint": "a086d439d7bfc538684bd354b7d33d2520e36d4597c7bdafb92cdcc4252a6086",
+        "seed": 1291916211,
+        "timeout_seconds": 600
+      },
+      {
+        "arm": "jepa_finetune",
+        "cohort": "normalized_pinball_v1",
+        "dependencies": [
+          "10-1291916211-shared_ssl-ssl"
+        ],
+        "development_run": "alternate_loss",
+        "job_id": "18-1291916211-normalized_pinball_v1-jepa_finetune",
+        "kind": "neural_downstream",
+        "model_config": {
+          "architecture": {
+            "batch_size": 256,
+            "context_block_mask": true,
+            "context_mask_patches": 4,
+            "depth": 3,
+            "dropout": 0.0,
+            "ema_end": 1.0,
+            "ema_start": 0.996,
+            "gradient_clip": 1.0,
+            "head_hidden": 128,
+            "heads": 4,
+            "jepa_loss": "smooth_l1",
+            "lr": 0.001,
+            "max_train_windows": 20000,
+            "mlp_ratio": 4,
+            "monitor_windows": 2048,
+            "patch_steps": 5,
+            "predictor_depth": 2,
+            "quantiles": [
+              0.05,
+              0.25,
+              0.5,
+              0.75,
+              0.95
+            ],
+            "seed": 1291916211,
+            "threads": 4,
+            "weight_decay": 0.0001,
+            "width": 32
+          },
+          "schedule": {
+            "arm": "jepa_finetune",
+            "diagnostic_metrics": [
+              "dex_pinball_equal_channel_v2"
+            ],
+            "downstream_epochs": 15,
+            "early_stopping_patience": null,
+            "pretrain_epochs": 8,
+            "selection_metric": "normalized_pinball_v1",
+            "train_loss": "normalized_pinball_v1",
+            "warmup_epochs": 0
+          },
+          "schema_version": 1
+        },
+        "model_config_fingerprint": "8d33ab865dea8b8cab3ef647c65a59070c651427741e166f4a5cbd7d07b7dbb8",
+        "seed": 1291916211,
+        "timeout_seconds": 600
+      },
+      {
+        "arm": "supervised",
+        "cohort": "normalized_pinball_v1",
+        "dependencies": [],
+        "development_run": "alternate_loss",
+        "job_id": "19-1291916211-normalized_pinball_v1-supervised",
+        "kind": "neural_downstream",
+        "model_config": {
+          "architecture": {
+            "batch_size": 256,
+            "context_block_mask": true,
+            "context_mask_patches": 4,
+            "depth": 3,
+            "dropout": 0.0,
+            "ema_end": 1.0,
+            "ema_start": 0.996,
+            "gradient_clip": 1.0,
+            "head_hidden": 128,
+            "heads": 4,
+            "jepa_loss": "smooth_l1",
+            "lr": 0.001,
+            "max_train_windows": 20000,
+            "mlp_ratio": 4,
+            "monitor_windows": 2048,
+            "patch_steps": 5,
+            "predictor_depth": 2,
+            "quantiles": [
+              0.05,
+              0.25,
+              0.5,
+              0.75,
+              0.95
+            ],
+            "seed": 1291916211,
+            "threads": 4,
+            "weight_decay": 0.0001,
+            "width": 32
+          },
+          "schedule": {
+            "arm": "supervised",
+            "diagnostic_metrics": [
+              "dex_pinball_equal_channel_v2"
+            ],
+            "downstream_epochs": 15,
+            "early_stopping_patience": null,
+            "pretrain_epochs": 0,
+            "selection_metric": "normalized_pinball_v1",
+            "train_loss": "normalized_pinball_v1",
+            "warmup_epochs": 0
+          },
+          "schema_version": 1
+        },
+        "model_config_fingerprint": "d575601846b55a8def752c839277f09ca73ffdb2835fed446a0d8fd6c3d110b8",
+        "seed": 1291916211,
+        "timeout_seconds": 600
+      }
+    ],
+    "objectives": {
+      "alternate_arms": [
+        "jepa_finetune",
+        "supervised"
+      ],
+      "alternate_diagnostic": "dex_pinball_equal_channel_v2",
+      "alternate_interpretation": "bundled downstream objective and selection recipe; not isolated training-loss effect",
+      "alternate_train_selection": "normalized_pinball_v1",
+      "primary_diagnostic": "normalized_pinball_v1",
+      "primary_train_selection": "dex_pinball_equal_channel_v2"
+    },
+    "protocol_id": "solarjepa.phase2.v2.development.v1",
+    "related_evidence": {
+      "audited_refs": {
+        "goes_restoration": {
+          "commit": "8a9c98db66eca545eeaf062f5fb07e47ec6bdc63",
+          "ref": "origin/data/v2-goes-development-restoration"
+        },
+        "m0_m1": {
+          "commit": "fd7203bf9a2e1e3dd78d9750a948b823ab100d36",
+          "ref": "origin/feat/v2-m0-m1-validation-foundation"
+        },
+        "m2": {
+          "commit": "94cae59398e52a65074ec66c73ad94bd47ca8867",
+          "ref": "origin/research/v2-m2-statistical-validation"
+        },
+        "m3": {
+          "commit": "5e88f3a7109296c9475378b77be0257a4f9363ab",
+          "ref": "origin/research/v2-m3-inference-remediation"
+        },
+        "m4a": {
+          "commit": "ac3428f910b36b7f10cc0fbb0740ce6de62df5a7",
+          "ref": "origin/feat/v2-training-protocol-feasibility"
+        },
+        "m4b": {
+          "commit": "2e3f87111ab7c3a881064aaad9dbd6d6298c69cd",
+          "ref": "origin/feat/v2-model-evaluation-integration"
+        },
+        "m5": {
+          "commit": "60718686f016485cf7efadef5772b1d5813d1a43",
+          "ref": "origin/feat/v2-m5-pilot-readiness"
+        },
+        "models": {
+          "commit": "1826400ca9cacd6020f6a5d4bc9ca9b2b2b3eda0",
+          "ref": "origin/feat/v2-controlled-model-development"
+        },
+        "sibling_protocol_review": {
+          "commit": "c872e4a2b8ea67e6e6279c442e466c7df7caf6d5",
+          "ref": "origin/research/v2-m5-protocol-review"
+        },
+        "v1_external": {
+          "commit": "a502d3fbf65f57c795b087491d216cc37922071f",
+          "ref": "origin/research/goes-external-model-evaluation"
+        }
+      },
+      "v1_external": {
+        "commit": "a502d3fbf65f57c795b087491d216cc37922071f",
+        "january_status": "OBSERVED:model-outcome-exposed;not untouched confirmation;no January inputs or new outcome comparisons in this milestone",
+        "manifest": {
+          "bytes": 203741,
+          "path": "data/manifests/phase1_goes_external_execution.json",
+          "sha256": "928ccf8a315c4b4ad99239c50d3309022e090a6917eab0128c8713c31af19475"
+        },
+        "report": {
+          "bytes": 30445,
+          "path": "docs/PHASE1_GOES_EXTERNAL_EVALUATION.md",
+          "sha256": "737fc083f85d376466e0c539c57cec4dd82447309efe4d39828e83be920e0b2b"
+        },
+        "unrecorded_access_or_influence": "UNKNOWN"
+      }
+    },
+    "reproducibility": {
+      "boundary_changes": "new protocolversion/fingerprint and independentreview/owner ratification before any changed settings or new fitting; never fromJanuaryresults",
+      "code_environment_binding_for_ssl": "external source/lock/host provenance required; SSL artifact alone lacks these identities",
+      "dependencies": "serialjob order plus explicit successful sealedSSL hash verification before every dependent job",
+      "development_runs": {
+        "alternate_loss": "4selectedJ/Sjobs in separate run",
+        "primary": "14selected controlled/TCN/linear jobs",
+        "shared_ssl": "supervisor-only jobs,not DevelopmentRun models"
+      },
+      "document_is_runnable_config": false,
+      "freeze": [
+        "owner-ratified protocol/design fingerprint",
+        "reviewed implemented source commit/fingerprint and all exact job configurations",
+        "Python/package locks and current installed versions; assertCPUfloat32/threads4",
+        "named reserved host/OS/CPU/RAM and data/output roots",
+        "three manifest pins and every source byte; dataset/spec/split/support/normalization/subset/validation-content identities",
+        "orderedseeds/jobs/dependencies,full failure policy/report schema",
+        "weights-only checkpoints,immutable artifacts and exact reload parity on validation"
+      ],
+      "historical_proposals_and_preflight_unchanged": true,
+      "model_config_mandatory_for_every_job": true,
+      "recorded_reference_environment": {
+        "packages": {
+          "arch": "7.2.0",
+          "netCDF4": "1.7.2",
+          "numpy": "2.2.6",
+          "pandas": "2.3.3",
+          "scipy": "1.18.1",
+          "statsmodels": "0.14.5",
+          "torch": "2.6.0"
+        },
+        "python": "3.13.3 (v3.13.3:6280bb54784, Apr  8 2025, 10:47:54) [Clang 15.0.0 (clang-1500.3.9.4)]",
+        "scope": "observed documentation-check runtime,not reserved execution host"
+      }
+    },
+    "resources": {
+      "feasibility_measured_for_this_protocol": false,
+      "free_space_check_before_each_job": true,
+      "host_reference_observed": {
+        "architecture": "arm64",
+        "model": "Mac14,2",
+        "physical_memory_bytes": 8589934592
+      },
+      "host_reserved": false,
+      "max_retries": 0,
+      "max_rss_bytes": 2147483648,
+      "minimum_free_output_bytes": 1073741824,
+      "per_job_timeout_seconds": {
+        "neural_downstream": 600,
+        "quantile_linear": 600,
+        "ssl_phase": 300,
+        "tcn": 1800
+      },
+      "poll_interval_seconds": 0.05,
+      "processes": "serial fresh subprocess session per attempt",
+      "rss_semantics": "sampled live worker+descendant RSS,not hard OS allocation cap",
+      "storage_gate_implemented": false,
+      "sum_first_attempt_timeout_seconds": 13800,
+      "sum_is_not_total_budget_or_completion_guarantee": true,
+      "thread_environment": [
+        "OMP_NUM_THREADS",
+        "OPENBLAS_NUM_THREADS",
+        "MKL_NUM_THREADS",
+        "NUMEXPR_NUM_THREADS",
+        "VECLIB_MAXIMUM_THREADS",
+        "BLIS_NUM_THREADS"
+      ],
+      "threads": 4,
+      "total_includes": "preparation,monitoring,all attempts,validation,sealing,resume active time and conservatively charged crash downtime",
+      "total_wall_seconds": 7200
+    },
+    "runtime_source_binding": "This is the audited base identity,not a future implemented-run identity. G2 must freeze/review the actual integration commit/source fingerprint and its complete delta; G4 approval must name it with this design fingerprint. No unimplemented source identity is invented.",
+    "scope": "EXPOSED_DEVELOPMENT_FEASIBILITY_ONLY",
+    "seeds": [
+      1261866429,
+      1291916211
+    ],
+    "selection": {
+      "all_downstream_epochs_execute": 15,
+      "linear_eligible": "final-epoch fit for each frozen lambda",
+      "linear_tie_rule": "smallest lambda exact tie",
+      "neural_eligible": "downstream epochs only",
+      "neural_tie_rule": "earliest exact minimum,no added tolerance",
+      "partition": "validation",
+      "selected_scores": "post-selection exposed-validation descriptions,not generalization estimates"
+    },
+    "source_files": {
+      "configs/experiments/v1_goes_2024.json": {
+        "bytes": 2224,
+        "sha256": "230a3037910d995e8113ae90e69dc8e71c0ad8e26e89ecc4628c4dd8c31daccb"
+      },
+      "configs/v2_proposed/feasibility_pilot_proposal.json": {
+        "bytes": 4515,
+        "sha256": "90c198715eec19185ce180f3291d7e2ea4d6d2bc22e0bd8045e6ba492590b669"
+      },
+      "configs/v2_proposed/m5_0_approval_register.json": {
+        "bytes": 11899,
+        "sha256": "c72ce1f7d7c1a071015eab83e3b73e50d3983e77a575136c5ca1ce52c8b7883d"
+      },
+      "configs/v2_proposed/m5_0_preflight_amendment.json": {
+        "bytes": 1632,
+        "sha256": "5c84dea0ad61442d430e20b8a358d0c3db3babf36c1d992dcf92119728cf6d10"
+      },
+      "configs/v2_proposed/training_protocol_proposal.json": {
+        "bytes": 9527,
+        "sha256": "eadbdc81465677a41ad57603dc860ebcd9ea17638b4d9bda037851981c51d4fe"
+      },
+      "docs/evidence/v2_m3_inference_summary.json": {
+        "bytes": 322422,
+        "sha256": "f4ed208cad6e83d2e24fcf2a2d41dcf47e30a44ca50a4f1691e7fd080b38d71a"
+      },
+      "docs/evidence/v2_m5_0_native_preflight.json": {
+        "bytes": 85763,
+        "sha256": "c858905ebdbff7122a84a3201cbb3db90cb022e13c13c37bd17e242887aa4487"
+      },
+      "requirements-lock.txt": {
+        "bytes": 550,
+        "sha256": "66bada0f22d31c7dde773c5d3edc631d17c6cf0ba4a8f668a743431b07e912d2"
+      },
+      "requirements-training-lock.txt": {
+        "bytes": 279,
+        "sha256": "6d372b642cc220141a42c7c8d7ab8dd535413aa68f2aaae10ee45587362c0ab6"
+      },
+      "requirements-v1-lock.txt": {
+        "bytes": 175,
+        "sha256": "ac690d1683f4cee2b767bce4d94a9a756f333e2cd70de7ea88689b0adb977635"
+      },
+      "src/solar_flare_jepa/data/goes.py": {
+        "bytes": 6513,
+        "sha256": "a8ad4f8fd4626cf0cfa0fefee226a05281d3d6b927e4ed6dffff93009b018d26"
+      },
+      "src/solar_flare_jepa/data/goes_v2_development.py": {
+        "bytes": 12598,
+        "sha256": "6af57f74d11636107c26176340cd6adfcec32adb905cf168dcaa7d3afa3935b0"
+      },
+      "src/solar_flare_jepa/evaluation/diagnostics.py": {
+        "bytes": 6228,
+        "sha256": "5aaa921163a73b9917f4db94bf8d03ad9acbc695881fcb88c167dcc7ef67681c"
+      },
+      "src/solar_flare_jepa/evaluation/records.py": {
+        "bytes": 14140,
+        "sha256": "c759ffc3e7dee6b5006fc2276bddc709fc7dd1082494053441a397fca88457f5"
+      },
+      "src/solar_flare_jepa/experiments/v2_descriptive.py": {
+        "bytes": 9263,
+        "sha256": "5c3c00cacbb36960127e017d9484630578d98d2b7199bb87c80d499cffc7fe35"
+      },
+      "src/solar_flare_jepa/experiments/v2_evaluation_adapters.py": {
+        "bytes": 10892,
+        "sha256": "b8402eb16358778714afdfe2e7b0b9543a23cfc0706fb185dc9c12b5d5682ccb"
+      },
+      "src/solar_flare_jepa/experiments/v2_evaluation_safety.py": {
+        "bytes": 20960,
+        "sha256": "906a8b2db3718ca0db6bf7aa50cef551cd1cab3b852726aaa9a75760f4a3dfb7"
+      },
+      "src/solar_flare_jepa/experiments/v2_m5_preflight.py": {
+        "bytes": 10124,
+        "sha256": "54fe1e74c30fd3768bb76defd7af5d9dfe1c538bd2ecc0e61b99679df18a6060"
+      },
+      "src/solar_flare_jepa/experiments/v2_resource_controls.py": {
+        "bytes": 27637,
+        "sha256": "b93e87fc9aacbb741143a8ff5f54efa5a21857bfd5326d5f7d4968dc329379b8"
+      },
+      "src/solar_flare_jepa/training/comparators.py": {
+        "bytes": 21655,
+        "sha256": "39b36160b3b403256fc4e08a7898ffc06099507d9d3c6517351daca780398b83"
+      },
+      "src/solar_flare_jepa/training/controlled.py": {
+        "bytes": 43095,
+        "sha256": "20f3c0fef176f75bc1dd59e06ab143ba3dfed4e883bf6ecc997cb15a875c7b1d"
+      },
+      "src/solar_flare_jepa/training/jepa.py": {
+        "bytes": 38197,
+        "sha256": "ef7cd2222317367fcf2dc05b1ca474c1560f35c8941efcb0ed92c6d6aa69a8bc"
+      },
+      "src/solar_flare_jepa/training/losses.py": {
+        "bytes": 5567,
+        "sha256": "de8507e5dd297f44bd79ed3e03eb3bc7350dc52b196c5bd2842763c243b11c52"
+      },
+      "src/solar_flare_jepa/training/normalization.py": {
+        "bytes": 7621,
+        "sha256": "1911f257604a6d076be226ac9341e34cc49dbebb6de62091d06db09c5f373f54"
+      }
+    },
+    "source_reference_commit": "8b4bc50f754c4a48921d993568760e8d7c7e056c",
+    "training": {
+      "architecture": {
+        "depth": 3,
+        "dropout": 0.0,
+        "head_hidden": 128,
+        "heads": 4,
+        "mlp_ratio": 4,
+        "patch_steps": 5,
+        "predictor_depth": 2,
+        "width": 32
+      },
+      "batch_size": 256,
+      "deterministic_algorithms": true,
+      "device": "cpu",
+      "downstream_epochs": 15,
+      "dtype": "float32",
+      "early_stopping_patience": null,
+      "gradient_clip_norm": 1.0,
+      "jepa_objective": {
+        "context_block_mask": true,
+        "context_mask_patches": 4,
+        "ema_end": 1.0,
+        "ema_start": 0.996,
+        "jepa_loss": "smooth_l1",
+        "jepa_weight_during_finetune": 0.0
+      },
+      "lr": 0.001,
+      "lr_schedule": "none",
+      "max_train_windows": 20000,
+      "monitor_windows": 2048,
+      "optimizer": "AdamW",
+      "quantile_linear": {
+        "batch_size": 256,
+        "boundary_selected": "flag_only,no_grid_extension",
+        "epochs": 100,
+        "extra_optimizer_weight_decay": 0.0,
+        "gradient_clip": null,
+        "init": "zeros",
+        "lambdas": [
+          0.0,
+          1.0,
+          10.0,
+          100.0,
+          1000.0,
+          10000.0,
+          100000.0
+        ],
+        "lr": 0.01,
+        "max_train_windows": 20000,
+        "optimizer": "Adam",
+        "penalty": "lambda*mean(weight**2),bias excluded",
+        "recording": "per-lambda final metrics/objective/coefficient norm/crossings/steps/weights/order; no dual per-epoch validation history",
+        "seed_rule": "each of the two declared seeds,independent actual fitting paths",
+        "shuffle": "PCG64(seed) reset identically for every lambda",
+        "validation_quantiles": "sorted"
+      },
+      "quantiles": [
+        0.05,
+        0.25,
+        0.5,
+        0.75,
+        0.95
+      ],
+      "reset_optimizer_per_phase": true,
+      "ssl_epochs": 8,
+      "subset": "existing deterministic evenly spaced chronological subset of complete stride-one training windows",
+      "supervised_warmup_epochs": 8,
+      "tcn": {
+        "batch_size": 256,
+        "dilations": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ],
+        "downstream_epochs": 15,
+        "dropout": 0.0,
+        "early_stopping_patience": null,
+        "gradient_clip": 1.0,
+        "kernel_size": 3,
+        "lr": 0.001,
+        "max_train_windows": 20000,
+        "weight_decay": 0.0001,
+        "width": 32
+      },
+      "torch_threads": 4,
+      "weight_decay": 0.0001,
+      "weight_decay_scope": "all trainable parameters,including biases",
+      "worker_must_establish_default_device_dtype": true
+    },
+    "version": 1
+  },
+  "design_decisions_resolved": 17,
+  "design_fingerprint": "ec104daac15f45fe1c0cee9de44b72e2ed67e2bc42de1bc69edb99ffbec55624",
+  "design_status": "FINALIZED_DEVELOPMENT_DEFAULTS",
+  "execution_approval": null,
+  "execution_authorized": false,
+  "fingerprint_rule": "SHA256 of canonical_json(design): sort_keys,compact separators,finite JSON; outer approval/review fields excluded",
+  "gates": [
+    {
+      "id": "G1",
+      "requires": "Owner ratifies this exact protocolversion and designfingerprint,including explicit risks",
+      "state": "PENDING_OWNER_APPROVAL"
+    },
+    {
+      "id": "G2",
+      "requires": "Separate authorization for minimum driver/worker/report/storage integration; implementation+nontraining tests+independent review",
+      "state": "NOT_AUTHORIZED_NOT_IMPLEMENTED"
+    },
+    {
+      "id": "G3",
+      "requires": "Named host/environment/data/output reservation and resource feasibility/readiness checks; no fitting benchmark implied",
+      "state": "PENDING_OWNER_RESERVATION_AND_VERIFICATION"
+    },
+    {
+      "id": "G4",
+      "requires": "Separate explicit one-bounded-pilot approval identifying frozen implemented source/config and May-July fitting scope,only afterG1-G3pass",
+      "state": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "G5",
+      "requires": "Any new inference method,period/test access or confirmation requires separate future scientific/access authorization",
+      "state": "OUTSIDE_THIS_PROTOCOL"
+    }
+  ],
+  "host_reservation": null,
+  "implementation_approval": null,
+  "implementation_authorized": false,
+  "independent_review": {
+    "corrected_evidence_independently_rechecked": true,
+    "design_fingerprint_unchanged": true,
+    "feature_only_publication": "READY",
+    "scope": "version1 development-only protocol design and documentation; no owner ratification or execution approval",
+    "status": "PASS"
+  },
+  "kind": "solarjepa_phase2_v2_development_design_register",
+  "owner_ratification": null,
+  "protocol_id": "solarjepa.phase2.v2.development.v1",
+  "readiness": "READY_FOR_OWNER_RATIFICATION;EXECUTION_BLOCKED",
+  "schema_version": 1,
+  "test_release_authorized": false,
+  "timezone": "Asia/Kolkata",
+  "unresolved_design_choices": 0,
+  "version": 1
+}

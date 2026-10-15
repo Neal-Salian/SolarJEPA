@@ -1,0 +1,178 @@
+{
+  "data_fitting_authorized": false,
+  "date_client": "2026-10-15",
+  "design_decisions_resolved": 17,
+  "design_fingerprint": "ec104daac15f45fe1c0cee9de44b72e2ed67e2bc42de1bc69edb99ffbec55624",
+  "domain_reviews": [
+    {
+      "role": "scientific",
+      "scope": "all17 development defaults,QC/calendar/grid/classical scope; no source changes/data/model calls",
+      "status": "COMPLETE"
+    },
+    {
+      "role": "statistical",
+      "scope": "paired post-selection descriptions,metrics/contrasts/null inference fields/exposure/fairness; no new methodology runs",
+      "status": "COMPLETE"
+    },
+    {
+      "role": "implementation",
+      "scope": "exactrecipes,20job matrix,SSLreuse,resource/retry semantics and futuregates; no implementation",
+      "status": "COMPLETE"
+    }
+  ],
+  "executables_or_runtime_configs_changed": false,
+  "execution_authorized": false,
+  "final_independent_review": {
+    "corrected_evidence_and_manifest_clarification_independently_rechecked": true,
+    "declined_to_establish": [
+      "private prior access or decision influence",
+      "real workload/host/resource feasibility",
+      "unknown upstream processing causality or actual delivery",
+      "fresh-period suitability or valid confirmatory inference",
+      "local main contents while unreadable",
+      "implementation,training,test release,PR or merge authorization"
+    ],
+    "feature_only_publication": "READY",
+    "required_correction": "Disclose unit-test-only TCN construction; helper model-build count remains0; no fit/prediction/experiment",
+    "scientific_quality": "PASS",
+    "source_checks": [
+      "all4 staged documents",
+      "design fingerprint",
+      "all20 job configuration hashes",
+      "24 explicit source identities",
+      "audited executable identity over82files",
+      "9ignored verification artifacts",
+      "3manifest/config hashes and declared file/byte totals",
+      "V1report/manifest identities",
+      "all17 IDs against legacy null approvals",
+      "14+4 selected job grouping and13800s arithmetic"
+    ],
+    "specification": "PASS_FOR_EXPOSED_DEVELOPMENT_DESIGN",
+    "status": "PASS",
+    "tests_or_models_rerun_by_reviewer": false
+  },
+  "helper_correction": {
+    "final_result": "257 checks passed",
+    "first_pass": "assertion failure in local read-only helper: raw linear config compared to enclosing one-key wrapper",
+    "first_script_preserved": true,
+    "fix": "compare exact contained dictionary; no protocol/source/model data or tolerances changed",
+    "root_cause_verified": "QuantileLinearConfig.as_dict() equals model_config[linear],not model_config"
+  },
+  "implementation_authorized": false,
+  "kind": "solarjepa_phase2_v2_protocol_v1_documentation_verification",
+  "metadata_preflight": {
+    "attempts": 2,
+    "canonical_bytes_identical": true,
+    "exit_codes": [
+      3,
+      3
+    ],
+    "legacy_decisions_outstanding": 17,
+    "legacy_entrypoint_cannot_train": true,
+    "new_document_not_consumed_by_legacy_code": true,
+    "raw_data_status": "NOT_CHECKED"
+  },
+  "owner_ratification": null,
+  "preservation": {
+    "all29_remote_branch_heads_unchanged_before_commit": true,
+    "all_readable_local_branch_refs_unchanged": true,
+    "local_main_readability": "UNKNOWN:previously documented dataless timeout;no repair",
+    "original_checkpoints_unchanged": 9,
+    "other_worktree_statuses_unchanged": 13,
+    "raw_scientific_files_opened": false,
+    "verdict": "PASS"
+  },
+  "protocol": "docs/protocols/phase2_v2_development_v1.json",
+  "pytest": {
+    "command": [
+      "python",
+      "-m",
+      "pytest",
+      "-p",
+      "no:cacheprovider",
+      "tests/test_v2_m5_preflight.py",
+      "tests/test_v2_resource_controls.py",
+      "tests/test_v2_descriptive.py",
+      "tests/test_v2_m4a_proposals.py",
+      "-k",
+      "not benchmark_ssl_job_output_feeds_the_ssl_projection",
+      "-q"
+    ],
+    "deselected": 1,
+    "elapsed_seconds": 8.544356917002006,
+    "passed": 102,
+    "pytest_seconds": 7.93,
+    "returncode": 0,
+    "scope": "existing preflight, resource-supervisor, descriptive-record and proposal checks; SSL fitting test deselected; no scientific files or fits",
+    "warning_count": 0
+  },
+  "schema_version": 1,
+  "scientific_experiments_performed": false,
+  "scientific_fits_performed": false,
+  "scientific_predictions_performed": false,
+  "source_reference_commit": "8b4bc50f754c4a48921d993568760e8d7c7e056c",
+  "test_release_authorized": false,
+  "typed_configuration_checks": {
+    "checks": 257,
+    "decisions": 17,
+    "design_fingerprint": "ec104daac15f45fe1c0cee9de44b72e2ed67e2bc42de1bc69edb99ffbec55624",
+    "fit_calls": 0,
+    "jobs": 20,
+    "linear_candidates": 14,
+    "model_build_calls": 0,
+    "prediction_calls": 0,
+    "scientific_file_decode_calls": 0,
+    "selected_models": 18,
+    "source_fingerprint": "271e9f14caeb3bc5c984f4513ffdae598aa1e6fdc51c0a97e4ec4e9c955dd7c2",
+    "typed_job_configs": 20,
+    "unchanged_legacy_outstanding_decisions": 17,
+    "verdict": "PASS",
+    "zero_retries": true
+  },
+  "unit_test_model_construction": {
+    "model_forward_prediction_or_fitting": false,
+    "purpose": "parameter-count and receptive-field arithmetic in existing proposal test",
+    "source": "tests/test_v2_m4a_proposals.py:91-101",
+    "tcn_instances": 1,
+    "typed_consistency_helper_model_build_calls": 0
+  },
+  "unresolved_design_choices": 0,
+  "verification_artifacts": {
+    "results/phase2_v2_protocol_v1_20261015/solarjepa-phase2-protocol-v1-before.json": {
+      "bytes": 16998,
+      "sha256": "2f9b7f651fca52c27dfd97e34cf18e5622f60f0bf1aa7bada1cb3ec121055bf0"
+    },
+    "results/phase2_v2_protocol_v1_20261015/solarjepa-phase2-protocol-v1-consistency.json": {
+      "bytes": 515,
+      "sha256": "40d31c07e25f08d86f866bd92769c5aa9b06d61adf21e59626d8a48d44f0ded2"
+    },
+    "results/phase2_v2_protocol_v1_20261015/solarjepa-phase2-protocol-v1-preflight-1.json": {
+      "bytes": 6568,
+      "sha256": "10f74b9233bb90137681dfa45bd6f4b876ff9f82764fcceda0f58b2f06b8efca"
+    },
+    "results/phase2_v2_protocol_v1_20261015/solarjepa-phase2-protocol-v1-preflight-2.json": {
+      "bytes": 6568,
+      "sha256": "10f74b9233bb90137681dfa45bd6f4b876ff9f82764fcceda0f58b2f06b8efca"
+    },
+    "results/phase2_v2_protocol_v1_20261015/solarjepa-phase2-protocol-v1-preservation.json": {
+      "bytes": 347,
+      "sha256": "8568abb6abf7e7d524f318eba83b5100f8ca40cbbfdde6e39e96195f820824c5"
+    },
+    "results/phase2_v2_protocol_v1_20261015/solarjepa-phase2-protocol-v1-tests.json": {
+      "bytes": 539,
+      "sha256": "0d8e8199dd92d2139eb345a05094030cea6b210687e46e845169d0c572ebf702"
+    },
+    "results/phase2_v2_protocol_v1_20261015/solarjepa-phase2-protocol-v1-tests.log": {
+      "bytes": 194,
+      "sha256": "41d2164144f4ecafc5c88f2de274060eedfbd82e9f9247ac2595963ad6366fe8"
+    },
+    "results/phase2_v2_protocol_v1_20261015/solarjepa-verify-protocol-v1-first.py": {
+      "bytes": 6120,
+      "sha256": "3d9ac1332b3579ef5ee4c9375c252a1d09b2a46ecbe98b5f1e640a49fe7bc852"
+    },
+    "results/phase2_v2_protocol_v1_20261015/solarjepa-verify-protocol-v1.py": {
+      "bytes": 6130,
+      "sha256": "bae947e7e26a25f015aa6785a8a39ee47f214eb54165a0556cd9fe9a89617c11"
+    }
+  }
+}
