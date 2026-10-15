@@ -1,0 +1,622 @@
+{
+  "confirmatory_inference": "INFERENCE_UNAVAILABLE",
+  "date_client": "2026-10-15",
+  "decisions": {
+    "approved_count": 0,
+    "identity": {
+      "bytes": 11899,
+      "sha256": "c72ce1f7d7c1a071015eab83e3b73e50d3983e77a575136c5ca1ce52c8b7883d"
+    },
+    "items": [
+      {
+        "approval": null,
+        "id": "D09",
+        "status": "REQUIRES_APPROVAL",
+        "title": "Embargo"
+      },
+      {
+        "approval": null,
+        "id": "D10",
+        "status": "REQUIRES_APPROVAL",
+        "title": "Experimental protocol"
+      },
+      {
+        "approval": null,
+        "id": "D11",
+        "status": "REQUIRES_APPROVAL",
+        "title": "Resource ceilings"
+      },
+      {
+        "approval": null,
+        "id": "DATA_ACCESS",
+        "status": "REQUIRES_APPROVAL",
+        "title": "Dataset access"
+      },
+      {
+        "approval": null,
+        "id": "AUGUST",
+        "status": "REQUIRES_APPROVAL",
+        "title": "August handling"
+      },
+      {
+        "approval": null,
+        "id": "QUALITY",
+        "status": "REQUIRES_APPROVAL",
+        "title": "Quality threshold"
+      },
+      {
+        "approval": null,
+        "id": "SEEDS",
+        "status": "REQUIRES_APPROVAL",
+        "title": "Seed selection"
+      },
+      {
+        "approval": null,
+        "id": "BUDGETS",
+        "status": "REQUIRES_APPROVAL",
+        "title": "Training budgets"
+      },
+      {
+        "approval": null,
+        "id": "LOSSES",
+        "status": "REQUIRES_APPROVAL",
+        "title": "Loss functions"
+      },
+      {
+        "approval": null,
+        "id": "CHECKPOINT",
+        "status": "REQUIRES_APPROVAL",
+        "title": "Checkpoint selection"
+      },
+      {
+        "approval": null,
+        "id": "TCN",
+        "status": "REQUIRES_APPROVAL",
+        "title": "TCN configuration"
+      },
+      {
+        "approval": null,
+        "id": "LINEAR",
+        "status": "REQUIRES_APPROVAL",
+        "title": "Quantile-linear regularization"
+      },
+      {
+        "approval": null,
+        "id": "CLASSICAL",
+        "status": "BLOCKED_ON_EVIDENCE",
+        "title": "Classical baseline policy"
+      },
+      {
+        "approval": null,
+        "id": "FAILURE_RETRY",
+        "status": "REQUIRES_APPROVAL",
+        "title": "Failure and retry handling"
+      },
+      {
+        "approval": null,
+        "id": "STATISTICS",
+        "status": "REQUIRES_APPROVAL",
+        "title": "Statistical reporting"
+      },
+      {
+        "approval": null,
+        "id": "TEST_PROHIBITION",
+        "status": "REQUIRES_APPROVAL",
+        "title": "Test-release prohibition"
+      },
+      {
+        "approval": null,
+        "id": "REPRODUCIBILITY",
+        "status": "REQUIRES_APPROVAL",
+        "title": "Execution provenance and freeze"
+      }
+    ],
+    "register": "configs/v2_proposed/m5_0_approval_register.json",
+    "unresolved_count": 17
+  },
+  "execution_gate": "CLOSED",
+  "final_review": {
+    "amended_paragraphs_and_review_json_independently_rechecked": true,
+    "declined_to_judge": [
+      "private exposure",
+      "upstream processing causality or operational delivery",
+      "future hardware-compute equality and host feasibility",
+      "fresh-period suitability",
+      "scientific superiority or calibrated inference",
+      "inaccessible local main contents"
+    ],
+    "feature_only_publication": "READY",
+    "fresh_readonly_checks": [
+      "23 pinned identities",
+      "8 verification artifact identities",
+      "both metadata preflights",
+      "V1 report and manifest identities",
+      "M3 canonical scientific payload and failure counts",
+      "retained265-pass test log",
+      "staged and unstaged diff checks"
+    ],
+    "nonblocking_clarifications_addressed": [
+      "future driver must enforce descriptive report schemas; generic publisher does not authenticate all report semantics",
+      "classical scope requires explicit integration beyond current seven-kind model guard; point-only uses point metrics"
+    ],
+    "required_corrections": [
+      {
+        "finding": "quantile-linear description implied mask features",
+        "resolution": "full-context values; masks enforce complete support; source unchanged",
+        "severity": "P2",
+        "verified_source": "src/solar_flare_jepa/training/comparators.py:292,299-301"
+      }
+    ],
+    "reviewer": "independent fresh scientific/implementation subagent",
+    "scientific_quality": "PASS_FOR_READINESS_WITH_EXECUTION_CLOSED",
+    "status": "PASS",
+    "tests_or_scientific_experiments_rerun_by_reviewer": false
+  },
+  "fresh_verification": {
+    "development_file_bytes": {
+      "bytes": 27280082,
+      "raw_files": 92,
+      "scope": "explicit May-July native file byte identity only; no fitting, native decoding, catalog, August, January or candidate-data reads",
+      "verdict": "PASS"
+    },
+    "metadata_preflight": {
+      "canonical_bytes_identical": true,
+      "data_status": "NOT_CHECKED",
+      "execution_readiness": "PILOT_NOT_AUTHORIZED",
+      "executions": 2,
+      "exit_codes": [
+        3,
+        3
+      ],
+      "linear_candidate_fits": 14,
+      "outstanding_approvals": [
+        "AUGUST",
+        "BUDGETS",
+        "CHECKPOINT",
+        "CLASSICAL",
+        "D09",
+        "D10",
+        "D11",
+        "DATA_ACCESS",
+        "FAILURE_RETRY",
+        "LINEAR",
+        "LOSSES",
+        "QUALITY",
+        "REPRODUCIBILITY",
+        "SEEDS",
+        "STATISTICS",
+        "TCN",
+        "TEST_PROHIBITION"
+      ],
+      "per_seed_linear_paths": 2,
+      "planned_jobs": 20,
+      "test_release_permitted": false,
+      "training_executed": false
+    },
+    "preservation": {
+      "external_bundle_files": 6,
+      "external_bundle_hashes": "PASS",
+      "native_january_reopened": false,
+      "original_worktree_statuses": 13,
+      "original_worktree_statuses_unchanged": true,
+      "prediction_or_model_calls": 0,
+      "v1_checkpoint_files": 9,
+      "v1_checkpoint_hashes": "PASS"
+    },
+    "pytest": {
+      "argv": [
+        "python",
+        "-m",
+        "pytest",
+        "-p",
+        "no:cacheprovider",
+        "tests/test_v2_m5_preflight.py",
+        "tests/test_v2_resource_controls.py",
+        "tests/test_goes_v2_development.py",
+        "tests/test_v2_descriptive.py",
+        "tests/test_independent_records.py",
+        "tests/test_independent_integrity.py",
+        "tests/test_independent_diagnostics.py",
+        "tests/test_independent_comparison.py",
+        "tests/test_v2_losses.py",
+        "tests/test_v2_m4a_proposals.py",
+        "tests/test_v2_controlled.py::test_schedule_requires_every_budget_and_enforces_arm_structure",
+        "tests/test_v2_controlled.py::test_configuration_identity_separates_recipe_from_seed",
+        "tests/test_v2_controlled.py::test_earliest_epoch_wins_exact_ties",
+        "tests/test_v2_controlled.py::test_patience_mode_stops_after_stale_epochs",
+        "tests/test_v2_comparators.py::test_tcn_configuration_is_explicit_and_validated",
+        "tests/test_v2_comparators.py::test_tcn_arithmetic_for_proposed_configuration",
+        "tests/test_v2_comparators.py::test_linear_configuration_is_explicit_and_validated",
+        "tests/test_v2_comparators.py::test_linear_starts_at_zero_and_has_full_context_inputs",
+        "tests/test_v2_comparators.py::test_lambda_selection_prefers_smallest_lambda_on_ties",
+        "-k",
+        "not benchmark_ssl_job_output_feeds_the_ssl_projection",
+        "-q"
+      ],
+      "deselected": 1,
+      "environment": {
+        "MPLCONFIGDIR": "temporary directory",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPATH": "src"
+      },
+      "excluded": "SSL benchmark test would fit a model; scientific/model-fitting fixtures not selected",
+      "failures": 0,
+      "passed": 265,
+      "process_seconds": 72.2045092499975,
+      "pytest_seconds": 71.52,
+      "warning_count": 0
+    }
+  },
+  "git_environment": {
+    "cache_recovery": {
+      "records": [
+        {
+          "content_sha1_verified": true,
+          "object": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+          "original_compressed_bytes": 15,
+          "original_flags": 1073774688,
+          "original_placeholder_preserved": "solarjepa-cache-placeholders-20261015/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391.original-cloud-placeholder",
+          "payload_bytes": 0,
+          "type": "blob"
+        },
+        {
+          "content_sha1_verified": true,
+          "object": "d564d0bc3dd917926892c55e3706cc116d5b165e",
+          "original_compressed_bytes": 53,
+          "original_flags": 1073774688,
+          "original_placeholder_preserved": "solarjepa-cache-placeholders-20261015/d564d0bc3dd917926892c55e3706cc116d5b165e.original-cloud-placeholder",
+          "payload_bytes": 36,
+          "type": "tree"
+        },
+        {
+          "content_sha1_verified": true,
+          "object": "691f49e5d89588db9bb5750ffb664f93d3975875",
+          "original_compressed_bytes": 59,
+          "original_flags": 1073774688,
+          "original_placeholder_preserved": "solarjepa-cache-placeholders-20261015/691f49e5d89588db9bb5750ffb664f93d3975875.original-cloud-placeholder",
+          "payload_bytes": 49,
+          "source_checkpoint": "60718686f016485cf7efadef5772b1d5813d1a43",
+          "type": "blob",
+          "verified_source": "src/solar_flare_jepa/data/__init__.py"
+        }
+      ],
+      "scope": "three content-addressed Git cache objects only; no ref, history, checkpoint or scientific-input change"
+    },
+    "direct_remote_base_verified": true,
+    "fetch_succeeded": false,
+    "final_native_worktree_creation": "PASS; tool-managed",
+    "initial_native_checkout_failures": 2,
+    "local_main": "UNKNOWN: dataless ref reads time out; no protected-ref repair"
+  },
+  "historical_verification": {
+    "m3": {
+      "eligible_screen_failure_counts": {
+        "hac3": [
+          11,
+          14
+        ],
+        "hac7": [
+          10,
+          10
+        ],
+        "seed_t": [
+          1,
+          9
+        ],
+        "stationary3": [
+          12,
+          13
+        ],
+        "stationary7": [
+          10,
+          10
+        ]
+      },
+      "rerun_in_this_audit": false,
+      "scientific_payload_sha256": "4eae0b13e366d243718c0342552c5a51062851652261f52f2e47c9b6b8f69055",
+      "verdict": "NO_VALIDATED_REPLACEMENT"
+    },
+    "m5": {
+      "baseline": {
+        "passed": 1583,
+        "seconds": 120.77,
+        "source_commit": "2e3f87111ab7c3a881064aaad9dbd6d6298c69cd",
+        "warnings": 1
+      },
+      "earlier_m5_regression": {
+        "passed": 1703,
+        "scope": "Before final initializer/crash-recovery cases",
+        "seconds": 184.14,
+        "warnings": 1
+      },
+      "final_regression": {
+        "passed": 1705,
+        "seconds": 304.22,
+        "warnings": 1
+      },
+      "identical_canonical_bytes": true,
+      "identical_records": true,
+      "implementation_commit": "18b5528666e4d9112db816c852e74ce16829bbcf",
+      "independent_new_tests": {
+        "passed": 84,
+        "seconds": 114.42
+      },
+      "initial_environment_run": {
+        "failed": 2,
+        "passed": 1581,
+        "reasons": [
+          "Shared environment contained an older installed package",
+          "A GOES merge during the first run invalidated executed-source capture"
+        ],
+        "resolution": "Fresh unchanged M4B baseline in separate venv passed1583; final stable M5 installation passed1705",
+        "seconds": 125.76
+      },
+      "interrupted_recheck": "An intermediate regression was deliberately interrupted after the final crash-recovery fix; replaced by complete1705-test run",
+      "kind": "solarjepa_v2_m5_0_preflight_verification",
+      "native_cli_exit_codes": [
+        3,
+        3
+      ],
+      "no_locked_release": true,
+      "no_real_model_training": true,
+      "no_scientific_test_windows": true,
+      "raw_selection": "92 explicit May-July files only; August/January/sealed sources not read",
+      "resource_tests": {
+        "passed": 40,
+        "seconds": 4.61
+      },
+      "schema_version": 1,
+      "sha256": "c858905ebdbff7122a84a3201cbb3db90cb022e13c13c37bd17e242887aa4487",
+      "torch_unavailable_loader_smoke": "Passed before publication: sys.modules[torch]=None; no optimizer/model execution",
+      "warning": "Existing numpy.ndarray size changed RuntimeWarning from netCDF/numpy boundary; no warnings suppressed"
+    }
+  },
+  "independent_audits": [
+    {
+      "result": "complete; existing integrated components and missing pilot glue identified; no fits/edits",
+      "task": "implementation_readiness"
+    },
+    {
+      "result": "complete; exact17 decisions and sibling-review reconciliation; no invented approval",
+      "task": "protocol_decisions"
+    },
+    {
+      "additional_test": "37 descriptive-record tests passed0.51s on existingM5; overlaps selected suite; not added to265",
+      "result": "complete; M3 artifact payload confirmed and inferential gate retained",
+      "task": "inference_science"
+    }
+  ],
+  "kind": "solarjepa_phase2_v2_readiness_audit",
+  "limitations": [
+    "update-budget equality is not measured hardware-compute equality",
+    "selected validation scores are post-selection",
+    "no calibrated joint seed/calendar interval method established",
+    "all May-August2024 and January2025 exposed; candidate-period access/suitability UNKNOWN",
+    "upstream processing causality and actual operational delivery UNKNOWN",
+    "17 decisions remain unapproved; no production GOES pilot driver/workers",
+    "classical acceptance oracle POLICY_UNAVAILABLE; scope unresolved",
+    "host-specific resource projections and retry totals need approval/revalidation",
+    "generic development publication accepts arbitrary JSON; future driver must enforce descriptive-only schemas and avoid legacy inference paths",
+    "current selected-model adapters and job guards exclude classical; approved persistence inclusion needs a scoped integration or separate guarded report path; point-only has no pinball/intervals"
+  ],
+  "model_fits_executed": false,
+  "new_outcomes_generated": false,
+  "next_action": "Owner ratifies versioned17-decision development protocol; separately authorize minimal pilot driver/worker implementation and independent review; obtain separate bounded execution approval. No training now.",
+  "readiness": "PARTIALLY_READY",
+  "runtime": {
+    "normal_installation_checked": true,
+    "packages": {
+      "arch": "7.2.0",
+      "netCDF4": "1.7.2",
+      "numpy": "2.2.6",
+      "pandas": "2.3.3",
+      "pytest": "9.1.1",
+      "scipy": "1.18.1",
+      "statsmodels": "0.14.5",
+      "torch": "2.6.0"
+    },
+    "pytest_checkout_source": "PYTHONPATH=src; pytest repository pythonpath setting",
+    "python": "3.13.3 (v3.13.3:6280bb54784, Apr  8 2025, 10:47:54) [Clang 15.0.0 (clang-1500.3.9.4)]"
+  },
+  "schema_version": 1,
+  "scientific_experiments_launched": false,
+  "source": {
+    "audited_refs": {
+      "goes_restoration": {
+        "commit": "8a9c98db66eca545eeaf062f5fb07e47ec6bdc63",
+        "ref": "origin/data/v2-goes-development-restoration"
+      },
+      "m0_m1": {
+        "commit": "fd7203bf9a2e1e3dd78d9750a948b823ab100d36",
+        "ref": "origin/feat/v2-m0-m1-validation-foundation"
+      },
+      "m2": {
+        "commit": "94cae59398e52a65074ec66c73ad94bd47ca8867",
+        "ref": "origin/research/v2-m2-statistical-validation"
+      },
+      "m3": {
+        "commit": "5e88f3a7109296c9475378b77be0257a4f9363ab",
+        "ref": "origin/research/v2-m3-inference-remediation"
+      },
+      "m4a": {
+        "commit": "ac3428f910b36b7f10cc0fbb0740ce6de62df5a7",
+        "ref": "origin/feat/v2-training-protocol-feasibility"
+      },
+      "m4b": {
+        "commit": "2e3f87111ab7c3a881064aaad9dbd6d6298c69cd",
+        "ref": "origin/feat/v2-model-evaluation-integration"
+      },
+      "m5": {
+        "commit": "60718686f016485cf7efadef5772b1d5813d1a43",
+        "ref": "origin/feat/v2-m5-pilot-readiness"
+      },
+      "models": {
+        "commit": "1826400ca9cacd6020f6a5d4bc9ca9b2b2b3eda0",
+        "ref": "origin/feat/v2-controlled-model-development"
+      },
+      "sibling_protocol_review": {
+        "commit": "c872e4a2b8ea67e6e6279c442e466c7df7caf6d5",
+        "ref": "origin/research/v2-m5-protocol-review"
+      },
+      "v1_external": {
+        "commit": "a502d3fbf65f57c795b087491d216cc37922071f",
+        "ref": "origin/research/goes-external-model-evaluation"
+      }
+    },
+    "base_commit": "60718686f016485cf7efadef5772b1d5813d1a43",
+    "branch": "codex/v2-experimental-validation-readiness",
+    "config_fingerprint": "2f095fbef7ae1e4de714110dd379a88fcc864f2caeb3eef4b1c295faf9a26b9c",
+    "executable_fingerprint": "271e9f14caeb3bc5c984f4513ffdae598aa1e6fdc51c0a97e4ec4e9c955dd7c2",
+    "files": {
+      "configs/v2_proposed/feasibility_pilot_proposal.json": {
+        "bytes": 4515,
+        "sha256": "90c198715eec19185ce180f3291d7e2ea4d6d2bc22e0bd8045e6ba492590b669"
+      },
+      "configs/v2_proposed/m5_0_approval_register.json": {
+        "bytes": 11899,
+        "sha256": "c72ce1f7d7c1a071015eab83e3b73e50d3983e77a575136c5ca1ce52c8b7883d"
+      },
+      "configs/v2_proposed/m5_0_preflight_amendment.json": {
+        "bytes": 1632,
+        "sha256": "5c84dea0ad61442d430e20b8a358d0c3db3babf36c1d992dcf92119728cf6d10"
+      },
+      "configs/v2_proposed/training_protocol_proposal.json": {
+        "bytes": 9527,
+        "sha256": "eadbdc81465677a41ad57603dc860ebcd9ea17638b4d9bda037851981c51d4fe"
+      },
+      "docs/evidence/v2_m2_synthetic_summary.json": {
+        "bytes": 143129,
+        "sha256": "ced573165831eb0068bf5f4ac7f8c5e5f5a4841a28981e782a4eb0aa0607d8f8"
+      },
+      "docs/evidence/v2_m3_inference_summary.json": {
+        "bytes": 322422,
+        "sha256": "f4ed208cad6e83d2e24fcf2a2d41dcf47e30a44ca50a4f1691e7fd080b38d71a"
+      },
+      "docs/evidence/v2_m5_0_native_preflight.json": {
+        "bytes": 85763,
+        "sha256": "c858905ebdbff7122a84a3201cbb3db90cb022e13c13c37bd17e242887aa4487"
+      },
+      "docs/evidence/v2_m5_0_verification.json": {
+        "bytes": 1845,
+        "sha256": "f76115d4ee418df0dc8cc5057fd1fd57ca63d31f33eddc114e664aee07f517fe"
+      },
+      "requirements-lock.txt": {
+        "bytes": 550,
+        "sha256": "66bada0f22d31c7dde773c5d3edc631d17c6cf0ba4a8f668a743431b07e912d2"
+      },
+      "requirements-training-lock.txt": {
+        "bytes": 279,
+        "sha256": "6d372b642cc220141a42c7c8d7ab8dd535413aa68f2aaae10ee45587362c0ab6"
+      },
+      "requirements-v1-lock.txt": {
+        "bytes": 175,
+        "sha256": "ac690d1683f4cee2b767bce4d94a9a756f333e2cd70de7ea88689b0adb977635"
+      },
+      "src/solar_flare_jepa/data/goes_v2_development.py": {
+        "bytes": 12598,
+        "sha256": "6af57f74d11636107c26176340cd6adfcec32adb905cf168dcaa7d3afa3935b0"
+      },
+      "src/solar_flare_jepa/evaluation/comparison.py": {
+        "bytes": 15701,
+        "sha256": "93e5188a8dfad3b4414ce2f3701cb495fd0073adaa5f5e07d45cb80d71e62d44"
+      },
+      "src/solar_flare_jepa/evaluation/records.py": {
+        "bytes": 14140,
+        "sha256": "c759ffc3e7dee6b5006fc2276bddc709fc7dd1082494053441a397fca88457f5"
+      },
+      "src/solar_flare_jepa/experiments/v2_descriptive.py": {
+        "bytes": 9263,
+        "sha256": "5c3c00cacbb36960127e017d9484630578d98d2b7199bb87c80d499cffc7fe35"
+      },
+      "src/solar_flare_jepa/experiments/v2_evaluation_adapters.py": {
+        "bytes": 10892,
+        "sha256": "b8402eb16358778714afdfe2e7b0b9543a23cfc0706fb185dc9c12b5d5682ccb"
+      },
+      "src/solar_flare_jepa/experiments/v2_evaluation_safety.py": {
+        "bytes": 20960,
+        "sha256": "906a8b2db3718ca0db6bf7aa50cef551cd1cab3b852726aaa9a75760f4a3dfb7"
+      },
+      "src/solar_flare_jepa/experiments/v2_m5_preflight.py": {
+        "bytes": 10124,
+        "sha256": "54fe1e74c30fd3768bb76defd7af5d9dfe1c538bd2ecc0e61b99679df18a6060"
+      },
+      "src/solar_flare_jepa/experiments/v2_resource_controls.py": {
+        "bytes": 27637,
+        "sha256": "b93e87fc9aacbb741143a8ff5f54efa5a21857bfd5326d5f7d4968dc329379b8"
+      },
+      "src/solar_flare_jepa/training/comparators.py": {
+        "bytes": 21655,
+        "sha256": "39b36160b3b403256fc4e08a7898ffc06099507d9d3c6517351daca780398b83"
+      },
+      "src/solar_flare_jepa/training/controlled.py": {
+        "bytes": 43095,
+        "sha256": "20f3c0fef176f75bc1dd59e06ab143ba3dfed4e883bf6ecc997cb15a875c7b1d"
+      },
+      "src/solar_flare_jepa/training/losses.py": {
+        "bytes": 5567,
+        "sha256": "de8507e5dd297f44bd79ed3e03eb3bc7350dc52b196c5bd2842763c243b11c52"
+      },
+      "src/solar_flare_jepa/training/normalization.py": {
+        "bytes": 7621,
+        "sha256": "1911f257604a6d076be226ac9341e34cc49dbebb6de62091d06db09c5f373f54"
+      }
+    },
+    "sibling_review_common_ancestor": "8a9c98db66eca545eeaf062f5fb07e47ec6bdc63",
+    "source_unchanged": true
+  },
+  "timezone": "Asia/Kolkata",
+  "v1_external": {
+    "arms": 22,
+    "checkpoint_files_verified": 9,
+    "commit": "a502d3fbf65f57c795b087491d216cc37922071f",
+    "common_origins": 1007,
+    "execution_manifest": {
+      "bytes": 203741,
+      "path": "data/manifests/phase1_goes_external_execution.json",
+      "sha256": "928ccf8a315c4b4ad99239c50d3309022e090a6917eab0128c8713c31af19475"
+    },
+    "external_output_hashes_verified": 6,
+    "native_january_reopened_in_audit": false,
+    "report": {
+      "bytes": 30445,
+      "path": "docs/PHASE1_GOES_EXTERNAL_EVALUATION.md",
+      "sha256": "737fc083f85d376466e0c539c57cec4dd82447309efe4d39828e83be920e0b2b"
+    },
+    "selection_on_january": false,
+    "status": "completed bounded retrospective; model-outcome-exposed"
+  },
+  "verification_artifacts": {
+    "results/phase2_v2_readiness_20261015/solarjepa-phase2-cache-recovery.json": {
+      "bytes": 1421,
+      "sha256": "a671b75a12c3bd8c70fa8d6d1e2845e12c74de8cd92f9aee91e119aead42e4b3"
+    },
+    "results/phase2_v2_readiness_20261015/solarjepa-phase2-readiness-before.json": {
+      "bytes": 11276,
+      "sha256": "e8dc655351116331df60f8ef22126d53f1580b145800a1bbe9a8fc6df4d4bb70"
+    },
+    "results/phase2_v2_readiness_20261015/solarjepa-phase2-readiness-development-bytes.json": {
+      "bytes": 22671,
+      "sha256": "1fd8e9d023618c0722fc2667a638f08f0a5dff890f0b91d092a214d1c3767e68"
+    },
+    "results/phase2_v2_readiness_20261015/solarjepa-phase2-readiness-metadata-preflight-1.json": {
+      "bytes": 6569,
+      "sha256": "0bb5f37e023186f360c9cfec6ae381a9e0dc71d31f9b1dd7318480a59ebd43e6"
+    },
+    "results/phase2_v2_readiness_20261015/solarjepa-phase2-readiness-metadata-preflight-2.json": {
+      "bytes": 6569,
+      "sha256": "0bb5f37e023186f360c9cfec6ae381a9e0dc71d31f9b1dd7318480a59ebd43e6"
+    },
+    "results/phase2_v2_readiness_20261015/solarjepa-phase2-readiness-preservation.json": {
+      "bytes": 285,
+      "sha256": "7999ef675e819f413cee5f3895135d95020d908bccaef41cf647ff1257a4df6c"
+    },
+    "results/phase2_v2_readiness_20261015/solarjepa-phase2-readiness-tests.json": {
+      "bytes": 1802,
+      "sha256": "d46354ba4983b6af8f1048b8360f2b9207bc6536bec24deb62ea1a355f6d07f0"
+    },
+    "results/phase2_v2_readiness_20261015/solarjepa-phase2-readiness-tests.log": {
+      "bytes": 365,
+      "sha256": "bfb53dffbaea600ddf17f252d5a04e491068b049df511f05a7a9e60155e683d3"
+    }
+  }
+}
