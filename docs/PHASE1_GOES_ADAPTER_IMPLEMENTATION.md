@@ -257,3 +257,29 @@ unjudged for the documented scope reasons. None is promoted into an established
 fact. Feature-only publication is authorized by the user and verified before
 the final response. The isolated worktree, all existing worktrees and ignored
 evidence are retained; no PR, merge or protected-branch modification occurred.
+
+## Separately approved execution follow-up — 2026-10-15
+
+The preceding NOT_RUN/approval-pending statements record the October 14
+infrastructure milestone. The user now explicitly approved one bounded
+retrospective evaluation. The unchanged runner/configuration executed once from
+`26479e04f27bbd50fbe696cda7369c5074d2c0ee` and published the fresh immutable
+`results/experiments/goes-v1-external-january2025-approved-run/` bundle. All 22
+arms retained the same 1,007 origins and 60,420 cells; no guard failed, fitting
+occurred, checkpoint changed, preprocessing was refitted or model was selected.
+
+Fresh verification: 458 focused tests passed. Independent native/input
+reconstruction and saved-output numerical audits passed for all arms, all 41
+comparisons and all 192 available calendar-loss summaries. Original 259 files
+and all original worktree/ref states were preserved during execution.
+
+The [scientific evaluation report](PHASE1_GOES_EXTERNAL_EVALUATION.md) and
+[execution manifest](../data/manifests/phase1_goes_external_execution.json)
+record full-precision results, model/output hashes, runtime, measured timestamps,
+auditing and limitations. Fine-tuned mean pinball was 0.03900694 versus supervised
+0.03911919 (0.287% lower), with mixed matched seeds and primary descriptive ranges
+spanning zero. Frozen JEPA was 7.686% higher than supervised. No statistically
+significant superiority, operational readiness or untouched-confirmatory claim
+is made. The one-run approval is consumed; further inference requires separate
+authorization. Source/configuration and all earlier scope limitations remain
+unchanged.

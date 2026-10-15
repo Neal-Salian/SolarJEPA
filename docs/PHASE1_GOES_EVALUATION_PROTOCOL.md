@@ -244,3 +244,16 @@ reference; the code records that assertion without authenticating it. Task 6
 remains pending. Prior exposure, delivery and upstream processing unknowns,
 fixed-checkpoint uncertainty and simulation limits remain attached to all future
 results. No operational-causal or untouched-confirmatory claim is established.
+
+## Approved execution record — 2026-10-15
+
+The user subsequently approved one bounded retrospective experiment. Task 6
+executed the exact pinned configuration once with all 22 frozen arms on identical
+QC support. The [scientific report](PHASE1_GOES_EXTERNAL_EVALUATION.md) and
+[execution manifest](../data/manifests/phase1_goes_external_execution.json)
+record completed execution and independent output verification. None of the
+declared losses, weights, normalization, checkpoints, seeds, product/QC pins,
+calendar settings or inferential boundaries changed. Historical NOT_RUN and
+approval-pending statements above remain dated planning records. No further
+model run, calibration, model selection, retraining, operational claim or
+protected-branch integration is authorized by this execution.

@@ -170,9 +170,9 @@ and the portable readiness ledger. Change only evidence/decision records.
 - Consumes: verified runner, frozen protocol/input identities and **later explicit user approval for full external evaluation**.
 - Produces: all prespecified model/seed scores and paired descriptive results, including unfavorable outcomes and limitations.
 
-- [ ] **Step 1: Obtain action-specific approval and preserve its scope.** This is the required experiment gate, not a generic planning gate. Do not execute this task based on infrastructure readiness alone.
-- [ ] **Step 2: Run the exact frozen config once into a fresh ignored destination.** No fitting, tuning, seed/reference replacement, calibration or full experiment retries selected for favorable output.
-- [ ] **Step 3: Independently recompute scores/support from published forecasts, verify original input hashes and all planned arms/seeds, then report primary/secondary findings and failures.** Review figures/tables if produced; retain exposure, retrospective-causality, fixed-cohort and V2 reliability caveats. Main integration and any other milestone remain separately authorized actions.
+- [x] **Step 1: Obtain action-specific approval and preserve its scope.** This is the required experiment gate, not a generic planning gate. Do not execute this task based on infrastructure readiness alone.
+- [x] **Step 2: Run the exact frozen config once into a fresh ignored destination.** No fitting, tuning, seed/reference replacement, calibration or full experiment retries selected for favorable output.
+- [x] **Step 3: Independently recompute scores/support from published forecasts, verify original input hashes and all planned arms/seeds, then report primary/secondary findings and failures.** Review figures/tables if produced; retain exposure, retrospective-causality, fixed-cohort and V2 reliability caveats. Main integration and any other milestone remain separately authorized actions.
 
 ## Execution follow-up — 2026-10-14
 
@@ -185,3 +185,20 @@ is READY for the approved bounded retrospective scope. Feature-only publication
 is checked before the completion response. Task 6 has not begun and requires
 separate explicit approval; no January model prediction or metric was generated.
 The original immutable readiness ledger and historical reports remain preserved.
+
+## Task 6 completion — 2026-10-15
+
+The user explicitly approved one bounded retrospective experiment. The exact
+pinned runner/configuration executed once from commit `26479e0`, exited zero and
+published the immutable fresh `goes-v1-external-january2025-approved-run` bundle.
+All nine original checkpoint states/normalization and 13 classical fitted records
+were preserved; all 22 arms shared 1,007 origins and 60,420 cells. Independent
+native/QC and full saved-output metric/pair/calendar audits passed. Fresh focused
+verification: 458 tests passed. No source/configuration change, fitting, model
+selection, guard bypass, second inference or protected-branch integration
+occurred. [The scientific report](../../PHASE1_GOES_EXTERNAL_EVALUATION.md) and
+[execution manifest](../../../data/manifests/phase1_goes_external_execution.json)
+retain outcome hashes, unfavorable findings, uncertainty and scientific limits.
+The previous October 14 Task 6-pending paragraph is historical. Further model
+runs or milestones need their own authorization. Final report review and
+feature-only publication are verified before the completion response.

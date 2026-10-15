@@ -288,3 +288,15 @@ The [processing/exposure supplement](PHASE1_GOES_PROCESSING_LIMITATIONS.md)
 records observed prior exposure and unresolved upstream causality. Neither this
 follow-up nor infrastructure readiness authorizes the full January experiment.
 No new January model predictions or metrics have been computed.
+
+## Approved experiment follow-up — 2026-10-15
+
+The user explicitly approved the single bounded retrospective experiment after
+the adapter readiness milestone. The [scientific evaluation report](PHASE1_GOES_EXTERNAL_EVALUATION.md)
+records successful execution of the unchanged frozen cohort and independent
+verification, including 458 fresh tests, native QC/support reconstruction and
+all saved forecast/metric/comparison audits. The earlier readiness ledger remains
+byte-identical. Historical exposure, processing/availability unknowns and
+descriptive fixed-checkpoint uncertainty remain limitations; operational and
+untouched-confirmatory claims are not established. The one approved model run
+is complete; additional experiments require separate authorization.
