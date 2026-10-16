@@ -185,3 +185,55 @@ def test_publication_collision_preserves_existing_destination(monkeypatch, tmp_p
     assert (output / 'publication/unrelated.txt').read_text() == 'preserve'
     assert not (output / 'publication/pilot_accounting.json').exists()
     assert (output / '.publication-staging/pilot_accounting.json').is_file()
+
+
+@pytest.mark.parametrize('interruption', ['deadline', 'keyboard'])
+def test_cleanup_interruption_still_kills_worker_and_keeps_pilot_incomplete(monkeypatch, tmp_path, interruption):
+    """An alarm/interrupt during the TERM grace wait must not skip the hard stop."""
+    import signal
+    resources = importlib.import_module('solar_flare_jepa.experiments.v2_resource_controls')
+    command = ('import signal,time;from pathlib import Path;'
+               'signal.signal(signal.SIGTERM,signal.SIG_IGN);'
+               'Path("ready").write_text("ready");time.sleep(30)')
+    jobs = [resources.ProcessJob('00-stubborn', (sys.executable, '-c', command), 1),
+            resources.ProcessJob('01-must-stay-pending', (sys.executable, '-c', 'pass'), 1)]
+    runner = api().PilotSupervisor(tmp_path / 'supervisor', jobs, code_fingerprint='synthetic',
+        config_fingerprint='synthetic', limits=resources.ResourceLimits(1024**3, 10, 4, 0),
+        minimum_free_bytes=1)
+    terminate = runner._terminate
+    def interrupted_cleanup(process):
+        assert (runner.directory / 'attempts/00-stubborn-1/artifacts/ready').is_file()
+        if interruption == 'deadline':
+            with api()._deadline(.03):
+                terminate(process)
+        else:
+            wait = process.wait
+            def interrupt_grace(*args, **kwargs):
+                if kwargs.get('timeout') == .2:
+                    raise KeyboardInterrupt('synthetic interruption during grace wait')
+                return wait(*args, **kwargs)
+            monkeypatch.setattr(process, 'wait', interrupt_grace)
+            terminate(process)
+    monkeypatch.setattr(runner, '_terminate', interrupted_cleanup)
+    try:
+        expected = resources.ResourceMonitoringUnavailable if interruption == 'deadline' else KeyboardInterrupt
+        with pytest.raises(expected):
+            runner.run()
+        ledger = json.loads((runner.directory / 'supervisor.json').read_text())
+        assert len(ledger['attempts']) == 1
+        assert ledger['jobs']['00-stubborn']['status'] != 'succeeded'
+        assert ledger['jobs']['01-must-stay-pending']['status'] == 'pending'
+        assert runner._sample_rss(ledger['attempts'][0]['pid']) == 0
+        assert not (runner.directory / 'publication').exists()
+    finally:
+        # Keep the regression safe when run against the unfixed implementation.
+        for attempt in runner._ledger['attempts']:
+            if attempt['pid'] is not None:
+                try:
+                    os.killpg(attempt['pid'], signal.SIGKILL)
+                except ProcessLookupError:
+                    pass
+                try:
+                    os.waitpid(attempt['pid'], 0)
+                except ChildProcessError:
+                    pass

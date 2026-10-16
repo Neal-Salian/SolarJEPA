@@ -7,9 +7,11 @@ There is no resume/retry entry point, test release or arbitrary report publisher
 import argparse
 from contextlib import contextmanager
 import json
+import os
 from pathlib import Path
 import shutil
 import signal
+import subprocess
 import sys
 import time
 
@@ -17,7 +19,8 @@ from solar_flare_jepa.forecasting.contracts import canonical_json
 from .config import read_finite_json
 from .v2_pilot_protocol import (DESIGN_FINGERPRINT, EXPERIMENT_ID, evaluation_identity,
                                 load_protocol, validate_execution)
-from .v2_resource_controls import ProcessJob, ProcessSupervisor, ResourceLimits
+from .v2_resource_controls import (ProcessJob, ProcessSupervisor, ResourceLimits,
+                                   ResourceMonitoringUnavailable, _processes)
 from .provenance import _rename_no_replace
 from .v2_runner import JobSpec, RunConfig, _json_copy, _verify_sealed, write_artifact_once
 
@@ -43,6 +46,36 @@ class PilotSupervisor(ProcessSupervisor):
         super().__init__(*args, **kwargs)
         if self.limits.max_retries != 0:
             raise ValueError('Protocol v1 permits zero automatic retries')
+
+    @staticmethod
+    def _terminate(process):
+        """Hard-stop and reap even if the pilot alarm interrupts the TERM grace.
+
+        Keep the historically pinned generic supervisor unchanged. Propagate
+        interruptions after cleanup so its ledger remains conservatively
+        incomplete; they never permit another worker or completed publication.
+        """
+        def signal_group(value):
+            try:
+                os.killpg(process.pid, value)
+            except ProcessLookupError:
+                pass
+            except PermissionError:
+                if any(row['group'] == process.pid and not row['state'].startswith('Z')
+                       for row in _processes()):
+                    raise ResourceMonitoringUnavailable('Cannot terminate a live worker process group')
+        try:
+            signal_group(signal.SIGTERM)
+            try:
+                process.wait(timeout=.2)
+            except subprocess.TimeoutExpired:
+                pass
+        finally:
+            # SIGALRM/KeyboardInterrupt during wait must not skip SIGKILL.
+            try:
+                signal_group(signal.SIGKILL)
+            finally:
+                process.wait(timeout=1)
 
     def _run_pending(self):
         for job in self.jobs:
