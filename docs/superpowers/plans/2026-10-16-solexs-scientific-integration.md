@@ -39,22 +39,22 @@ requested SoLEXS checkpoint takes precedence over the generic main-base rule.
 
 ## Tasks
 
-- [ ] 1. Audit branch ancestry, source, tests, archive integrity, original
+- [x] 1. Audit branch ancestry, source, tests, archive integrity, original
   PRADAN/tool/calibration identities and frozen provisional artifacts. Run an
   isolated baseline; record scientific/implementation reviewer findings.
-- [ ] 2. Add `data/solexs_quality.py`: `numerical_quality(native,
+- [x] 2. Add `data/solexs_quality.py`: `numerical_quality(native,
   expected_step, previous_coordinate=None)` and native GTI endpoint diagnostics.
   Write failing tests for missingness/anomaly separation, exact arithmetic,
   shape validation and cross-detector/source rejection; implement; verify.
-- [ ] 3. Add `data/solexs_interface.py`: immutable `NativeBatch`,
+- [x] 3. Add `data/solexs_interface.py`: immutable `NativeBatch`,
   `prepare_native_batch` and bounded `iter_native_batches`; refuse semantic and
   JEPA/training requests. Test dtype/value preservation, detached metadata,
   immutability, partial PI rows, empty GTIs and chunk-independent boundaries.
-- [ ] 4. Add a pinned native audit configuration and reusable offline readiness
+- [x] 4. Add a pinned native audit configuration and reusable offline readiness
   runner/CLI. Reverify scientific inputs, retain E1-E6 blocks, report numerical
   masks and lineage without arrays; reject tampered gates/config/inputs and
   existing output. Test relocated execution and deterministic reports.
-- [ ] 5. Run real two-archive native integrity/readiness audits and calibration
+- [x] 5. Run real two-archive native integrity/readiness audits and calibration
   preflight, verify documentation/calibration and provisional artifact identities,
   full tests, normal installed imports/CLI, preservation and ignore/history checks.
   Record DOCUMENTED/OBSERVED/INFERRED/UNKNOWN evidence and next readiness gate.
@@ -73,5 +73,10 @@ floating pilot's domain. Existing scientific gates stay closed.
 
 ## Verification ledger
 
-Populated with executed results in the milestone report; logs remain under
-ignored `results/solexs_integration_audit/` in this worktree.
+Tasks 1–5 passed. Task 6 implementation/scientific review and fixes passed;
+final publication is the remaining action. See
+`docs/SOLEXS_SCIENTIFIC_INTEGRATION_VERIFICATION.md` and
+`data/manifests/solexs_scientific_integration.json` for executed results.
+Logs remain under ignored `results/solexs_integration_audit/` in this worktree.
+The explicit user instruction is push-only, without PR or merge. Final remote
+equality will be checked after publication and reported in the handoff.
