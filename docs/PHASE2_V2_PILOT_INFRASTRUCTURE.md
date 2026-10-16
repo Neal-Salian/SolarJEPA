@@ -2,6 +2,11 @@
 
 Date: **2026-10-16, Asia/Kolkata**. Scope: implementation and synthetic/non-training verification only.
 
+Subsequent G3 verification and the reviewed cleanup correction are recorded in
+[G3 readiness](PHASE2_V2_G3_READINESS.md). That follow-up recomputes native data
+identities and qualifies the execution prerequisites; the original findings and
+verification counts below retain their historical scope.
+
 The owner ratified Protocol v1 and authorized its missing pilot infrastructure in this chat. The exact unchanged design fingerprint is `ec104daac15f45fe1c0cee9de44b72e2ed67e2bc42de1bc69edb99ffbec55624`; all17 decisions remain frozen. The ordered20-job configuration fingerprint is `a7ce71194dac05c7ac14e5a5fc09f478b7b6d88ad0744a97bc7c3c7af02a641b`. Outer register bookkeeping records G1/G2 authority without rewriting historical decision records or the legacy M5 approval register. G3 reservation and G4 execution/fitting approval remain absent. No execution approval file is supplied by this milestone.
 
 ## Implementation

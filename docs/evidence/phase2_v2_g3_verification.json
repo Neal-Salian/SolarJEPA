@@ -1,0 +1,1332 @@
+{
+  "actual_pilot_fitting_time_rss_output_feasibility": "UNKNOWN_NOT_EXECUTED",
+  "branch": "codex/v2-experimental-validation-readiness",
+  "configuration_fingerprint": "a7ce71194dac05c7ac14e5a5fc09f478b7b6d88ad0744a97bc7c3c7af02a641b",
+  "data_identity": {
+    "dataset_fingerprint": "080d6128a398259e2112ce812b13d599b2131f9992bccced9720fe215e05cb72",
+    "forecast_fingerprint": "094df46d625380c4c812bb26c9320cff10e40a2de185cfcebfa5dfff04674d94",
+    "normalization_fingerprint": "848623009ce048a14e32c50b7c70d9c9728cdd77391f10115ec1c8fd46d039a9",
+    "split_fingerprint": "69fac8443c0740b7504acbca31720ec5c52cd39a678999e0024debf6344987a4",
+    "split_fingerprints": {
+      "train": "e79a5074c3323f771a8cc40c3dde7a1c8f61747f5ed90f827c450fbb9b6f0c9d",
+      "validation": "707588906ec567b711d60f53fcd7ec81934755a3cb3df24d9df6837e67a68677"
+    },
+    "train_windows": {
+      "cap": 20000,
+      "eligible": 108199,
+      "fingerprint": "55d8eb706cb39b89c8ef3c778890dd47612e5a8c5457429a9bf3a19e683d2fe2",
+      "policy": "complete_consecutive_raw_training_rows",
+      "stride": 1,
+      "subsample": "evenly_spaced_chronological",
+      "used": 20000
+    },
+    "training_fingerprint": "8e5f200f701c73d37191009d66246cd3bd50b5c3da7bb290d4fc28612fff38fb",
+    "validation_content_fingerprint": "bd0fbf759460b2392b0812ff825b215f3e020f9271cdfe20881cf5fa4e5c0870"
+  },
+  "date_client": "2026-10-16",
+  "defects_resolved": [
+    {
+      "evidence": [
+        "technical_deadline_repro.py",
+        "technical_deadline_observed.json",
+        "technical_deadline_fixed_observed.json"
+      ],
+      "id": "TECH-G3-01",
+      "observed_after": "Both .24s cases and .6s control had no surviving worker before external cleanup; alarm failures remain conservative INCOMPLETE with unresolved running/monitor-failure ledger",
+      "observed_before": "Two .24s total alarms plus .12s per-job timeout left synthetic SIGTERM-ignoring workers alive; .6s control killed/reaped worker",
+      "original_location": "src/solar_flare_jepa/experiments/v2_resource_controls.py:362-371",
+      "resolution": "PilotSupervisor._terminate override in v2_pilot.py:50-78 uses nested finally for group SIGKILL and bounded reap; generic pinned supervisor unchanged",
+      "severity": "P2",
+      "status": "RESOLVED_IN_REVIEWED_WORKING_TREE",
+      "trigger": "Pilot total SIGALRM or KeyboardInterrupt interrupts TERM grace wait before SIGKILL"
+    }
+  ],
+  "design_fingerprint": "ec104daac15f45fe1c0cee9de44b72e2ed67e2bc42de1bc69edb99ffbec55624",
+  "environment_caveat": {
+    "disposition": "Disclose at G3 reservation/G4 decision; no dependency/lock changes or warning suppression performed. This is not a warning-free environment.",
+    "status": "OBSERVED_ADVISORY_NO_NUMERICAL_FAILURE_OBSERVED",
+    "strict_import_exit": 1,
+    "upstream_issue": "https://github.com/Unidata/netcdf4-python/issues/1354",
+    "warning": {
+      "netCDF4": "1.7.2",
+      "numpy": "2.2.6",
+      "warnings": [
+        {
+          "category": "RuntimeWarning",
+          "message": "numpy.ndarray size changed, may indicate binary incompatibility. Expected 16 from C header, got 96 from PyObject"
+        }
+      ]
+    }
+  },
+  "g4_requirements_record": "docs/PHASE2_V2_G3_READINESS.md",
+  "gates": {
+    "G1": "OWNER_RATIFIED_UNCHANGED_DESIGN",
+    "G2": "IMPLEMENTED_WITH_REVIEWED_CLEANUP_FIX",
+    "G3": "NATIVE_SUPPORT_VERIFIED;NAMED_RESERVATION_ABSENT;FITTING_FEASIBILITY_UNKNOWN",
+    "G4": "NOT_AUTHORIZED",
+    "G5": "OUTSIDE_PROTOCOL"
+  },
+  "historical_source_pins_matched": 24,
+  "implementation_fix_commit": "b0157f20ecff85dc810730807cd9a097b7aea6c2",
+  "independent_reviews": {
+    "scientific": {
+      "final_evidence_review": {
+        "job_configuration_records_checked": 20,
+        "new_raw_decode_or_fitting": false,
+        "protocol_files_match_reviewed_base": true,
+        "referenced_local_artifacts_checked": 26,
+        "runtime_source_files_checked": 87,
+        "scope": "Native content/identities,report wording,G3/G4 boundaries,warning disposition,source/runtime/artifact self-hashes",
+        "status": "PASS_NO_ACTIONABLE_FINDINGS"
+      },
+      "parent_native_record_independently_cross_checked": true,
+      "raw_decode_repeated": false,
+      "source_and_normalization_selection_reporting_reviewed": true,
+      "status": "NO_CRITICAL_OR_IMPORTANT_SCIENTIFIC_DEFECT",
+      "tests_passed": 163,
+      "warnings": 1
+    },
+    "technical": {
+      "base_focused_tests_passed": 162,
+      "fixed_reproduction_workers_surviving": 0,
+      "post_fix_tests_passed": 53,
+      "status": "PASS_WITH_NO_UNRESOLVED_IMPORTANT_FINDINGS_AFTER_INTEGRATION_FIX"
+    }
+  },
+  "january_august_raw_accessed": false,
+  "job_configuration_fingerprints": [
+    {
+      "dependencies": [],
+      "job_id": "00-1261866429-shared_ssl-ssl",
+      "kind": "ssl_phase",
+      "model_config_fingerprint": "cb91f1399ed2ae2caaea5947ed39b184401fa48a9d491593ed96251d50784e4b",
+      "seed": 1261866429
+    },
+    {
+      "dependencies": [
+        "00-1261866429-shared_ssl-ssl"
+      ],
+      "job_id": "01-1261866429-primary-jepa_finetune",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "cb91f1399ed2ae2caaea5947ed39b184401fa48a9d491593ed96251d50784e4b",
+      "seed": 1261866429
+    },
+    {
+      "dependencies": [],
+      "job_id": "02-1261866429-primary-supervised",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "9a418bbb620de141a92f7903f36ccb96ad393fcaa4ed17c74ec4200602c4b5a4",
+      "seed": 1261866429
+    },
+    {
+      "dependencies": [],
+      "job_id": "03-1261866429-primary-supervised_extra_updates",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "e39e5d52fca534f90dbb7da9d40d293c0f4401cc15b8769550f5b527069ca759",
+      "seed": 1261866429
+    },
+    {
+      "dependencies": [
+        "00-1261866429-shared_ssl-ssl"
+      ],
+      "job_id": "04-1261866429-primary-jepa_frozen",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "3f3033b8ab51db123521558804ce25db63f6e26f6afbc798cf3a14d3a51f3c44",
+      "seed": 1261866429
+    },
+    {
+      "dependencies": [],
+      "job_id": "05-1261866429-primary-random_frozen",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "3006cfc123d1ea7cca95742125ee053a1f41865917442bb82b01d8cdc70fa383",
+      "seed": 1261866429
+    },
+    {
+      "dependencies": [],
+      "job_id": "06-1261866429-baseline-tcn",
+      "kind": "tcn",
+      "model_config_fingerprint": "4d0cbb7d81149fa57bc0b45151f953b016459faf0f809925a145bc21f8e9ae65",
+      "seed": 1261866429
+    },
+    {
+      "dependencies": [],
+      "job_id": "07-1261866429-baseline-quantile_linear",
+      "kind": "quantile_linear",
+      "model_config_fingerprint": "6ad24e6a9b5e2863710bb8aaf3176e7f0466887ae93a728e4ed56f3d7e304cc5",
+      "seed": 1261866429
+    },
+    {
+      "dependencies": [
+        "00-1261866429-shared_ssl-ssl"
+      ],
+      "job_id": "08-1261866429-normalized_pinball_v1-jepa_finetune",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "798e4c6707c68ce0d9dca7fa2dbf08ba58ec69706b8a2c2e8ddf0a17f5057041",
+      "seed": 1261866429
+    },
+    {
+      "dependencies": [],
+      "job_id": "09-1261866429-normalized_pinball_v1-supervised",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "828d89f381cf30d72c93ef9ee3081d34b80d4c029e22feb5e2563e9ba315bbf6",
+      "seed": 1261866429
+    },
+    {
+      "dependencies": [],
+      "job_id": "10-1291916211-shared_ssl-ssl",
+      "kind": "ssl_phase",
+      "model_config_fingerprint": "a5cd77927c4e7612379802dc0ce8a459745257e1b2d999a1f7bf176ac570725c",
+      "seed": 1291916211
+    },
+    {
+      "dependencies": [
+        "10-1291916211-shared_ssl-ssl"
+      ],
+      "job_id": "11-1291916211-primary-jepa_finetune",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "a5cd77927c4e7612379802dc0ce8a459745257e1b2d999a1f7bf176ac570725c",
+      "seed": 1291916211
+    },
+    {
+      "dependencies": [],
+      "job_id": "12-1291916211-primary-supervised",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "4797051eabad39543bd0be9d0c44df04ee97fe36950f79cbde7c7289a6e2d085",
+      "seed": 1291916211
+    },
+    {
+      "dependencies": [],
+      "job_id": "13-1291916211-primary-supervised_extra_updates",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "8d4c91719e6b58a67c783f0750dc23f8e0e9653180816b84b62a43bbe19eb227",
+      "seed": 1291916211
+    },
+    {
+      "dependencies": [
+        "10-1291916211-shared_ssl-ssl"
+      ],
+      "job_id": "14-1291916211-primary-jepa_frozen",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "c4a09a10227ef4d3bf2becc46041a8a802cc62d26f43f2d7322cedf5d1ed7845",
+      "seed": 1291916211
+    },
+    {
+      "dependencies": [],
+      "job_id": "15-1291916211-primary-random_frozen",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "053dac45a39af736a8e6bf3e21370a349f278cbcd1ef45d3c1689381d70e74e8",
+      "seed": 1291916211
+    },
+    {
+      "dependencies": [],
+      "job_id": "16-1291916211-baseline-tcn",
+      "kind": "tcn",
+      "model_config_fingerprint": "bb955c57e42f980d4e983152338b7214e867ea3f4493b517aca0410b34164e76",
+      "seed": 1291916211
+    },
+    {
+      "dependencies": [],
+      "job_id": "17-1291916211-baseline-quantile_linear",
+      "kind": "quantile_linear",
+      "model_config_fingerprint": "a086d439d7bfc538684bd354b7d33d2520e36d4597c7bdafb92cdcc4252a6086",
+      "seed": 1291916211
+    },
+    {
+      "dependencies": [
+        "10-1291916211-shared_ssl-ssl"
+      ],
+      "job_id": "18-1291916211-normalized_pinball_v1-jepa_finetune",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "8d33ab865dea8b8cab3ef647c65a59070c651427741e166f4a5cbd7d07b7dbb8",
+      "seed": 1291916211
+    },
+    {
+      "dependencies": [],
+      "job_id": "19-1291916211-normalized_pinball_v1-supervised",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "d575601846b55a8def752c839277f09ca73ffdb2835fed446a0d8fd6c3d110b8",
+      "seed": 1291916211
+    }
+  ],
+  "kind": "solarjepa_phase2_v2_g3_readiness_verification",
+  "limits": {
+    "max_retries": 0,
+    "max_rss_bytes": 2147483648,
+    "minimum_free_output_bytes": 1073741824,
+    "per_job_timeout_seconds": {
+      "neural_downstream": 600,
+      "quantile_linear": 600,
+      "ssl_phase": 300,
+      "tcn": 1800
+    },
+    "rss_semantics": "sampled live worker+descendant RSS,not hard OS allocation cap",
+    "sum_first_attempt_timeout_seconds": 13800,
+    "threads": 4,
+    "total_wall_seconds": 7200
+  },
+  "model_constructed_on_real_inputs": false,
+  "native_record": "docs/evidence/phase2_v2_g3_native_preflight.json",
+  "normal_install_checks": {
+    "canonical_worker_help_provenance_pass": true,
+    "installed_cleanup_reproduction_workers_surviving": 0,
+    "metadata_repeated_byte_identical": true,
+    "metadata_torch_imported": false,
+    "missing_approval_denied_exit": 2,
+    "noneditable_matching_install": true,
+    "outside_checkout": true
+  },
+  "normalization_scope": "scalar statistics on valid unique raw training cells; no model fitting",
+  "normalization_statistics_recomputed": true,
+  "optimizer_steps_on_real_inputs": 0,
+  "pilot_executed": false,
+  "preparation_measurement": {
+    "command": [
+      "/Users/nealsalian/.codex/worktrees/v2-experimental-validation-readiness/SolarJEPA/.venv/bin/python",
+      "/Users/nealsalian/.codex/worktrees/v2-experimental-validation-readiness/SolarJEPA/results/phase2_v2_g3_20261016/native_preflight.py",
+      "/Users/nealsalian/.codex/worktrees/v2-experimental-validation-readiness/SolarJEPA",
+      "/Users/nealsalian/Desktop/SolarJEPA",
+      "/Users/nealsalian/.codex/worktrees/v2-experimental-validation-readiness/SolarJEPA/results/phase2_v2_g3_20261016/native_preflight.json"
+    ],
+    "elapsed_seconds": 19.264155958999254,
+    "peak_sampled_process_group_rss_bytes": 370245632,
+    "returncode": 0,
+    "scope": "native decode/QC/windows/scalar normalization only; not fitting feasibility"
+  },
+  "preservation": {
+    "all_other_dataset_bytes_rehashed": false,
+    "expected_parallel_worktree": "solexs-scientific-integration",
+    "historical_checkpoint_identities_unchanged": 9,
+    "other_dataset_policy": "No other scientific paths opened or written; preservation is scope/no-write evidence, not exhaustive rehash",
+    "other_worktree_statuses_unchanged": 12,
+    "parallel_work_authority": "Owner confirmed: Expected parallel work; continue V2 and leave SoLEXS untouched",
+    "parallel_worktree_modified_by_this_task": false,
+    "protected_main": "1a4991da4dda9676caeb1d7e35a03408528c3188",
+    "protocol_markdown_and_register_unchanged": true,
+    "raw_checkpoint_paths_check_ignored": 101,
+    "raw_file_identities_unchanged": 92,
+    "remote_heads_before_push": 30
+  },
+  "protocol_files_modified": false,
+  "real_data_training_executed": false,
+  "resources": {
+    "candidate_output_absent": true,
+    "candidate_output_parent_exists": true,
+    "candidate_output_relative": "results/v2-development-v1-first-pilot",
+    "disk_usage": {
+      "free": 5317255168,
+      "total": 245107195904,
+      "used": 239789940736
+    },
+    "feasibility_measured_for_pilot": false,
+    "hardware": {
+      "cpu": "Apple M2",
+      "logical_cpus": "8",
+      "model": "Mac14,2",
+      "physical_memory_bytes": "8589934592"
+    },
+    "host_reserved": false,
+    "lock_version_checks": [
+      {
+        "actual": "8.0.1",
+        "expected": "8.0.1",
+        "lock": "requirements-lock.txt",
+        "package": "astropy",
+        "passed": true
+      },
+      {
+        "actual": "0.2026.9.28.0.59.37",
+        "expected": "0.2026.9.28.0.59.37",
+        "lock": "requirements-lock.txt",
+        "package": "astropy-iers-data",
+        "passed": true
+      },
+      {
+        "actual": "1.3.14",
+        "expected": "1.3.14",
+        "lock": "requirements-lock.txt",
+        "package": "cdflib",
+        "passed": true
+      },
+      {
+        "actual": "2026.7.22",
+        "expected": "2026.7.22",
+        "lock": "requirements-lock.txt",
+        "package": "certifi",
+        "passed": true
+      },
+      {
+        "actual": "1.6.6",
+        "expected": "1.6.6",
+        "lock": "requirements-lock.txt",
+        "package": "cftime",
+        "passed": true
+      },
+      {
+        "actual": "1.4.0",
+        "expected": "1.4.0",
+        "lock": "requirements-lock.txt",
+        "package": "contourpy",
+        "passed": true
+      },
+      {
+        "actual": "0.12.1",
+        "expected": "0.12.1",
+        "lock": "requirements-lock.txt",
+        "package": "cycler",
+        "passed": true
+      },
+      {
+        "actual": "4.66.0",
+        "expected": "4.66.0",
+        "lock": "requirements-lock.txt",
+        "package": "fonttools",
+        "passed": true
+      },
+      {
+        "actual": "2.3.0",
+        "expected": "2.3.0",
+        "lock": "requirements-lock.txt",
+        "package": "iniconfig",
+        "passed": true
+      },
+      {
+        "actual": "1.5.1",
+        "expected": "1.5.1",
+        "lock": "requirements-lock.txt",
+        "package": "kiwisolver",
+        "passed": true
+      },
+      {
+        "actual": "3.11.2",
+        "expected": "3.11.2",
+        "lock": "requirements-lock.txt",
+        "package": "matplotlib",
+        "passed": true
+      },
+      {
+        "actual": "1.7.2",
+        "expected": "1.7.2",
+        "lock": "requirements-lock.txt",
+        "package": "netCDF4",
+        "passed": true
+      },
+      {
+        "actual": "2.2.6",
+        "expected": "2.2.6",
+        "lock": "requirements-lock.txt",
+        "package": "numpy",
+        "passed": true
+      },
+      {
+        "actual": "26.3",
+        "expected": "26.3",
+        "lock": "requirements-lock.txt",
+        "package": "packaging",
+        "passed": true
+      },
+      {
+        "actual": "2.3.3",
+        "expected": "2.3.3",
+        "lock": "requirements-lock.txt",
+        "package": "pandas",
+        "passed": true
+      },
+      {
+        "actual": "12.3.0",
+        "expected": "12.3.0",
+        "lock": "requirements-lock.txt",
+        "package": "pillow",
+        "passed": true
+      },
+      {
+        "actual": "1.6.0",
+        "expected": "1.6.0",
+        "lock": "requirements-lock.txt",
+        "package": "pluggy",
+        "passed": true
+      },
+      {
+        "actual": "25.0.1",
+        "expected": "25.0.1",
+        "lock": "requirements-lock.txt",
+        "package": "pyarrow",
+        "passed": true
+      },
+      {
+        "actual": "2.0.1.5",
+        "expected": "2.0.1.5",
+        "lock": "requirements-lock.txt",
+        "package": "pyerfa",
+        "passed": true
+      },
+      {
+        "actual": "2.21.0",
+        "expected": "2.21.0",
+        "lock": "requirements-lock.txt",
+        "package": "Pygments",
+        "passed": true
+      },
+      {
+        "actual": "3.3.3",
+        "expected": "3.3.3",
+        "lock": "requirements-lock.txt",
+        "package": "pyparsing",
+        "passed": true
+      },
+      {
+        "actual": "9.1.1",
+        "expected": "9.1.1",
+        "lock": "requirements-lock.txt",
+        "package": "pytest",
+        "passed": true
+      },
+      {
+        "actual": "2.9.0.post0",
+        "expected": "2.9.0.post0",
+        "lock": "requirements-lock.txt",
+        "package": "python-dateutil",
+        "passed": true
+      },
+      {
+        "actual": "2026.4",
+        "expected": "2026.4",
+        "lock": "requirements-lock.txt",
+        "package": "pytz",
+        "passed": true
+      },
+      {
+        "actual": "6.0.3",
+        "expected": "6.0.3",
+        "lock": "requirements-lock.txt",
+        "package": "PyYAML",
+        "passed": true
+      },
+      {
+        "actual": "1.17.0",
+        "expected": "1.17.0",
+        "lock": "requirements-lock.txt",
+        "package": "six",
+        "passed": true
+      },
+      {
+        "actual": "2026.4",
+        "expected": "2026.4",
+        "lock": "requirements-lock.txt",
+        "package": "tzdata",
+        "passed": true
+      },
+      {
+        "actual": "2026.7.0",
+        "expected": "2026.7.0",
+        "lock": "requirements-lock.txt",
+        "package": "xarray",
+        "passed": true
+      },
+      {
+        "actual": "2.6.0",
+        "expected": "2.6.0",
+        "lock": "requirements-training-lock.txt",
+        "package": "torch",
+        "passed": true
+      },
+      {
+        "actual": "4.0.12",
+        "expected": "4.0.12",
+        "lock": "requirements-training-lock.txt",
+        "package": "filelock",
+        "passed": true
+      },
+      {
+        "actual": "2026.9.0",
+        "expected": "2026.9.0",
+        "lock": "requirements-training-lock.txt",
+        "package": "fsspec",
+        "passed": true
+      },
+      {
+        "actual": "3.1.6",
+        "expected": "3.1.6",
+        "lock": "requirements-training-lock.txt",
+        "package": "jinja2",
+        "passed": true
+      },
+      {
+        "actual": "3.7",
+        "expected": "3.7",
+        "lock": "requirements-training-lock.txt",
+        "package": "networkx",
+        "passed": true
+      },
+      {
+        "actual": "84.0.0",
+        "expected": "84.0.0",
+        "lock": "requirements-training-lock.txt",
+        "package": "setuptools",
+        "passed": true
+      },
+      {
+        "actual": "1.13.1",
+        "expected": "1.13.1",
+        "lock": "requirements-training-lock.txt",
+        "package": "sympy",
+        "passed": true
+      },
+      {
+        "actual": "4.16.0",
+        "expected": "4.16.0",
+        "lock": "requirements-training-lock.txt",
+        "package": "typing_extensions",
+        "passed": true
+      },
+      {
+        "actual": "3.0.4",
+        "expected": "3.0.4",
+        "lock": "requirements-training-lock.txt",
+        "package": "MarkupSafe",
+        "passed": true
+      },
+      {
+        "actual": "1.3.0",
+        "expected": "1.3.0",
+        "lock": "requirements-training-lock.txt",
+        "package": "mpmath",
+        "passed": true
+      },
+      {
+        "actual": "0.14.5",
+        "expected": "0.14.5",
+        "lock": "requirements-v1-lock.txt",
+        "package": "statsmodels",
+        "passed": true
+      },
+      {
+        "actual": "7.2.0",
+        "expected": "7.2.0",
+        "lock": "requirements-v1-lock.txt",
+        "package": "arch",
+        "passed": true
+      },
+      {
+        "actual": "1.18.1",
+        "expected": "1.18.1",
+        "lock": "requirements-v1-lock.txt",
+        "package": "scipy",
+        "passed": true
+      },
+      {
+        "actual": "1.0.3",
+        "expected": "1.0.3",
+        "lock": "requirements-v1-lock.txt",
+        "package": "patsy",
+        "passed": true
+      }
+    ],
+    "lock_version_checks_passed": 42,
+    "minimum_free_output_bytes": 1073741824,
+    "platform": "macOS-26.3-arm64-arm-64bit-Mach-O"
+  },
+  "reviewed_base_commit": "5d2f0b1514561476649e27798b317e0adeeb78ab",
+  "runtime_snapshot": {
+    "environment": {
+      "executable": "/Users/nealsalian/.codex/worktrees/v2-experimental-validation-readiness/SolarJEPA/.venv/bin/python",
+      "lock_files": {
+        "pyproject.toml": "79698cc6040c22299e30317bb6287a70f3a263c542f4c7755317c25597d5eb06",
+        "requirements-lock.txt": "66bada0f22d31c7dde773c5d3edc631d17c6cf0ba4a8f668a743431b07e912d2",
+        "requirements-training-lock.txt": "6d372b642cc220141a42c7c8d7ab8dd535413aa68f2aaae10ee45587362c0ab6",
+        "requirements-v1-lock.txt": "ac690d1683f4cee2b767bce4d94a9a756f333e2cd70de7ea88689b0adb977635"
+      },
+      "packages": {
+        "altair": "5.5.0",
+        "appnope": "1.0.0",
+        "arch": "7.2.0",
+        "astropy": "8.0.1",
+        "astropy-iers-data": "0.2026.9.28.0.59.37",
+        "asttokens": "3.0.2",
+        "attrs": "26.1.0",
+        "blinker": "1.9.0",
+        "cachetools": "6.2.6",
+        "cdflib": "1.3.14",
+        "certifi": "2026.7.22",
+        "cftime": "1.6.6",
+        "charset-normalizer": "3.5.2",
+        "click": "8.5.0",
+        "comm": "0.2.3",
+        "contourpy": "1.4.0",
+        "cycler": "0.12.1",
+        "debugpy": "1.8.22",
+        "executing": "2.2.1",
+        "fastjsonschema": "2.22.2",
+        "filelock": "4.0.12",
+        "fonttools": "4.66.0",
+        "fsspec": "2026.9.0",
+        "gitdb": "4.0.12",
+        "gitpython": "3.2.0",
+        "idna": "3.20",
+        "iniconfig": "2.3.0",
+        "ipykernel": "6.30.1",
+        "ipython": "9.17.1",
+        "ipython-pygments-lexers": "1.1.1",
+        "jedi": "0.20.0",
+        "jinja2": "3.1.6",
+        "jsonschema": "4.26.0",
+        "jsonschema-specifications": "2025.9.1",
+        "jupyter-client": "8.10.0",
+        "jupyter-core": "5.9.1",
+        "kiwisolver": "1.5.1",
+        "markupsafe": "3.0.4",
+        "matplotlib": "3.11.2",
+        "matplotlib-inline": "0.2.2",
+        "mpmath": "1.3.0",
+        "narwhals": "2.27.1",
+        "nbclient": "0.10.2",
+        "nbformat": "5.11.1",
+        "nest-asyncio": "1.6.0",
+        "netcdf4": "1.7.2",
+        "networkx": "3.7",
+        "numpy": "2.2.6",
+        "packaging": "26.3",
+        "pandas": "2.3.3",
+        "parso": "0.8.7",
+        "patsy": "1.0.3",
+        "pexpect": "4.9.0",
+        "pillow": "12.3.0",
+        "pip": "25.0.1",
+        "platformdirs": "4.12.4",
+        "pluggy": "1.6.0",
+        "prompt-toolkit": "3.0.53",
+        "protobuf": "6.33.6",
+        "psutil": "7.2.2",
+        "ptyprocess": "0.7.0",
+        "pure-eval": "0.2.4",
+        "pyarrow": "25.0.1",
+        "pydeck": "0.9.3",
+        "pyerfa": "2.0.1.5",
+        "pygments": "2.21.0",
+        "pyparsing": "3.3.3",
+        "pytest": "9.1.1",
+        "python-dateutil": "2.9.0.post0",
+        "pytz": "2026.4",
+        "pyyaml": "6.0.3",
+        "pyzmq": "27.2.0",
+        "referencing": "0.37.0",
+        "requests": "2.34.2",
+        "rpds-py": "2026.9.1",
+        "scipy": "1.18.1",
+        "setuptools": "84.0.0",
+        "six": "1.17.0",
+        "smmap": "5.0.3",
+        "solar-flare-jepa": "0.1.0",
+        "stack-data": "0.6.3",
+        "statsmodels": "0.14.5",
+        "sympy": "1.13.1",
+        "tenacity": "9.2.1",
+        "toml": "0.10.2",
+        "torch": "2.6.0",
+        "tornado": "6.5.10",
+        "traitlets": "5.16.1",
+        "typing-extensions": "4.16.0",
+        "tzdata": "2026.4",
+        "urllib3": "2.8.0",
+        "wcwidth": "0.9.2",
+        "xarray": "2026.7.0"
+      },
+      "python": "3.13.3 (v3.13.3:6280bb54784, Apr  8 2025, 10:47:54) [Clang 15.0.0 (clang-1500.3.9.4)]"
+    },
+    "fingerprint": "fcc548fd5d1ad43519ba5c1edf4121cf05a695a16fab4ef5629e910e777fa34f",
+    "git_branch": "codex/v2-experimental-validation-readiness",
+    "git_commit": "b0157f20ecff85dc810730807cd9a097b7aea6c2",
+    "host": {
+      "hostname": "Neals-MacBook-Air.local",
+      "logical_cpus": 8,
+      "machine": "arm64",
+      "physical_memory_bytes": 8589934592,
+      "platform": "macOS-26.3-arm64-arm-64bit-Mach-O",
+      "processor": "arm"
+    },
+    "host_fingerprint": "58c5a228d2cc695f0bba3ae9917b61c041556a10a44261ec6a6d4b465dbe77dd",
+    "source_files": [
+      {
+        "bytes": 1515,
+        "path": "configs/experiments/p1_goes_reference.json",
+        "sha256": "5e80b2de618ff3a078565add7aa8953523fbc30479e1d136f355e2ed73d78c4e"
+      },
+      {
+        "bytes": 1331,
+        "path": "configs/experiments/p1_synthetic.json",
+        "sha256": "ff9a5409b5a7634f332b92de70b8f6c27024572438a367009f7b169b4aebf7bd"
+      },
+      {
+        "bytes": 725,
+        "path": "pyproject.toml",
+        "sha256": "79698cc6040c22299e30317bb6287a70f3a263c542f4c7755317c25597d5eb06"
+      },
+      {
+        "bytes": 550,
+        "path": "requirements-lock.txt",
+        "sha256": "66bada0f22d31c7dde773c5d3edc631d17c6cf0ba4a8f668a743431b07e912d2"
+      },
+      {
+        "bytes": 3882,
+        "path": "schemas/experiment_result.schema.json",
+        "sha256": "2f214e1c9c30cb44899bfc0aecb4080284f8a09841ae829ec5f8da2816e3f0a7"
+      },
+      {
+        "bytes": 1478,
+        "path": "scripts/acquire_goes_history.py",
+        "sha256": "04d5630b81673dfa651459811c1b4b62bd47b0f25e27429a893592808f352f3f"
+      },
+      {
+        "bytes": 23967,
+        "path": "scripts/benchmark_v2_feasibility.py",
+        "sha256": "52c8cd461c4c1cde1e2204556643496d10745d184d5c6275f31c5df726c82dfa"
+      },
+      {
+        "bytes": 453,
+        "path": "scripts/download_data.py",
+        "sha256": "c9e57196b0f2e29ffb690fcc2fc5ca421d963fb95a805988cd2ba4c6bb5b9e6e"
+      },
+      {
+        "bytes": 2170,
+        "path": "scripts/eda.py",
+        "sha256": "9f1e16e416ad9a2145cdd551e0072a8347036155f7e45b80da68be430162b969"
+      },
+      {
+        "bytes": 1717,
+        "path": "scripts/explore_solexs.py",
+        "sha256": "2e7798dc3a8773da902645f62a90b78d07908c957a2332c7f68c68e60832238f"
+      },
+      {
+        "bytes": 472,
+        "path": "scripts/inspect_data.py",
+        "sha256": "f7520e034fa95fc85981c1ce046706eaffbf00e6d748328181b1340f1985b40c"
+      },
+      {
+        "bytes": 1076,
+        "path": "scripts/preflight_v2_goes_pilot.py",
+        "sha256": "dea8a4f04a15709414c93ea9047aa636f64099b68f2dc4a5be1fefc33baac487"
+      },
+      {
+        "bytes": 841,
+        "path": "scripts/prepare_goes_training.py",
+        "sha256": "da09ae92f6d24940ff50d168cf5f81534789c9228c46fd18d83e0a3af56c8a79"
+      },
+      {
+        "bytes": 1817,
+        "path": "scripts/preprocess.py",
+        "sha256": "7fe203482ba4a702ef99c5ea05ce9a96f1f77269c72164938d4eef12f0e8a5e4"
+      },
+      {
+        "bytes": 14218,
+        "path": "scripts/probe_solexs_readiness.py",
+        "sha256": "37e2cd3d1215f3b728c7b47f76caf76679f4f701e7b862b2adf7fb709b5cc19c"
+      },
+      {
+        "bytes": 1845,
+        "path": "scripts/register_aditya.py",
+        "sha256": "cbeeb81b1a07cb30f7f1f09e20ed42d3ac3ed2cd1616e50c6c820c4e8cb8f639"
+      },
+      {
+        "bytes": 3231,
+        "path": "scripts/restore_goes_development.py",
+        "sha256": "615f9887812f4be5121e4d058fab5a9f6be052635c720a4e09fc3bb3c1f07c41"
+      },
+      {
+        "bytes": 1065,
+        "path": "scripts/run_experiment.py",
+        "sha256": "f631570e903e3adb8ba6058c29330d3b2d362f2578f7301729799630917dd407"
+      },
+      {
+        "bytes": 3263,
+        "path": "scripts/run_m2_validation.py",
+        "sha256": "86cfcd7dd10dbb192b375bc6fc401359c1524ae584e216693e30fa45c47e97c7"
+      },
+      {
+        "bytes": 1333,
+        "path": "scripts/run_v1_comparison.py",
+        "sha256": "1d9a5acd8f8d7771bf9b18f98d1ab86423ffda0368d7e89ffe944fdf52ac1e6e"
+      },
+      {
+        "bytes": 218,
+        "path": "scripts/run_v2_goes_pilot.py",
+        "sha256": "d84aebc1f807fcc9f725965c57582c9dfb96c61c820fb48683275393b03262b9"
+      },
+      {
+        "bytes": 1456,
+        "path": "scripts/train_smoke.py",
+        "sha256": "c6640a4062a525d8c8311b017e61c46439dead6a3d3144e55765f2f5f4cff0e7"
+      },
+      {
+        "bytes": 7106,
+        "path": "scripts/validate_goes_development.py",
+        "sha256": "1cd53a4312d54bbbf6d7a20e4a5eb419c8d911be90e61c19c76298768fa26dd2"
+      },
+      {
+        "bytes": 3474,
+        "path": "scripts/validate_solexs.py",
+        "sha256": "113edcaf67364a10422cc4fd2d25ec0b5cad434f3c2bcf83d50e8e9f15556183"
+      },
+      {
+        "bytes": 265,
+        "path": "src/solar_flare_jepa/__init__.py",
+        "sha256": "c652bd746b9fb9df146ba2d8702d86efc4d19dd00455aab5d5db5a39f244fae2"
+      },
+      {
+        "bytes": 8755,
+        "path": "src/solar_flare_jepa/_executed_source.py",
+        "sha256": "99d188129c823d1c0f016bad3ddb6d9c506f8bdc46b1aef37ec79ed7ff1e531f"
+      },
+      {
+        "bytes": 49,
+        "path": "src/solar_flare_jepa/data/__init__.py",
+        "sha256": "72b887e771f6615de4da2ab508def269ad4d17f0b36ed42d1e01d0a3682246e2"
+      },
+      {
+        "bytes": 6270,
+        "path": "src/solar_flare_jepa/data/download.py",
+        "sha256": "da8df6ddf12f2212f2de8782217638188b6cbf6d6cd2ebf51b4884962fb6a909"
+      },
+      {
+        "bytes": 7179,
+        "path": "src/solar_flare_jepa/data/eda.py",
+        "sha256": "40cc0539b66ffcc362fd21524b64f34e0746daf4c1fed6b08d3c0e8614ded9ef"
+      },
+      {
+        "bytes": 16342,
+        "path": "src/solar_flare_jepa/data/foundation.py",
+        "sha256": "1809062980741374bdeb376feb9817d37c5b4c8ce3b3e6ad97c189e5e179cd27"
+      },
+      {
+        "bytes": 6513,
+        "path": "src/solar_flare_jepa/data/goes.py",
+        "sha256": "a8ad4f8fd4626cf0cfa0fefee226a05281d3d6b927e4ed6dffff93009b018d26"
+      },
+      {
+        "bytes": 19342,
+        "path": "src/solar_flare_jepa/data/goes_acquisition.py",
+        "sha256": "5a21144b9f8e55108ff1d9cdb2faa46c0f9b89c3b931c6b41e5398666591995d"
+      },
+      {
+        "bytes": 14314,
+        "path": "src/solar_flare_jepa/data/goes_development_validation.py",
+        "sha256": "95bab7c2c47f6a95f374dc071fb9dd4f9140082900253acd372088e7d9173431"
+      },
+      {
+        "bytes": 13103,
+        "path": "src/solar_flare_jepa/data/goes_restoration.py",
+        "sha256": "9113d4f182262c121df66b7e2994b53badbf30a36e4adb065d7d8ecffc48d9a4"
+      },
+      {
+        "bytes": 12598,
+        "path": "src/solar_flare_jepa/data/goes_v2_development.py",
+        "sha256": "6af57f74d11636107c26176340cd6adfcec32adb905cf168dcaa7d3afa3935b0"
+      },
+      {
+        "bytes": 2669,
+        "path": "src/solar_flare_jepa/data/inspect.py",
+        "sha256": "6b8d3eb99aa3de0f6862b2aab7e1c2cf5258756a19e59adaffc2b6c0268b31e3"
+      },
+      {
+        "bytes": 26552,
+        "path": "src/solar_flare_jepa/data/solexs.py",
+        "sha256": "d34be04e77fa9879e4abf710e690cd0f1764bcd0f348b966c2b7e1b0f1672430"
+      },
+      {
+        "bytes": 18259,
+        "path": "src/solar_flare_jepa/data/solexs_exploration.py",
+        "sha256": "1032aed054e1e8e44ab6569b47197fcc08105a3be7b4503e6c77ec570fb8f11b"
+      },
+      {
+        "bytes": 13723,
+        "path": "src/solar_flare_jepa/data/storage.py",
+        "sha256": "78e1aacf693e7d5b40a46aef0b30dd1aff452570fd82746bac6f8021d7ec5b59"
+      },
+      {
+        "bytes": 201,
+        "path": "src/solar_flare_jepa/evaluation/__init__.py",
+        "sha256": "9c2321a94765c1d697fa562c46d93319b8824dd296e8608031d0ac8178016a07"
+      },
+      {
+        "bytes": 15701,
+        "path": "src/solar_flare_jepa/evaluation/comparison.py",
+        "sha256": "93e5188a8dfad3b4414ce2f3701cb495fd0073adaa5f5e07d45cb80d71e62d44"
+      },
+      {
+        "bytes": 6228,
+        "path": "src/solar_flare_jepa/evaluation/diagnostics.py",
+        "sha256": "5aaa921163a73b9917f4db94bf8d03ad9acbc695881fcb88c167dcc7ef67681c"
+      },
+      {
+        "bytes": 6707,
+        "path": "src/solar_flare_jepa/evaluation/events.py",
+        "sha256": "aebbb111b26c0fa1358fee9e226493ff7e21ad6413ceaf024e9a6476eb1e272e"
+      },
+      {
+        "bytes": 5745,
+        "path": "src/solar_flare_jepa/evaluation/probabilistic.py",
+        "sha256": "ee83c3561d4c442a957e0afeb5a88465efa878aaa25bc8e2ab23a7b95bb3f2ae"
+      },
+      {
+        "bytes": 14140,
+        "path": "src/solar_flare_jepa/evaluation/records.py",
+        "sha256": "c759ffc3e7dee6b5006fc2276bddc709fc7dd1082494053441a397fca88457f5"
+      },
+      {
+        "bytes": 81,
+        "path": "src/solar_flare_jepa/evaluation/stress/__init__.py",
+        "sha256": "4ab32760c46585dbd7763f34e81b1f7fbe407ddad1bb1ca9aa97dbc3de04d5ba"
+      },
+      {
+        "bytes": 5563,
+        "path": "src/solar_flare_jepa/evaluation/stress/calibration.py",
+        "sha256": "1d3783b87aceb8cd88917267824f2da883cde16b455c80db2d952df9812a6fcf"
+      },
+      {
+        "bytes": 10841,
+        "path": "src/solar_flare_jepa/evaluation/stress/contracts.py",
+        "sha256": "de4f35ccd306d6571be336b8a37ac3c71d24f3b804dc10845b8cc8c9a8577bba"
+      },
+      {
+        "bytes": 3861,
+        "path": "src/solar_flare_jepa/evaluation/stress/reference.py",
+        "sha256": "a151857f13c5bfac765ed0655e3466b27f80b0ca9b388c6e23b163dac62c83c0"
+      },
+      {
+        "bytes": 5875,
+        "path": "src/solar_flare_jepa/evaluation/stress/runner.py",
+        "sha256": "078266654ef08687b57643d3dd03c9bdedb0055059a5df9ac053ba695a070c17"
+      },
+      {
+        "bytes": 4907,
+        "path": "src/solar_flare_jepa/evaluation/stress/study.py",
+        "sha256": "a17fe4e83e5644b6f0a754ed6c968a52011eca5b8385df3212badbf7f7420268"
+      },
+      {
+        "bytes": 6835,
+        "path": "src/solar_flare_jepa/evaluation/stress/synthetic.py",
+        "sha256": "631f4b7c2aeada053e302be55193bc4b6d3585df040c526ce118c159d25c833c"
+      },
+      {
+        "bytes": 15947,
+        "path": "src/solar_flare_jepa/evaluation/trajectory.py",
+        "sha256": "738195a030f147e29ec7ca290e553f2baf69becedc859a217c0d9a6e1f8d1899"
+      },
+      {
+        "bytes": 84,
+        "path": "src/solar_flare_jepa/experiments/__init__.py",
+        "sha256": "9da8801f4456e3cab937d5d4726ecf1268735c346867ab3dc9b482b86be18aae"
+      },
+      {
+        "bytes": 9751,
+        "path": "src/solar_flare_jepa/experiments/config.py",
+        "sha256": "d8177fae8de49d33411f5627767d9b9fa0bc81b3dc7d8631480ca8ca70e3b417"
+      },
+      {
+        "bytes": 1855,
+        "path": "src/solar_flare_jepa/experiments/fixtures.py",
+        "sha256": "eb32b6d4826423b2b02f4c17fb41da33154eefdad864f90923e6a0cbbadb7a28"
+      },
+      {
+        "bytes": 13327,
+        "path": "src/solar_flare_jepa/experiments/provenance.py",
+        "sha256": "a66e8e5098c8307b9ed9f5df8cde159dc495ed2e30db0c49bbeee3c2262f5703"
+      },
+      {
+        "bytes": 5588,
+        "path": "src/solar_flare_jepa/experiments/reference.py",
+        "sha256": "4449574f11d64ff9fcfa9e4af97ff091d872055a50f613b83d2f0bf8a3a10daf"
+      },
+      {
+        "bytes": 13334,
+        "path": "src/solar_flare_jepa/experiments/runner.py",
+        "sha256": "f348b19f86d79c0e6e1b4a8b4a64895e22ee155587b836b1e7533a967467e1e4"
+      },
+      {
+        "bytes": 15371,
+        "path": "src/solar_flare_jepa/experiments/v1.py",
+        "sha256": "283fc06b2784db3f2003fcecfd2902b395cacd20ea88a5644e427f0f7ddaa1c1"
+      },
+      {
+        "bytes": 11801,
+        "path": "src/solar_flare_jepa/experiments/v1_report.py",
+        "sha256": "6bb663ce1371d8af00b52b2d904ca19484d2e9a095c510f0231a79a11034b44d"
+      },
+      {
+        "bytes": 9263,
+        "path": "src/solar_flare_jepa/experiments/v2_descriptive.py",
+        "sha256": "5c3c00cacbb36960127e017d9484630578d98d2b7199bb87c80d499cffc7fe35"
+      },
+      {
+        "bytes": 10892,
+        "path": "src/solar_flare_jepa/experiments/v2_evaluation_adapters.py",
+        "sha256": "b8402eb16358778714afdfe2e7b0b9543a23cfc0706fb185dc9c12b5d5682ccb"
+      },
+      {
+        "bytes": 20960,
+        "path": "src/solar_flare_jepa/experiments/v2_evaluation_safety.py",
+        "sha256": "906a8b2db3718ca0db6bf7aa50cef551cd1cab3b852726aaa9a75760f4a3dfb7"
+      },
+      {
+        "bytes": 4226,
+        "path": "src/solar_flare_jepa/experiments/v2_interfaces.py",
+        "sha256": "29d661359965409db95f07cb5d4e8710c086cebb69b23c2f72781a1d674d6b7b"
+      },
+      {
+        "bytes": 10124,
+        "path": "src/solar_flare_jepa/experiments/v2_m5_preflight.py",
+        "sha256": "54fe1e74c30fd3768bb76defd7af5d9dfe1c538bd2ecc0e61b99679df18a6060"
+      },
+      {
+        "bytes": 16204,
+        "path": "src/solar_flare_jepa/experiments/v2_pilot.py",
+        "sha256": "2672eb2848a90332bdd44cd4b6d85d6d13cfa5b23288dd009a860ebd477f5d64"
+      },
+      {
+        "bytes": 13638,
+        "path": "src/solar_flare_jepa/experiments/v2_pilot_protocol.py",
+        "sha256": "338f8e9d64f4775864d2039aa5f77461d008314a844f95faa38ac6838d9ec1ed"
+      },
+      {
+        "bytes": 32608,
+        "path": "src/solar_flare_jepa/experiments/v2_pilot_reporting.py",
+        "sha256": "831631704d90272d5fb010ae558da42bc8dc051f4f4f66810c06342d8240fba6"
+      },
+      {
+        "bytes": 19804,
+        "path": "src/solar_flare_jepa/experiments/v2_pilot_worker.py",
+        "sha256": "82db5037e6d92747dec366a046ed7a12c2406cea7afb7456ff0ddc9728835257"
+      },
+      {
+        "bytes": 27637,
+        "path": "src/solar_flare_jepa/experiments/v2_resource_controls.py",
+        "sha256": "b93e87fc9aacbb741143a8ff5f54efa5a21857bfd5326d5f7d4968dc329379b8"
+      },
+      {
+        "bytes": 42936,
+        "path": "src/solar_flare_jepa/experiments/v2_runner.py",
+        "sha256": "f4d7fdee523cafdfb27dce5780e33808fb487127b875e9d64fc496ae4f4d0faf"
+      },
+      {
+        "bytes": 65,
+        "path": "src/solar_flare_jepa/forecasting/__init__.py",
+        "sha256": "848955669a82a8ad4007c56077c8f7902f68255c9e1323aff8ab60d3c96a3e21"
+      },
+      {
+        "bytes": 31348,
+        "path": "src/solar_flare_jepa/forecasting/acceptance.py",
+        "sha256": "68b588261121c12312b68bf3b49d6e2ee5a374050b81ea9a898eebc0852df929"
+      },
+      {
+        "bytes": 16288,
+        "path": "src/solar_flare_jepa/forecasting/baselines.py",
+        "sha256": "87f5a60f7ee6007ea22cb9daf5777a1b8f0a18ca9c7753a35308f49fb65eaffa"
+      },
+      {
+        "bytes": 32355,
+        "path": "src/solar_flare_jepa/forecasting/contracts.py",
+        "sha256": "cd3eebf40b0768f893dd65fc623b6037e4952105a67db92ec8b7bc05f5a85115"
+      },
+      {
+        "bytes": 4364,
+        "path": "src/solar_flare_jepa/forecasting/splitting.py",
+        "sha256": "9183002cc2b908d3585e2ec6db53009bedd50a2f23f3ecf255dd5d3a1b066033"
+      },
+      {
+        "bytes": 22215,
+        "path": "src/solar_flare_jepa/forecasting/statistical.py",
+        "sha256": "7f928277494078bfba74f591e206f515283a99d4fc4fadbf945dd92258b13eb1"
+      },
+      {
+        "bytes": 14790,
+        "path": "src/solar_flare_jepa/forecasting/windows.py",
+        "sha256": "0e84e41b9b991f56f685c61a7f7ae9dd5e5b3397e56da7a314d332de99dc57b1"
+      },
+      {
+        "bytes": 505,
+        "path": "src/solar_flare_jepa/training/__init__.py",
+        "sha256": "ec08dbf13b86ef569b03b9bb3015c954f3fd7a556983730cdb6c863452d5fbb2"
+      },
+      {
+        "bytes": 21655,
+        "path": "src/solar_flare_jepa/training/comparators.py",
+        "sha256": "39b36160b3b403256fc4e08a7898ffc06099507d9d3c6517351daca780398b83"
+      },
+      {
+        "bytes": 43095,
+        "path": "src/solar_flare_jepa/training/controlled.py",
+        "sha256": "20f3c0fef176f75bc1dd59e06ab143ba3dfed4e883bf6ecc997cb15a875c7b1d"
+      },
+      {
+        "bytes": 24346,
+        "path": "src/solar_flare_jepa/training/core.py",
+        "sha256": "4e2e036d4b773bb7fee6a65c36b78180733cb5167cc42f61225f47b0bba438e0"
+      },
+      {
+        "bytes": 38197,
+        "path": "src/solar_flare_jepa/training/jepa.py",
+        "sha256": "ef7cd2222317367fcf2dc05b1ca474c1560f35c8941efcb0ed92c6d6aa69a8bc"
+      },
+      {
+        "bytes": 5567,
+        "path": "src/solar_flare_jepa/training/losses.py",
+        "sha256": "de8507e5dd297f44bd79ed3e03eb3bc7350dc52b196c5bd2842763c243b11c52"
+      },
+      {
+        "bytes": 7621,
+        "path": "src/solar_flare_jepa/training/normalization.py",
+        "sha256": "1911f257604a6d076be226ac9341e34cc49dbebb6de62091d06db09c5f373f54"
+      },
+      {
+        "bytes": 10155,
+        "path": "src/solar_flare_jepa/training/runner.py",
+        "sha256": "c27d0ba587899360b09f6949162ca7b769531b935df8c5f3862fe8e97061b48f"
+      }
+    ],
+    "source_fingerprint": "60423ce156686e6e7681b2744d678f7f8668463d11290fb99655b369d9af56b0"
+  },
+  "runtime_snapshot_scope": "OBSERVED at clean implementation fix commit before this evidence publication; documentation commits change runtime.fingerprint via git_commit. Recompute at final clean executing HEAD for G4; never reuse this snapshot as approval.",
+  "schema_version": 1,
+  "scientific_references": [
+    {
+      "support": "DOCUMENTED retrospective reprocessing, UTC epoch convention, contributing counts and electron-correction caveats; exact numeric schemas OBSERVED from native attributes",
+      "url": "https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/goes16/l2/docs/GOES-R_XRS_L2_Data_Users_Guide.pdf"
+    }
+  ],
+  "scope": "MAY_JULY_NATIVE_AND_SYNTHETIC_NONTRAINING_ONLY",
+  "source_fingerprint": "60423ce156686e6e7681b2744d678f7f8668463d11290fb99655b369d9af56b0",
+  "test_objects_constructed": false,
+  "tests": {
+    "additional_native_temporal_provenance_suite": {
+      "log": "results/phase2_v2_g3_20261016/tests_science_provenance.log",
+      "passed": 158,
+      "seconds": 37.27,
+      "warnings": 1
+    },
+    "final_pilot_and_loader_suite": {
+      "deselected": 1,
+      "deselection": "benchmark_ssl_job_output_feeds_the_ssl_projection requires fitting",
+      "log": "results/phase2_v2_g3_20261016/tests_final.log",
+      "passed": 254,
+      "seconds": 96.86,
+      "warnings": 0
+    },
+    "full_project_suite_run": false,
+    "full_suite_reason": "Includes fitting/experiment tests outside explicit nontraining authorization",
+    "regression_green": {
+      "log": "results/phase2_v2_g3_20261016/cleanup_green.log",
+      "passed": 2
+    },
+    "regression_red": {
+      "failed_as_expected": 2,
+      "log": "results/phase2_v2_g3_20261016/cleanup_red.log",
+      "reason": "synthetic worker alive after interrupted cleanup; explicit test finally killed and reaped survivors"
+    }
+  },
+  "timezone": "Asia/Kolkata",
+  "verdict": "NONTRAINING_CHECKS_PASS;G3_RESERVATION_PENDING;G4_NOT_AUTHORIZED",
+  "verification_artifacts": {
+    "results/phase2_v2_g3_20261016/actual_ignore_paths.log": {
+      "bytes": 16622,
+      "sha256": "06f960c01dd0aed74d91004af3de6ed7b3a11f5a2e3d89075d6448597b94f4e2"
+    },
+    "results/phase2_v2_g3_20261016/cleanup_green.log": {
+      "bytes": 113,
+      "sha256": "d757249655887e7343eb3bb44df168fc54d3bc678675d284786e31261f809c71"
+    },
+    "results/phase2_v2_g3_20261016/cleanup_red.log": {
+      "bytes": 6397,
+      "sha256": "a5f5d3bdc132016179bb3b9b66f0d9c53d44e7605e93b6ea3f6fcea423f5c47c"
+    },
+    "results/phase2_v2_g3_20261016/install_final.log": {
+      "bytes": 1083,
+      "sha256": "a34dabf7ba8602094e2c1be5120c9552583ed0e0774784b145d0816c5f6e522b"
+    },
+    "results/phase2_v2_g3_20261016/installed_smoke.json": {
+      "bytes": 21313,
+      "sha256": "d598eb3d7aca8ef805b46af943e6400613711f2306e40b3dcf6150928fc01c3b"
+    },
+    "results/phase2_v2_g3_20261016/native_preflight.json": {
+      "bytes": 81376,
+      "sha256": "42a5f60f29cafc05e03d296a62d055af8d78fe62ea031294021e49136b9c3f1e"
+    },
+    "results/phase2_v2_g3_20261016/native_preflight.log": {
+      "bytes": 1644,
+      "sha256": "fcfb91128f7645e67d66437722bcd2726e3910da80e3b6fb4155df48564697cf"
+    },
+    "results/phase2_v2_g3_20261016/native_preflight.py": {
+      "bytes": 3909,
+      "sha256": "eaffe17338410a9c3db43b32606eb37788888b5da11cf85ed7dd42d37c62186e"
+    },
+    "results/phase2_v2_g3_20261016/native_preflight_measurement.json": {
+      "bytes": 743,
+      "sha256": "b749264b3d0383d7f8eaf541a212bf9a644856f38e82920059b7abd949233505"
+    },
+    "results/phase2_v2_g3_20261016/netcdf4_import_warning.json": {
+      "bytes": 246,
+      "sha256": "697b4ace1a2a60a335f552a5b87f91f0e539b88bac190a1cd58a7d0d3b968d66"
+    },
+    "results/phase2_v2_g3_20261016/netcdf4_strict_import.log": {
+      "bytes": 594,
+      "sha256": "5d61dd6060baad39cf9755e54723ff69a78d48de49f098273027d81dd12f4260"
+    },
+    "results/phase2_v2_g3_20261016/preservation_after_verification.json": {
+      "bytes": 742,
+      "sha256": "d44d21db30cb2eac9aea3d13db4725e22f409d122faa9d6f0cabde546fca2262"
+    },
+    "results/phase2_v2_g3_20261016/preservation_before.json": {
+      "bytes": 37307,
+      "sha256": "869a22f4fc0ad109a68bd181eb43fac8dd22d872c672d1b10293931c92c6be52"
+    },
+    "results/phase2_v2_g3_20261016/remote_heads_before_push.txt": {
+      "bytes": 2592,
+      "sha256": "1c25865cc8f55dd2408e31c62193561cf246d57cda0c50d86c619bba2b2747a7"
+    },
+    "results/phase2_v2_g3_20261016/resource_environment.json": {
+      "bytes": 7257,
+      "sha256": "aaecace2e24f038265a686ce0b452fc3a67807f0fd0ab3fb20d62a62a33ec423"
+    },
+    "results/phase2_v2_g3_20261016/runtime_base.json": {
+      "bytes": 19208,
+      "sha256": "e1962e9a2180394b112bbff001d49a5cb2957a4b7e3747eb5eb05ef33eb30c42"
+    },
+    "results/phase2_v2_g3_20261016/runtime_implementation_commit.json": {
+      "bytes": 19208,
+      "sha256": "d19dc4364dd1e45bc4b3b691d878e183c46e06e99b6411ca8706617e14f13ca4"
+    },
+    "results/phase2_v2_g3_20261016/source_candidate.json": {
+      "bytes": 15360,
+      "sha256": "cd948d04b3b809002f09ca87682e90c1658b86ec2cc91ec6114a31762c415d10"
+    },
+    "results/phase2_v2_g3_20261016/technical_deadline_fixed_observed.json": {
+      "bytes": 2912,
+      "sha256": "b6b040b48b0945ff36cfcaf32db2bc04e1630c2c9d4535a6b5a19606522057b3"
+    },
+    "results/phase2_v2_g3_20261016/technical_deadline_installed_observed.json": {
+      "bytes": 2972,
+      "sha256": "243c26b79565aecf1bba453564c152ca3a7a29337c03ca1a6fd3da56b2e43717"
+    },
+    "results/phase2_v2_g3_20261016/technical_deadline_observed.json": {
+      "bytes": 2972,
+      "sha256": "82e5d8e7c5fac6f9dcd7e2b4e467b9d6db397cbb46ac62938d2c159e83e57253"
+    },
+    "results/phase2_v2_g3_20261016/technical_deadline_repro.py": {
+      "bytes": 3161,
+      "sha256": "c15acda52c04f8bce553127131010d3c0f8645fb283044b5566596385208f5e7"
+    },
+    "results/phase2_v2_g3_20261016/technical_review.json": {
+      "bytes": 5657,
+      "sha256": "c8cdeec14bd21175f22e2cb39db0eadd99f87740d63c4fc0de83c8c3b2e28a6e"
+    },
+    "results/phase2_v2_g3_20261016/tests_base.log": {
+      "bytes": 366,
+      "sha256": "ba79638dec4eebfbd63777d5baa78751379be3d99bed14ece5a0e884441e792d"
+    },
+    "results/phase2_v2_g3_20261016/tests_final.log": {
+      "bytes": 365,
+      "sha256": "fd12982700cbddac266e951a223730cf7b05c9bb76d198277ca9e0cce09cd8bc"
+    },
+    "results/phase2_v2_g3_20261016/tests_science_provenance.log": {
+      "bytes": 663,
+      "sha256": "2b2027f655335de5b55ffab6ffb7eb14114ea6fddf0302131e07ac3aa6ac84fa"
+    }
+  }
+}
