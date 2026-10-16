@@ -58,7 +58,7 @@ requested SoLEXS checkpoint takes precedence over the generic main-base rule.
   preflight, verify documentation/calibration and provisional artifact identities,
   full tests, normal installed imports/CLI, preservation and ignore/history checks.
   Record DOCUMENTED/OBSERVED/INFERRED/UNKNOWN evidence and next readiness gate.
-- [ ] 6. Independently review science and implementation, fix required findings
+- [x] 6. Independently review science and implementation, fix required findings
   with regression tests, reverify final source, commit and push only
   `codex/solexs-scientific-integration`; verify upstream/remote equality.
 
@@ -73,10 +73,13 @@ floating pilot's domain. Existing scientific gates stay closed.
 
 ## Verification ledger
 
-Tasks 1–5 passed. Task 6 implementation/scientific review and fixes passed;
-final publication is the remaining action. See
+Tasks 1–6 passed. Implementation/scientific reviews and fixes passed; source and
+evidence publication at `928523f0cf3aac9ff2ed6b20b68e64c14259b248` was verified
+against local/upstream and independent remote advertisement. Main stayed at
+`1a4991da4dda9676caeb1d7e35a03408528c3188`. See
 `docs/SOLEXS_SCIENTIFIC_INTEGRATION_VERIFICATION.md` and
 `data/manifests/solexs_scientific_integration.json` for executed results.
 Logs remain under ignored `results/solexs_integration_audit/` in this worktree.
-The explicit user instruction is push-only, without PR or merge. Final remote
-equality will be checked after publication and reported in the handoff.
+The explicit user instruction is push-only, without PR or merge. This closing
+ledger edit is documentation-only; its final remote equality is checked after
+push and reported in the handoff. The worktree remains available for review.

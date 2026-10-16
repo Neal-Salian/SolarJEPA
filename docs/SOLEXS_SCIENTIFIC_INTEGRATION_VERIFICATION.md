@@ -121,3 +121,9 @@ Publication is restricted to `codex/solexs-scientific-integration`; no PR,
 merge, main push, force push or branch deletion is authorized. The final handoff
 records verified local/upstream/remote equality after push. The managed worktree
 is retained for review and the next explicitly authorized milestone.
+
+Implementation/evidence publication at
+`928523f0cf3aac9ff2ed6b20b68e64c14259b248` was verified by local HEAD, upstream
+tracking ref and independent `git ls-remote` advertisement. Remote main remained
+`1a4991da4dda9676caeb1d7e35a03408528c3188`. This closing ledger update changes
+documentation only; the final handoff reports its subsequently verified SHA.
