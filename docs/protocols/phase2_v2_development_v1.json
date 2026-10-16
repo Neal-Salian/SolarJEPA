@@ -2035,12 +2035,12 @@
     {
       "id": "G1",
       "requires": "Owner ratifies this exact protocolversion and designfingerprint,including explicit risks",
-      "state": "PENDING_OWNER_APPROVAL"
+      "state": "OWNER_RATIFIED_EXACT_DESIGN"
     },
     {
       "id": "G2",
       "requires": "Separate authorization for minimum driver/worker/report/storage integration; implementation+nontraining tests+independent review",
-      "state": "NOT_AUTHORIZED_NOT_IMPLEMENTED"
+      "state": "IMPLEMENTED_NONTRAINING_VERIFIED_INDEPENDENT_REVIEW_PASS"
     },
     {
       "id": "G3",
@@ -2059,8 +2059,25 @@
     }
   ],
   "host_reservation": null,
-  "implementation_approval": null,
-  "implementation_authorized": false,
+  "implementation_approval": {
+    "approval_status": "APPROVED",
+    "authorization_date_client": "2026-10-15",
+    "authorized_by": "repository owner, direct user instruction in this chat",
+    "data_fitting_authorized": false,
+    "design_fingerprint": "ec104daac15f45fe1c0cee9de44b72e2ed67e2bc42de1bc69edb99ffbec55624",
+    "execution_authorized": false,
+    "recorded_date_client": "2026-10-16",
+    "scope": "V2 pilot driver/workers/integration/synthetic and non-training checks; commit and push feature branch; no PR or merge",
+    "test_release_authorized": false
+  },
+  "implementation_authorized": true,
+  "implementation_verification": {
+    "date_client": "2026-10-16",
+    "independent_scientific_and_implementation_review": "PASS_NO_UNRESOLVED_CRITICAL_OR_IMPORTANT_FINDINGS",
+    "record": "docs/evidence/phase2_v2_infrastructure_verification.json",
+    "scope": "Infrastructure,synthetic/non-training checks only",
+    "training_or_pilot_executed": false
+  },
   "independent_review": {
     "corrected_evidence_independently_rechecked": true,
     "design_fingerprint_unchanged": true,
@@ -2069,9 +2086,37 @@
     "status": "PASS"
   },
   "kind": "solarjepa_phase2_v2_development_design_register",
-  "owner_ratification": null,
+  "owner_ratification": {
+    "approval_status": "APPROVED",
+    "authorization_date_client": "2026-10-15",
+    "authorized_by": "repository owner, direct user instruction in this chat",
+    "decision_ids": [
+      "D09",
+      "D10",
+      "D11",
+      "DATA_ACCESS",
+      "AUGUST",
+      "QUALITY",
+      "SEEDS",
+      "BUDGETS",
+      "LOSSES",
+      "CHECKPOINT",
+      "TCN",
+      "LINEAR",
+      "CLASSICAL",
+      "FAILURE_RETRY",
+      "STATISTICS",
+      "TEST_PROHIBITION",
+      "REPRODUCIBILITY"
+    ],
+    "design_fingerprint": "ec104daac15f45fe1c0cee9de44b72e2ed67e2bc42de1bc69edb99ffbec55624",
+    "evidence": "Proceed with SolarJEPA Phase 2 under my authorization to implement the V2 pilot infrastructure only. Ratify the existing development Protocol v1 (ec104daa…55624) with its17 documented decisions, subject to verifying the complete fingerprint and protocol consistency.",
+    "protocol_id": "solarjepa.phase2.v2.development.v1",
+    "recorded_date_client": "2026-10-16",
+    "scope": "All17 existing development defaults and documented risks; implementation infrastructure only; no fitting/execution/test approval"
+  },
   "protocol_id": "solarjepa.phase2.v2.development.v1",
-  "readiness": "READY_FOR_OWNER_RATIFICATION;EXECUTION_BLOCKED",
+  "readiness": "OWNER_RATIFIED;INFRASTRUCTURE_IMPLEMENTED_AND_NONTRAINING_VERIFIED;G3_G4_EXECUTION_BLOCKED",
   "schema_version": 1,
   "test_release_authorized": false,
   "timezone": "Asia/Kolkata",

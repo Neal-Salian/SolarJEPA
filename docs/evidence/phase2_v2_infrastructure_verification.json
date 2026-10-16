@@ -1,0 +1,200 @@
+{
+  "base_commit": "a097946457c8bbb6b6739a91d2c99f7e9151b6f1",
+  "branch": "codex/v2-experimental-validation-readiness",
+  "checkpoints_modified": false,
+  "date_client": "2026-10-16",
+  "decisions_ratified": 17,
+  "design_defaults_changed": false,
+  "design_fingerprint": "ec104daac15f45fe1c0cee9de44b72e2ed67e2bc42de1bc69edb99ffbec55624",
+  "full_v2_evaluations_executed": false,
+  "gates": {
+    "G1": "OWNER_RATIFIED_EXACT_PROTOCOL",
+    "G2": "IMPLEMENTED_NONTRAINING_VERIFIED_REVIEW_PASS",
+    "G3": "NOT_RESERVED_NATIVE_SUPPORT_READINESS_NOT_RECOMPUTED",
+    "G4": "NOT_AUTHORIZED",
+    "G5": "OUTSIDE_PROTOCOL"
+  },
+  "implemented_source_fingerprint": "6027352355e1a104b9d0d799e90f0ecb74eb71bd5f3f8c30b79f6547157a647b",
+  "independent_review": {
+    "additional_regressions": [
+      "actual guarded14+4 synthetic publication bridge",
+      "after-rename alarm withdrawal and collision preservation",
+      "linear work accounting explicitly derived,not observed counters"
+    ],
+    "fixed_findings": [
+      "canonical worker import preserves source attestation",
+      "closed nested report schemas reject arbitrary inference aliases"
+    ],
+    "fresh_pilot_tests_at_review": 111,
+    "implementation_verdict": "PASS",
+    "last_scoped_tests": 2,
+    "scientific_verdict": "PASS_INFRASTRUCTURE_SCOPE",
+    "unresolved_critical_or_important_findings": 0
+  },
+  "inference_reason": "NO_VALIDATED_REPLACEMENT",
+  "inference_status": "INFERENCE_UNAVAILABLE",
+  "january_native_data_accessed": false,
+  "job_groups": {
+    "alternate_loss_development_models": 4,
+    "primary_development_models": 14,
+    "shared_ssl_supervisor_only": 2
+  },
+  "kind": "solarjepa_phase2_v2_pilot_infrastructure_verification",
+  "normal_install_checks": {
+    "installed_source_matches_checkout": true,
+    "metadata_outside_checkout": true,
+    "metadata_torch_imported": false,
+    "missing_approval_execution_exit": 2,
+    "noneditable_install": true,
+    "repeat_identical": true
+  },
+  "normalization_refitted_on_real_data": false,
+  "ordered_job_configuration_fingerprint": "a7ce71194dac05c7ac14e5a5fc09f478b7b6d88ad0744a97bc7c3c7af02a641b",
+  "pilot_experiments_executed": false,
+  "preservation": {
+    "actual_ignored_raw_and_checkpoint_paths": 101,
+    "checkpoint_bytes_and_hashes_unchanged": true,
+    "checkpoint_count": 9,
+    "checkpoint_identities": {
+      "jepa_finetune_seed17.pt": {
+        "bytes": 750082,
+        "sha256": "3d18e1067b7eeaf2b64ea572ff48831559f5171b82e765bf56841f2903fdaf48"
+      },
+      "jepa_finetune_seed29.pt": {
+        "bytes": 751362,
+        "sha256": "e1b97d4cc8587fd9fa9ff02da2cda2165e2bf5b8febb825b4b820af4ddf1540f"
+      },
+      "jepa_finetune_seed43.pt": {
+        "bytes": 752258,
+        "sha256": "6e36849378836f83847ae275561c65460fe4eb129eb1703302bbead7b342e4d5"
+      },
+      "jepa_frozen_seed17.pt": {
+        "bytes": 752258,
+        "sha256": "84772e256b7796978ca53154e4e5088b5b38e98f78a903b5cc33e51e76272c54"
+      },
+      "jepa_frozen_seed29.pt": {
+        "bytes": 749442,
+        "sha256": "1da1e6f474e7cf0e96522e3e391f7f1dc2998974c436e143b2920b488159fe33"
+      },
+      "jepa_frozen_seed43.pt": {
+        "bytes": 752258,
+        "sha256": "98ba8d6379100b2687b075754c15551d9960c8de175957bb6891fdd01ceaea4a"
+      },
+      "supervised_seed17.pt": {
+        "bytes": 748674,
+        "sha256": "973f784e2adecd5183bd11bd3f6d47f49c5a8786e603cac82c15e2854858273b"
+      },
+      "supervised_seed29.pt": {
+        "bytes": 747970,
+        "sha256": "0e77f5fd68a6972ca7f3335733fc873b109527a90e8e7758ab644ad3584c2585"
+      },
+      "supervised_seed43.pt": {
+        "bytes": 747714,
+        "sha256": "6ef24954846756544957363433c1fe000101154e6c9c814aaedd5c8bc3c3a550"
+      }
+    },
+    "current_other_worktrees_preserved": 12,
+    "historical_checkpoint_authority": "results/phase2_v2_protocol_v1_20261015/solarjepa-phase2-protocol-v1-before.json",
+    "historical_checkpoint_authority_identity": {
+      "bytes": 16998,
+      "sha256": "2f9b7f651fca52c27dfd97e34cf18e5622f60f0bf1aa7bada1cb3ec121055bf0"
+    },
+    "historical_inventory_discrepancy": "Phase-E checkout absent/unregistered in resumed inventory; cause/time UNKNOWN; branch83b5443 remains unchanged; no repair performed",
+    "local_main": "known cloud placeholder remains unreadable/UNKNOWN; no repair or mutation",
+    "prohibited_artifacts_in_index": 0,
+    "protected_remote_main": "1a4991da4dda9676caeb1d7e35a03408528c3188",
+    "remote_heads_checked": 29,
+    "staged_files_scope": "15 Python,Markdown,JSON code/test/documentation files; no data/model artifacts"
+  },
+  "real_data_training_executed": false,
+  "runtime_readiness": {
+    "actual_workload_feasibility": "UNKNOWN_NOT_RUN",
+    "date_client": "2026-10-16",
+    "disk_usage": {
+      "free": 7629541376,
+      "total": 245107195904,
+      "used": 237477654528
+    },
+    "evidence": "OBSERVED_METADATA_AND_BYTES_ONLY",
+    "host_reserved": false,
+    "january_native_accessed": false,
+    "logical_cpus": 8,
+    "machine": "arm64",
+    "minimum_free_output_bytes": 1073741824,
+    "model": "Mac14,2",
+    "native_bytes_matched": 27280082,
+    "native_files_decoded": false,
+    "native_files_matched": 92,
+    "normalization_refitted": false,
+    "physical_memory_bytes": 8589934592,
+    "platform": "macOS-26.3-arm64-arm-64bit-Mach-O",
+    "source_checkout_missing_raw_files": 92
+  },
+  "schema_version": 1,
+  "scientific_data_decoded": false,
+  "scope": "INFRASTRUCTURE_ONLY_SYNTHETIC_AND_NONTRAINING",
+  "status": "IMPLEMENTED_NONTRAINING_VERIFIED_EXECUTION_BLOCKED",
+  "tests": {
+    "command": [
+      "/Users/nealsalian/.codex/worktrees/v2-m5-pilot-readiness/SolarJEPA/.venv/bin/python",
+      "-m",
+      "pytest",
+      "-p",
+      "no:cacheprovider",
+      "tests/test_v2_pilot_protocol.py",
+      "tests/test_v2_pilot_driver.py",
+      "tests/test_v2_pilot_worker.py",
+      "tests/test_v2_pilot_reporting.py",
+      "tests/test_v2_pilot_guard_bridge.py",
+      "tests/test_v2_m5_preflight.py",
+      "tests/test_v2_resource_controls.py",
+      "tests/test_v2_descriptive.py",
+      "tests/test_v2_m4a_proposals.py",
+      "tests/test_goes_v2_development.py",
+      "-k",
+      "not benchmark_ssl_job_output_feeds_the_ssl_projection",
+      "-q"
+    ],
+    "deselected": 1,
+    "elapsed_seconds": 97.93095783299987,
+    "full_project_suite_run": false,
+    "full_suite_reason": "contains training/experiment tests outside authorization",
+    "passed": 252,
+    "returncode": 0,
+    "scope": "unit,synthetic,and non-training checks; SSL-fitting benchmark deliberately deselected",
+    "warnings": 0
+  },
+  "timezone": "Asia/Kolkata",
+  "typed_job_configurations_verified": 20,
+  "unit_model_construction": "Legacy proposal test constructs a TCN for parameter-count/receptive-field assertions only,no forward or fit; synthetic worker checks use tensor states/seeding without model training",
+  "verification_artifacts": {
+    "results/phase2_v2_infrastructure_20261016/actual_ignore_paths.log": {
+      "bytes": 16622,
+      "sha256": "06f960c01dd0aed74d91004af3de6ed7b3a11f5a2e3d89075d6448597b94f4e2"
+    },
+    "results/phase2_v2_infrastructure_20261016/install.log": {
+      "bytes": 1106,
+      "sha256": "72d6493f9373d603e8b962a33a6d0a8d392c175945e351252dc6b24993cf1857"
+    },
+    "results/phase2_v2_infrastructure_20261016/installed_smoke.json": {
+      "bytes": 16466,
+      "sha256": "e35c9505dff42bbb6a742dd4587b8a506e8519273f4227a58067f578107fe4be"
+    },
+    "results/phase2_v2_infrastructure_20261016/preservation_before.json": {
+      "bytes": 3731,
+      "sha256": "f6384e36f2d72009eededd1d02be0bd5d862338425309a9d6bdacba8c151aa3e"
+    },
+    "results/phase2_v2_infrastructure_20261016/resource_readiness.json": {
+      "bytes": 23152,
+      "sha256": "f2ee2fde8769ac7ec437ab29fc2832ebaa9d5c29c425ecffab05eb4e50b6d0c6"
+    },
+    "results/phase2_v2_infrastructure_20261016/tests.json": {
+      "bytes": 801,
+      "sha256": "41fc65daacceed186a91779004e2827bd16990288f83d04856037365aa624246"
+    },
+    "results/phase2_v2_infrastructure_20261016/tests.log": {
+      "bytes": 365,
+      "sha256": "53b5e4eaa5b19949c2a96657e33f45617f49e7ee468f11d65cace6d19012cd5a"
+    }
+  }
+}
