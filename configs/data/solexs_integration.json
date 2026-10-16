@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "representation": "native",
+  "inventory": {
+    "path": "data/manifests/aditya_inventory.json",
+    "bytes": 7265,
+    "sha256": "0f770484f375ada192ed5bea75f04d9e2ba5d2b94956938329279a5f11b87540"
+  },
+  "phase_e": {
+    "path": "data/manifests/solexs_phase_e_evidence.json",
+    "bytes": 26921,
+    "sha256": "6e886b27e39db0db28566211ede609dc53eead1bb7db6ecb7317d3ae33f73d5c"
+  },
+  "source_manifests": [
+    {
+      "path": "data/manifests/solexs_guidance_sources.json",
+      "bytes": 11290,
+      "sha256": "553bad889cfc40c0dd97d8fb999b5300441e645810ef6d125b731bbf69eea438"
+    },
+    {
+      "path": "data/manifests/solexs_phase_d_sources.json",
+      "bytes": 6790,
+      "sha256": "d37303d0f180c50c570b8daa78eaa1b15b42e70f1e3e672477857215461abf21"
+    },
+    {
+      "path": "data/manifests/solexs_phase_d1_evidence.json",
+      "bytes": 26507,
+      "sha256": "352e84a73f95520e41bf87a6ba5d40c0d0f2ad542bc84562ff9334427d7452ef"
+    }
+  ],
+  "archives": [
+    "data/raw/aditya/solexs/l1/v1.1/archives/2024/07/AL1_SLX_L1_20240701_v1.1.zip",
+    "data/raw/aditya/solexs/l1/v1.1/archives/2024/07/AL1_SLX_L1_20240703_v1.1.zip"
+  ],
+  "chunk_rows": 1024,
+  "expected_native_step": 1
+}
