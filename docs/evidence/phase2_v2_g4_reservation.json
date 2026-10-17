@@ -1,0 +1,119 @@
+{
+  "current_observed_resource_gates": {
+    "evidence": "v2_pilot.check_storage/run_pilot/PilotSupervisor._run_pending and 229 passing nonfitting tests; no real pilot executed",
+    "pilot_fitting_feasibility": "UNKNOWN",
+    "reservation_activated": false,
+    "storage_check_before_each_attempt": true,
+    "storage_check_before_launch": true,
+    "storage_gate_implemented": true
+  },
+  "data_fitting_authorized": false,
+  "data_root": "/Users/nealsalian/Desktop/SolarJEPA",
+  "execution_authorized": false,
+  "final_binding_policy": "The review runtime is not valid after preparation publication. Recompute runtime_identity in a fresh interpreter after the last commit/push on a clean branch, replace pending approval runtime_fingerprint and write runtime-final.json outside source; do not commit that self-changing final binding. No owner approval is supplied by preparation.",
+  "hardware_chip": "Apple M2",
+  "hardware_model": "Mac14,2",
+  "host": {
+    "hostname": "Neals-MacBook-Air.local",
+    "logical_cpus": 8,
+    "machine": "arm64",
+    "physical_memory_bytes": 8589934592,
+    "platform": "macOS-26.3-arm64-arm-64bit-Mach-O",
+    "processor": "arm"
+  },
+  "host_fingerprint": "58c5a228d2cc695f0bba3ae9917b61c041556a10a44261ec6a6d4b465dbe77dd",
+  "kind": "solarjepa_g4_execution_reservation_preparation",
+  "limits": {
+    "free_space_check_before_each_job": true,
+    "max_retries": 0,
+    "max_rss_bytes": 2147483648,
+    "minimum_free_output_bytes": 1073741824,
+    "per_job_timeout_seconds": {
+      "neural_downstream": 600,
+      "quantile_linear": 600,
+      "ssl_phase": 300,
+      "tcn": 1800
+    },
+    "poll_interval_seconds": 0.05,
+    "processes": "serial fresh subprocess session per attempt",
+    "rss_semantics": "sampled live worker+descendant RSS,not hard OS allocation cap",
+    "sum_first_attempt_timeout_seconds": 13800,
+    "sum_is_not_total_budget_or_completion_guarantee": true,
+    "thread_environment": [
+      "OMP_NUM_THREADS",
+      "OPENBLAS_NUM_THREADS",
+      "MKL_NUM_THREADS",
+      "NUMEXPR_NUM_THREADS",
+      "VECLIB_MAXIMUM_THREADS",
+      "BLIS_NUM_THREADS"
+    ],
+    "threads": 4,
+    "total_includes": "preparation,monitoring,all attempts,validation,sealing,resume active time and conservatively charged crash downtime",
+    "total_wall_seconds": 7200
+  },
+  "measured_resources": {
+    "disk_usage": {
+      "free": 5104422912,
+      "total": 245107195904,
+      "used": 240002772992
+    },
+    "hardware": "Mac14,2\n8589934592\n8\nApple M2\n",
+    "host": {
+      "hostname": "Neals-MacBook-Air.local",
+      "logical_cpus": 8,
+      "machine": "arm64",
+      "physical_memory_bytes": 8589934592,
+      "platform": "macOS-26.3-arm64-arm-64bit-Mach-O",
+      "processor": "arm"
+    },
+    "host_fingerprint": "58c5a228d2cc695f0bba3ae9917b61c041556a10a44261ec6a6d4b465dbe77dd",
+    "memory_pressure": "The system has 8589934592 (524288 pages with a page size of 16384).\nSystem-wide memory free percentage: 42%\n",
+    "observed_utc": "2026-10-17T08:19:29.595494+00:00",
+    "output_absent": true,
+    "output_root": "/Users/nealsalian/.codex/worktrees/v2-experimental-validation-readiness/SolarJEPA/results/v2-development-v1-first-pilot",
+    "parent": "/Users/nealsalian/.codex/worktrees/v2-experimental-validation-readiness/SolarJEPA/results",
+    "physical_available_allocation_guarantee": false,
+    "swapusage": "vm.swapusage: total = 2048.00M  used = 1554.44M  free = 493.56M  (encrypted)\n",
+    "vm_stat": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                3780.\nPages active:                            103307.\nPages inactive:                           90914.\nPages speculative:                         9523.\nPages throttled:                              0.\nPages wired down:                        104422.\nPages purgeable:                             34.\n\"Translation faults\":                 104062606.\nPages copy-on-write:                    4059638.\nPages zero filled:                     48435665.\nPages reactivated:                     16648358.\nPages purged:                           4629268.\nFile-backed pages:                        81918.\nAnonymous pages:                         121826.\nPages stored in compressor:              606443.\nPages occupied by compressor:            175422.\nDecompressions:                        13133604.\nCompressions:                          15585538.\nPageins:                                6874811.\nPageouts:                                157384.\nSwapins:                                  36965.\nSwapouts:                                136348.\n"
+  },
+  "operator_conditions": {
+    "cancellation": "SIGINT / Ctrl-C",
+    "foreground_supervisor_required": true,
+    "supervisor_loss": "no automatic recovery or resume; operator must verify and stop the exact recorded live worker process group; preserve incomplete engineering evidence",
+    "term_hup_only_launcher_permitted": false
+  },
+  "output_root": "/Users/nealsalian/.codex/worktrees/v2-experimental-validation-readiness/SolarJEPA/results/v2-development-v1-first-pilot",
+  "parallel_work_owner_confirmation": "Owner confirmed expected SoLEXS parallel work and instructed continuation on V2 only.",
+  "pending_approval_path": "/Users/nealsalian/Desktop/SolarJEPA/results/v2-g4-mba-m2-20261017/owner-approval.pending.json",
+  "prepared_utc": "2026-10-17T08:13:38.454384+00:00",
+  "python_executable": "/Users/nealsalian/.codex/worktrees/v2-experimental-validation-readiness/SolarJEPA/.venv/bin/python",
+  "ratified_design_resource_bookkeeping": {
+    "scope": "Unchanged design-time annotations from ratified register; these are not current implementation or reservation status.",
+    "values": {
+      "feasibility_measured_for_this_protocol": false,
+      "host_reference_observed": {
+        "architecture": "arm64",
+        "model": "Mac14,2",
+        "physical_memory_bytes": 8589934592
+      },
+      "host_reserved": false,
+      "storage_gate_implemented": false
+    }
+  },
+  "rationale": "SolarJEPA-G4-MBA-M2-20261017-01; PREPARED, pending owner activation of one continuous session beginning only at the subsequent explicit start instruction, maximum 7200 seconds from driver entry including preparation/finalization. Host Neals-MacBook-Air.local, Mac14,2, Apple M2, arm64, 8 GiB physical RAM; source /Users/nealsalian/.codex/worktrees/v2-experimental-validation-readiness/SolarJEPA; data /Users/nealsalian/Desktop/SolarJEPA; output /Users/nealsalian/.codex/worktrees/v2-experimental-validation-readiness/SolarJEPA/results/v2-development-v1-first-pilot. Serial CPU float32, four library/Torch threads, 2147483648-byte sampled worker-plus-descendant RSS, 0 retries, no automatic resume; at least 1073741824 free output bytes before launch and every job. Foreground owner-controlled process; cancellation by SIGINT/Ctrl-C; no launcher that only SIGTERMs/SIGHUPs the supervisor. Owner must inspect/stop exact recorded worker group on supervisor loss and retain INCOMPLETE; if this procedure cannot be provided, execution is blocked pending reviewed remediation. Known NumPy-first NetCDF4 RuntimeWarning and unknown fitting time/memory/output feasibility require explicit acceptance. No actual OS resource allocation or calendar slot is claimed.",
+  "reservation_id": "SolarJEPA-G4-MBA-M2-20261017-01",
+  "runtime_at_review": {
+    "commit": "24b9400351f4c9c5172ce38f0674d9c03d56d253",
+    "fingerprint": "eb38ca13e0e4cb3f057a6f645fc5d4ed70ed34ebcfca48eb5f2e32b65373c840",
+    "source_fingerprint": "60423ce156686e6e7681b2744d678f7f8668463d11290fb99655b369d9af56b0"
+  },
+  "schema_version": 1,
+  "source_root": "/Users/nealsalian/.codex/worktrees/v2-experimental-validation-readiness/SolarJEPA",
+  "status": "PREPARED_PENDING_OWNER_ACTIVATION",
+  "window": {
+    "activation": "owner must explicitly authorize the immediate launch window",
+    "end_utc": null,
+    "maximum_seconds": 7200,
+    "start_utc": null
+  }
+}

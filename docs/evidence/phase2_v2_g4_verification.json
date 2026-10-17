@@ -1,0 +1,1169 @@
+{
+  "branch": "codex/v2-experimental-validation-readiness",
+  "cleanup": {
+    "execution_condition": "owner-controlled foreground SIGINT cancellation with orphan inspection/cleanup; otherwise blocker pending reviewed remediation",
+    "normal_sigint_deadline_regressions_passed": true,
+    "source_changes": false,
+    "term_hup_supervisor_loss": [
+      {
+        "ledger_attempt_status": "running",
+        "ledger_stop_reason": null,
+        "orphan_live": true,
+        "orphan_rows": [
+          "23551     1 23551  16160 Ss   /Library/Frameworks/Python.framework/Versions/3.13/Resources/Python.app/Contents/MacOS/Python -c from pathlib import Path;import time;Path(\"ready\").write_text(\"ready\");time.sleep(30)"
+        ],
+        "pilot_or_training_executed": false,
+        "post_probe_live_group_processes": 0,
+        "signal": "SIGTERM",
+        "supervisor_exit": -15
+      },
+      {
+        "ledger_attempt_status": "running",
+        "ledger_stop_reason": null,
+        "orphan_live": true,
+        "orphan_rows": [
+          "23556     1 23556  16208 Ss   /Library/Frameworks/Python.framework/Versions/3.13/Resources/Python.app/Contents/MacOS/Python -c from pathlib import Path;import time;Path(\"ready\").write_text(\"ready\");time.sleep(30)"
+        ],
+        "pilot_or_training_executed": false,
+        "post_probe_live_group_processes": 0,
+        "signal": "SIGHUP",
+        "supervisor_exit": -1
+      }
+    ]
+  },
+  "configuration_fingerprint": "a7ce71194dac05c7ac14e5a5fc09f478b7b6d88ad0744a97bc7c3c7af02a641b",
+  "current_observed_resource_gates": {
+    "evidence": "v2_pilot.check_storage/run_pilot/PilotSupervisor._run_pending and 229 passing nonfitting tests; no real pilot executed",
+    "pilot_fitting_feasibility": "UNKNOWN",
+    "reservation_activated": false,
+    "storage_check_before_each_attempt": true,
+    "storage_check_before_launch": true,
+    "storage_gate_implemented": true
+  },
+  "data_identity": {
+    "dataset_fingerprint": "080d6128a398259e2112ce812b13d599b2131f9992bccced9720fe215e05cb72",
+    "forecast_fingerprint": "094df46d625380c4c812bb26c9320cff10e40a2de185cfcebfa5dfff04674d94",
+    "normalization_fingerprint": "848623009ce048a14e32c50b7c70d9c9728cdd77391f10115ec1c8fd46d039a9",
+    "split_fingerprint": "69fac8443c0740b7504acbca31720ec5c52cd39a678999e0024debf6344987a4",
+    "split_fingerprints": {
+      "train": "e79a5074c3323f771a8cc40c3dde7a1c8f61747f5ed90f827c450fbb9b6f0c9d",
+      "validation": "707588906ec567b711d60f53fcd7ec81934755a3cb3df24d9df6837e67a68677"
+    },
+    "train_windows": {
+      "cap": 20000,
+      "eligible": 108199,
+      "fingerprint": "55d8eb706cb39b89c8ef3c778890dd47612e5a8c5457429a9bf3a19e683d2fe2",
+      "policy": "complete_consecutive_raw_training_rows",
+      "stride": 1,
+      "subsample": "evenly_spaced_chronological",
+      "used": 20000
+    },
+    "training_fingerprint": "8e5f200f701c73d37191009d66246cd3bd50b5c3da7bb290d4fc28612fff38fb",
+    "validation_content_fingerprint": "bd0fbf759460b2392b0812ff825b215f3e020f9271cdfe20881cf5fa4e5c0870"
+  },
+  "date_client": "2026-10-17",
+  "design_fingerprint": "ec104daac15f45fe1c0cee9de44b72e2ed67e2bc42de1bc69edb99ffbec55624",
+  "environment_caveat": {
+    "explanation": "The known size-changed warning is import-order-dependent. NumPy-first reproduces it and strict mode exits 1; NetCDF4-first exits 0. Native identities pass; this does not establish binary correctness.",
+    "netcdf_first_import": {
+      "import_passed": true,
+      "warnings": []
+    },
+    "netcdf_first_strict_exit": 0,
+    "no_environment_changes": true,
+    "numpy_first_import": {
+      "import_passed": true,
+      "netCDF4": "1.7.2",
+      "numpy": "2.2.6",
+      "warnings": [
+        {
+          "category": "RuntimeWarning",
+          "message": "numpy.ndarray size changed, may indicate binary incompatibility. Expected 16 from C header, got 96 from PyObject"
+        }
+      ]
+    },
+    "numpy_first_strict_exit": 1
+  },
+  "excluded_scientific_files_opened": false,
+  "historical_source_pins_matched": 24,
+  "independent_reviews": {
+    "final_preparation_records": {
+      "mode": "fresh static read-only review of staged report, reservation, native and verification records",
+      "result": "No publication blockers after clarifying design-time storage bookkeeping versus current gates and synthetic versus real-data predictions",
+      "tests_or_science_io": false
+    },
+    "scientific": {
+      "finding": "no new scientific implementation blocker",
+      "mode": "independent hash/source review and 111 nonfitting tests"
+    },
+    "technical": {
+      "finding": "TERM/HUP orphan risk, otherwise normal supervised guards implemented",
+      "mode": "static read-only"
+    }
+  },
+  "installation": {
+    "installed_modules_matching_checkout": 63,
+    "lock_requirements_matched": 42,
+    "metadata_repeated_byte_identical": true,
+    "metadata_torch_imported": false,
+    "missing_approval_exit": 2,
+    "normal_help_exit": 0,
+    "normal_noneditable_package_root": "/Users/nealsalian/.codex/worktrees/v2-experimental-validation-readiness/SolarJEPA/.venv/lib/python3.13/site-packages/solar_flare_jepa",
+    "pending_approval_refused": "Execution approval must explicitly authorize only this bounded protocol and fitting scope"
+  },
+  "job_identities": [
+    {
+      "cohort": "shared_ssl",
+      "dependencies": [],
+      "descriptor_fingerprint": "19fc4c50affb729b8e38bf14ddf828f411e83813eb22d417b4e6a233c5158ba2",
+      "development_run": null,
+      "job_id": "00-1261866429-shared_ssl-ssl",
+      "kind": "ssl_phase",
+      "model_config_fingerprint": "cb91f1399ed2ae2caaea5947ed39b184401fa48a9d491593ed96251d50784e4b",
+      "seed": 1261866429,
+      "timeout_seconds": 300
+    },
+    {
+      "cohort": "primary",
+      "dependencies": [
+        "00-1261866429-shared_ssl-ssl"
+      ],
+      "descriptor_fingerprint": "9930e877ca788eb3cbe9ebfa474462c2b5059f3300553919fce100d7b88356de",
+      "development_run": "primary",
+      "job_id": "01-1261866429-primary-jepa_finetune",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "cb91f1399ed2ae2caaea5947ed39b184401fa48a9d491593ed96251d50784e4b",
+      "seed": 1261866429,
+      "timeout_seconds": 600
+    },
+    {
+      "cohort": "primary",
+      "dependencies": [],
+      "descriptor_fingerprint": "ccaca3ec6c3322d210a6f9e8e8efe861c62f4a525859b2095f01bffa95f54618",
+      "development_run": "primary",
+      "job_id": "02-1261866429-primary-supervised",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "9a418bbb620de141a92f7903f36ccb96ad393fcaa4ed17c74ec4200602c4b5a4",
+      "seed": 1261866429,
+      "timeout_seconds": 600
+    },
+    {
+      "cohort": "primary",
+      "dependencies": [],
+      "descriptor_fingerprint": "1fb952f17f7b1efbe8593238da6794b0d11fe0c6afc6ab20dcbf8f96a4f7e353",
+      "development_run": "primary",
+      "job_id": "03-1261866429-primary-supervised_extra_updates",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "e39e5d52fca534f90dbb7da9d40d293c0f4401cc15b8769550f5b527069ca759",
+      "seed": 1261866429,
+      "timeout_seconds": 600
+    },
+    {
+      "cohort": "primary",
+      "dependencies": [
+        "00-1261866429-shared_ssl-ssl"
+      ],
+      "descriptor_fingerprint": "2c2d2ecd1eb7c8dac375d9a2af304db8780bf0cf5bc1766f2147b7fae84734bc",
+      "development_run": "primary",
+      "job_id": "04-1261866429-primary-jepa_frozen",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "3f3033b8ab51db123521558804ce25db63f6e26f6afbc798cf3a14d3a51f3c44",
+      "seed": 1261866429,
+      "timeout_seconds": 600
+    },
+    {
+      "cohort": "primary",
+      "dependencies": [],
+      "descriptor_fingerprint": "0f6bf772bbe9909825cd637d2a2d90f8ab6718338ce3f2ab43cf1b4603399f73",
+      "development_run": "primary",
+      "job_id": "05-1261866429-primary-random_frozen",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "3006cfc123d1ea7cca95742125ee053a1f41865917442bb82b01d8cdc70fa383",
+      "seed": 1261866429,
+      "timeout_seconds": 600
+    },
+    {
+      "cohort": "baseline",
+      "dependencies": [],
+      "descriptor_fingerprint": "616f640c163640480368fed6bf0d53c3054a5382f7b8872685e3537088b62c97",
+      "development_run": "primary",
+      "job_id": "06-1261866429-baseline-tcn",
+      "kind": "tcn",
+      "model_config_fingerprint": "4d0cbb7d81149fa57bc0b45151f953b016459faf0f809925a145bc21f8e9ae65",
+      "seed": 1261866429,
+      "timeout_seconds": 1800
+    },
+    {
+      "cohort": "baseline",
+      "dependencies": [],
+      "descriptor_fingerprint": "834d3ce8150b7698f2221324e1d586bf7ac316f1d275564732dd7b8e3b2303bd",
+      "development_run": "primary",
+      "job_id": "07-1261866429-baseline-quantile_linear",
+      "kind": "quantile_linear",
+      "model_config_fingerprint": "6ad24e6a9b5e2863710bb8aaf3176e7f0466887ae93a728e4ed56f3d7e304cc5",
+      "seed": 1261866429,
+      "timeout_seconds": 600
+    },
+    {
+      "cohort": "normalized_pinball_v1",
+      "dependencies": [
+        "00-1261866429-shared_ssl-ssl"
+      ],
+      "descriptor_fingerprint": "fce8b7d815fbacea2421b28b2a8627e4d898fb3017d9f944ef3a1376861b9701",
+      "development_run": "alternate_loss",
+      "job_id": "08-1261866429-normalized_pinball_v1-jepa_finetune",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "798e4c6707c68ce0d9dca7fa2dbf08ba58ec69706b8a2c2e8ddf0a17f5057041",
+      "seed": 1261866429,
+      "timeout_seconds": 600
+    },
+    {
+      "cohort": "normalized_pinball_v1",
+      "dependencies": [],
+      "descriptor_fingerprint": "f53130481ef634d0df84423f1c384f2b25284c1d009b5f8ee959b773659e6daf",
+      "development_run": "alternate_loss",
+      "job_id": "09-1261866429-normalized_pinball_v1-supervised",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "828d89f381cf30d72c93ef9ee3081d34b80d4c029e22feb5e2563e9ba315bbf6",
+      "seed": 1261866429,
+      "timeout_seconds": 600
+    },
+    {
+      "cohort": "shared_ssl",
+      "dependencies": [],
+      "descriptor_fingerprint": "d4bf673c3aaf270179a2a138273ce630f83fb8629bb06f736d796edcf607b359",
+      "development_run": null,
+      "job_id": "10-1291916211-shared_ssl-ssl",
+      "kind": "ssl_phase",
+      "model_config_fingerprint": "a5cd77927c4e7612379802dc0ce8a459745257e1b2d999a1f7bf176ac570725c",
+      "seed": 1291916211,
+      "timeout_seconds": 300
+    },
+    {
+      "cohort": "primary",
+      "dependencies": [
+        "10-1291916211-shared_ssl-ssl"
+      ],
+      "descriptor_fingerprint": "cf2945bd4efc05827dcc6aa804e04401de9e9f130b375e08c9345806a56f67b8",
+      "development_run": "primary",
+      "job_id": "11-1291916211-primary-jepa_finetune",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "a5cd77927c4e7612379802dc0ce8a459745257e1b2d999a1f7bf176ac570725c",
+      "seed": 1291916211,
+      "timeout_seconds": 600
+    },
+    {
+      "cohort": "primary",
+      "dependencies": [],
+      "descriptor_fingerprint": "88275d3280fb4308a9edf64711fa33aa9c20d096c7d82d28bf1d252bac0325e3",
+      "development_run": "primary",
+      "job_id": "12-1291916211-primary-supervised",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "4797051eabad39543bd0be9d0c44df04ee97fe36950f79cbde7c7289a6e2d085",
+      "seed": 1291916211,
+      "timeout_seconds": 600
+    },
+    {
+      "cohort": "primary",
+      "dependencies": [],
+      "descriptor_fingerprint": "02376fafc2f1360ec7631f8ade5d8c6089f6e904875266122ef69a9c181ea083",
+      "development_run": "primary",
+      "job_id": "13-1291916211-primary-supervised_extra_updates",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "8d4c91719e6b58a67c783f0750dc23f8e0e9653180816b84b62a43bbe19eb227",
+      "seed": 1291916211,
+      "timeout_seconds": 600
+    },
+    {
+      "cohort": "primary",
+      "dependencies": [
+        "10-1291916211-shared_ssl-ssl"
+      ],
+      "descriptor_fingerprint": "46df3da7486bc09fa1a805d82c2132fe4bbfd3ddcb47a5fb7e746e4958a5448f",
+      "development_run": "primary",
+      "job_id": "14-1291916211-primary-jepa_frozen",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "c4a09a10227ef4d3bf2becc46041a8a802cc62d26f43f2d7322cedf5d1ed7845",
+      "seed": 1291916211,
+      "timeout_seconds": 600
+    },
+    {
+      "cohort": "primary",
+      "dependencies": [],
+      "descriptor_fingerprint": "3ba8e18a723b92efc28fdc3694f694e47638070f1a03f2d6eb59347f3ede1268",
+      "development_run": "primary",
+      "job_id": "15-1291916211-primary-random_frozen",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "053dac45a39af736a8e6bf3e21370a349f278cbcd1ef45d3c1689381d70e74e8",
+      "seed": 1291916211,
+      "timeout_seconds": 600
+    },
+    {
+      "cohort": "baseline",
+      "dependencies": [],
+      "descriptor_fingerprint": "2de428b523d6e7989bd85f19d7582455078de5c5bd62a2366b3def1dc02df0cc",
+      "development_run": "primary",
+      "job_id": "16-1291916211-baseline-tcn",
+      "kind": "tcn",
+      "model_config_fingerprint": "bb955c57e42f980d4e983152338b7214e867ea3f4493b517aca0410b34164e76",
+      "seed": 1291916211,
+      "timeout_seconds": 1800
+    },
+    {
+      "cohort": "baseline",
+      "dependencies": [],
+      "descriptor_fingerprint": "a64b54081c6d4f17ab53a23dbeeecd7d7d4019288133bde256666c600ef94151",
+      "development_run": "primary",
+      "job_id": "17-1291916211-baseline-quantile_linear",
+      "kind": "quantile_linear",
+      "model_config_fingerprint": "a086d439d7bfc538684bd354b7d33d2520e36d4597c7bdafb92cdcc4252a6086",
+      "seed": 1291916211,
+      "timeout_seconds": 600
+    },
+    {
+      "cohort": "normalized_pinball_v1",
+      "dependencies": [
+        "10-1291916211-shared_ssl-ssl"
+      ],
+      "descriptor_fingerprint": "31a2ca9f66e2dd7aa581a9ec1a9414409c8ed58627404b7259ab8334fd5ebe55",
+      "development_run": "alternate_loss",
+      "job_id": "18-1291916211-normalized_pinball_v1-jepa_finetune",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "8d33ab865dea8b8cab3ef647c65a59070c651427741e166f4a5cbd7d07b7dbb8",
+      "seed": 1291916211,
+      "timeout_seconds": 600
+    },
+    {
+      "cohort": "normalized_pinball_v1",
+      "dependencies": [],
+      "descriptor_fingerprint": "314ea8762da08c3d88d710e9567188b98377791a9c0a19753da158e02d88a836",
+      "development_run": "alternate_loss",
+      "job_id": "19-1291916211-normalized_pinball_v1-supervised",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "d575601846b55a8def752c839277f09ca73ffdb2835fed446a0d8fd6c3d110b8",
+      "seed": 1291916211,
+      "timeout_seconds": 600
+    }
+  ],
+  "kind": "solarjepa_g4_execution_preparation_verification",
+  "limits": {
+    "free_space_check_before_each_job": true,
+    "max_retries": 0,
+    "max_rss_bytes": 2147483648,
+    "minimum_free_output_bytes": 1073741824,
+    "per_job_timeout_seconds": {
+      "neural_downstream": 600,
+      "quantile_linear": 600,
+      "ssl_phase": 300,
+      "tcn": 1800
+    },
+    "poll_interval_seconds": 0.05,
+    "processes": "serial fresh subprocess session per attempt",
+    "rss_semantics": "sampled live worker+descendant RSS,not hard OS allocation cap",
+    "sum_first_attempt_timeout_seconds": 13800,
+    "sum_is_not_total_budget_or_completion_guarantee": true,
+    "thread_environment": [
+      "OMP_NUM_THREADS",
+      "OPENBLAS_NUM_THREADS",
+      "MKL_NUM_THREADS",
+      "NUMEXPR_NUM_THREADS",
+      "VECLIB_MAXIMUM_THREADS",
+      "BLIS_NUM_THREADS"
+    ],
+    "threads": 4,
+    "total_includes": "preparation,monitoring,all attempts,validation,sealing,resume active time and conservatively charged crash downtime",
+    "total_wall_seconds": 7200
+  },
+  "matrix": {
+    "alternate_selected": 4,
+    "nested_linear_candidates": 14,
+    "primary_selected": 14,
+    "seeds": [
+      1261866429,
+      1291916211
+    ],
+    "shared_ssl": 2,
+    "total_processes": 20,
+    "total_selected": 18
+  },
+  "model_fit_executed": false,
+  "native": {
+    "all_native_identities_passed": 92,
+    "audited_science_files": 92,
+    "bytes": 27280082,
+    "exact_support_and_normalizer_match_g3": true,
+    "files": 92,
+    "independent_checks": {
+      "support": {
+        "train": {
+          "complete_masks": true,
+          "context_and_targets_inside_partition": true,
+          "excluded": 327,
+          "retained": 3609
+        },
+        "validation": {
+          "complete_masks": true,
+          "context_and_targets_inside_partition": true,
+          "excluded": 68,
+          "retained": 412
+        }
+      },
+      "unique_raw_training_normalization_matches": true
+    },
+    "measurement": {
+      "elapsed_seconds": 15.57220929200048,
+      "exit_code": 0,
+      "poll_seconds": 0.05,
+      "sampled_group_peak_rss_bytes": 444628992,
+      "samples": 213,
+      "scope": "native preparation only; no fitting or pilot",
+      "torch_import_blocked": true
+    }
+  },
+  "optimizer_steps_on_real_data": 0,
+  "pilot_executed": false,
+  "preservation": {
+    "actual_raw_checkpoint_ignore_paths": 101,
+    "all_other_scientific_files_rehashed": false,
+    "concurrent_work_owner_confirmation": "CONFIRMED: Expected parallel work; continue V2 only",
+    "concurrent_work_touched_by_this_task": false,
+    "historical_checkpoint_identities_before_after_match": 9,
+    "lock_environment_source_before_after_match": true,
+    "no_branches_or_worktrees_created_deleted_reset": true,
+    "other_ref_changes": {
+      "refs/heads/codex/solexs-scientific-integration": {
+        "after": "89c623b2bed566f5b2776a2159986084e8298377",
+        "before": "2b896c93209ff89ffccf521a2ebb7859ff736849"
+      }
+    },
+    "other_worktree_changes": [
+      {
+        "after": {
+          "path": "/Users/nealsalian/.codex/worktrees/solexs-scientific-integration/SolarJEPA",
+          "state": [
+            "HEAD 89c623b2bed566f5b2776a2159986084e8298377",
+            "branch refs/heads/codex/solexs-scientific-integration"
+          ],
+          "status": "?? tests/test_solexs_reference.py\n"
+        },
+        "before": {
+          "path": "/Users/nealsalian/.codex/worktrees/solexs-scientific-integration/SolarJEPA",
+          "state": [
+            "HEAD 2b896c93209ff89ffccf521a2ebb7859ff736849",
+            "branch refs/heads/codex/solexs-scientific-integration"
+          ],
+          "status": ""
+        }
+      }
+    ],
+    "prohibited_data_tracked": false,
+    "protected_main": "1a4991da4dda9676caeb1d7e35a03408528c3188",
+    "protocol_files_before_after_match": true,
+    "raw_checkpoint_identities_matched_at_prepublication": true,
+    "raw_identities_before_after_match": 92
+  },
+  "publication": {
+    "final_binding_policy": "Publish this preparation on existing V2 branch, then regenerate external runtime-final.json and owner-approval.pending.json at final clean published HEAD. The tracked review snapshot necessarily precedes this commit and is not execution authority.",
+    "merged": false,
+    "no_protocol_source_dataset_checkpoint_changes": true,
+    "pr_created": false,
+    "pushed_main": false,
+    "status": "OWNER_AUTHORIZED_FEATURE_BRANCH_PREPARATION_ONLY"
+  },
+  "ratified_design_resource_bookkeeping": {
+    "scope": "Unchanged design-time annotations from ratified register; these are not current implementation or reservation status.",
+    "values": {
+      "feasibility_measured_for_this_protocol": false,
+      "host_reference_observed": {
+        "architecture": "arm64",
+        "model": "Mac14,2",
+        "physical_memory_bytes": 8589934592
+      },
+      "host_reserved": false,
+      "storage_gate_implemented": false
+    }
+  },
+  "real_data_model_constructed": false,
+  "remaining_execution_blockers": [
+    "Owner activation of named G3 window and operator conditions",
+    "Separate explicit owner G4 declaration bound to final clean published HEAD/runtime and exact data identities",
+    "Immediate resource/source/data revalidation; actual fitting feasibility remains UNKNOWN",
+    "If launcher cannot preserve supervisor and use SIGINT plus orphan recovery, reviewed cleanup remediation is required before execution"
+  ],
+  "reservation_id": "SolarJEPA-G4-MBA-M2-20261017-01",
+  "resource_snapshot": {
+    "disk_usage": {
+      "free": 5104422912,
+      "total": 245107195904,
+      "used": 240002772992
+    },
+    "hardware": "Mac14,2\n8589934592\n8\nApple M2\n",
+    "host": {
+      "hostname": "Neals-MacBook-Air.local",
+      "logical_cpus": 8,
+      "machine": "arm64",
+      "physical_memory_bytes": 8589934592,
+      "platform": "macOS-26.3-arm64-arm-64bit-Mach-O",
+      "processor": "arm"
+    },
+    "host_fingerprint": "58c5a228d2cc695f0bba3ae9917b61c041556a10a44261ec6a6d4b465dbe77dd",
+    "memory_pressure": "The system has 8589934592 (524288 pages with a page size of 16384).\nSystem-wide memory free percentage: 42%\n",
+    "observed_utc": "2026-10-17T08:19:29.595494+00:00",
+    "output_absent": true,
+    "output_root": "/Users/nealsalian/.codex/worktrees/v2-experimental-validation-readiness/SolarJEPA/results/v2-development-v1-first-pilot",
+    "parent": "/Users/nealsalian/.codex/worktrees/v2-experimental-validation-readiness/SolarJEPA/results",
+    "physical_available_allocation_guarantee": false,
+    "swapusage": "vm.swapusage: total = 2048.00M  used = 1554.44M  free = 493.56M  (encrypted)\n",
+    "vm_stat": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                3780.\nPages active:                            103307.\nPages inactive:                           90914.\nPages speculative:                         9523.\nPages throttled:                              0.\nPages wired down:                        104422.\nPages purgeable:                             34.\n\"Translation faults\":                 104062606.\nPages copy-on-write:                    4059638.\nPages zero filled:                     48435665.\nPages reactivated:                     16648358.\nPages purged:                           4629268.\nFile-backed pages:                        81918.\nAnonymous pages:                         121826.\nPages stored in compressor:              606443.\nPages occupied by compressor:            175422.\nDecompressions:                        13133604.\nCompressions:                          15585538.\nPageins:                                6874811.\nPageouts:                                157384.\nSwapins:                                  36965.\nSwapouts:                                136348.\n"
+  },
+  "reviewed_commit": "24b9400351f4c9c5172ce38f0674d9c03d56d253",
+  "runtime_snapshot": {
+    "environment": {
+      "executable": "/Users/nealsalian/.codex/worktrees/v2-experimental-validation-readiness/SolarJEPA/.venv/bin/python",
+      "lock_files": {
+        "pyproject.toml": "79698cc6040c22299e30317bb6287a70f3a263c542f4c7755317c25597d5eb06",
+        "requirements-lock.txt": "66bada0f22d31c7dde773c5d3edc631d17c6cf0ba4a8f668a743431b07e912d2",
+        "requirements-training-lock.txt": "6d372b642cc220141a42c7c8d7ab8dd535413aa68f2aaae10ee45587362c0ab6",
+        "requirements-v1-lock.txt": "ac690d1683f4cee2b767bce4d94a9a756f333e2cd70de7ea88689b0adb977635"
+      },
+      "packages": {
+        "altair": "5.5.0",
+        "appnope": "1.0.0",
+        "arch": "7.2.0",
+        "astropy": "8.0.1",
+        "astropy-iers-data": "0.2026.9.28.0.59.37",
+        "asttokens": "3.0.2",
+        "attrs": "26.1.0",
+        "blinker": "1.9.0",
+        "cachetools": "6.2.6",
+        "cdflib": "1.3.14",
+        "certifi": "2026.7.22",
+        "cftime": "1.6.6",
+        "charset-normalizer": "3.5.2",
+        "click": "8.5.0",
+        "comm": "0.2.3",
+        "contourpy": "1.4.0",
+        "cycler": "0.12.1",
+        "debugpy": "1.8.22",
+        "executing": "2.2.1",
+        "fastjsonschema": "2.22.2",
+        "filelock": "4.0.12",
+        "fonttools": "4.66.0",
+        "fsspec": "2026.9.0",
+        "gitdb": "4.0.12",
+        "gitpython": "3.2.0",
+        "idna": "3.20",
+        "iniconfig": "2.3.0",
+        "ipykernel": "6.30.1",
+        "ipython": "9.17.1",
+        "ipython-pygments-lexers": "1.1.1",
+        "jedi": "0.20.0",
+        "jinja2": "3.1.6",
+        "jsonschema": "4.26.0",
+        "jsonschema-specifications": "2025.9.1",
+        "jupyter-client": "8.10.0",
+        "jupyter-core": "5.9.1",
+        "kiwisolver": "1.5.1",
+        "markupsafe": "3.0.4",
+        "matplotlib": "3.11.2",
+        "matplotlib-inline": "0.2.2",
+        "mpmath": "1.3.0",
+        "narwhals": "2.27.1",
+        "nbclient": "0.10.2",
+        "nbformat": "5.11.1",
+        "nest-asyncio": "1.6.0",
+        "netcdf4": "1.7.2",
+        "networkx": "3.7",
+        "numpy": "2.2.6",
+        "packaging": "26.3",
+        "pandas": "2.3.3",
+        "parso": "0.8.7",
+        "patsy": "1.0.3",
+        "pexpect": "4.9.0",
+        "pillow": "12.3.0",
+        "pip": "25.0.1",
+        "platformdirs": "4.12.4",
+        "pluggy": "1.6.0",
+        "prompt-toolkit": "3.0.53",
+        "protobuf": "6.33.6",
+        "psutil": "7.2.2",
+        "ptyprocess": "0.7.0",
+        "pure-eval": "0.2.4",
+        "pyarrow": "25.0.1",
+        "pydeck": "0.9.3",
+        "pyerfa": "2.0.1.5",
+        "pygments": "2.21.0",
+        "pyparsing": "3.3.3",
+        "pytest": "9.1.1",
+        "python-dateutil": "2.9.0.post0",
+        "pytz": "2026.4",
+        "pyyaml": "6.0.3",
+        "pyzmq": "27.2.0",
+        "referencing": "0.37.0",
+        "requests": "2.34.2",
+        "rpds-py": "2026.9.1",
+        "scipy": "1.18.1",
+        "setuptools": "84.0.0",
+        "six": "1.17.0",
+        "smmap": "5.0.3",
+        "solar-flare-jepa": "0.1.0",
+        "stack-data": "0.6.3",
+        "statsmodels": "0.14.5",
+        "sympy": "1.13.1",
+        "tenacity": "9.2.1",
+        "toml": "0.10.2",
+        "torch": "2.6.0",
+        "tornado": "6.5.10",
+        "traitlets": "5.16.1",
+        "typing-extensions": "4.16.0",
+        "tzdata": "2026.4",
+        "urllib3": "2.8.0",
+        "wcwidth": "0.9.2",
+        "xarray": "2026.7.0"
+      },
+      "python": "3.13.3 (v3.13.3:6280bb54784, Apr  8 2025, 10:47:54) [Clang 15.0.0 (clang-1500.3.9.4)]"
+    },
+    "fingerprint": "eb38ca13e0e4cb3f057a6f645fc5d4ed70ed34ebcfca48eb5f2e32b65373c840",
+    "git_branch": "codex/v2-experimental-validation-readiness",
+    "git_commit": "24b9400351f4c9c5172ce38f0674d9c03d56d253",
+    "host": {
+      "hostname": "Neals-MacBook-Air.local",
+      "logical_cpus": 8,
+      "machine": "arm64",
+      "physical_memory_bytes": 8589934592,
+      "platform": "macOS-26.3-arm64-arm-64bit-Mach-O",
+      "processor": "arm"
+    },
+    "host_fingerprint": "58c5a228d2cc695f0bba3ae9917b61c041556a10a44261ec6a6d4b465dbe77dd",
+    "source_files": [
+      {
+        "bytes": 1515,
+        "path": "configs/experiments/p1_goes_reference.json",
+        "sha256": "5e80b2de618ff3a078565add7aa8953523fbc30479e1d136f355e2ed73d78c4e"
+      },
+      {
+        "bytes": 1331,
+        "path": "configs/experiments/p1_synthetic.json",
+        "sha256": "ff9a5409b5a7634f332b92de70b8f6c27024572438a367009f7b169b4aebf7bd"
+      },
+      {
+        "bytes": 725,
+        "path": "pyproject.toml",
+        "sha256": "79698cc6040c22299e30317bb6287a70f3a263c542f4c7755317c25597d5eb06"
+      },
+      {
+        "bytes": 550,
+        "path": "requirements-lock.txt",
+        "sha256": "66bada0f22d31c7dde773c5d3edc631d17c6cf0ba4a8f668a743431b07e912d2"
+      },
+      {
+        "bytes": 3882,
+        "path": "schemas/experiment_result.schema.json",
+        "sha256": "2f214e1c9c30cb44899bfc0aecb4080284f8a09841ae829ec5f8da2816e3f0a7"
+      },
+      {
+        "bytes": 1478,
+        "path": "scripts/acquire_goes_history.py",
+        "sha256": "04d5630b81673dfa651459811c1b4b62bd47b0f25e27429a893592808f352f3f"
+      },
+      {
+        "bytes": 23967,
+        "path": "scripts/benchmark_v2_feasibility.py",
+        "sha256": "52c8cd461c4c1cde1e2204556643496d10745d184d5c6275f31c5df726c82dfa"
+      },
+      {
+        "bytes": 453,
+        "path": "scripts/download_data.py",
+        "sha256": "c9e57196b0f2e29ffb690fcc2fc5ca421d963fb95a805988cd2ba4c6bb5b9e6e"
+      },
+      {
+        "bytes": 2170,
+        "path": "scripts/eda.py",
+        "sha256": "9f1e16e416ad9a2145cdd551e0072a8347036155f7e45b80da68be430162b969"
+      },
+      {
+        "bytes": 1717,
+        "path": "scripts/explore_solexs.py",
+        "sha256": "2e7798dc3a8773da902645f62a90b78d07908c957a2332c7f68c68e60832238f"
+      },
+      {
+        "bytes": 472,
+        "path": "scripts/inspect_data.py",
+        "sha256": "f7520e034fa95fc85981c1ce046706eaffbf00e6d748328181b1340f1985b40c"
+      },
+      {
+        "bytes": 1076,
+        "path": "scripts/preflight_v2_goes_pilot.py",
+        "sha256": "dea8a4f04a15709414c93ea9047aa636f64099b68f2dc4a5be1fefc33baac487"
+      },
+      {
+        "bytes": 841,
+        "path": "scripts/prepare_goes_training.py",
+        "sha256": "da09ae92f6d24940ff50d168cf5f81534789c9228c46fd18d83e0a3af56c8a79"
+      },
+      {
+        "bytes": 1817,
+        "path": "scripts/preprocess.py",
+        "sha256": "7fe203482ba4a702ef99c5ea05ce9a96f1f77269c72164938d4eef12f0e8a5e4"
+      },
+      {
+        "bytes": 14218,
+        "path": "scripts/probe_solexs_readiness.py",
+        "sha256": "37e2cd3d1215f3b728c7b47f76caf76679f4f701e7b862b2adf7fb709b5cc19c"
+      },
+      {
+        "bytes": 1845,
+        "path": "scripts/register_aditya.py",
+        "sha256": "cbeeb81b1a07cb30f7f1f09e20ed42d3ac3ed2cd1616e50c6c820c4e8cb8f639"
+      },
+      {
+        "bytes": 3231,
+        "path": "scripts/restore_goes_development.py",
+        "sha256": "615f9887812f4be5121e4d058fab5a9f6be052635c720a4e09fc3bb3c1f07c41"
+      },
+      {
+        "bytes": 1065,
+        "path": "scripts/run_experiment.py",
+        "sha256": "f631570e903e3adb8ba6058c29330d3b2d362f2578f7301729799630917dd407"
+      },
+      {
+        "bytes": 3263,
+        "path": "scripts/run_m2_validation.py",
+        "sha256": "86cfcd7dd10dbb192b375bc6fc401359c1524ae584e216693e30fa45c47e97c7"
+      },
+      {
+        "bytes": 1333,
+        "path": "scripts/run_v1_comparison.py",
+        "sha256": "1d9a5acd8f8d7771bf9b18f98d1ab86423ffda0368d7e89ffe944fdf52ac1e6e"
+      },
+      {
+        "bytes": 218,
+        "path": "scripts/run_v2_goes_pilot.py",
+        "sha256": "d84aebc1f807fcc9f725965c57582c9dfb96c61c820fb48683275393b03262b9"
+      },
+      {
+        "bytes": 1456,
+        "path": "scripts/train_smoke.py",
+        "sha256": "c6640a4062a525d8c8311b017e61c46439dead6a3d3144e55765f2f5f4cff0e7"
+      },
+      {
+        "bytes": 7106,
+        "path": "scripts/validate_goes_development.py",
+        "sha256": "1cd53a4312d54bbbf6d7a20e4a5eb419c8d911be90e61c19c76298768fa26dd2"
+      },
+      {
+        "bytes": 3474,
+        "path": "scripts/validate_solexs.py",
+        "sha256": "113edcaf67364a10422cc4fd2d25ec0b5cad434f3c2bcf83d50e8e9f15556183"
+      },
+      {
+        "bytes": 265,
+        "path": "src/solar_flare_jepa/__init__.py",
+        "sha256": "c652bd746b9fb9df146ba2d8702d86efc4d19dd00455aab5d5db5a39f244fae2"
+      },
+      {
+        "bytes": 8755,
+        "path": "src/solar_flare_jepa/_executed_source.py",
+        "sha256": "99d188129c823d1c0f016bad3ddb6d9c506f8bdc46b1aef37ec79ed7ff1e531f"
+      },
+      {
+        "bytes": 49,
+        "path": "src/solar_flare_jepa/data/__init__.py",
+        "sha256": "72b887e771f6615de4da2ab508def269ad4d17f0b36ed42d1e01d0a3682246e2"
+      },
+      {
+        "bytes": 6270,
+        "path": "src/solar_flare_jepa/data/download.py",
+        "sha256": "da8df6ddf12f2212f2de8782217638188b6cbf6d6cd2ebf51b4884962fb6a909"
+      },
+      {
+        "bytes": 7179,
+        "path": "src/solar_flare_jepa/data/eda.py",
+        "sha256": "40cc0539b66ffcc362fd21524b64f34e0746daf4c1fed6b08d3c0e8614ded9ef"
+      },
+      {
+        "bytes": 16342,
+        "path": "src/solar_flare_jepa/data/foundation.py",
+        "sha256": "1809062980741374bdeb376feb9817d37c5b4c8ce3b3e6ad97c189e5e179cd27"
+      },
+      {
+        "bytes": 6513,
+        "path": "src/solar_flare_jepa/data/goes.py",
+        "sha256": "a8ad4f8fd4626cf0cfa0fefee226a05281d3d6b927e4ed6dffff93009b018d26"
+      },
+      {
+        "bytes": 19342,
+        "path": "src/solar_flare_jepa/data/goes_acquisition.py",
+        "sha256": "5a21144b9f8e55108ff1d9cdb2faa46c0f9b89c3b931c6b41e5398666591995d"
+      },
+      {
+        "bytes": 14314,
+        "path": "src/solar_flare_jepa/data/goes_development_validation.py",
+        "sha256": "95bab7c2c47f6a95f374dc071fb9dd4f9140082900253acd372088e7d9173431"
+      },
+      {
+        "bytes": 13103,
+        "path": "src/solar_flare_jepa/data/goes_restoration.py",
+        "sha256": "9113d4f182262c121df66b7e2994b53badbf30a36e4adb065d7d8ecffc48d9a4"
+      },
+      {
+        "bytes": 12598,
+        "path": "src/solar_flare_jepa/data/goes_v2_development.py",
+        "sha256": "6af57f74d11636107c26176340cd6adfcec32adb905cf168dcaa7d3afa3935b0"
+      },
+      {
+        "bytes": 2669,
+        "path": "src/solar_flare_jepa/data/inspect.py",
+        "sha256": "6b8d3eb99aa3de0f6862b2aab7e1c2cf5258756a19e59adaffc2b6c0268b31e3"
+      },
+      {
+        "bytes": 26552,
+        "path": "src/solar_flare_jepa/data/solexs.py",
+        "sha256": "d34be04e77fa9879e4abf710e690cd0f1764bcd0f348b966c2b7e1b0f1672430"
+      },
+      {
+        "bytes": 18259,
+        "path": "src/solar_flare_jepa/data/solexs_exploration.py",
+        "sha256": "1032aed054e1e8e44ab6569b47197fcc08105a3be7b4503e6c77ec570fb8f11b"
+      },
+      {
+        "bytes": 13723,
+        "path": "src/solar_flare_jepa/data/storage.py",
+        "sha256": "78e1aacf693e7d5b40a46aef0b30dd1aff452570fd82746bac6f8021d7ec5b59"
+      },
+      {
+        "bytes": 201,
+        "path": "src/solar_flare_jepa/evaluation/__init__.py",
+        "sha256": "9c2321a94765c1d697fa562c46d93319b8824dd296e8608031d0ac8178016a07"
+      },
+      {
+        "bytes": 15701,
+        "path": "src/solar_flare_jepa/evaluation/comparison.py",
+        "sha256": "93e5188a8dfad3b4414ce2f3701cb495fd0073adaa5f5e07d45cb80d71e62d44"
+      },
+      {
+        "bytes": 6228,
+        "path": "src/solar_flare_jepa/evaluation/diagnostics.py",
+        "sha256": "5aaa921163a73b9917f4db94bf8d03ad9acbc695881fcb88c167dcc7ef67681c"
+      },
+      {
+        "bytes": 6707,
+        "path": "src/solar_flare_jepa/evaluation/events.py",
+        "sha256": "aebbb111b26c0fa1358fee9e226493ff7e21ad6413ceaf024e9a6476eb1e272e"
+      },
+      {
+        "bytes": 5745,
+        "path": "src/solar_flare_jepa/evaluation/probabilistic.py",
+        "sha256": "ee83c3561d4c442a957e0afeb5a88465efa878aaa25bc8e2ab23a7b95bb3f2ae"
+      },
+      {
+        "bytes": 14140,
+        "path": "src/solar_flare_jepa/evaluation/records.py",
+        "sha256": "c759ffc3e7dee6b5006fc2276bddc709fc7dd1082494053441a397fca88457f5"
+      },
+      {
+        "bytes": 81,
+        "path": "src/solar_flare_jepa/evaluation/stress/__init__.py",
+        "sha256": "4ab32760c46585dbd7763f34e81b1f7fbe407ddad1bb1ca9aa97dbc3de04d5ba"
+      },
+      {
+        "bytes": 5563,
+        "path": "src/solar_flare_jepa/evaluation/stress/calibration.py",
+        "sha256": "1d3783b87aceb8cd88917267824f2da883cde16b455c80db2d952df9812a6fcf"
+      },
+      {
+        "bytes": 10841,
+        "path": "src/solar_flare_jepa/evaluation/stress/contracts.py",
+        "sha256": "de4f35ccd306d6571be336b8a37ac3c71d24f3b804dc10845b8cc8c9a8577bba"
+      },
+      {
+        "bytes": 3861,
+        "path": "src/solar_flare_jepa/evaluation/stress/reference.py",
+        "sha256": "a151857f13c5bfac765ed0655e3466b27f80b0ca9b388c6e23b163dac62c83c0"
+      },
+      {
+        "bytes": 5875,
+        "path": "src/solar_flare_jepa/evaluation/stress/runner.py",
+        "sha256": "078266654ef08687b57643d3dd03c9bdedb0055059a5df9ac053ba695a070c17"
+      },
+      {
+        "bytes": 4907,
+        "path": "src/solar_flare_jepa/evaluation/stress/study.py",
+        "sha256": "a17fe4e83e5644b6f0a754ed6c968a52011eca5b8385df3212badbf7f7420268"
+      },
+      {
+        "bytes": 6835,
+        "path": "src/solar_flare_jepa/evaluation/stress/synthetic.py",
+        "sha256": "631f4b7c2aeada053e302be55193bc4b6d3585df040c526ce118c159d25c833c"
+      },
+      {
+        "bytes": 15947,
+        "path": "src/solar_flare_jepa/evaluation/trajectory.py",
+        "sha256": "738195a030f147e29ec7ca290e553f2baf69becedc859a217c0d9a6e1f8d1899"
+      },
+      {
+        "bytes": 84,
+        "path": "src/solar_flare_jepa/experiments/__init__.py",
+        "sha256": "9da8801f4456e3cab937d5d4726ecf1268735c346867ab3dc9b482b86be18aae"
+      },
+      {
+        "bytes": 9751,
+        "path": "src/solar_flare_jepa/experiments/config.py",
+        "sha256": "d8177fae8de49d33411f5627767d9b9fa0bc81b3dc7d8631480ca8ca70e3b417"
+      },
+      {
+        "bytes": 1855,
+        "path": "src/solar_flare_jepa/experiments/fixtures.py",
+        "sha256": "eb32b6d4826423b2b02f4c17fb41da33154eefdad864f90923e6a0cbbadb7a28"
+      },
+      {
+        "bytes": 13327,
+        "path": "src/solar_flare_jepa/experiments/provenance.py",
+        "sha256": "a66e8e5098c8307b9ed9f5df8cde159dc495ed2e30db0c49bbeee3c2262f5703"
+      },
+      {
+        "bytes": 5588,
+        "path": "src/solar_flare_jepa/experiments/reference.py",
+        "sha256": "4449574f11d64ff9fcfa9e4af97ff091d872055a50f613b83d2f0bf8a3a10daf"
+      },
+      {
+        "bytes": 13334,
+        "path": "src/solar_flare_jepa/experiments/runner.py",
+        "sha256": "f348b19f86d79c0e6e1b4a8b4a64895e22ee155587b836b1e7533a967467e1e4"
+      },
+      {
+        "bytes": 15371,
+        "path": "src/solar_flare_jepa/experiments/v1.py",
+        "sha256": "283fc06b2784db3f2003fcecfd2902b395cacd20ea88a5644e427f0f7ddaa1c1"
+      },
+      {
+        "bytes": 11801,
+        "path": "src/solar_flare_jepa/experiments/v1_report.py",
+        "sha256": "6bb663ce1371d8af00b52b2d904ca19484d2e9a095c510f0231a79a11034b44d"
+      },
+      {
+        "bytes": 9263,
+        "path": "src/solar_flare_jepa/experiments/v2_descriptive.py",
+        "sha256": "5c3c00cacbb36960127e017d9484630578d98d2b7199bb87c80d499cffc7fe35"
+      },
+      {
+        "bytes": 10892,
+        "path": "src/solar_flare_jepa/experiments/v2_evaluation_adapters.py",
+        "sha256": "b8402eb16358778714afdfe2e7b0b9543a23cfc0706fb185dc9c12b5d5682ccb"
+      },
+      {
+        "bytes": 20960,
+        "path": "src/solar_flare_jepa/experiments/v2_evaluation_safety.py",
+        "sha256": "906a8b2db3718ca0db6bf7aa50cef551cd1cab3b852726aaa9a75760f4a3dfb7"
+      },
+      {
+        "bytes": 4226,
+        "path": "src/solar_flare_jepa/experiments/v2_interfaces.py",
+        "sha256": "29d661359965409db95f07cb5d4e8710c086cebb69b23c2f72781a1d674d6b7b"
+      },
+      {
+        "bytes": 10124,
+        "path": "src/solar_flare_jepa/experiments/v2_m5_preflight.py",
+        "sha256": "54fe1e74c30fd3768bb76defd7af5d9dfe1c538bd2ecc0e61b99679df18a6060"
+      },
+      {
+        "bytes": 16204,
+        "path": "src/solar_flare_jepa/experiments/v2_pilot.py",
+        "sha256": "2672eb2848a90332bdd44cd4b6d85d6d13cfa5b23288dd009a860ebd477f5d64"
+      },
+      {
+        "bytes": 13638,
+        "path": "src/solar_flare_jepa/experiments/v2_pilot_protocol.py",
+        "sha256": "338f8e9d64f4775864d2039aa5f77461d008314a844f95faa38ac6838d9ec1ed"
+      },
+      {
+        "bytes": 32608,
+        "path": "src/solar_flare_jepa/experiments/v2_pilot_reporting.py",
+        "sha256": "831631704d90272d5fb010ae558da42bc8dc051f4f4f66810c06342d8240fba6"
+      },
+      {
+        "bytes": 19804,
+        "path": "src/solar_flare_jepa/experiments/v2_pilot_worker.py",
+        "sha256": "82db5037e6d92747dec366a046ed7a12c2406cea7afb7456ff0ddc9728835257"
+      },
+      {
+        "bytes": 27637,
+        "path": "src/solar_flare_jepa/experiments/v2_resource_controls.py",
+        "sha256": "b93e87fc9aacbb741143a8ff5f54efa5a21857bfd5326d5f7d4968dc329379b8"
+      },
+      {
+        "bytes": 42936,
+        "path": "src/solar_flare_jepa/experiments/v2_runner.py",
+        "sha256": "f4d7fdee523cafdfb27dce5780e33808fb487127b875e9d64fc496ae4f4d0faf"
+      },
+      {
+        "bytes": 65,
+        "path": "src/solar_flare_jepa/forecasting/__init__.py",
+        "sha256": "848955669a82a8ad4007c56077c8f7902f68255c9e1323aff8ab60d3c96a3e21"
+      },
+      {
+        "bytes": 31348,
+        "path": "src/solar_flare_jepa/forecasting/acceptance.py",
+        "sha256": "68b588261121c12312b68bf3b49d6e2ee5a374050b81ea9a898eebc0852df929"
+      },
+      {
+        "bytes": 16288,
+        "path": "src/solar_flare_jepa/forecasting/baselines.py",
+        "sha256": "87f5a60f7ee6007ea22cb9daf5777a1b8f0a18ca9c7753a35308f49fb65eaffa"
+      },
+      {
+        "bytes": 32355,
+        "path": "src/solar_flare_jepa/forecasting/contracts.py",
+        "sha256": "cd3eebf40b0768f893dd65fc623b6037e4952105a67db92ec8b7bc05f5a85115"
+      },
+      {
+        "bytes": 4364,
+        "path": "src/solar_flare_jepa/forecasting/splitting.py",
+        "sha256": "9183002cc2b908d3585e2ec6db53009bedd50a2f23f3ecf255dd5d3a1b066033"
+      },
+      {
+        "bytes": 22215,
+        "path": "src/solar_flare_jepa/forecasting/statistical.py",
+        "sha256": "7f928277494078bfba74f591e206f515283a99d4fc4fadbf945dd92258b13eb1"
+      },
+      {
+        "bytes": 14790,
+        "path": "src/solar_flare_jepa/forecasting/windows.py",
+        "sha256": "0e84e41b9b991f56f685c61a7f7ae9dd5e5b3397e56da7a314d332de99dc57b1"
+      },
+      {
+        "bytes": 505,
+        "path": "src/solar_flare_jepa/training/__init__.py",
+        "sha256": "ec08dbf13b86ef569b03b9bb3015c954f3fd7a556983730cdb6c863452d5fbb2"
+      },
+      {
+        "bytes": 21655,
+        "path": "src/solar_flare_jepa/training/comparators.py",
+        "sha256": "39b36160b3b403256fc4e08a7898ffc06099507d9d3c6517351daca780398b83"
+      },
+      {
+        "bytes": 43095,
+        "path": "src/solar_flare_jepa/training/controlled.py",
+        "sha256": "20f3c0fef176f75bc1dd59e06ab143ba3dfed4e883bf6ecc997cb15a875c7b1d"
+      },
+      {
+        "bytes": 24346,
+        "path": "src/solar_flare_jepa/training/core.py",
+        "sha256": "4e2e036d4b773bb7fee6a65c36b78180733cb5167cc42f61225f47b0bba438e0"
+      },
+      {
+        "bytes": 38197,
+        "path": "src/solar_flare_jepa/training/jepa.py",
+        "sha256": "ef7cd2222317367fcf2dc05b1ca474c1560f35c8941efcb0ed92c6d6aa69a8bc"
+      },
+      {
+        "bytes": 5567,
+        "path": "src/solar_flare_jepa/training/losses.py",
+        "sha256": "de8507e5dd297f44bd79ed3e03eb3bc7350dc52b196c5bd2842763c243b11c52"
+      },
+      {
+        "bytes": 7621,
+        "path": "src/solar_flare_jepa/training/normalization.py",
+        "sha256": "1911f257604a6d076be226ac9341e34cc49dbebb6de62091d06db09c5f373f54"
+      },
+      {
+        "bytes": 10155,
+        "path": "src/solar_flare_jepa/training/runner.py",
+        "sha256": "c27d0ba587899360b09f6949162ca7b769531b935df8c5f3862fe8e97061b48f"
+      }
+    ],
+    "source_fingerprint": "60423ce156686e6e7681b2744d678f7f8668463d11290fb99655b369d9af56b0"
+  },
+  "runtime_snapshot_scope": "reviewed HEAD before preparation publication; regenerate external final binding after last clean published commit",
+  "schema_version": 1,
+  "source_fingerprint": "60423ce156686e6e7681b2744d678f7f8668463d11290fb99655b369d9af56b0",
+  "test_objects_constructed": false,
+  "tests": {
+    "full_project_suite_run": false,
+    "independent_scientific_suite": {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -p no:cacheprovider tests/test_v2_pilot_protocol.py tests/test_v2_pilot_reporting.py tests/test_v2_descriptive.py -k 'not real_supervisor'",
+      "deselected": 1,
+      "passed": 111,
+      "scope": "protocol/reporting/descriptive, no raw decoding or fitting",
+      "seconds": 7.72
+    },
+    "nonfitting_suite": {
+      "command": "OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4 VECLIB_MAXIMUM_THREADS=4 BLIS_NUM_THREADS=4 .venv/bin/python -m pytest -q tests/test_v2_pilot_protocol.py tests/test_v2_pilot_worker.py tests/test_v2_pilot_driver.py tests/test_v2_pilot_reporting.py tests/test_v2_pilot_guard_bridge.py tests/test_v2_resource_controls.py tests/test_goes_v2_development.py tests/test_v2_descriptive.py",
+      "log": "results/phase2_v2_g4_20261017/tests_nonfitting.log",
+      "passed": 229,
+      "seconds": 96.51
+    },
+    "reason": "contains fitting outside authorized preparation"
+  },
+  "timezone": "Asia/Kolkata",
+  "verdict": "NONTRAINING_REVALIDATION_PASS;G3_PREPARED_NOT_ACTIVATED;G4_NOT_AUTHORIZED",
+  "verification_artifacts": {
+    "results/phase2_v2_g4_20261017/after_checks.json": {
+      "bytes": 66941,
+      "sha256": "96b2e57fe29c3a9d0565780e50ef5c27d692049b84c62d7798815f32fc05f6a7"
+    },
+    "results/phase2_v2_g4_20261017/before.json": {
+      "bytes": 67293,
+      "sha256": "31ddd97a4c9f853c1d09dc9e80985b91e158731fdc4b983c99801009adcc2660"
+    },
+    "results/phase2_v2_g4_20261017/check_interfaces.py": {
+      "bytes": 2685,
+      "sha256": "6338df3e867f8411d18ac095b8b04ff119a25554683017fc90e53692b7150943"
+    },
+    "results/phase2_v2_g4_20261017/interface_checks.json": {
+      "bytes": 22358,
+      "sha256": "dee627f9d2dc49286fa02262c247f8e5cca81bc9f506f039828fe2cfb294b3bf"
+    },
+    "results/phase2_v2_g4_20261017/monitor_native.py": {
+      "bytes": 1627,
+      "sha256": "a10ab6bec45d27d83c212df63f0d173684ec33dae2d606f6d49ef2c260e6ea1f"
+    },
+    "results/phase2_v2_g4_20261017/native_check.py": {
+      "bytes": 1361,
+      "sha256": "9a540cd7e73975024d33c9b29046baf554e0e0a8a7ba429170db6b22c4feb1be"
+    },
+    "results/phase2_v2_g4_20261017/native_measurement.json": {
+      "bytes": 239,
+      "sha256": "7525de1efb462fb07787fb5cf1d654507d24a8b98b33082c5691a12190269bee"
+    },
+    "results/phase2_v2_g4_20261017/native_preflight.json": {
+      "bytes": 117408,
+      "sha256": "ab27cc6a32d75725ed54b6ac585ade24286e0ad9578fec21b40852b57d954592"
+    },
+    "results/phase2_v2_g4_20261017/native_preflight.log": {
+      "bytes": 1644,
+      "sha256": "b7f1d7af738a1d67b3460ac4008ecf962cc46a7435b6fd0791b1c338d7df9e1d"
+    },
+    "results/phase2_v2_g4_20261017/prepublication.json": {
+      "bytes": 69837,
+      "sha256": "02461796a9ee8af9c8e770b7148bd79220f3b08c2c068da9ccafad3b3aa81979"
+    },
+    "results/phase2_v2_g4_20261017/signal_cleanup_observed.json": {
+      "bytes": 989,
+      "sha256": "af3f2a0403efe4ace93c10de2f8ca7e51120ad47108f5e2071328a0dd87ee6d5"
+    },
+    "results/phase2_v2_g4_20261017/signal_cleanup_probe.py": {
+      "bytes": 2893,
+      "sha256": "0b067976ec105564b407ec48ce1a8fab96288002404fe107d96be6d34136e79a"
+    },
+    "results/phase2_v2_g4_20261017/snapshot.py": {
+      "bytes": 4502,
+      "sha256": "6db8bfb72405a86dc2dd27ce5eaafdd8fc0b2184cf8c228b00278f4f5e9a375c"
+    },
+    "results/phase2_v2_g4_20261017/tests_nonfitting.log": {
+      "bytes": 351,
+      "sha256": "4163c65754537466d662b680f65691cb6dfe4e31f92058aeeac82f00e2fe9836"
+    }
+  },
+  "verification_procedure": {
+    "local_probe_scripts": {
+      "monitor_native.py": "import json, os, signal, subprocess, sys, time\nfrom pathlib import Path\nroot=Path('/Users/nealsalian/.codex/worktrees/v2-experimental-validation-readiness/SolarJEPA');folder=root/'results/phase2_v2_g4_20261017'\nenv=os.environ.copy()\nfor key in ('OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS','VECLIB_MAXIMUM_THREADS','BLIS_NUM_THREADS'):env[key]='4'\nbegan=time.monotonic();peak=0;samples=0\nwith (folder/'native_preflight.log').open('w') as log:\n p=subprocess.Popen([sys.executable,str(folder/'native_check.py'),str(root),'/Users/nealsalian/Desktop/SolarJEPA',str(folder/'native_preflight.json')],env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)\n try:\n  while p.poll() is None:\n   rows=subprocess.run(['ps','-axo','pgid=,rss=,state='],capture_output=True,text=True,check=True).stdout.splitlines()\n   rss=sum(int(row.split()[1])*1024 for row in rows if len(row.split())==3 and int(row.split()[0])==p.pid and not row.split()[2].startswith('Z'))\n   peak=max(peak,rss);samples+=1\n   if rss>2147483648 or time.monotonic()-began>120:raise RuntimeError('Nontraining preflight monitoring limit reached')\n   time.sleep(.05)\n  assert p.returncode==0,p.returncode\n finally:\n  if p.poll() is None:\n   os.killpg(p.pid,signal.SIGKILL);p.wait(timeout=2)\nrecord=dict(exit_code=p.returncode,elapsed_seconds=time.monotonic()-began,sampled_group_peak_rss_bytes=peak,samples=samples,poll_seconds=.05,torch_import_blocked=True,scope='native preparation only; no fitting or pilot')\n(folder/'native_measurement.json').write_text(json.dumps(record,indent=2)+'\\n');print(json.dumps(record,indent=2))\n",
+      "native_check.py": "import json, runpy, sys\nfrom pathlib import Path\nroot=Path(sys.argv[1]);data=Path(sys.argv[2]);output=Path(sys.argv[3])\nallowed=set()\nfor name in ('goes_v1_202405.json','goes_v1_202406.json','goes_p2_july2024.json'):\n for row in json.loads((data/'data/manifests'/name).read_text())['files']:\n  allowed.add(str((data/row['path']).resolve()))\nopened=set()\ndef audit(event,args):\n if event=='open' and isinstance(args[0],str):\n  path=Path(args[0])\n  if path.suffix.lower() in ('.nc','.fits','.fit','.zip','.pt','.pth','.npz','.npy'):\n   actual=str(path.resolve())\n   if actual not in allowed:raise AssertionError('Unexpected scientific input: '+actual)\n   opened.add(actual)\nsys.addaudithook(audit)\nrunpy.run_path(str(root/'results/phase2_v2_g3_20261016/native_preflight.py'),run_name='__main__')\nr=json.loads(output.read_text())\nassert r['data_identity']==json.loads((root/'docs/evidence/phase2_v2_g3_native_preflight.json').read_text())['data_identity']\nassert opened==allowed\nr.update(kind='solarjepa_g4_native_nontraining_preflight',date_client='2026-10-17',timezone='Asia/Kolkata',root_roles=dict(source_root=str(root),data_root=str(data)),audited_unique_science_files_opened=len(opened),audited_science_scope='exact 92 manifest-pinned May-July GOES files; no weights or excluded periods opened')\noutput.write_text(json.dumps(r,indent=2,sort_keys=True)+'\\n')\n",
+      "signal_cleanup_probe.py": "\"\"\"Synthetic sleeper only; no pilot, science I/O, model or trainer.\"\"\"\nimport json, os, signal, subprocess, sys, time\nfrom pathlib import Path\nroot=Path('/Users/nealsalian/.codex/worktrees/v2-experimental-validation-readiness/SolarJEPA')\nfolder=root/'results/phase2_v2_g4_20261017'\nrecords=[]\nfor sig in (signal.SIGTERM, signal.SIGHUP):\n directory=folder/('synthetic-supervisor-'+sig.name)\n assert not directory.exists()\n program='''import sys\nfrom pathlib import Path\nfrom solar_flare_jepa.experiments.v2_pilot import PilotSupervisor\nfrom solar_flare_jepa.experiments.v2_resource_controls import ProcessJob,ResourceLimits\njobs=[ProcessJob('synthetic-sleeper',(sys.executable,'-c','from pathlib import Path;import time;Path(\"ready\").write_text(\"ready\");time.sleep(30)'),10)]\ns=PilotSupervisor(Path(sys.argv[1]),jobs,code_fingerprint='synthetic-no-pilot',config_fingerprint='synthetic-no-model',limits=ResourceLimits(1024**3,15,4,0),minimum_free_bytes=1)\ns.run()\n'''\n p=subprocess.Popen([sys.executable,'-c',program,str(directory)],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,start_new_session=True)\n worker=None\n try:\n  began=time.monotonic()\n  while time.monotonic()-began<5:\n   if (directory/'attempts/synthetic-sleeper-1/artifacts/ready').exists():\n    ledger=json.loads((directory/'supervisor.json').read_text());worker=ledger['attempts'][0]['pid'];break\n   if p.poll() is not None:raise AssertionError('Synthetic supervisor exited early')\n   time.sleep(.025)\n  assert worker is not None\n  os.kill(p.pid,sig);p.wait(timeout=2)\n  rows=subprocess.run(['ps','-axo','pid=,ppid=,pgid=,rss=,state=,args='],capture_output=True,text=True,check=True).stdout.splitlines()\n  alive=[line.strip() for line in rows if len(line.split())>=6 and int(line.split()[2])==worker and not line.split()[4].startswith('Z')]\n  current=json.loads((directory/'supervisor.json').read_text())\n  records.append(dict(signal=sig.name,supervisor_exit=p.returncode,orphan_live=bool(alive),orphan_rows=alive,ledger_attempt_status=current['attempts'][0]['status'],ledger_stop_reason=current['stop_reason'],pilot_or_training_executed=False))\n finally:\n  if p.poll() is None:os.killpg(p.pid,signal.SIGKILL);p.wait(timeout=2)\n  if worker is not None:\n   try:os.killpg(worker,signal.SIGKILL)\n   except ProcessLookupError:pass\n   for _ in range(100):\n    rows=subprocess.run(['ps','-axo','pgid=,rss=,state='],capture_output=True,text=True,check=True).stdout.splitlines()\n    live=[row for row in rows if len(row.split())==3 and int(row.split()[0])==worker and not row.split()[2].startswith('Z')]\n    if not live:break\n    time.sleep(.01)\n   assert not live,'Synthetic orphan cleanup failed'\n   records[-1]['post_probe_live_group_processes']=0\nassert all(row['orphan_live'] for row in records),records\n(folder/'signal_cleanup_observed.json').write_text(json.dumps(records,indent=2)+'\\n')\nprint(json.dumps(records,indent=2))\n"
+    },
+    "metadata": "load_protocol(SOURCE_ROOT); runtime_identity(SOURCE_ROOT) from fresh normal-install interpreters outside checkout; verify all explicit lock versions and installed module hashes.",
+    "native": "load_development(DATA_ROOT); recompute unique-raw training log10 means/population SDs and temporal containment; _validation_identity(bundle.validation); compare eight actual data identities to G3 and ratified historical pins; audit open events to exactly 92 pinned .nc files; prohibit Torch import; externally sample process group RSS.",
+    "native_helper_source": "\"\"\"Read-only exact May-July native support verification. Never imports Torch.\"\"\"\nimport builtins\nimport json\nimport os\nfrom pathlib import Path\nimport resource\nimport sys\nimport time\nbegan=time.monotonic()\noriginal_import=builtins.__import__\ndef guarded_import(name,*args,**kwargs):\n    if name == 'torch' or name.startswith('torch.'):\n        raise AssertionError('G3 non-training preflight must not import Torch')\n    return original_import(name,*args,**kwargs)\nbuiltins.__import__=guarded_import\nimport numpy as np\nfrom solar_flare_jepa.data.goes_v2_development import load_development\nfrom solar_flare_jepa.experiments.v2_pilot_protocol import load_protocol,configuration_fingerprint\nfrom solar_flare_jepa.forecasting.contracts import canonical_json\nfrom solar_flare_jepa.training.controlled import _validation_identity\nsource=Path(sys.argv[1]); data=Path(sys.argv[2]); output=Path(sys.argv[3])\nprotocol=load_protocol(source); bundle=load_development(data)\ne=bundle.evidence; historical=protocol['design']['data']['normalization']\nfor key,old in [('dataset_fingerprint','historical_expected_dataset_fingerprint'),('split_fingerprint','historical_expected_split_fingerprint'),('training_fingerprint','historical_expected_training_fingerprint'),('normalization_fingerprint','historical_expected_fingerprint')]:\n    assert e[key] == historical[old],key\nassert e['manifest_identities'] == protocol['design']['data']['allowed_manifests']\ncontainment={}\nfor role,window in [('train',bundle.train),('validation',bundle.validation)]:\n    p=window.as_dict()['partition']\n    assert np.all(window.context.starts_ns >= p['start_ns'])\n    assert np.all(window.context.ends_ns <= window.context.issue_times_ns[:,None])\n    assert np.all(window.targets.grid.starts_ns >= window.context.issue_times_ns[:,None])\n    assert np.all(window.targets.grid.ends_ns <= p['end_ns'])\n    assert window.context.mask.all() and window.targets.mask.all()\n    containment[role]={'context_and_targets_inside_partition':True,'complete_masks':True,'retained':len(window.context.origin_ids),'excluded':len(window.excluded_origins)}\nt=bundle.training\nassert np.unique(t.raw_starts_ns).size == len(t.raw_starts_ns)\nassert t.raw_ends_ns.max() <= bundle.validation.as_dict()['partition']['start_ns']\nfor kind in ('feature','target'):\n    values=getattr(t,'raw_'+kind+'s'); mask=getattr(t,'raw_'+kind+'_mask')\n    for ch in range(2):\n        z=np.log10(values[:,ch][mask[:,ch]])\n        assert z.size == getattr(bundle.normalization,kind+'_counts')[ch]\n        assert float(z.mean()) == getattr(bundle.normalization,kind+'_mean')[ch]\n        assert (float(z.std(ddof=0)) or 1.) == getattr(bundle.normalization,kind+'_scale')[ch]\nidentity={k:e[k] for k in ('dataset_fingerprint','forecast_fingerprint','split_fingerprint','split_fingerprints','training_fingerprint','normalization_fingerprint','train_windows')}\nidentity['validation_content_fingerprint']=_validation_identity(bundle.validation)['content_fingerprint']\nrecord={'kind':'solarjepa_g3_native_nontraining_preflight','schema_version':1,'source_root':str(source),'data_root':str(data),'design_fingerprint':protocol['design_fingerprint'],'configuration_fingerprint':configuration_fingerprint(protocol['design']),'data_identity':identity,'input_evidence':e,'independent_checks':{'unique_raw_training_normalization_matches':True,'support':containment},'model_fit_executed':False,'torch_imported': 'torch' in sys.modules,'test_objects_constructed':False,'elapsed_seconds':time.monotonic()-began,'peak_self_rss_bytes':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,'native_thread_environment':{k:os.environ[k] for k in protocol['design']['resources']['thread_environment']}}\nassert not record['torch_imported']\noutput.write_text(canonical_json(record)+'\\n')\nprint(json.dumps({k:record[k] for k in ('data_identity','independent_checks','elapsed_seconds','peak_self_rss_bytes')},indent=2))\n",
+    "preservation": "Rehash selected manifest raw files and historical checkpoint paths; compare before/after sizes/SHA-256; verify actual paths with git check-ignore -v; inspect index/history and worktree/ref snapshots. SoLEXS concurrent changes are owner-confirmed and excluded from this task."
+  }
+}
