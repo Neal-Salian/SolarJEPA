@@ -220,3 +220,44 @@ def test_empty_reference_witness_cannot_receive_pass(tmp_path, case):
     (tmp_path/'manifest.json').write_text(json.dumps(manifest))
     with pytest.raises(ValueError, match='witness|reference'):
         reference().load_reference_manifest(tmp_path, 'manifest.json')
+
+
+@pytest.mark.parametrize('record,value', [
+    ('tools_release', []), ('tools_release', None), ('tools_release', {}),
+    ('native_release', []), ('native_release', None), ('native_release', {}),
+])
+def test_malformed_release_record_cannot_receive_pass(tmp_path, record, value):
+    manifest = contract()
+    manifest[record] = value
+    (tmp_path/'manifest.json').write_text(json.dumps(manifest))
+    with pytest.raises(ValueError, match='reference|release'):
+        reference().load_reference_manifest(tmp_path, 'manifest.json')
+
+
+@pytest.mark.parametrize('record,field,value', [
+    ('tools_release', 'tools_version', 'unreviewed'),
+    ('tools_release', 'caldb_version', '2'),
+    ('native_release', 'data_version', '1.2'),
+    ('native_release', 'pipeline_version', '1.2'),
+    ('tools_release', 'mission_policy_accepted', True),
+    ('native_release', 'mission_policy_accepted', True),
+    ('native_release', 'release_date', '2025-01-01'),
+    ('native_release', 'nominal_selected_dates', ['2024-07-02']),
+])
+def test_changed_release_identity_or_approval_cannot_receive_pass(tmp_path, record, field, value):
+    manifest = contract()
+    manifest[record][field] = value
+    (tmp_path/'manifest.json').write_text(json.dumps(manifest))
+    with pytest.raises(ValueError, match='reference|release'):
+        reference().load_reference_manifest(tmp_path, 'manifest.json')
+
+
+def test_complete_reviewed_release_and_witness_contract_is_accepted(tmp_path):
+    (tmp_path/'manifest.json').write_text(json.dumps(contract()))
+    manifest, _ = reference().load_reference_manifest(tmp_path, 'manifest.json')
+    assert manifest['tools_release']['tools_version'] == '1.1'
+    assert manifest['tools_release']['caldb_version'] == '1'
+    assert manifest['native_release']['data_version'] == '1.1'
+    assert manifest['native_release']['pipeline_version'] == '1.1'
+    assert manifest['tools_release']['mission_policy_accepted'] is False
+    assert manifest['native_release']['mission_policy_accepted'] is False

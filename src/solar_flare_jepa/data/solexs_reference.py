@@ -25,9 +25,10 @@ from solar_flare_jepa.experiments.provenance import (
 )
 
 REVIEWED_ARCHIVE_SHA256 = '348014aefa50ade556ec4a160a3cfe0b08095bde84b4650a27d6b5d3bf7fa2d3'
-# This bounded milestone supports only the reviewed native witnesses and fixed
-# artificial oracle. Prevent partial/empty expectations from producing PASS.
-REVIEWED_WITNESSES_SHA256 = 'a56033eede9ace25787d0a8129d2f3bc16132a4fb1b45068592ec6a77d270be9'
+# This bounded milestone supports only the reviewed release metadata, native
+# witnesses and fixed artificial oracle. Prevent contradictory release claims
+# and partial/empty expectations from producing PASS.
+REVIEWED_WITNESSES_SHA256 = 'd0207367e838162d52d8d12f3170c7b1dc86820fa61e4a379f6c29e6a2bb855e'
 PREFIX = 'solexs_tools-1.1/'
 SELECTED_MEMBERS = (
     'solexs_tools/__init__.py', 'solexs_tools/time_utils.py',
@@ -168,11 +169,12 @@ def load_reference_manifest(root, path):
                 or not {'request_half_open', 'closed_gti_endpoint', 'clamped_stop'} <= set(expected['genspec'])):
             raise ValueError('Missing required executable reference witnesses')
     witnesses = dict(native=[{k: entry[k] for k in ('archive', 'rows', 'expected')}
-                             for entry in value['native']], tool_expected=value['tool_expected'])
+                             for entry in value['native']], tool_expected=value['tool_expected'],
+                     tools_release=value['tools_release'], native_release=value['native_release'])
     digest = hashlib.sha256(json.dumps(witnesses, sort_keys=True,
         separators=(',', ':'), allow_nan=False).encode()).hexdigest()
     if digest != REVIEWED_WITNESSES_SHA256:
-        raise ValueError('Reference witness identity differs; review the complete expected contract')
+        raise ValueError('Reference release/witness identity differs; review the complete expected contract')
     return value, identity
 
 
