@@ -1,5 +1,18 @@
 # SolarJEPA project status — canonical tracker
 
+SoLEXS branch update: **2026-10-17** (Asia/Kolkata), continuing from `2b896c9`
+on `codex/solexs-scientific-integration`. The
+[release reference validation](SOLEXS_REFERENCE_VALIDATION.md) reproduces the
+reviewed tools 1.1/CALDB 1 behavior on artificial fixtures and the registered
+July 1/3 data 1.1/pipeline 1.1 native witnesses. Final source `c7ea3c9` passed
+1262 tests and three byte-identical reference runs, including relocated inputs.
+Clock/bin precedence, native/response channel correspondence and applicability,
+effective exposure/quality/HK and physical quantities remain unresolved.
+**REFERENCE_AGREEMENT_SCIENCE_BLOCKED:** E1–E3/E6 remain blocked; E4/E5 remain
+partially verified. No scientific JEPA integration, physical conversion or real
+model retraining is cleared. The next milestone requires an applicable mission
+boundary/response/exposure reference. Historical checkpoints below are retained.
+
 Current checkpoint: **2026-10-07** (Asia/Kolkata). Git refs verify D.1 merged
 on synchronized main `1a4991da4dda9676caeb1d7e35a03408528c3188` (PR #4).
 `research/experiment-evaluation-foundation` was created and published from that

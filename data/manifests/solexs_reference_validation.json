@@ -1,0 +1,442 @@
+{
+  "base_commit": "2b896c9",
+  "branch": "codex/solexs-scientific-integration",
+  "evidence_date": "2026-10-17",
+  "implementation_commit": "c7ea3c90c215012d47b7eed8d6a71bcb9cca3420",
+  "input_identities": {
+    "inventory": {
+      "bytes": 7265,
+      "path": "data/manifests/aditya_inventory.json",
+      "sha256": "0f770484f375ada192ed5bea75f04d9e2ba5d2b94956938329279a5f11b87540"
+    },
+    "manifest": {
+      "bytes": 40296,
+      "path": "data/manifests/solexs_reference_cases.json",
+      "sha256": "855e9ea65ae609d0ca37e3184bf4e11e881e96139d319093a83bf1c326a6f9af"
+    },
+    "members": {
+      "solexs_tools-1.1/CALDB/arf/solexs_arf_SDD2_v1.arf": {
+        "bytes": 34560,
+        "sha256": "0f08199b3ef2f346979c58e0df83451fa23ae72a39fcaaa3d85bfe66b4b5bdc7"
+      },
+      "solexs_tools-1.1/CALDB/ebounds/energy_bins_out_SDD2_v1.dat": {
+        "bytes": 6423,
+        "sha256": "684f916612003706062d509ab805ae2cda763f99a83f85ce81028a94aea0949e"
+      },
+      "solexs_tools-1.1/CALDB/response/rmf/solexs_gaussian_SDD2_v1.rmf": {
+        "bytes": 6168960,
+        "sha256": "fc8ab03f15bb21ff066426cd6047519d57ffe017bb776bb88a5a65136deb63db"
+      },
+      "solexs_tools-1.1/solexs_tools/__init__.py": {
+        "bytes": 345,
+        "sha256": "6a4c02d1818a1cc6f91e8c223d41636c60ecac3f95a1d5ae49f6af22fbcde453"
+      },
+      "solexs_tools-1.1/solexs_tools/solexs_genlc.py": {
+        "bytes": 7181,
+        "sha256": "f6a3dd900e482fb88283189c9cb40aa60eddb50583cba7cabe364b591b38bb92"
+      },
+      "solexs_tools-1.1/solexs_tools/solexs_genspec.py": {
+        "bytes": 13924,
+        "sha256": "265b0741e2aa902ff5df208d2ba1aabf58861b23778ae31d647722882d90ee7f"
+      },
+      "solexs_tools-1.1/solexs_tools/time_utils.py": {
+        "bytes": 2135,
+        "sha256": "8d4ce3352aadd9cd9cf38a70b59369dac51c9b298a52e130421d1c45bdd7ca10"
+      }
+    },
+    "sources": [
+      {
+        "bytes": 26507,
+        "path": "data/manifests/solexs_phase_d1_evidence.json",
+        "sha256": "352e84a73f95520e41bf87a6ba5d40c0d0f2ad542bc84562ff9334427d7452ef"
+      },
+      {
+        "bytes": 26921,
+        "path": "data/manifests/solexs_phase_e_evidence.json",
+        "sha256": "6e886b27e39db0db28566211ede609dc53eead1bb7db6ecb7317d3ae33f73d5c"
+      },
+      {
+        "bytes": 363311,
+        "path": "data/raw/aditya/documentation/pradan-official/SoLEXS-UserManual.pdf",
+        "sha256": "d97c83618c85a0984e7dd0300ce5c16c4748ed5facde525949f902fe9f72abda"
+      },
+      {
+        "bytes": 2481,
+        "path": "data/raw/aditya/documentation/pradan-official/SoLEXS_Release_Updates.txt",
+        "sha256": "7fc0229985fef2bd60ab23bc554c09e64f526719f11825e44a60eed12f5396ce"
+      }
+    ],
+    "tools_archive": {
+      "bytes": 19730838,
+      "path": "data/raw/aditya/documentation/pradan-official/solexs_tools-1.1.tar.gz",
+      "sha256": "348014aefa50ade556ec4a160a3cfe0b08095bde84b4650a27d6b5d3bf7fa2d3"
+    }
+  },
+  "next_milestone": "Applicable mission-approved single-release clock/bin boundary and response/exposure reference, with paired HK only if required; no training authorized",
+  "outputs": [
+    {
+      "bytes": 50671,
+      "path": "results/experiments/solexs-release-reference-20261017-final/report.json",
+      "sha256": "d0f72043336917a4c847cc2985ade6d70c23e87b5fb7a44829d4493227c348b5"
+    },
+    {
+      "bytes": 144,
+      "path": "results/experiments/solexs-release-reference-20261017-final/artifacts.json",
+      "sha256": "21cd375b8a8fd8274fdf62d3e0f761ddda147cc01caa347844a1571182868ee8"
+    },
+    {
+      "bytes": 50671,
+      "path": "results/experiments/solexs-release-reference-20261017-final-reproduction/report.json",
+      "sha256": "d0f72043336917a4c847cc2985ade6d70c23e87b5fb7a44829d4493227c348b5"
+    },
+    {
+      "bytes": 144,
+      "path": "results/experiments/solexs-release-reference-20261017-final-reproduction/artifacts.json",
+      "sha256": "21cd375b8a8fd8274fdf62d3e0f761ddda147cc01caa347844a1571182868ee8"
+    },
+    {
+      "bytes": 50671,
+      "path": "results/experiments/solexs-release-reference-20261017-final-relocated/report.json",
+      "sha256": "d0f72043336917a4c847cc2985ade6d70c23e87b5fb7a44829d4493227c348b5"
+    },
+    {
+      "bytes": 144,
+      "path": "results/experiments/solexs-release-reference-20261017-final-relocated/artifacts.json",
+      "sha256": "21cd375b8a8fd8274fdf62d3e0f761ddda147cc01caa347844a1571182868ee8"
+    },
+    {
+      "bytes": 84746,
+      "path": "results/experiments/solexs-native-reference-continuation-20261017-final/report.json",
+      "sha256": "bb5f601ad63a54738e36099fc59172b0a90f819b3c4a412bbf1c5b08a6f27c67"
+    },
+    {
+      "bytes": 144,
+      "path": "results/experiments/solexs-native-reference-continuation-20261017-final/artifacts.json",
+      "sha256": "82c8da9ac7f39d40276afec3935c9b14696b9706acb2d06c3fdb34534f89c11d"
+    }
+  ],
+  "policies": {
+    "correction_state": "UNKNOWN",
+    "native_calibration": false,
+    "native_channel_mapping": false,
+    "native_exposure_division": false,
+    "native_gap_filling": false,
+    "native_gti_filtering": false,
+    "native_utc_conversion": false,
+    "training_executed": false
+  },
+  "publication_scope": "Feature-branch commit/push only; no PR or merge; remote equality verified in final handoff",
+  "readiness": {
+    "calibration_application_allowed": false,
+    "clock_conversion_allowed": false,
+    "gates": [
+      {
+        "evidence_matrix": "docs/SOLEXS_PHASE_E_EVIDENCE_MATRIX.md",
+        "evidence_report": "docs/SOLEXS_PHASE_E_SCIENTIFIC_VALIDATION.md",
+        "id": "E1",
+        "name": "Timing validity",
+        "required_actions": [
+          "Obtain mission-approved pipeline-1.1 timing policy and reference boundary output"
+        ],
+        "status": "BLOCKED_EXTERNAL_EVIDENCE",
+        "unknown": [
+          "Absolute UTC/card precedence",
+          "LC bin completion/position",
+          "GTI clock/endpoints",
+          "clock corrections and uncertainty"
+        ],
+        "verified": [
+          "Native LC/PI coordinates, order, unit-step cadence"
+        ]
+      },
+      {
+        "evidence_matrix": "docs/SOLEXS_PHASE_E_EVIDENCE_MATRIX.md",
+        "evidence_report": "docs/SOLEXS_PHASE_E_SCIENTIFIC_VALIDATION.md",
+        "id": "E2",
+        "name": "Calibration validity",
+        "required_actions": [
+          "Obtain approved response/correction identities and compatibility rule with numerical reference"
+        ],
+        "status": "BLOCKED_EXTERNAL_EVIDENCE",
+        "unknown": [
+          "PI0..339/RMF1..340 mapping",
+          "Detector/epoch/pipeline response applicability",
+          "gain and correction provenance",
+          "scientific uncertainty"
+        ],
+        "verified": [
+          "Local official bundle/member identity",
+          "Candidate response grid structure/units"
+        ]
+      },
+      {
+        "conditional_blockers": [
+          {
+            "condition": "Mission-approved correction workflow requires matching HK",
+            "dependency": "Compatible July1/3 SDD2 HK; exact names/availability UNKNOWN",
+            "status": "BLOCKED_DATA"
+          }
+        ],
+        "evidence_matrix": "docs/SOLEXS_PHASE_E_EVIDENCE_MATRIX.md",
+        "evidence_report": "docs/SOLEXS_PHASE_E_SCIENTIFIC_VALIDATION.md",
+        "id": "E3",
+        "name": "Exposure and quality validity",
+        "required_actions": [
+          "Obtain approved GTI/bin/quality/correction rules; acquire paired HK only if required"
+        ],
+        "status": "BLOCKED_EXTERNAL_EVIDENCE",
+        "unknown": [
+          "Continuous effective exposure",
+          "quality/operational/saturation/correction state"
+        ],
+        "verified": [
+          "Native missingness and inclusive GTI point relation",
+          "PI exposure/telapse stored values"
+        ]
+      },
+      {
+        "conditional_blockers": [
+          {
+            "condition": "SDD1 science requested",
+            "dependency": "SDD1 LC/PI absent from inspected sample",
+            "status": "BLOCKED_DATA"
+          }
+        ],
+        "evidence_matrix": "docs/SOLEXS_PHASE_E_EVIDENCE_MATRIX.md",
+        "evidence_report": "docs/SOLEXS_PHASE_E_SCIENTIFIC_VALIDATION.md",
+        "id": "E4",
+        "name": "Detector and product selection",
+        "required_actions": [
+          "Keep SDD2 separate; approve task-specific product selection after E1-E3"
+        ],
+        "status": "PARTIALLY_VERIFIED",
+        "unknown": [
+          "Sample-specific SDD1 absence cause",
+          "LC NUMBAND/band-generation quantity equivalence",
+          "task-specific calibrated selection"
+        ],
+        "verified": [
+          "SDD2 native inspection candidate",
+          "SDD1 GTI-only absence",
+          "LC/PI timing/missingness equality"
+        ]
+      },
+      {
+        "evidence_matrix": "docs/SOLEXS_PHASE_E_EVIDENCE_MATRIX.md",
+        "evidence_report": "docs/SOLEXS_PHASE_E_SCIENTIFIC_VALIDATION.md",
+        "id": "E5",
+        "name": "GOES/SoLEXS compatibility",
+        "required_actions": [
+          "Resolve E1-E3 and define response-aware comparison with paired reference; no numerical conversion authorized"
+        ],
+        "status": "PARTIALLY_VERIFIED",
+        "unknown": [
+          "Local common calibrated quantity",
+          "time/bin/observer alignment",
+          "response-tail/1-AU convention",
+          "transfer-learning validity"
+        ],
+        "verified": [
+          "Distinct detector responses/bands/quantities",
+          "Published corrected cross-instrument methodology"
+        ]
+      },
+      {
+        "downstream_dependencies": [
+          "BLOCKED_DATA: bounded historical coverage and labels as applicable",
+          "BLOCKED_IMPLEMENTATION: approved processing/experiment contract after external scientific evidence"
+        ],
+        "evidence_matrix": "docs/SOLEXS_PHASE_E_EVIDENCE_MATRIX.md",
+        "evidence_report": "docs/SOLEXS_PHASE_E_SCIENTIFIC_VALIDATION.md",
+        "id": "E6",
+        "name": "Forecasting readiness",
+        "required_actions": [
+          "Close mission contract first; design bounded pilot and chronological forecast experiment only in a future authorized milestone"
+        ],
+        "status": "BLOCKED_EXTERNAL_EVIDENCE",
+        "unknown": [
+          "Validated target",
+          "causal availability and UTC/bin support",
+          "stable quantity and quality",
+          "sufficient independent chronological coverage",
+          "flare labels and uncertainties"
+        ],
+        "verified": [
+          "Native descriptive inspection"
+        ]
+      }
+    ],
+    "inherited_phase_e_gate": "BLOCKED_FOR_PHASE_E",
+    "jepa_training_allowed": false,
+    "physical_analysis_allowed": false,
+    "unknowns": [
+      "Absolute UTC/card precedence and bin availability",
+      "Detector/pipeline/epoch response and channel correspondence",
+      "GTI/quality/health/deadtime and continuous effective exposure",
+      "COUNTS quantity and correction state; units remain encoded null",
+      "Physical target, uncertainty, labels and chronological forecast validity"
+    ]
+  },
+  "reference_contract": {
+    "bytes": 40296,
+    "path": "data/manifests/solexs_reference_cases.json",
+    "sha256": "855e9ea65ae609d0ca37e3184bf4e11e881e96139d319093a83bf1c326a6f9af"
+  },
+  "release_identities": {
+    "native": {
+      "data_version": "1.1",
+      "mission_policy_accepted": false,
+      "nominal_selected_dates": [
+        "2024-07-01",
+        "2024-07-03"
+      ],
+      "pipeline_version": "1.1",
+      "release_date": "2025-02-14",
+      "release_date_evidence": "DOCUMENTED: SoLEXS_Release_Updates.txt data1.1 release entry (local text lines24-27)"
+    },
+    "tools": {
+      "archive_identity_source": "Phase D.1 reviewed supplied official PRADAN TAR; acquisition is user-reported",
+      "caldb_version": "1",
+      "mission_policy_accepted": false,
+      "tools_version": "1.1"
+    }
+  },
+  "resolved": [
+    "Coherent original tools1.1/CALDB1 resource identity",
+    "Exact artificial source-replay behavior and real native numerical witnesses",
+    "Vacuous expectations and unbound release metadata rejected"
+  ],
+  "runtime": {
+    "astropy": "8.0.1",
+    "numpy": "2.2.6",
+    "python": "3.13.3 (v3.13.3:6280bb54784, Apr  8 2025, 10:47:54) [Clang 15.0.0 (clang-1500.3.9.4)]"
+  },
+  "schema_version": 1,
+  "source_files": 61,
+  "source_fingerprint": "dbcc4e5907b67640a611435300b666850a33cb28445882ff1946c2dccc9a9588",
+  "supporting_artifacts": [
+    {
+      "bytes": 1916,
+      "path": "results/solexs_reference_validation/root_final_full_tests.txt",
+      "sha256": "67f244c6782eda6efc94f58f8024bd0832fb5b809a489e61cdccf014f8d41022"
+    },
+    {
+      "bytes": 853,
+      "path": "results/solexs_reference_validation/final_acceptance_summary.json",
+      "sha256": "97a9f04d160b09f779fdbc6ead2d0abc19978d0677902aa5e3135b2b11dfe75a"
+    },
+    {
+      "bytes": 1116,
+      "path": "results/solexs_reference_validation/final_acceptance_orchestration.txt",
+      "sha256": "4263f0a21604030d496c1b5c26e2b79039fb7307997d563f4cb32739c08e2031"
+    },
+    {
+      "bytes": 312,
+      "path": "results/solexs_reference_validation/preservation_final.json",
+      "sha256": "39d8042baa3e87853af71d6e0b2da0c20e2546621a31996690f78eca4566ce0a"
+    },
+    {
+      "bytes": 970,
+      "path": "results/solexs_reference_validation/git_policy_validation.json",
+      "sha256": "d870d6f154a383b8d8af59e318f37bb6cdc9c67865159473934472f217156684"
+    },
+    {
+      "bytes": 6815,
+      "path": "results/solexs_reference_validation/independent_code_review.md",
+      "sha256": "3743ddf8af42ed594c5cd4a57a04e7c1218ece69bfa9566f971b5a2e63b1f1de"
+    },
+    {
+      "bytes": 3717,
+      "path": "results/solexs_reference_validation/independent_code_rereview.md",
+      "sha256": "279eb019efcd8c0ac63a29a8dbe82aa458058609d821ea99999978ce9b24994c"
+    },
+    {
+      "bytes": 14050,
+      "path": "results/solexs_reference_validation/independent_scientific_review.md",
+      "sha256": "d61b03fb5b2bdc2e0fe1f7fc8e6ab2f3da390e6cc592b8050428601382470fe3"
+    },
+    {
+      "bytes": 1836,
+      "path": "results/solexs_reference_validation/baseline_tests.txt",
+      "sha256": "37fbb34a2116c36cbdc973465524f6323086efc12039751b05e9425b35160fca"
+    },
+    {
+      "bytes": 12162,
+      "path": "results/solexs_reference_validation/reference_red_vacuous.txt",
+      "sha256": "3506f13a11a39c5d9a1942ada57beedb66f76de1e2eb2dca7f24480ee7ac841f"
+    },
+    {
+      "bytes": 99,
+      "path": "results/solexs_reference_validation/reference_green_vacuous.txt",
+      "sha256": "50ad8ffdf3ddc378fdff4fce22235ddbd02316637c58ad79545d0a2f3d43438f"
+    },
+    {
+      "bytes": 17973,
+      "path": "results/solexs_reference_validation/reference_red_release_contract.txt",
+      "sha256": "55e124bd6469361f8248021607fd48d4b90e343c73e21445aa52bc79c48ad557"
+    },
+    {
+      "bytes": 179,
+      "path": "results/solexs_reference_validation/reference_green_release_contract.txt",
+      "sha256": "1518647a62df091652c666007ecace07db16582052866557198eb7601c4fb9ad"
+    },
+    {
+      "bytes": 20427,
+      "path": "results/solexs_reference_validation/documentation_investigation.md",
+      "sha256": "1be344df6a1965f9ce9f5af79524c0bf689d56e6110a18a771e10a2b255f7046"
+    },
+    {
+      "bytes": 13164,
+      "path": "results/solexs_reference_validation/native_investigation.md",
+      "sha256": "70bb374da4eb8e9431c72544ef81a25e0bb58ee8add2f5244e835747b5a601b4"
+    }
+  ],
+  "timezone": "Asia/Kolkata",
+  "unresolved": [
+    "Absolute UTC/card precedence and bin availability",
+    "Detector/pipeline/epoch response and channel correspondence",
+    "GTI/quality/health/deadtime and continuous effective exposure",
+    "COUNTS quantity and correction state; units remain encoded null",
+    "Physical target, uncertainty, labels and chronological forecast validity"
+  ],
+  "verdict": "REFERENCE_AGREEMENT_SCIENCE_BLOCKED",
+  "verification": {
+    "artifact_indexes_verified": 4,
+    "baseline_full_tests": {
+      "passed": 1211,
+      "warnings": 1
+    },
+    "code_review": "APPROVED_AFTER_RELEASE_METADATA_FIX",
+    "complete_native_products": 8,
+    "documentary_source_identities": 39,
+    "existing_output_preserved": true,
+    "final_full_tests": {
+      "passed": 1262,
+      "seconds": 93.9,
+      "warnings": 1
+    },
+    "identical_full_reference_reports": 3,
+    "inherited_warning": "netCDF4 import: numpy.ndarray size changed, may indicate binary incompatibility; not suppressed",
+    "new_reference_tests": 51,
+    "normal_installed_import": true,
+    "preservation": {
+      "historical_experiments": {
+        "artifacts": 319,
+        "indexes": 32,
+        "mismatches": []
+      },
+      "main": "1a4991da4dda9676caeb1d7e35a03408528c3188",
+      "original_checkpoints_before.json": {
+        "files": 13,
+        "mismatches": []
+      },
+      "preservation_before.json": {
+        "files": 52,
+        "mismatches": []
+      }
+    },
+    "relocated_input_files": 9,
+    "scientific_review": "APPROVED_FOR_BOUNDED_REFERENCE_MILESTONE; science and JEPA gates remain blocked",
+    "targeted_reference_and_legacy_probe_tests": 73
+  }
+}

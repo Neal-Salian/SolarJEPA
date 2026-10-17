@@ -64,38 +64,38 @@ not a mission-approved contract.
   publication must be refused. Native full-row probe may be reused with separately
   labeled release/candidate identities; do not conflate releases.
 
-- [ ] Write failing deterministic tests before implementation; use the existing
+- [x] Write failing deterministic tests before implementation; use the existing
   isolated results/solexs_integration_runtime/bin/python. Reproduce failure and
   record red/green commands/results in the implementer report.
-- [ ] Bind replay to the supplied official tools1.1 TAR and its reviewed member
+- [x] Bind replay to the supplied official tools1.1 TAR and its reviewed member
   SHA256 values in Phase D.1. Use bounded selected regular-member reads, no setup.py
   execution, no general extraction or installation. A temporary caldb_config
   adapter may point to copied pinned CALDB; identify that adapter in the report.
   Use subprocesses for timezone isolation and temporary outputs; source replay is
   explicitly tool behavior, not pipeline reconstruction or science processing.
-- [ ] Execute the actual genlc/rebin/writer and genspec functions with artificial
+- [x] Execute the actual genlc/rebin/writer and genspec functions with artificial
   fixed time/count/channel/exposure arrays. Assert epoch helper UTC round-trip;
   None versus explicit time_bin=1; odd/even rebin and dropped remainder; integer
   FITS timestamp truncation; timezone-dependent DATE-OBS under UTC and Asia/Kolkata;
   closed GTI endpoint versus half-open request interval; stop clamping excludes
   final TSTART row; preserved native labels and summed stored EXPOSURE. No physical
   or uncertainty interpretation of artificial outputs is permitted.
-- [ ] Add a native witness against the existing selected July1/3 files: 86400 rows
+- [x] Add a native witness against the existing selected July1/3 files: 86400 rows
   each; finite rows 86272/86398; missing rows128/2; channels0..339; RMF1..340;
   LC/PI band equality remains false. Existing tool slice41:313 has equal rows
   86253/86383 and inclusive-upper41:314 has86258/86393, max residual1 for both;
   all-channel max residual695/661 and zero equal rows. Pin the observed facts and
   their provenance, compare exact expected observations, fail on disagreement.
-- [ ] Keep HDU-specific timing cards/units and unknown correction state in native
+- [x] Keep HDU-specific timing cards/units and unknown correction state in native
   evidence. Do not select a preferred clock, renumber channels, filter GTIs, divide
   by exposure, repair timestamps or convert quantities. Unitless encoded COUNTS
   stays null, stored EXPOSURE/TELAPSE1 does not establish live exposure.
-- [ ] Test malformed/duplicate manifest, changed source/member bytes, unequal
+- [x] Test malformed/duplicate manifest, changed source/member bytes, unequal
   native expectations, missing inputs, unsafe paths, immutable input preservation,
   chunk-independent native results, timezone-stable report and existing-output
   refusal as appropriate to the implementation. Tests can mock the replay boundary
   for malformed-input checks; real acceptance must replay pinned source.
-- [ ] Run relevant tests and self-review. Commit focused verified implementation
+- [x] Run relevant tests and self-review. Commit focused verified implementation
   with a Conventional Commit. Do not push; root coordinates review and publication.
 
 ### Task 2: Scientific evidence, readiness and independent acceptance
@@ -105,13 +105,24 @@ not a mission-approved contract.
 - Update docs/PROJECT_STATUS.md only where needed to link current verified state.
 - Preserve historical reports/manifests unchanged.
 
-- [ ] Run actual reference replay and native audit/probe, reproduce deterministic
+- [x] Run actual reference replay and native audit/probe, reproduce deterministic
   JSON, verify normal installed imports and CLI from another working directory.
-- [ ] Obtain independent spec/quality review of Task1 and independent scientific
+- [x] Obtain independent spec/quality review of Task1 and independent scientific
   whole-change review; fix material findings with covering tests and scoped review.
-- [ ] Run relevant/full suite, inspect final diff/whitespace/index/history/ignore
+- [x] Run relevant/full suite, inspect final diff/whitespace/index/history/ignore
   policy, verify preserved input/checkpoint identities and source provenance.
-- [ ] Report resolved numerical/tool questions, unresolved mission applicability,
+- [x] Report resolved numerical/tool questions, unresolved mission applicability,
   exact readiness verdict and next evidence milestone. Record commands actually run.
 - [ ] Commit evidence; push verified commits only to the existing feature branch;
   verify local/upstream/remote equality and unchanged main. Retain worktree.
+
+## Executed verification checkpoint
+
+Task 1 and local Task 2 acceptance passed at executable source `c7ea3c9`: final
+full suite: 1262 passed, one inherited warning; 73 targeted checks, three byte-identical
+reference reports, installed/relocated CLI acceptance and input/checkpoint/artifact
+preservation. Independent code review and final scientific review approved this
+bounded milestone after two test-first guard fixes. All scientific gates remain
+unchanged. The evidence/documentation commit follows this execution checkpoint;
+feature-only publication and remote equality are verified in the final handoff.
+No PR, merge, main push, retraining or checkpoint change is authorized.
