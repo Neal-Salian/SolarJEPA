@@ -1,5 +1,7 @@
 # Phase 2 V2 G4 execution preparation
 
+**2026-10-18 follow-up:** the historical SIGINT-only condition and source/runtime bindings below are superseded by the [G4 lifecycle safety correction](PHASE2_V2_G4_LIFECYCLE_SAFETY.md). The earlier observations remain unchanged. The corrected implementation still supplies no reservation activation or G4 execution authority.
+
 Date: 2026-10-17, Asia/Kolkata. Reservation: **SolarJEPA-G4-MBA-M2-20261017-01**.
 Branch: `codex/v2-experimental-validation-readiness`.
 

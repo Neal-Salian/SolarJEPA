@@ -6,13 +6,17 @@ There is no resume/retry entry point, test release or arbitrary report publisher
 """
 import argparse
 from contextlib import contextmanager
+from datetime import datetime, timezone
+import fcntl
 import json
 import os
 from pathlib import Path
 import shutil
+import secrets
 import signal
 import subprocess
 import sys
+import tempfile
 import time
 
 from solar_flare_jepa.forecasting.contracts import canonical_json
@@ -20,9 +24,13 @@ from .config import read_finite_json
 from .v2_pilot_protocol import (DESIGN_FINGERPRINT, EXPERIMENT_ID, evaluation_identity,
                                 load_protocol, validate_execution)
 from .v2_resource_controls import (ProcessJob, ProcessSupervisor, ResourceLimits,
-                                   ResourceMonitoringUnavailable, _processes)
+                                   ResourceMonitoringUnavailable, SupervisionIntegrityError,
+                                   _THREAD_ENV, _processes, _seal, _utc)
+from .v2_pilot_lifecycle import (OWNER_ENV, PilotInterrupted, current_signals,
+                                pilot_signals, read_process_identity)
 from .provenance import _rename_no_replace
-from .v2_runner import JobSpec, RunConfig, _json_copy, _verify_sealed, write_artifact_once
+from .v2_runner import (ArtifactIntegrityError, JobSpec, RunConfig, _json_copy,
+                        _verify_sealed, write_artifact_once)
 
 
 class StorageUnavailable(RuntimeError):
@@ -47,35 +55,232 @@ class PilotSupervisor(ProcessSupervisor):
         if self.limits.max_retries != 0:
             raise ValueError('Protocol v1 permits zero automatic retries')
 
+    def run(self):
+        """Own catchable cancellation for a single, never-resumable session."""
+        with pilot_signals():
+            return super().run()
+
+    def _recover(self, recovered_until):
+        if self._ledger['attempts'] or (self.directory / '.pilot-started').exists():
+            raise SupervisionIntegrityError('Pilot never resumes; use explicit orphan cleanup only')
+        write_artifact_once(self.directory / '.pilot-started', b'No automatic resume permitted\n')
+
+    def _validate_storage(self):
+        super()._validate_storage()
+        for name in ('ownership', '.pilot-started'):
+            path = self.directory / name
+            if path.is_symlink() or path.resolve() != path:
+                raise SupervisionIntegrityError('Pilot ownership storage redirects through a symlink')
+            if path.exists() and not (path.is_dir() if name == 'ownership' else path.is_file()):
+                raise SupervisionIntegrityError('Unexpected pilot ownership storage type')
+
+    def _ownership_path(self, attempt):
+        self._validate_storage()
+        path = self.directory / 'ownership' / f"{attempt['job_id']}-{attempt['number']}.json"
+        if path.is_symlink() or path.resolve() != path:
+            raise SupervisionIntegrityError('Pilot ownership record redirects through a symlink')
+        return path
+
     @staticmethod
     def _terminate(process):
-        """Hard-stop and reap even if the pilot alarm interrupts the TERM grace.
+        """Defer repeated signals until hard stop, reap and absence verification."""
+        with pilot_signals() as guard:
+            with guard.defer(flush=False):
+                def signal_group(value):
+                    try:
+                        os.killpg(process.pid, value)
+                    except ProcessLookupError:
+                        pass
+                    except PermissionError:
+                        if any(row['group'] == process.pid and not row['state'].startswith('Z')
+                               for row in _processes()):
+                            raise ResourceMonitoringUnavailable('Cannot terminate live pilot group')
+                try:
+                    signal_group(signal.SIGTERM)
+                    try:
+                        process.wait(timeout=.2)
+                    except subprocess.TimeoutExpired:
+                        pass
+                finally:
+                    try:
+                        signal_group(signal.SIGKILL)
+                    finally:
+                        process.wait(timeout=1)
+                        _verify_group_absent(process.pid)
 
-        Keep the historically pinned generic supervisor unchanged. Propagate
-        interruptions after cleanup so its ledger remains conservatively
-        incomplete; they never permit another worker or completed publication.
-        """
-        def signal_group(value):
-            try:
-                os.killpg(process.pid, value)
-            except ProcessLookupError:
-                pass
-            except PermissionError:
-                if any(row['group'] == process.pid and not row['state'].startswith('Z')
-                       for row in _processes()):
-                    raise ResourceMonitoringUnavailable('Cannot terminate a live worker process group')
+    def _attempt(self, job):
+        """Pilot-only attempt: durable ownership, zero retry and deferred spawn."""
+        guard = current_signals()
+        guard.checkpoint()
+        number = 1
+        relative = f'attempts/{job.job_id}-{number}'
+        directory = self.directory / relative
+        directory.mkdir(parents=True, exist_ok=False)
+        artifacts = directory / 'artifacts'
+        artifacts.mkdir()
+        token = secrets.token_hex(32)
+        attempt = dict(job_id=job.job_id, number=number, job_fingerprint=job.fingerprint,
+                       status='running', path=relative, pid=None,
+                       started_utc=_utc(), checkpoint_utc=_utc(), wall_seconds=0.0,
+                       peak_sampled_rss_bytes=0, returncode=None, failure_kind=None, error=None)
+        self._ledger['attempts'].append(attempt)
+        self._active_attempt = attempt
+        self._save()
+        environment = dict(os.environ, **{name: str(self.limits.threads) for name in _THREAD_ENV},
+                           **{OWNER_ENV: token})
+        process, interrupted = None, None
+        began = time.monotonic()
         try:
-            signal_group(signal.SIGTERM)
-            try:
-                process.wait(timeout=.2)
-            except subprocess.TimeoutExpired:
-                pass
+            with (directory / 'stdout.log').open('xb') as stdout, (directory / 'stderr.log').open('xb') as stderr:
+                try:
+                    # A Python handler must not raise after Popen succeeded but
+                    # before the Popen object/PID belongs to this attempt. Do not
+                    # block OS signals: the child must inherit ordinary masks.
+                    with guard.defer():
+                        process = subprocess.Popen(job.command, cwd=artifacts, env=environment,
+                            stdin=subprocess.DEVNULL, stdout=stdout, stderr=stderr, start_new_session=True)
+                        attempt['pid'] = process.pid
+                        self._save()
+                    # A very short-lived worker may already have exited. A live
+                    # worker must have verifiable ownership before monitoring.
+                    identity = read_process_identity(process.pid, token)
+                    if identity is not None:
+                        ownership = self._ownership_path(attempt)
+                        ownership.parent.mkdir(exist_ok=True)
+                        _write_ownership(ownership, identity)
+                    self._save()
+                except OSError as error:
+                    attempt.update(failure_kind='START_FAILURE', error=f'{type(error).__name__}: {error}')
+                if process is not None and attempt['failure_kind'] is None:
+                    while True:
+                        guard.checkpoint()
+                        self._charge()
+                        if self._ledger['consumed_wall_seconds'] >= self.limits.total_wall_seconds:
+                            attempt.update(failure_kind='TOTAL_WALL_BUDGET', error='Cumulative wall budget exhausted')
+                            break
+                        if time.monotonic() - began >= job.timeout_seconds:
+                            attempt.update(failure_kind='TIMEOUT', error='Per-attempt job timeout exceeded')
+                            break
+                        attempt['peak_sampled_rss_bytes'] = max(attempt['peak_sampled_rss_bytes'],
+                                                              self._sample_rss(process.pid))
+                        if attempt['peak_sampled_rss_bytes'] > self.limits.max_rss_bytes:
+                            attempt.update(failure_kind='RSS_CEILING', error='Sampled process-tree RSS ceiling exceeded')
+                            break
+                        code = process.poll()
+                        if code is not None:
+                            attempt['returncode'] = code
+                            if code != 0:
+                                attempt.update(failure_kind='JOB_EXIT', error=f'Worker exited with code {code}')
+                            elif self._sample_rss(process.pid) > 0:
+                                attempt.update(failure_kind='JOB_EXIT', error='Worker left live descendants')
+                            break
+                        self._save()
+                        remaining = min(self.limits.poll_interval_seconds,
+                            job.timeout_seconds - (time.monotonic() - began),
+                            self.limits.total_wall_seconds - self._ledger['consumed_wall_seconds'])
+                        if remaining > 0:
+                            time.sleep(remaining)
+        except ResourceMonitoringUnavailable as error:
+            attempt.update(failure_kind='MONITOR_UNAVAILABLE', error=str(error))
+        except BaseException as error:
+            interrupted = error
+            guard.begin_cleanup()
+            attempt.update(failure_kind='INTERRUPTED', error=f'{type(error).__name__}: {error}')
         finally:
-            # SIGALRM/KeyboardInterrupt during wait must not skip SIGKILL.
+            with guard.defer(flush=False):
+                if process is not None:
+                    try:
+                        self._terminate(process)
+                    except (OSError, subprocess.SubprocessError, ResourceMonitoringUnavailable) as error:
+                        guard.begin_cleanup()
+                        attempt.update(failure_kind='MONITOR_UNAVAILABLE', error=str(error))
+                        self._ledger['stop_reason'] = 'MONITOR_UNAVAILABLE'
+                        self._save()
+                        raise ResourceMonitoringUnavailable(str(error)) from error
+                    attempt['returncode'] = process.returncode
+                self._charge()
+        # A first cancellation arriving during termination must still prevent
+        # artifact sealing and the next job, after termination has completed.
+        if interrupted is None and guard.error is not None:
+            interrupted = guard.error
+            guard.begin_cleanup()
+            attempt.update(failure_kind='INTERRUPTED', error=f'{type(interrupted).__name__}: {interrupted}')
+        entry = self._ledger['jobs'][job.job_id]
+        if attempt['failure_kind'] is None:
             try:
-                signal_group(signal.SIGKILL)
-            finally:
-                process.wait(timeout=1)
+                entry['artifacts'] = _seal(artifacts)
+                entry.update(status='succeeded', artifact_path=f'{relative}/artifacts')
+            except (ArtifactIntegrityError, OSError, ValueError) as error:
+                attempt.update(failure_kind='ARTIFACT_INTEGRITY', error=f'{type(error).__name__}: {error}')
+        attempt.update(status='succeeded' if attempt['failure_kind'] is None else 'failed', finished_utc=_utc())
+        if attempt['failure_kind'] is not None:
+            self._quarantine(attempt)
+            entry['status'] = 'failed'
+            self._ledger['stop_reason'] = (attempt['failure_kind'] if attempt['failure_kind'] in
+                ('TOTAL_WALL_BUDGET', 'MONITOR_UNAVAILABLE') else 'JOB_FAILED')
+        self._charge()
+        if self._ledger['consumed_wall_seconds'] >= self.limits.total_wall_seconds:
+            self._ledger['stop_reason'] = 'TOTAL_WALL_BUDGET'
+        self._save()
+        self._active_attempt = None
+        if interrupted is not None:
+            raise interrupted
+
+    def cleanup_orphan(self):
+        """Explicit stop-only recovery; refuse unknown, reused or unowned PIDs.
+
+        This does not run _recover, _run_pending, fitting, retries or publication.
+        Missing leaders with surviving groups require operator investigation.
+        """
+        with pilot_signals() as guard:
+            guard.begin_cleanup()
+            self._validate_storage()
+            with (self.directory / '.supervisor.lock').open('a+b') as lock:
+                try:
+                    fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                except BlockingIOError as error:
+                    raise SupervisionIntegrityError('Another supervisor is already running') from error
+                self._ledger = read_finite_json(self.directory / 'supervisor.json')
+                self._validate_ledger()
+                running = [a for a in self._ledger['attempts'] if a['status'] == 'running']
+                if len(running) > 1:
+                    raise SupervisionIntegrityError('Ambiguous multiple running pilot attempts')
+                for attempt in running:
+                    pid = attempt.get('pid')
+                    if type(pid) is not int or pid <= 1:
+                        raise SupervisionIntegrityError('Unknown interrupted spawn PID; cleanup refused')
+                    if _group_live(pid):
+                        ownership = self._ownership_path(attempt)
+                        if not ownership.is_file():
+                            raise SupervisionIntegrityError('Missing pilot ownership record; cleanup refused')
+                        identity = read_finite_json(ownership)
+                        if (not isinstance(identity, dict) or set(identity) != {
+                                'pid', 'pgid', 'uid', 'session', 'birth', 'token'}
+                                or any(type(identity.get(key)) is not int
+                                       for key in ('pid', 'pgid', 'uid', 'session'))
+                                or identity.get('pid') != pid
+                                or identity.get('pgid') != pid or identity.get('session') != pid
+                                or identity.get('uid') != os.getuid()
+                                or not isinstance(identity.get('birth'), str)
+                                or not identity['birth'].strip()):
+                            raise SupervisionIntegrityError('Missing or unowned pilot process identity')
+                        observed = read_process_identity(pid, identity.get('token'))
+                        if observed != identity:
+                            raise SupervisionIntegrityError('Pilot leader missing or process identity reused; cleanup refused')
+                        _stop_orphan_group(pid)
+                    _verify_group_absent(pid)
+                    elapsed = (datetime.now(timezone.utc) - datetime.fromisoformat(attempt['checkpoint_utc'])).total_seconds()
+                    if elapsed < 0:
+                        raise SupervisionIntegrityError('Clock moved backwards; recovery accounting unknown')
+                    attempt['wall_seconds'] += elapsed
+                    self._ledger['consumed_wall_seconds'] += elapsed
+                    attempt.update(status='failed', failure_kind='INTERRUPTED', finished_utc=_utc(),
+                        error='Explicit stop-only orphan cleanup; execution must not resume')
+                    self._quarantine(attempt)
+                    self._ledger['jobs'][attempt['job_id']]['status'] = 'failed'
+                self._ledger.update(stop_reason='ORPHAN_CLEANUP_ONLY')
+                self._save()
+                return _json_copy(self._ledger)
 
     def _run_pending(self):
         for job in self.jobs:
@@ -99,6 +304,73 @@ class PilotSupervisor(ProcessSupervisor):
                 return
 
 
+def _group_live(pid):
+    return any(row['group'] == pid and not row['state'].startswith('Z') for row in _processes())
+
+
+def _write_ownership(path, identity):
+    """Publish a complete, read-only ownership record without replacing one."""
+    descriptor, temporary = tempfile.mkstemp(prefix='.ownership-', dir=path.parent)
+    try:
+        with os.fdopen(descriptor, 'w') as stream:
+            stream.write(canonical_json(identity) + '\n')
+            stream.flush()
+            os.fchmod(stream.fileno(), 0o444)
+            os.fsync(stream.fileno())
+        _rename_no_replace(Path(temporary), path)
+        directory_fd = os.open(path.parent, os.O_RDONLY)
+        try:
+            os.fsync(directory_fd)
+        finally:
+            os.close(directory_fd)
+    finally:
+        if os.path.exists(temporary):
+            os.unlink(temporary)
+
+
+def _verify_group_absent(pid):
+    deadline = time.monotonic() + 1
+    while _group_live(pid):
+        if time.monotonic() >= deadline:
+            raise ResourceMonitoringUnavailable('Pilot process group still lives after hard stop')
+        time.sleep(.01)
+
+
+def _stop_orphan_group(pid):
+    """Hard-stop an authenticated group even if its TERM-grace monitor fails."""
+    group_absent = False
+    try:
+        try:
+            os.killpg(pid, signal.SIGTERM)
+        except ProcessLookupError:
+            group_absent = True
+        until = time.monotonic() + .2
+        while not group_absent and time.monotonic() < until:
+            if not _group_live(pid):
+                group_absent = True
+                break
+            try:
+                os.waitpid(pid, os.WNOHANG)
+            except ChildProcessError:
+                pass
+            time.sleep(.01)
+    finally:
+        # Once ownership has been established, a failed observation must not
+        # prevent the hard stop. Avoid signaling a group known to have gone.
+        try:
+            if not group_absent:
+                try:
+                    os.killpg(pid, signal.SIGKILL)
+                except ProcessLookupError:
+                    pass
+        finally:
+            try:
+                os.waitpid(pid, os.WNOHANG)
+            except ChildProcessError:
+                pass
+            _verify_group_absent(pid)
+
+
 def process_plan(root, approval_file, supervisor_directory, design):
     resources = design['resources']
     limits = ResourceLimits(max_rss_bytes=resources['max_rss_bytes'],
@@ -117,7 +389,12 @@ def _deadline(seconds):
     if seconds <= 0:
         raise TimeoutError('Total pilot wall budget exhausted')
     def expired(signum, frame):
-        raise TimeoutError('Total pilot wall budget exhausted during driver finalization')
+        error = TimeoutError('Total pilot wall budget exhausted during driver finalization')
+        guard = current_signals()
+        if guard is not None:
+            guard.cancel(error)
+        else:
+            raise error
     previous = signal.getsignal(signal.SIGALRM)
     timer = signal.getitimer(signal.ITIMER_REAL)
     if timer[0] > 0:
@@ -197,6 +474,12 @@ def _failure_record(output, supervisor, error, elapsed):
 
 
 def run_pilot(root, approval_file):
+    """Own signals through driver failure evidence and publication withdrawal."""
+    with pilot_signals():
+        return _run_pilot(root, approval_file)
+
+
+def _run_pilot(root, approval_file):
     """Run one explicitly approved pilot, preserving every terminal/pending job."""
     began = time.monotonic()
     context = validate_execution(root, approval_file)
@@ -207,10 +490,13 @@ def run_pilot(root, approval_file):
         raise PermissionError('Production driver requires an external execution approval file')
     resources = context['design']['resources']
     check_storage(output, resources['minimum_free_output_bytes'])
-    output.mkdir(parents=False, exist_ok=False)
     supervisor, staging, final = None, None, None
     publication_attempted = False
+    output_created = False
     try:
+        with current_signals().defer():
+            output.mkdir(parents=False, exist_ok=False)
+            output_created = True
         with _deadline(resources['total_wall_seconds'] - (time.monotonic() - began)):
             jobs, limits = process_plan(root, approval_file, output / 'supervisor', context['design'])
             supervisor = PilotSupervisor(output / 'supervisor', jobs,
@@ -257,8 +543,15 @@ def run_pilot(root, approval_file):
             # Both guarded runs and their completion record become visible together.
             publication_attempted = True
             _rename_no_replace(staging, output / 'publication')
+            current_signals().checkpoint()
+            # Publication is committed; retain handlers through timer teardown
+            # and restoration without accepting a new post-completion cancel.
+            current_signals().begin_cleanup()
             return final
     except BaseException as error:
+        current_signals().begin_cleanup()
+        if not output_created:
+            raise
         # A signal may arrive just after the atomic rename succeeds. Withdraw
         # only this driver's exact bundle; never touch a preexisting destination.
         published = output / 'publication'

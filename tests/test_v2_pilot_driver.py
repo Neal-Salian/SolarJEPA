@@ -163,7 +163,8 @@ def test_alarm_after_atomic_rename_withdraws_completed_bundle(monkeypatch, tmp_p
     original = api()._rename_no_replace
     def interrupted_rename(source, destination):
         original(source, destination)
-        raise TimeoutError('synthetic alarm after atomic rename')
+        if destination == output / 'publication':
+            raise TimeoutError('synthetic alarm after atomic rename')
     monkeypatch.setattr(api(), '_rename_no_replace', interrupted_rename)
     with pytest.raises(TimeoutError, match='after atomic rename'):
         api().run_pilot(ROOT, tmp_path / 'external-approval.json')
@@ -176,8 +177,9 @@ def test_publication_collision_preserves_existing_destination(monkeypatch, tmp_p
     output, publications, reports = synthetic_driver(monkeypatch, tmp_path)
     original = api()._rename_no_replace
     def collision(source, destination):
-        destination.mkdir()
-        (destination / 'unrelated.txt').write_text('preserve')
+        if destination == output / 'publication':
+            destination.mkdir()
+            (destination / 'unrelated.txt').write_text('preserve')
         original(source, destination)
     monkeypatch.setattr(api(), '_rename_no_replace', collision)
     with pytest.raises(FileExistsError):
@@ -216,7 +218,7 @@ def test_cleanup_interruption_still_kills_worker_and_keeps_pilot_incomplete(monk
             terminate(process)
     monkeypatch.setattr(runner, '_terminate', interrupted_cleanup)
     try:
-        expected = resources.ResourceMonitoringUnavailable if interruption == 'deadline' else KeyboardInterrupt
+        expected = TimeoutError if interruption == 'deadline' else KeyboardInterrupt
         with pytest.raises(expected):
             runner.run()
         ledger = json.loads((runner.directory / 'supervisor.json').read_text())

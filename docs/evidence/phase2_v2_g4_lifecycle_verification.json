@@ -1,0 +1,577 @@
+{
+  "authority": {
+    "data_fitting_authorized": false,
+    "execution_authorized": false,
+    "final_binding_policy": "After final clean published commit regenerate external runtime-final.json, execution-binding.json, pending18field approval and reservation rationale. No final runtime is committed to the same branch because doing so changes git_commit. All prior source/runtime bindings are stale for new code.",
+    "pending_approval_path": "/Users/nealsalian/Desktop/SolarJEPA/results/v2-g4-mba-m2-20261017/owner-approval.pending.json",
+    "reservation_activated": false,
+    "reservation_id": "SolarJEPA-G4-MBA-M2-20261017-01",
+    "test_release_authorized": false
+  },
+  "base_commit": "d07a4070278a784da5cdb69842fd1f66c4156e86",
+  "branch": "codex/v2-experimental-validation-readiness",
+  "configuration_fingerprint": "a7ce71194dac05c7ac14e5a5fc09f478b7b6d88ad0744a97bc7c3c7af02a641b",
+  "data_identity": {
+    "dataset_fingerprint": "080d6128a398259e2112ce812b13d599b2131f9992bccced9720fe215e05cb72",
+    "forecast_fingerprint": "094df46d625380c4c812bb26c9320cff10e40a2de185cfcebfa5dfff04674d94",
+    "normalization_fingerprint": "848623009ce048a14e32c50b7c70d9c9728cdd77391f10115ec1c8fd46d039a9",
+    "split_fingerprint": "69fac8443c0740b7504acbca31720ec5c52cd39a678999e0024debf6344987a4",
+    "split_fingerprints": {
+      "train": "e79a5074c3323f771a8cc40c3dde7a1c8f61747f5ed90f827c450fbb9b6f0c9d",
+      "validation": "707588906ec567b711d60f53fcd7ec81934755a3cb3df24d9df6837e67a68677"
+    },
+    "train_windows": {
+      "cap": 20000,
+      "eligible": 108199,
+      "fingerprint": "55d8eb706cb39b89c8ef3c778890dd47612e5a8c5457429a9bf3a19e683d2fe2",
+      "policy": "complete_consecutive_raw_training_rows",
+      "stride": 1,
+      "subsample": "evenly_spaced_chronological",
+      "used": 20000
+    },
+    "training_fingerprint": "8e5f200f701c73d37191009d66246cd3bd50b5c3da7bb290d4fc28612fff38fb",
+    "validation_content_fingerprint": "bd0fbf759460b2392b0812ff825b215f3e020f9271cdfe20881cf5fa4e5c0870"
+  },
+  "date_client": "2026-10-18",
+  "design_fingerprint": "ec104daac15f45fe1c0cee9de44b72e2ed67e2bc42de1bc69edb99ffbec55624",
+  "historical_source_pins_matched": 24,
+  "implementation": {
+    "catchable_signals": [
+      "SIGINT",
+      "SIGTERM",
+      "SIGHUP"
+    ],
+    "deadline": "SIGALRM uses same deferred cancellation state",
+    "identity_observation": "Missing/Z/confirmed terminal transition means no identity; live identity/token mismatch remains terminal even if later child exit",
+    "ownership": "Atomic immutable sidecar with exact pid/pgid/uid/session/birth/64hex random token; environment bytes inspected privately, not logged",
+    "publication": "Atomic bundle rename and withdrawal preserved; explicit checkpoint defines terminal completion, later signals deferred through timer/handler teardown",
+    "recovery": "Explicit PilotSupervisor.cleanup_orphan under advisory lock; reject unknown/reused/unowned/missing leader or token, never fit/retry/resume/publish",
+    "reporting": "Ownership/session sidecars outside sealed artifacts and closed supervisor/attempt/report schemas",
+    "resume": "Exclusive-create .pilot-started marker written once through the pilot API and prior attempts prevent repeated execution",
+    "spawn": "Defer Python cancellation until Popen object/PID is retained; never block inherited OS signal masks",
+    "termination": "TERM then mandatory KILL, owned-child reap and sampled live-group absence; repeated signals deferred during teardown"
+  },
+  "independent_reviews": {
+    "safety_testing": {
+      "coverage": [
+        "INT/TERM/HUP supervisor-only",
+        "prior handlers restoration",
+        "TERM/hardkill repeated signals",
+        "Popen assignment race",
+        "timeout/nonzero/monitor failures",
+        "explicit orphan cleanup after SIGKILL",
+        "unknown/reused/missing identity refusal",
+        "concurrent supervisor lock refusal",
+        "unrelated sentinel group preservation"
+      ],
+      "initial_log": "results/phase2_v2_g4_lifecycle_20261017/independent-lifecycle-safety.log",
+      "initial_verified_result": "18 passed in15.62seconds before parent-added review regressions",
+      "limitation": "Independent testing agent hit usage limit after fixture implementation; parent completed review regressions and full final reruns.",
+      "mode": "independent real-subprocess synthetic fixture implementation"
+    },
+    "scientific": {
+      "complete_report_requires": {
+        "first_attempts": 20,
+        "inference_fields_null": 6,
+        "selected_models": 18
+      },
+      "configuration_fingerprint": "a7ce71194dac05c7ac14e5a5fc09f478b7b6d88ad0744a97bc7c3c7af02a641b",
+      "design_fingerprint": "ec104daac15f45fe1c0cee9de44b72e2ed67e2bc42de1bc69edb99ffbec55624",
+      "final_re_review": "Only lifecycle/tests changed; protocol/scientific/report modules remain byte-equal d07a407. Dated addendum and external pending refresh required; G4 still unauthorized.",
+      "historical_source_pins_matched": 24,
+      "mode": "independent read-only metadata/source boundary review",
+      "protocol_files_equal_d07a407": true,
+      "science_read": false,
+      "scientific_code_unchanged": true,
+      "tests_run": false,
+      "verdict": "No scientific scope/reporting blocker; handoff addendum and final external binding required"
+    },
+    "technical": {
+      "findings_fixed": [
+        "Exact ownership schema and mandatory64hex token; missing/null refused",
+        "Authenticated TERM-grace monitoring failure cannot skip SIGKILL/reap/absence",
+        "Metadata sidecars leave closed scientific ledger/report schemas unchanged"
+      ],
+      "mode": "independent read-only static Git/stdlib/AST review",
+      "science_read": false,
+      "scoped_re_review": "Confirmed terminal/missing/Z identity distinct from live mismatch; later poll can no longer swallow a live integrity error; cleanup still refuses unknown identity. No remaining must-fix finding.",
+      "source_files": {
+        "src/solar_flare_jepa/experiments/v2_pilot.py": "2ae5dee1aa486ff829f8048ae8f796b38b13b240c381fff307b15b5ba0f37878",
+        "src/solar_flare_jepa/experiments/v2_pilot_lifecycle.py": "74a8e50d812d825fcd212d1fd248ce2f2a8b91ea7dab14766d379a1240afbb8f",
+        "tests/test_v2_pilot_lifecycle.py": "27379cfff9dffac93c7be2527a9b9e025ffa57a74a5a55a9993b40edceed96b7",
+        "tests/test_v2_pilot_lifecycle_safety.py": "46cb432b2e44e4ccd2c63a87f2a95c0fdf075a2140c1e3ebf0b7fefe2aad3b00"
+      },
+      "tests_run": false,
+      "verdict": "No remaining Critical/Important findings after corrections"
+    }
+  },
+  "interface_checks": {
+    "help_exit": 0,
+    "metadata": {
+      "design_fingerprint": "ec104daac15f45fe1c0cee9de44b72e2ed67e2bc42de1bc69edb99ffbec55624",
+      "execution_authorized": false,
+      "inference_reason": "NO_VALIDATED_REPLACEMENT",
+      "inference_status": "INFERENCE_UNAVAILABLE",
+      "mode": "METADATA_ONLY",
+      "model_fit_executed": false,
+      "required_execution_gates": [
+        "G3_NAMED_HOST_DATA_OUTPUT_RUNTIME_RESERVATION",
+        "G4_SEPARATE_BOUNDED_PILOT_APPROVAL"
+      ],
+      "schema_version": 1,
+      "science_inputs_opened": false,
+      "selected_models": 18,
+      "total_processes": 20
+    },
+    "metadata_repeated_byte_identical": true,
+    "metadata_torch_blocked": true,
+    "missing_approval_exit": 2,
+    "missing_approval_stderr": "{\"error\":\"Separate host reservation and execution approval are required\",\"error_type\":\"PermissionError\",\"status\":\"BLOCKED\"}\n",
+    "numpy_first_netcdf_import_passed": true,
+    "numpy_first_strict_exit": 1,
+    "numpy_first_warnings": [
+      {
+        "category": "RuntimeWarning",
+        "message": "numpy.ndarray size changed, may indicate binary incompatibility. Expected 16 from C header, got 96 from PyObject"
+      }
+    ],
+    "output_absent": true,
+    "strict_stderr": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n    import numpy,warnings;warnings.simplefilter('error',RuntimeWarning);import netCDF4\n                                                                        ^^^^^^^^^^^^^^\n  File \"/Users/nealsalian/Desktop/SolarJEPA/.venv/lib/python3.13/site-packages/netCDF4/__init__.py\", line 3, in <module>\n    from ._netCDF4 import *\n  File \"src/netCDF4/_netCDF4.pyx\", line 1, in init netCDF4._netCDF4\nRuntimeWarning: numpy.ndarray size changed, may indicate binary incompatibility. Expected 16 from C header, got 96 from PyObject\n"
+  },
+  "jobs": [
+    {
+      "dependencies": [],
+      "job_id": "00-1261866429-shared_ssl-ssl",
+      "kind": "ssl_phase",
+      "model_config_fingerprint": "cb91f1399ed2ae2caaea5947ed39b184401fa48a9d491593ed96251d50784e4b",
+      "seed": 1261866429,
+      "timeout_seconds": 300
+    },
+    {
+      "dependencies": [
+        "00-1261866429-shared_ssl-ssl"
+      ],
+      "job_id": "01-1261866429-primary-jepa_finetune",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "cb91f1399ed2ae2caaea5947ed39b184401fa48a9d491593ed96251d50784e4b",
+      "seed": 1261866429,
+      "timeout_seconds": 600
+    },
+    {
+      "dependencies": [],
+      "job_id": "02-1261866429-primary-supervised",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "9a418bbb620de141a92f7903f36ccb96ad393fcaa4ed17c74ec4200602c4b5a4",
+      "seed": 1261866429,
+      "timeout_seconds": 600
+    },
+    {
+      "dependencies": [],
+      "job_id": "03-1261866429-primary-supervised_extra_updates",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "e39e5d52fca534f90dbb7da9d40d293c0f4401cc15b8769550f5b527069ca759",
+      "seed": 1261866429,
+      "timeout_seconds": 600
+    },
+    {
+      "dependencies": [
+        "00-1261866429-shared_ssl-ssl"
+      ],
+      "job_id": "04-1261866429-primary-jepa_frozen",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "3f3033b8ab51db123521558804ce25db63f6e26f6afbc798cf3a14d3a51f3c44",
+      "seed": 1261866429,
+      "timeout_seconds": 600
+    },
+    {
+      "dependencies": [],
+      "job_id": "05-1261866429-primary-random_frozen",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "3006cfc123d1ea7cca95742125ee053a1f41865917442bb82b01d8cdc70fa383",
+      "seed": 1261866429,
+      "timeout_seconds": 600
+    },
+    {
+      "dependencies": [],
+      "job_id": "06-1261866429-baseline-tcn",
+      "kind": "tcn",
+      "model_config_fingerprint": "4d0cbb7d81149fa57bc0b45151f953b016459faf0f809925a145bc21f8e9ae65",
+      "seed": 1261866429,
+      "timeout_seconds": 1800
+    },
+    {
+      "dependencies": [],
+      "job_id": "07-1261866429-baseline-quantile_linear",
+      "kind": "quantile_linear",
+      "model_config_fingerprint": "6ad24e6a9b5e2863710bb8aaf3176e7f0466887ae93a728e4ed56f3d7e304cc5",
+      "seed": 1261866429,
+      "timeout_seconds": 600
+    },
+    {
+      "dependencies": [
+        "00-1261866429-shared_ssl-ssl"
+      ],
+      "job_id": "08-1261866429-normalized_pinball_v1-jepa_finetune",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "798e4c6707c68ce0d9dca7fa2dbf08ba58ec69706b8a2c2e8ddf0a17f5057041",
+      "seed": 1261866429,
+      "timeout_seconds": 600
+    },
+    {
+      "dependencies": [],
+      "job_id": "09-1261866429-normalized_pinball_v1-supervised",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "828d89f381cf30d72c93ef9ee3081d34b80d4c029e22feb5e2563e9ba315bbf6",
+      "seed": 1261866429,
+      "timeout_seconds": 600
+    },
+    {
+      "dependencies": [],
+      "job_id": "10-1291916211-shared_ssl-ssl",
+      "kind": "ssl_phase",
+      "model_config_fingerprint": "a5cd77927c4e7612379802dc0ce8a459745257e1b2d999a1f7bf176ac570725c",
+      "seed": 1291916211,
+      "timeout_seconds": 300
+    },
+    {
+      "dependencies": [
+        "10-1291916211-shared_ssl-ssl"
+      ],
+      "job_id": "11-1291916211-primary-jepa_finetune",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "a5cd77927c4e7612379802dc0ce8a459745257e1b2d999a1f7bf176ac570725c",
+      "seed": 1291916211,
+      "timeout_seconds": 600
+    },
+    {
+      "dependencies": [],
+      "job_id": "12-1291916211-primary-supervised",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "4797051eabad39543bd0be9d0c44df04ee97fe36950f79cbde7c7289a6e2d085",
+      "seed": 1291916211,
+      "timeout_seconds": 600
+    },
+    {
+      "dependencies": [],
+      "job_id": "13-1291916211-primary-supervised_extra_updates",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "8d4c91719e6b58a67c783f0750dc23f8e0e9653180816b84b62a43bbe19eb227",
+      "seed": 1291916211,
+      "timeout_seconds": 600
+    },
+    {
+      "dependencies": [
+        "10-1291916211-shared_ssl-ssl"
+      ],
+      "job_id": "14-1291916211-primary-jepa_frozen",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "c4a09a10227ef4d3bf2becc46041a8a802cc62d26f43f2d7322cedf5d1ed7845",
+      "seed": 1291916211,
+      "timeout_seconds": 600
+    },
+    {
+      "dependencies": [],
+      "job_id": "15-1291916211-primary-random_frozen",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "053dac45a39af736a8e6bf3e21370a349f278cbcd1ef45d3c1689381d70e74e8",
+      "seed": 1291916211,
+      "timeout_seconds": 600
+    },
+    {
+      "dependencies": [],
+      "job_id": "16-1291916211-baseline-tcn",
+      "kind": "tcn",
+      "model_config_fingerprint": "bb955c57e42f980d4e983152338b7214e867ea3f4493b517aca0410b34164e76",
+      "seed": 1291916211,
+      "timeout_seconds": 1800
+    },
+    {
+      "dependencies": [],
+      "job_id": "17-1291916211-baseline-quantile_linear",
+      "kind": "quantile_linear",
+      "model_config_fingerprint": "a086d439d7bfc538684bd354b7d33d2520e36d4597c7bdafb92cdcc4252a6086",
+      "seed": 1291916211,
+      "timeout_seconds": 600
+    },
+    {
+      "dependencies": [
+        "10-1291916211-shared_ssl-ssl"
+      ],
+      "job_id": "18-1291916211-normalized_pinball_v1-jepa_finetune",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "8d33ab865dea8b8cab3ef647c65a59070c651427741e166f4a5cbd7d07b7dbb8",
+      "seed": 1291916211,
+      "timeout_seconds": 600
+    },
+    {
+      "dependencies": [],
+      "job_id": "19-1291916211-normalized_pinball_v1-supervised",
+      "kind": "neural_downstream",
+      "model_config_fingerprint": "d575601846b55a8def752c839277f09ca73ffdb2835fed446a0d8fd6c3d110b8",
+      "seed": 1291916211,
+      "timeout_seconds": 600
+    }
+  ],
+  "kind": "solarjepa_g4_lifecycle_safety_verification",
+  "limits": {
+    "max_retries": 0,
+    "max_rss_bytes": 2147483648,
+    "minimum_free_output_bytes": 1073741824,
+    "per_job_timeout_seconds": {
+      "neural_downstream": 600,
+      "quantile_linear": 600,
+      "ssl_phase": 300,
+      "tcn": 1800
+    },
+    "poll_interval_seconds": 0.05,
+    "processes": "serial fresh subprocess session per attempt",
+    "rss_semantics": "sampled live worker+descendant RSS,not hard OS allocation cap",
+    "thread_environment": [
+      "OMP_NUM_THREADS",
+      "OPENBLAS_NUM_THREADS",
+      "MKL_NUM_THREADS",
+      "NUMEXPR_NUM_THREADS",
+      "VECLIB_MAXIMUM_THREADS",
+      "BLIS_NUM_THREADS"
+    ],
+    "threads": 4,
+    "total_wall_seconds": 7200
+  },
+  "native": {
+    "all_data_identities_equal_previous": true,
+    "all_native_identities_matched": 92,
+    "audited_science_paths": 92,
+    "bytes": 27280082,
+    "file_count": 92,
+    "measurement": {
+      "elapsed_seconds": 15.225880541998777,
+      "exit_code": 0,
+      "poll_seconds": 0.05,
+      "sampled_group_peak_rss_bytes": 458342400,
+      "samples": 192,
+      "scope": "native preparation only; no fitting or pilot",
+      "torch_import_blocked": true
+    },
+    "test_partition_constructed": false,
+    "torch_imported": false
+  },
+  "pilot_executed": false,
+  "preservation": {
+    "actual_ignore_paths": 101,
+    "checkpoints_matching": 9,
+    "configuration_fingerprint": "a7ce71194dac05c7ac14e5a5fc09f478b7b6d88ad0744a97bc7c3c7af02a641b",
+    "design_fingerprint": "ec104daac15f45fe1c0cee9de44b72e2ed67e2bc42de1bc69edb99ffbec55624",
+    "historical_source_pins_match": 24,
+    "installed_modules_match": 64,
+    "installed_package_root": "/Users/nealsalian/.codex/worktrees/v2-experimental-validation-readiness/SolarJEPA/.venv/lib/python3.13/site-packages/solar_flare_jepa",
+    "lock_requirements_match": 42,
+    "protocol_files_unchanged": true,
+    "raw_matching": 92,
+    "source_fingerprint": "fbb17789683545fae55b8aa5c19085bd4dadf9cdb0d72922bdad37e8b6c567ee"
+  },
+  "real_data_model_constructed": false,
+  "real_data_optimizer_steps": 0,
+  "real_data_validation_predictions": false,
+  "remaining_risks": [
+    "SIGKILL/host loss are uncatchable and can leave an orphan",
+    "Missing/ambiguous ownership, unknown spawn PID or absent leader with live descendants refuses cleanup and needs operator investigation",
+    "Trusted workers/descendants must remain in original process group; escaping/hostile processes outside guarantees",
+    "RSS is sampled; library thread controls are not hard OS allocation/thread caps",
+    "Actual fitting/optimizer/reload/prediction/report cost and completion within7200s remain UNKNOWN",
+    "Known NumPy-first NetCDF4 size-changed warning; strict import exits1, ordinary native identities pass"
+  ],
+  "resources_snapshot": {
+    "disk_usage": {
+      "free": 6706368512,
+      "total": 245107195904,
+      "used": 238400827392
+    },
+    "hardware": "Mac14,2\n8589934592\n8\nApple M2\n",
+    "memory_pressure": "The system has 8589934592 (524288 pages with a page size of 16384).\nSystem-wide memory free percentage: 45%\n",
+    "no_os_resource_allocation_claimed": true,
+    "observed_utc": "2026-10-17T18:29:48.620564+00:00",
+    "output_absent": true,
+    "output_root": "/Users/nealsalian/.codex/worktrees/v2-experimental-validation-readiness/SolarJEPA/results/v2-development-v1-first-pilot",
+    "swapusage": "vm.swapusage: total = 1024.00M  used = 237.88M  free = 786.12M  (encrypted)\n",
+    "vm_stat": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                               13119.\nPages active:                            104988.\nPages inactive:                           82891.\nPages speculative:                        22476.\nPages throttled:                              0.\nPages wired down:                         98220.\nPages purgeable:                           1389.\n\"Translation faults\":                 208568105.\nPages copy-on-write:                    7996436.\nPages zero filled:                    104414980.\nPages reactivated:                     32349904.\nPages purged:                           9047319.\nFile-backed pages:                        95604.\nAnonymous pages:                         114751.\nPages stored in compressor:              394513.\nPages occupied by compressor:            165633.\nDecompressions:                        23907101.\nCompressions:                          28729712.\nPageins:                               13234215.\nPageouts:                                398106.\nSwapins:                                  90050.\nSwapouts:                                208525.\n"
+  },
+  "reviewed_source_files": {
+    "src/solar_flare_jepa/experiments/v2_pilot.py": "2ae5dee1aa486ff829f8048ae8f796b38b13b240c381fff307b15b5ba0f37878",
+    "src/solar_flare_jepa/experiments/v2_pilot_lifecycle.py": "74a8e50d812d825fcd212d1fd248ce2f2a8b91ea7dab14766d379a1240afbb8f",
+    "tests/test_v2_pilot_lifecycle.py": "27379cfff9dffac93c7be2527a9b9e025ffa57a74a5a55a9993b40edceed96b7",
+    "tests/test_v2_pilot_lifecycle_safety.py": "46cb432b2e44e4ccd2c63a87f2a95c0fdf075a2140c1e3ebf0b7fefe2aad3b00"
+  },
+  "schema_version": 1,
+  "source_fingerprint": "fbb17789683545fae55b8aa5c19085bd4dadf9cdb0d72922bdad37e8b6c567ee",
+  "tests": {
+    "final_nonfitting_suite": {
+      "command": "OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4 VECLIB_MAXIMUM_THREADS=4 BLIS_NUM_THREADS=4 .venv/bin/python -m pytest -q tests/test_v2_pilot_protocol.py tests/test_v2_pilot_worker.py tests/test_v2_pilot_driver.py tests/test_v2_pilot_reporting.py tests/test_v2_pilot_guard_bridge.py tests/test_v2_resource_controls.py tests/test_goes_v2_development.py tests/test_v2_descriptive.py tests/test_v2_pilot_lifecycle.py tests/test_v2_pilot_lifecycle_safety.py",
+      "log": "results/phase2_v2_g4_lifecycle_20261017/tests_final.log",
+      "passed": 257,
+      "seconds": 117.69,
+      "warnings": 0
+    },
+    "focused_final": {
+      "log": "results/phase2_v2_g4_lifecycle_20261017/identity_exit_green.log",
+      "passed": 41,
+      "seconds": 34.56
+    },
+    "full_project_suite_run": false,
+    "full_suite_reason": "Contains fitting/experiment tests outside nontraining authority",
+    "initial_broad_failure": {
+      "exact_transition": "UNKNOWN; no before/after snapshots recorded",
+      "failed": 1,
+      "followup": "12 isolated successful replays; deterministic confirmed-exit and live-error regressions; final broad257pass",
+      "natural_exit_explanation": "INFERRED, not established as exact historical transition",
+      "passed": 254,
+      "seconds": 119.07
+    },
+    "red_identity_exit": {
+      "failed_as_expected": 2,
+      "reason": "Confirmed terminal transition raised mismatch; live error later suppressed and next job started"
+    },
+    "red_original": {
+      "failed_as_expected": 3,
+      "passed": 1,
+      "reason": "TERM/HUP and Popen assignment gap leaked synthetic workers; test finally killed owned groups"
+    },
+    "red_review": {
+      "failed_as_expected": 2,
+      "passed": 1,
+      "reason": "Missing-token recovery and monitor-loss during orphan TERM grace"
+    }
+  },
+  "timezone": "Asia/Kolkata",
+  "verdict": "SUPPORTED_CATCHABLE_LIFECYCLE_CHECKS_PASS;G4_NOT_AUTHORIZED;RESERVATION_NOT_ACTIVATED",
+  "verification_artifacts": {
+    "results/phase2_v2_g4_lifecycle_20261017/actual_ignore_paths.log": {
+      "bytes": 16622,
+      "sha256": "06f960c01dd0aed74d91004af3de6ed7b3a11f5a2e3d89075d6448597b94f4e2"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/before.json": {
+      "bytes": 67029,
+      "sha256": "4a621727ef6a81ba8530fa52070e2b1a3479057f0e3b43d6f495ba0dbcdd73be"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/external_artifacts_before.json": {
+      "bytes": 1348,
+      "sha256": "6a8685211a9e2fa09d8bf2bc693c31b33254be015d23cac7b930f50237d2e530"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/green-initial.txt": {
+      "bytes": 100,
+      "sha256": "d21ad25f9960177afb3334411d5bd8d80e57ceb80b48d162b96a743a86e19dc9"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/green.txt": {
+      "bytes": 7695,
+      "sha256": "695f028438a9b9644deb5acc2152527811e747b2487d986b1b752868787f0a1b"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/identity_exit_green.log": {
+      "bytes": 100,
+      "sha256": "70d5e0d4ee5fd11e0a35eb2f4c45e17001bdc88bc389624e22c14556ec15d1b9"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/identity_exit_red.log": {
+      "bytes": 6946,
+      "sha256": "a7567c1a56ab976c50da205ab0ea0cc577b6e99e7e0c6ffdb47abd1e79b6f9f1"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/identity_preservation.json": {
+      "bytes": 672,
+      "sha256": "be890090d56930c9e2b2cf7f580eb052291c5c5e54d71a7b68c4633be1747d83"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/identity_probe_repeated.log": {
+      "bytes": 1403,
+      "sha256": "12260d92d961bb24a43ca2c7b3f00c47f0b35128606b31b17508238a47decbb4"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/identity_transition_probe.json": {
+      "bytes": 9580,
+      "sha256": "04fcc1f1b637069d8f70a2faf17b97e3d6e3fc49f578f5d14e54c7d74cd69cd8"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/identity_transition_repeated.json": {
+      "bytes": 94012,
+      "sha256": "55d7ddd9b1f84a69f0da15e00b0463afcac126a960a1b40a4a2d70941b6aec33"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/independent-lifecycle-safety.log": {
+      "bytes": 100,
+      "sha256": "4ccf99fc2ea83bc9d536e9ce96b4487312106bbfa10de0ce3c710823df23751b"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/install.log": {
+      "bytes": 1298,
+      "sha256": "f1181622f3203007c63cfc94a636e61cafa6040601d70d4e631648f9c4de3caa"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/install_final.log": {
+      "bytes": 1298,
+      "sha256": "2ff4fa183e6e16eeec99092259ecb307e0adf90a7579816ab58a49e0bdfaac47"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/interface_checks.json": {
+      "bytes": 1810,
+      "sha256": "308c2a4350af5c3d5cccc55e0cc6209654c979c6dbf80b5495758388a2079c51"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/lifecycle_green.log": {
+      "bytes": 100,
+      "sha256": "d3f34c392685629b95ad4552ac547a5f97592cb637351fc46b303ef70f295c4f"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/monitor_native.py": {
+      "bytes": 1637,
+      "sha256": "b7ffc6eec36e78f0b7a8217e19c26358845d2910ec6a17ddebe751ba06853ae5"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/native_check.py": {
+      "bytes": 1361,
+      "sha256": "9a540cd7e73975024d33c9b29046baf554e0e0a8a7ba429170db6b22c4feb1be"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/native_measurement.json": {
+      "bytes": 240,
+      "sha256": "f39580ca4d6299c0a58f47455c891a68788a9a50dcc4954b6d3aab463b0da6d7"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/native_preflight.json": {
+      "bytes": 117408,
+      "sha256": "c285255df4f9080f104401419c751b0e5a76468c26839e5f81a237833e5636c7"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/native_preflight.log": {
+      "bytes": 1644,
+      "sha256": "ab974cb42b15b545a6056c0aa1f95a22f2c1bb839cb4d9bedbde9460b23fc2b3"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/publish_evidence.py": {
+      "bytes": 7843,
+      "sha256": "3d2e9a2b73f30913d417e3416aed9c9d9da2712df37a503a74687293e62a59e7"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/red.txt": {
+      "bytes": 3524,
+      "sha256": "2f1ea29b9a6f1d4698603e3ce2276795f74c28f2dd0b86680323eb4e981430e9"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/refs_prepublication.json": {
+      "bytes": 8659,
+      "sha256": "d30b952e0bdd8561ad449ba486d5ed0b887ae595fa8da8760956e5f1f58eba93"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/resources_prepublication.json": {
+      "bytes": 1828,
+      "sha256": "b673cf562505198851cf318b1417915aa5c60221db649e3d85ed65367d717c03"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/review_regressions_red.log": {
+      "bytes": 4377,
+      "sha256": "f53d3a92f296bd06003719915754caa4ab72627950d1dbddb989ed997842fee4"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/reviews.json": {
+      "bytes": 2968,
+      "sha256": "8aec959d56c0c9c3805459274c429634a6e7b3c45285259b72e4ffee68c018cb"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/snapshot.py": {
+      "bytes": 4512,
+      "sha256": "7c2c88c28ce9da62c0816f1b3ae52952588c41e3fa1e631057a62482930c8010"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/source_candidate.json": {
+      "bytes": 15549,
+      "sha256": "8fbf83d85113162968b1cca8ad0ab0dd8677a227d55cf7f07ba223412e1efc2e"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/source_final_candidate.json": {
+      "bytes": 15549,
+      "sha256": "38717ed4bc9dcdfce26ebb9abab5a222e308c03af529a8113725041fde2ac634"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/tests_final.log": {
+      "bytes": 352,
+      "sha256": "2b6df035dac4832468e9aa8fb532957e23cb03bddc361ca433bc97da27be7a73"
+    },
+    "results/phase2_v2_g4_lifecycle_20261017/tests_first_broad.log": {
+      "bytes": 4962,
+      "sha256": "0c9b6001b4145a737f7b5c84b7ea445e3b2c3c183eabfbc59630bd20d458eead"
+    }
+  },
+  "verification_started_client": "2026-10-17"
+}
