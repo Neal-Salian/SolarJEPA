@@ -1,0 +1,1292 @@
+{
+  "inventory": {
+    "bytes": 7265,
+    "path": "data/manifests/aditya_inventory.json",
+    "sha256": "0f770484f375ada192ed5bea75f04d9e2ba5d2b94956938329279a5f11b87540"
+  },
+  "members": {
+    "solexs_tools-1.1/CALDB/arf/solexs_arf_SDD2_v1.arf": {
+      "bytes": 34560,
+      "sha256": "0f08199b3ef2f346979c58e0df83451fa23ae72a39fcaaa3d85bfe66b4b5bdc7"
+    },
+    "solexs_tools-1.1/CALDB/ebounds/energy_bins_out_SDD2_v1.dat": {
+      "bytes": 6423,
+      "sha256": "684f916612003706062d509ab805ae2cda763f99a83f85ce81028a94aea0949e"
+    },
+    "solexs_tools-1.1/CALDB/response/rmf/solexs_gaussian_SDD2_v1.rmf": {
+      "bytes": 6168960,
+      "sha256": "fc8ab03f15bb21ff066426cd6047519d57ffe017bb776bb88a5a65136deb63db"
+    },
+    "solexs_tools-1.1/solexs_tools/__init__.py": {
+      "bytes": 345,
+      "sha256": "6a4c02d1818a1cc6f91e8c223d41636c60ecac3f95a1d5ae49f6af22fbcde453"
+    },
+    "solexs_tools-1.1/solexs_tools/solexs_genlc.py": {
+      "bytes": 7181,
+      "sha256": "f6a3dd900e482fb88283189c9cb40aa60eddb50583cba7cabe364b591b38bb92"
+    },
+    "solexs_tools-1.1/solexs_tools/solexs_genspec.py": {
+      "bytes": 13924,
+      "sha256": "265b0741e2aa902ff5df208d2ba1aabf58861b23778ae31d647722882d90ee7f"
+    },
+    "solexs_tools-1.1/solexs_tools/time_utils.py": {
+      "bytes": 2135,
+      "sha256": "8d4ce3352aadd9cd9cf38a70b59369dac51c9b298a52e130421d1c45bdd7ca10"
+    }
+  },
+  "native": [
+    {
+      "archive": "data/raw/aditya/solexs/l1/v1.1/archives/2024/07/AL1_SLX_L1_20240701_v1.1.zip",
+      "expected": {
+        "archive_sha256": "9d0cb2341c2eb6c4b25b6dd0b600042b750920ea433197e1d0def742c947b7e4",
+        "cases": [
+          {
+            "all_sum": 234.0,
+            "control_41_314": 31.0,
+            "counts_big_endian_float64_sha256": "9e966ab135d5e2304d0270a6e9eac550bf7066ebf2ebcc1d8046f4952225fc1e",
+            "lc": 31.0,
+            "native_coordinate": 1719792000.0,
+            "row": 0,
+            "spec_num": 1,
+            "tool_41_313": 31.0
+          },
+          {
+            "all_sum": null,
+            "control_41_314": null,
+            "counts_big_endian_float64_sha256": "e3bdaf053f266bd45386dcd1b1d2555ebd5d5bad28f3ca14084789f2ba377afc",
+            "lc": null,
+            "native_coordinate": 1719792005.0,
+            "row": 5,
+            "spec_num": 6,
+            "tool_41_313": null
+          },
+          {
+            "all_sum": 233.0,
+            "control_41_314": 34.0,
+            "counts_big_endian_float64_sha256": "a960f1bdcde4d5fc04223c75fcb972c708be3f6dd6ce3bdc72ff211267eb784d",
+            "lc": 34.0,
+            "native_coordinate": 1719793023.0,
+            "row": 1023,
+            "spec_num": 1024,
+            "tool_41_313": 34.0
+          },
+          {
+            "all_sum": 223.0,
+            "control_41_314": 39.0,
+            "counts_big_endian_float64_sha256": "35506622fc7511d5e30d3e1d6a15dacf477185b9a9b41f3304922c8f68e0f85d",
+            "lc": 39.0,
+            "native_coordinate": 1719793024.0,
+            "row": 1024,
+            "spec_num": 1025,
+            "tool_41_313": 39.0
+          },
+          {
+            "all_sum": 235.0,
+            "control_41_314": 31.0,
+            "counts_big_endian_float64_sha256": "450b9a92519700f07a9610d11704b1686191fe389f3a2711db5b5a8b4ebdc70f",
+            "lc": 32.0,
+            "native_coordinate": 1719793933.0,
+            "row": 1933,
+            "spec_num": 1934,
+            "tool_41_313": 31.0
+          },
+          {
+            "all_sum": 184.0,
+            "control_41_314": 19.0,
+            "counts_big_endian_float64_sha256": "e07383a48d8ab96f6a6ca6a2078e163ecf6dd61808653f2edcb8c205ad66a6db",
+            "lc": 19.0,
+            "native_coordinate": 1719813594.0,
+            "row": 21594,
+            "spec_num": 21595,
+            "tool_41_313": 18.0
+          },
+          {
+            "all_sum": 192.0,
+            "control_41_314": 23.0,
+            "counts_big_endian_float64_sha256": "5502318066d3ceb38f82c9fc1d5eb646d929b19889c48a99ec8a077abb405db1",
+            "lc": 23.0,
+            "native_coordinate": 1719878399.0,
+            "row": 86399,
+            "spec_num": 86400,
+            "tool_41_313": 23.0
+          }
+        ],
+        "clocks": {
+          "gti": {
+            "GTI": {
+              "ANCRFILE": null,
+              "CLOCKAPP": null,
+              "DATE-END": null,
+              "DATE-OBS": null,
+              "DTCORR": null,
+              "EXPOSURE": "86272.0",
+              "GAINAPP": null,
+              "MJDREF": null,
+              "MJDREFF": null,
+              "MJDREFI": null,
+              "NUMBAND": null,
+              "OBSORBIT": null,
+              "PLEPHEM": null,
+              "RESPFILE": null,
+              "TASSIGN": null,
+              "TIERABSO": null,
+              "TIERRELA": null,
+              "TIMEDEL": null,
+              "TIMEOFFS": null,
+              "TIMEPIXR": null,
+              "TIMEREF": null,
+              "TIMESYS": null,
+              "TIMEUNIT": null,
+              "TIMEZERO": null,
+              "TIMRDER": null,
+              "TIMSYER": null,
+              "TIMZERO": null,
+              "TREFDIR": null,
+              "TREFPOS": null,
+              "TSTART": null,
+              "TSTOP": null
+            },
+            "PRIMARY": {
+              "ANCRFILE": null,
+              "CLOCKAPP": null,
+              "DATE-END": null,
+              "DATE-OBS": null,
+              "DTCORR": null,
+              "EXPOSURE": null,
+              "GAINAPP": null,
+              "MJDREF": null,
+              "MJDREFF": null,
+              "MJDREFI": null,
+              "NUMBAND": null,
+              "OBSORBIT": null,
+              "PLEPHEM": null,
+              "RESPFILE": null,
+              "TASSIGN": null,
+              "TIERABSO": null,
+              "TIERRELA": null,
+              "TIMEDEL": null,
+              "TIMEOFFS": null,
+              "TIMEPIXR": null,
+              "TIMEREF": null,
+              "TIMESYS": null,
+              "TIMEUNIT": null,
+              "TIMEZERO": null,
+              "TIMRDER": null,
+              "TIMSYER": null,
+              "TIMZERO": null,
+              "TREFDIR": null,
+              "TREFPOS": null,
+              "TSTART": "2024-07-01T00:00:00+00:00",
+              "TSTOP": "2024-07-01T23:59:59+00:00"
+            }
+          },
+          "lc": {
+            "PRIMARY": {
+              "ANCRFILE": null,
+              "CLOCKAPP": null,
+              "DATE-END": null,
+              "DATE-OBS": null,
+              "DTCORR": null,
+              "EXPOSURE": null,
+              "GAINAPP": null,
+              "MJDREF": null,
+              "MJDREFF": null,
+              "MJDREFI": null,
+              "NUMBAND": null,
+              "OBSORBIT": null,
+              "PLEPHEM": null,
+              "RESPFILE": null,
+              "TASSIGN": null,
+              "TIERABSO": null,
+              "TIERRELA": null,
+              "TIMEDEL": null,
+              "TIMEOFFS": null,
+              "TIMEPIXR": null,
+              "TIMEREF": null,
+              "TIMESYS": null,
+              "TIMEUNIT": null,
+              "TIMEZERO": null,
+              "TIMRDER": null,
+              "TIMSYER": null,
+              "TIMZERO": null,
+              "TREFDIR": null,
+              "TREFPOS": null,
+              "TSTART": null,
+              "TSTOP": null
+            },
+            "RATE": {
+              "ANCRFILE": null,
+              "CLOCKAPP": null,
+              "DATE-END": "2024-07-02 05:29:59",
+              "DATE-OBS": "2024-07-01 05:30:00",
+              "DTCORR": null,
+              "EXPOSURE": null,
+              "GAINAPP": null,
+              "MJDREF": null,
+              "MJDREFF": 0.22916666651,
+              "MJDREFI": 40587,
+              "NUMBAND": "4",
+              "OBSORBIT": null,
+              "PLEPHEM": null,
+              "RESPFILE": null,
+              "TASSIGN": null,
+              "TIERABSO": null,
+              "TIERRELA": null,
+              "TIMEDEL": 1,
+              "TIMEOFFS": null,
+              "TIMEPIXR": null,
+              "TIMEREF": "LOCAL",
+              "TIMESYS": "UTC",
+              "TIMEUNIT": "s",
+              "TIMEZERO": null,
+              "TIMRDER": null,
+              "TIMSYER": null,
+              "TIMZERO": 0,
+              "TREFDIR": null,
+              "TREFPOS": null,
+              "TSTART": 1719792000.0,
+              "TSTOP": 1719878399.0
+            }
+          },
+          "pi": {
+            "PRIMARY": {
+              "ANCRFILE": null,
+              "CLOCKAPP": null,
+              "DATE-END": null,
+              "DATE-OBS": null,
+              "DTCORR": null,
+              "EXPOSURE": null,
+              "GAINAPP": null,
+              "MJDREF": null,
+              "MJDREFF": null,
+              "MJDREFI": null,
+              "NUMBAND": null,
+              "OBSORBIT": null,
+              "PLEPHEM": null,
+              "RESPFILE": null,
+              "TASSIGN": null,
+              "TIERABSO": null,
+              "TIERRELA": null,
+              "TIMEDEL": null,
+              "TIMEOFFS": null,
+              "TIMEPIXR": null,
+              "TIMEREF": null,
+              "TIMESYS": null,
+              "TIMEUNIT": null,
+              "TIMEZERO": null,
+              "TIMRDER": null,
+              "TIMSYER": null,
+              "TIMZERO": null,
+              "TREFDIR": null,
+              "TREFPOS": null,
+              "TSTART": null,
+              "TSTOP": null
+            },
+            "SPECTRUM": {
+              "ANCRFILE": null,
+              "CLOCKAPP": null,
+              "DATE-END": null,
+              "DATE-OBS": null,
+              "DTCORR": null,
+              "EXPOSURE": null,
+              "GAINAPP": null,
+              "MJDREF": null,
+              "MJDREFF": null,
+              "MJDREFI": null,
+              "NUMBAND": null,
+              "OBSORBIT": null,
+              "PLEPHEM": null,
+              "RESPFILE": null,
+              "TASSIGN": null,
+              "TIERABSO": null,
+              "TIERRELA": null,
+              "TIMEDEL": null,
+              "TIMEOFFS": null,
+              "TIMEPIXR": null,
+              "TIMEREF": null,
+              "TIMESYS": null,
+              "TIMEUNIT": null,
+              "TIMEZERO": null,
+              "TIMRDER": null,
+              "TIMSYER": null,
+              "TIMZERO": null,
+              "TREFDIR": null,
+              "TREFPOS": null,
+              "TSTART": null,
+              "TSTOP": null
+            }
+          }
+        },
+        "comparison": {
+          "all_channel_sum": {
+            "equal_rows": 0,
+            "maximum_absolute_difference": 695.0
+          },
+          "exposure_all_one": true,
+          "finite_compared_rows": 86272,
+          "inclusive_upper_control": {
+            "equal_rows": 86258,
+            "maximum_absolute_difference": 1.0
+          },
+          "mapping_validated": false,
+          "pi_channel_first_last": [
+            0,
+            339
+          ],
+          "pi_channel_labels_constant": true,
+          "pi_channel_labels_equal_rmf": false,
+          "pi_nan_mask_equals_lc": true,
+          "pi_nan_rows": 128,
+          "rows": 86400,
+          "telapse_all_one": true,
+          "tool_slice": {
+            "equal_rows": 86253,
+            "maximum_absolute_difference": 1.0
+          }
+        },
+        "source_lineage": {
+          "gti": {
+            "archive": "data/raw/aditya/solexs/l1/v1.1/archives/2024/07/AL1_SLX_L1_20240701_v1.1.zip",
+            "archive_sha256": "9d0cb2341c2eb6c4b25b6dd0b600042b750920ea433197e1d0def742c947b7e4",
+            "detector": {
+              "evidence": "INFERRED",
+              "source": "member_name",
+              "value": "SDD2"
+            },
+            "fits_sha256": "e5f2ece74c3b3a70908a42fb6c69fcad20cf13a6e602de5b9e3b7cddb83f432c",
+            "gzip_integrity_verified": true,
+            "kind": "gti",
+            "member": "AL1_SLX_L1_20240701_v1.1/SDD2/AL1_SOLEXS_20240701_SDD2_L1.gti.gz",
+            "member_gzip_sha256": "4cccbb4112a45f76c4de3d2e01fee680e6a1871ce339c4ef071917ff191bb025",
+            "zip_member_crc_verified": true
+          },
+          "lc": {
+            "archive": "data/raw/aditya/solexs/l1/v1.1/archives/2024/07/AL1_SLX_L1_20240701_v1.1.zip",
+            "archive_sha256": "9d0cb2341c2eb6c4b25b6dd0b600042b750920ea433197e1d0def742c947b7e4",
+            "detector": {
+              "evidence": "OBSERVED",
+              "source": "FILTER",
+              "value": "SDD2"
+            },
+            "fits_sha256": "8db1592fe86c59093a5d0ae2308da5db9848e408df00387b525bfbf411820cdb",
+            "gzip_integrity_verified": true,
+            "kind": "lc",
+            "member": "AL1_SLX_L1_20240701_v1.1/SDD2/AL1_SOLEXS_20240701_SDD2_L1.lc.gz",
+            "member_gzip_sha256": "efd07637fff5d0f51998617bf416055ce6a30b30e80e02e869ee8234839a6d58",
+            "zip_member_crc_verified": true
+          },
+          "pi": {
+            "archive": "data/raw/aditya/solexs/l1/v1.1/archives/2024/07/AL1_SLX_L1_20240701_v1.1.zip",
+            "archive_sha256": "9d0cb2341c2eb6c4b25b6dd0b600042b750920ea433197e1d0def742c947b7e4",
+            "detector": {
+              "evidence": "OBSERVED",
+              "source": "FILTER",
+              "value": "SDD2"
+            },
+            "fits_sha256": "9a1146d04541a15aa75c0a5ceeaf8fec1617e2b802ba7d2574abccd3379e573d",
+            "gzip_integrity_verified": true,
+            "kind": "pi",
+            "member": "AL1_SLX_L1_20240701_v1.1/SDD2/AL1_SOLEXS_20240701_SDD2_L1.pi.gz",
+            "member_gzip_sha256": "a39d6a947055898b83b37f2de45874b02b320cbd191508681a2327010e1d6d00",
+            "zip_member_crc_verified": true
+          }
+        },
+        "units": {
+          "gti": {
+            "START": null,
+            "STOP": null
+          },
+          "lc": {
+            "COUNTS": null,
+            "TIME": null
+          },
+          "pi": {
+            "CHANNEL": null,
+            "COUNTS": null,
+            "EXPOSURE": "s",
+            "SPEC_NUM": null,
+            "TELAPSE": "s",
+            "TSTART": "s"
+          }
+        }
+      },
+      "rows": [
+        0,
+        5,
+        1023,
+        1024,
+        1933,
+        21594,
+        86399
+      ],
+      "source_locator": "Native independently inspected registered LC/PI/GTI members; exact archive/gzip/FITS identities and row COUNTS SHA256 below"
+    },
+    {
+      "archive": "data/raw/aditya/solexs/l1/v1.1/archives/2024/07/AL1_SLX_L1_20240703_v1.1.zip",
+      "expected": {
+        "archive_sha256": "b82ce974cd6195621e85e3c2773dc94202811c12c7b31e71df0c0353fe3af4bf",
+        "cases": [
+          {
+            "all_sum": 233.0,
+            "control_41_314": 25.0,
+            "counts_big_endian_float64_sha256": "4e560595e13e9a8fb734f03d57df42b0741f812a930e2214bb29d0179e066f7b",
+            "lc": 25.0,
+            "native_coordinate": 1719964800.0,
+            "row": 0,
+            "spec_num": 1,
+            "tool_41_313": 25.0
+          },
+          {
+            "all_sum": 254.0,
+            "control_41_314": 26.0,
+            "counts_big_endian_float64_sha256": "a5ad31718ba20dfd2b5e306db7549b320a307239dd07ba59a9491231f8350ce4",
+            "lc": 26.0,
+            "native_coordinate": 1719965823.0,
+            "row": 1023,
+            "spec_num": 1024,
+            "tool_41_313": 26.0
+          },
+          {
+            "all_sum": 272.0,
+            "control_41_314": 25.0,
+            "counts_big_endian_float64_sha256": "d03cf9608542b93e17a2c8a785de3787e6a998f2f37cc17a561dd2a1670dc04f",
+            "lc": 25.0,
+            "native_coordinate": 1719965824.0,
+            "row": 1024,
+            "spec_num": 1025,
+            "tool_41_313": 25.0
+          },
+          {
+            "all_sum": 262.0,
+            "control_41_314": 48.0,
+            "counts_big_endian_float64_sha256": "4ad6a53967581f00bb4a4a9aa3bd3496eb66e0a0fe6cd4cf07db4710ecd8a13f",
+            "lc": 48.0,
+            "native_coordinate": 1719968380.0,
+            "row": 3580,
+            "spec_num": 3581,
+            "tool_41_313": 47.0
+          },
+          {
+            "all_sum": 211.0,
+            "control_41_314": 16.0,
+            "counts_big_endian_float64_sha256": "8dbcc1a4167c95834679da669ed8b32bd22e72b6ff7d74f66275de813d63f989",
+            "lc": 17.0,
+            "native_coordinate": 1719981774.0,
+            "row": 16974,
+            "spec_num": 16975,
+            "tool_41_313": 16.0
+          },
+          {
+            "all_sum": null,
+            "control_41_314": null,
+            "counts_big_endian_float64_sha256": "e3bdaf053f266bd45386dcd1b1d2555ebd5d5bad28f3ca14084789f2ba377afc",
+            "lc": null,
+            "native_coordinate": 1719982833.0,
+            "row": 18033,
+            "spec_num": 18034,
+            "tool_41_313": null
+          },
+          {
+            "all_sum": 196.0,
+            "control_41_314": 13.0,
+            "counts_big_endian_float64_sha256": "ea7054c4db870f4664011a7c6349d053c24124017088ce782401b15828b9971c",
+            "lc": 13.0,
+            "native_coordinate": 1720051199.0,
+            "row": 86399,
+            "spec_num": 86400,
+            "tool_41_313": 13.0
+          }
+        ],
+        "clocks": {
+          "gti": {
+            "GTI": {
+              "ANCRFILE": null,
+              "CLOCKAPP": null,
+              "DATE-END": null,
+              "DATE-OBS": null,
+              "DTCORR": null,
+              "EXPOSURE": "86398.0",
+              "GAINAPP": null,
+              "MJDREF": null,
+              "MJDREFF": null,
+              "MJDREFI": null,
+              "NUMBAND": null,
+              "OBSORBIT": null,
+              "PLEPHEM": null,
+              "RESPFILE": null,
+              "TASSIGN": null,
+              "TIERABSO": null,
+              "TIERRELA": null,
+              "TIMEDEL": null,
+              "TIMEOFFS": null,
+              "TIMEPIXR": null,
+              "TIMEREF": null,
+              "TIMESYS": null,
+              "TIMEUNIT": null,
+              "TIMEZERO": null,
+              "TIMRDER": null,
+              "TIMSYER": null,
+              "TIMZERO": null,
+              "TREFDIR": null,
+              "TREFPOS": null,
+              "TSTART": null,
+              "TSTOP": null
+            },
+            "PRIMARY": {
+              "ANCRFILE": null,
+              "CLOCKAPP": null,
+              "DATE-END": null,
+              "DATE-OBS": null,
+              "DTCORR": null,
+              "EXPOSURE": null,
+              "GAINAPP": null,
+              "MJDREF": null,
+              "MJDREFF": null,
+              "MJDREFI": null,
+              "NUMBAND": null,
+              "OBSORBIT": null,
+              "PLEPHEM": null,
+              "RESPFILE": null,
+              "TASSIGN": null,
+              "TIERABSO": null,
+              "TIERRELA": null,
+              "TIMEDEL": null,
+              "TIMEOFFS": null,
+              "TIMEPIXR": null,
+              "TIMEREF": null,
+              "TIMESYS": null,
+              "TIMEUNIT": null,
+              "TIMEZERO": null,
+              "TIMRDER": null,
+              "TIMSYER": null,
+              "TIMZERO": null,
+              "TREFDIR": null,
+              "TREFPOS": null,
+              "TSTART": "2024-07-03T00:00:00+00:00",
+              "TSTOP": "2024-07-03T23:59:59+00:00"
+            }
+          },
+          "lc": {
+            "PRIMARY": {
+              "ANCRFILE": null,
+              "CLOCKAPP": null,
+              "DATE-END": null,
+              "DATE-OBS": null,
+              "DTCORR": null,
+              "EXPOSURE": null,
+              "GAINAPP": null,
+              "MJDREF": null,
+              "MJDREFF": null,
+              "MJDREFI": null,
+              "NUMBAND": null,
+              "OBSORBIT": null,
+              "PLEPHEM": null,
+              "RESPFILE": null,
+              "TASSIGN": null,
+              "TIERABSO": null,
+              "TIERRELA": null,
+              "TIMEDEL": null,
+              "TIMEOFFS": null,
+              "TIMEPIXR": null,
+              "TIMEREF": null,
+              "TIMESYS": null,
+              "TIMEUNIT": null,
+              "TIMEZERO": null,
+              "TIMRDER": null,
+              "TIMSYER": null,
+              "TIMZERO": null,
+              "TREFDIR": null,
+              "TREFPOS": null,
+              "TSTART": null,
+              "TSTOP": null
+            },
+            "RATE": {
+              "ANCRFILE": null,
+              "CLOCKAPP": null,
+              "DATE-END": "2024-07-04 05:29:59",
+              "DATE-OBS": "2024-07-03 05:30:00",
+              "DTCORR": null,
+              "EXPOSURE": null,
+              "GAINAPP": null,
+              "MJDREF": null,
+              "MJDREFF": 0.22916666651,
+              "MJDREFI": 40587,
+              "NUMBAND": "4",
+              "OBSORBIT": null,
+              "PLEPHEM": null,
+              "RESPFILE": null,
+              "TASSIGN": null,
+              "TIERABSO": null,
+              "TIERRELA": null,
+              "TIMEDEL": 1,
+              "TIMEOFFS": null,
+              "TIMEPIXR": null,
+              "TIMEREF": "LOCAL",
+              "TIMESYS": "UTC",
+              "TIMEUNIT": "s",
+              "TIMEZERO": null,
+              "TIMRDER": null,
+              "TIMSYER": null,
+              "TIMZERO": 0,
+              "TREFDIR": null,
+              "TREFPOS": null,
+              "TSTART": 1719964800.0,
+              "TSTOP": 1720051199.0
+            }
+          },
+          "pi": {
+            "PRIMARY": {
+              "ANCRFILE": null,
+              "CLOCKAPP": null,
+              "DATE-END": null,
+              "DATE-OBS": null,
+              "DTCORR": null,
+              "EXPOSURE": null,
+              "GAINAPP": null,
+              "MJDREF": null,
+              "MJDREFF": null,
+              "MJDREFI": null,
+              "NUMBAND": null,
+              "OBSORBIT": null,
+              "PLEPHEM": null,
+              "RESPFILE": null,
+              "TASSIGN": null,
+              "TIERABSO": null,
+              "TIERRELA": null,
+              "TIMEDEL": null,
+              "TIMEOFFS": null,
+              "TIMEPIXR": null,
+              "TIMEREF": null,
+              "TIMESYS": null,
+              "TIMEUNIT": null,
+              "TIMEZERO": null,
+              "TIMRDER": null,
+              "TIMSYER": null,
+              "TIMZERO": null,
+              "TREFDIR": null,
+              "TREFPOS": null,
+              "TSTART": null,
+              "TSTOP": null
+            },
+            "SPECTRUM": {
+              "ANCRFILE": null,
+              "CLOCKAPP": null,
+              "DATE-END": null,
+              "DATE-OBS": null,
+              "DTCORR": null,
+              "EXPOSURE": null,
+              "GAINAPP": null,
+              "MJDREF": null,
+              "MJDREFF": null,
+              "MJDREFI": null,
+              "NUMBAND": null,
+              "OBSORBIT": null,
+              "PLEPHEM": null,
+              "RESPFILE": null,
+              "TASSIGN": null,
+              "TIERABSO": null,
+              "TIERRELA": null,
+              "TIMEDEL": null,
+              "TIMEOFFS": null,
+              "TIMEPIXR": null,
+              "TIMEREF": null,
+              "TIMESYS": null,
+              "TIMEUNIT": null,
+              "TIMEZERO": null,
+              "TIMRDER": null,
+              "TIMSYER": null,
+              "TIMZERO": null,
+              "TREFDIR": null,
+              "TREFPOS": null,
+              "TSTART": null,
+              "TSTOP": null
+            }
+          }
+        },
+        "comparison": {
+          "all_channel_sum": {
+            "equal_rows": 0,
+            "maximum_absolute_difference": 661.0
+          },
+          "exposure_all_one": true,
+          "finite_compared_rows": 86398,
+          "inclusive_upper_control": {
+            "equal_rows": 86393,
+            "maximum_absolute_difference": 1.0
+          },
+          "mapping_validated": false,
+          "pi_channel_first_last": [
+            0,
+            339
+          ],
+          "pi_channel_labels_constant": true,
+          "pi_channel_labels_equal_rmf": false,
+          "pi_nan_mask_equals_lc": true,
+          "pi_nan_rows": 2,
+          "rows": 86400,
+          "telapse_all_one": true,
+          "tool_slice": {
+            "equal_rows": 86383,
+            "maximum_absolute_difference": 1.0
+          }
+        },
+        "source_lineage": {
+          "gti": {
+            "archive": "data/raw/aditya/solexs/l1/v1.1/archives/2024/07/AL1_SLX_L1_20240703_v1.1.zip",
+            "archive_sha256": "b82ce974cd6195621e85e3c2773dc94202811c12c7b31e71df0c0353fe3af4bf",
+            "detector": {
+              "evidence": "INFERRED",
+              "source": "member_name",
+              "value": "SDD2"
+            },
+            "fits_sha256": "a28dd62ba7033dca3548f0bfe4908d51a46da6e134cbff6b14e4fc67fd3c26d6",
+            "gzip_integrity_verified": true,
+            "kind": "gti",
+            "member": "AL1_SLX_L1_20240703_v1.1/SDD2/AL1_SOLEXS_20240703_SDD2_L1.gti.gz",
+            "member_gzip_sha256": "91b0605ba1ca8910dafe3783246cf535d702c682a9431b1e65fce2411479e77f",
+            "zip_member_crc_verified": true
+          },
+          "lc": {
+            "archive": "data/raw/aditya/solexs/l1/v1.1/archives/2024/07/AL1_SLX_L1_20240703_v1.1.zip",
+            "archive_sha256": "b82ce974cd6195621e85e3c2773dc94202811c12c7b31e71df0c0353fe3af4bf",
+            "detector": {
+              "evidence": "OBSERVED",
+              "source": "FILTER",
+              "value": "SDD2"
+            },
+            "fits_sha256": "f3baf21aadb2328701ede746a819b9bf65ed6dc8113fd07905b44814da8c5639",
+            "gzip_integrity_verified": true,
+            "kind": "lc",
+            "member": "AL1_SLX_L1_20240703_v1.1/SDD2/AL1_SOLEXS_20240703_SDD2_L1.lc.gz",
+            "member_gzip_sha256": "4b664b1a848b6a1f49b3e0d55e9b535eeee8f66fff43a3d1e19c7008ef611c70",
+            "zip_member_crc_verified": true
+          },
+          "pi": {
+            "archive": "data/raw/aditya/solexs/l1/v1.1/archives/2024/07/AL1_SLX_L1_20240703_v1.1.zip",
+            "archive_sha256": "b82ce974cd6195621e85e3c2773dc94202811c12c7b31e71df0c0353fe3af4bf",
+            "detector": {
+              "evidence": "OBSERVED",
+              "source": "FILTER",
+              "value": "SDD2"
+            },
+            "fits_sha256": "5c9fdadfb642b225c6105cc9b1d32b4c9440fd2cee834a789b9f10ae82899473",
+            "gzip_integrity_verified": true,
+            "kind": "pi",
+            "member": "AL1_SLX_L1_20240703_v1.1/SDD2/AL1_SOLEXS_20240703_SDD2_L1.pi.gz",
+            "member_gzip_sha256": "4f9adaf217ff86d40a8e3bed4106e8de1dfe0ce1327545332fbd7e8e99ff7ba3",
+            "zip_member_crc_verified": true
+          }
+        },
+        "units": {
+          "gti": {
+            "START": null,
+            "STOP": null
+          },
+          "lc": {
+            "COUNTS": null,
+            "TIME": null
+          },
+          "pi": {
+            "CHANNEL": null,
+            "COUNTS": null,
+            "EXPOSURE": "s",
+            "SPEC_NUM": null,
+            "TELAPSE": "s",
+            "TSTART": "s"
+          }
+        }
+      },
+      "rows": [
+        0,
+        1023,
+        1024,
+        3580,
+        16974,
+        18033,
+        86399
+      ],
+      "source_locator": "Native independently inspected registered LC/PI/GTI members; exact archive/gzip/FITS identities and row COUNTS SHA256 below"
+    }
+  ],
+  "native_release": {
+    "data_version": "1.1",
+    "mission_policy_accepted": false,
+    "nominal_selected_dates": [
+      "2024-07-01",
+      "2024-07-03"
+    ],
+    "pipeline_version": "1.1",
+    "release_date": "2025-02-14",
+    "release_date_evidence": "DOCUMENTED: SoLEXS_Release_Updates.txt data1.1 release entry (local text lines24-27)"
+  },
+  "schema_version": 1,
+  "source_locators": {
+    "epoch": "solexs_tools/time_utils.py: unix_time_to_utc / utc_to_unix_time; inverse appends +00:00 so aware helper output is rejected",
+    "genlc": "solexs_tools/solexs_genlc.py: solexs_genlc; strict >lower and <upper, COUNTS[:,ch_low:ch_high], if time_bin",
+    "genspec": "solexs_tools/solexs_genspec.py: solexs_genspec; closed GTI membership, tstop=max_time clamp, >=tstart & <tstop, channel=data_f[0][3], exposure+=di[5]",
+    "lc_writer": "solexs_tools/solexs_genlc.py: write_lc; TIME format=1J, header TSTART=time_data[0], datetime.fromtimestamp",
+    "manual": "SoLEXS-UserManual.pdf sections2.1.1,2.1.3,4.5.1; documentary interpretations are separate from absent encoded COUNTS units",
+    "native": "Pinned input LC/PI/GTI FITS HDU cards and numeric rows, independently inspected for this milestone; observed facts do not select clock precedence",
+    "rebin": "solexs_tools/solexs_genlc.py: rebin_lc; extra_bins dropped, new_lc_data/rebin_sec, new_time_arr+rebin_sec/2",
+    "spectrum_writer": "solexs_tools/solexs_genspec.py: write_spec; unchanged CHANNEL values, integer-formatted EXPOSURE and datetime.fromtimestamp"
+  },
+  "sources": [
+    {
+      "bytes": 26507,
+      "path": "data/manifests/solexs_phase_d1_evidence.json",
+      "sha256": "352e84a73f95520e41bf87a6ba5d40c0d0f2ad542bc84562ff9334427d7452ef"
+    },
+    {
+      "bytes": 26921,
+      "path": "data/manifests/solexs_phase_e_evidence.json",
+      "sha256": "6e886b27e39db0db28566211ede609dc53eead1bb7db6ecb7317d3ae33f73d5c"
+    },
+    {
+      "bytes": 363311,
+      "path": "data/raw/aditya/documentation/pradan-official/SoLEXS-UserManual.pdf",
+      "sha256": "d97c83618c85a0984e7dd0300ce5c16c4748ed5facde525949f902fe9f72abda"
+    },
+    {
+      "bytes": 2481,
+      "path": "data/raw/aditya/documentation/pradan-official/SoLEXS_Release_Updates.txt",
+      "sha256": "7fc0229985fef2bd60ab23bc554c09e64f526719f11825e44a60eed12f5396ce"
+    }
+  ],
+  "tool_expected": {
+    "Asia/Kolkata": {
+      "epoch": {
+        "aware_helper_output_rejected": true,
+        "input": 1719792000,
+        "inverse_input": "2024-07-01T00:00:00",
+        "round_trip": 1719792000,
+        "utc": "2024-07-01T00:00:00+00:00"
+      },
+      "fractional_writer": {
+        "time": [
+          1719792000,
+          1719792001
+        ],
+        "tstart": 1719792000.75,
+        "tstop": 1719792001.75
+      },
+      "genlc": {
+        "even_two": {
+          "counts": [
+            72420.0,
+            168980.0,
+            265540.0
+          ],
+          "counts_unit": null,
+          "date_end": "2024-07-01 05:30:05",
+          "date_obs": "2024-07-01 05:30:01",
+          "time": [
+            1719792001,
+            1719792003,
+            1719792005
+          ],
+          "time_format": "1J",
+          "timedel": "2",
+          "tstart": 1719792001,
+          "tstop": 1719792005
+        },
+        "explicit_one": {
+          "counts": [
+            48280,
+            96560,
+            144840,
+            193120,
+            241400,
+            289680,
+            337960
+          ],
+          "counts_unit": null,
+          "date_end": "2024-07-01 05:30:06",
+          "date_obs": "2024-07-01 05:30:00",
+          "time": [
+            1719792000,
+            1719792001,
+            1719792002,
+            1719792003,
+            1719792004,
+            1719792005,
+            1719792006
+          ],
+          "time_format": "1J",
+          "timedel": "1",
+          "tstart": 1719792000.5,
+          "tstop": 1719792006.5
+        },
+        "none": {
+          "counts": [
+            48280,
+            96560,
+            144840,
+            193120,
+            241400,
+            289680,
+            337960
+          ],
+          "counts_unit": null,
+          "date_end": "2024-07-01 05:30:06",
+          "date_obs": "2024-07-01 05:30:00",
+          "time": [
+            1719792000,
+            1719792001,
+            1719792002,
+            1719792003,
+            1719792004,
+            1719792005,
+            1719792006
+          ],
+          "time_format": "1J",
+          "timedel": "1",
+          "tstart": 1719792000,
+          "tstop": 1719792006
+        },
+        "odd_three": {
+          "counts": [
+            96560,
+            241400
+          ],
+          "counts_unit": null,
+          "date_end": "2024-07-01 05:30:04",
+          "date_obs": "2024-07-01 05:30:01",
+          "time": [
+            1719792001,
+            1719792004
+          ],
+          "time_format": "1J",
+          "timedel": "3",
+          "tstart": 1719792001.5,
+          "tstop": 1719792004.5
+        }
+      },
+      "genspec": {
+        "clamped_stop": {
+          "channel_first_last": [
+            0,
+            339
+          ],
+          "channel_sha256": "f46b51f7bfbec2ab3bf15da9a1f64d8a46083f3f82d0b02e3a8b95e75bfc81f0",
+          "counts_at_channels": [
+            21,
+            882,
+            6594,
+            7140
+          ],
+          "counts_sum": 1217370,
+          "counts_unit": null,
+          "exposure": "41",
+          "stop_clamp_warning": true,
+          "tstart": "2024-07-01T05:30:00",
+          "tstop": "2024-07-01T05:30:06"
+        },
+        "closed_gti_endpoint": {
+          "channel_first_last": [
+            0,
+            339
+          ],
+          "channel_sha256": "f46b51f7bfbec2ab3bf15da9a1f64d8a46083f3f82d0b02e3a8b95e75bfc81f0",
+          "counts_at_channels": [
+            9,
+            378,
+            2826,
+            3060
+          ],
+          "counts_sum": 521730,
+          "counts_unit": null,
+          "exposure": "15",
+          "stop_clamp_warning": false,
+          "tstart": "2024-07-01T05:30:01",
+          "tstop": "2024-07-01T05:30:04"
+        },
+        "request_half_open": {
+          "channel_first_last": [
+            0,
+            339
+          ],
+          "channel_sha256": "f46b51f7bfbec2ab3bf15da9a1f64d8a46083f3f82d0b02e3a8b95e75bfc81f0",
+          "counts_at_channels": [
+            5,
+            210,
+            1570,
+            1700
+          ],
+          "counts_sum": 289850,
+          "counts_unit": null,
+          "exposure": "8",
+          "stop_clamp_warning": false,
+          "tstart": "2024-07-01T05:30:01",
+          "tstop": "2024-07-01T05:30:03"
+        }
+      },
+      "rebin": {
+        "1": {
+          "counts": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "time": [
+            1719792000.5,
+            1719792001.5,
+            1719792002.5,
+            1719792003.5,
+            1719792004.5,
+            1719792005.5,
+            1719792006.5
+          ]
+        },
+        "2": {
+          "counts": [
+            1.5,
+            3.5,
+            5.5
+          ],
+          "time": [
+            1719792001,
+            1719792003,
+            1719792005
+          ]
+        },
+        "3": {
+          "counts": [
+            2,
+            5
+          ],
+          "time": [
+            1719792001.5,
+            1719792004.5
+          ]
+        }
+      }
+    },
+    "UTC": {
+      "epoch": {
+        "aware_helper_output_rejected": true,
+        "input": 1719792000,
+        "inverse_input": "2024-07-01T00:00:00",
+        "round_trip": 1719792000,
+        "utc": "2024-07-01T00:00:00+00:00"
+      },
+      "fractional_writer": {
+        "time": [
+          1719792000,
+          1719792001
+        ],
+        "tstart": 1719792000.75,
+        "tstop": 1719792001.75
+      },
+      "genlc": {
+        "even_two": {
+          "counts": [
+            72420.0,
+            168980.0,
+            265540.0
+          ],
+          "counts_unit": null,
+          "date_end": "2024-07-01 00:00:05",
+          "date_obs": "2024-07-01 00:00:01",
+          "time": [
+            1719792001,
+            1719792003,
+            1719792005
+          ],
+          "time_format": "1J",
+          "timedel": "2",
+          "tstart": 1719792001,
+          "tstop": 1719792005
+        },
+        "explicit_one": {
+          "counts": [
+            48280,
+            96560,
+            144840,
+            193120,
+            241400,
+            289680,
+            337960
+          ],
+          "counts_unit": null,
+          "date_end": "2024-07-01 00:00:06",
+          "date_obs": "2024-07-01 00:00:00",
+          "time": [
+            1719792000,
+            1719792001,
+            1719792002,
+            1719792003,
+            1719792004,
+            1719792005,
+            1719792006
+          ],
+          "time_format": "1J",
+          "timedel": "1",
+          "tstart": 1719792000.5,
+          "tstop": 1719792006.5
+        },
+        "none": {
+          "counts": [
+            48280,
+            96560,
+            144840,
+            193120,
+            241400,
+            289680,
+            337960
+          ],
+          "counts_unit": null,
+          "date_end": "2024-07-01 00:00:06",
+          "date_obs": "2024-07-01 00:00:00",
+          "time": [
+            1719792000,
+            1719792001,
+            1719792002,
+            1719792003,
+            1719792004,
+            1719792005,
+            1719792006
+          ],
+          "time_format": "1J",
+          "timedel": "1",
+          "tstart": 1719792000,
+          "tstop": 1719792006
+        },
+        "odd_three": {
+          "counts": [
+            96560,
+            241400
+          ],
+          "counts_unit": null,
+          "date_end": "2024-07-01 00:00:04",
+          "date_obs": "2024-07-01 00:00:01",
+          "time": [
+            1719792001,
+            1719792004
+          ],
+          "time_format": "1J",
+          "timedel": "3",
+          "tstart": 1719792001.5,
+          "tstop": 1719792004.5
+        }
+      },
+      "genspec": {
+        "clamped_stop": {
+          "channel_first_last": [
+            0,
+            339
+          ],
+          "channel_sha256": "f46b51f7bfbec2ab3bf15da9a1f64d8a46083f3f82d0b02e3a8b95e75bfc81f0",
+          "counts_at_channels": [
+            21,
+            882,
+            6594,
+            7140
+          ],
+          "counts_sum": 1217370,
+          "counts_unit": null,
+          "exposure": "41",
+          "stop_clamp_warning": true,
+          "tstart": "2024-07-01T00:00:00",
+          "tstop": "2024-07-01T00:00:06"
+        },
+        "closed_gti_endpoint": {
+          "channel_first_last": [
+            0,
+            339
+          ],
+          "channel_sha256": "f46b51f7bfbec2ab3bf15da9a1f64d8a46083f3f82d0b02e3a8b95e75bfc81f0",
+          "counts_at_channels": [
+            9,
+            378,
+            2826,
+            3060
+          ],
+          "counts_sum": 521730,
+          "counts_unit": null,
+          "exposure": "15",
+          "stop_clamp_warning": false,
+          "tstart": "2024-07-01T00:00:01",
+          "tstop": "2024-07-01T00:00:04"
+        },
+        "request_half_open": {
+          "channel_first_last": [
+            0,
+            339
+          ],
+          "channel_sha256": "f46b51f7bfbec2ab3bf15da9a1f64d8a46083f3f82d0b02e3a8b95e75bfc81f0",
+          "counts_at_channels": [
+            5,
+            210,
+            1570,
+            1700
+          ],
+          "counts_sum": 289850,
+          "counts_unit": null,
+          "exposure": "8",
+          "stop_clamp_warning": false,
+          "tstart": "2024-07-01T00:00:01",
+          "tstop": "2024-07-01T00:00:03"
+        }
+      },
+      "rebin": {
+        "1": {
+          "counts": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "time": [
+            1719792000.5,
+            1719792001.5,
+            1719792002.5,
+            1719792003.5,
+            1719792004.5,
+            1719792005.5,
+            1719792006.5
+          ]
+        },
+        "2": {
+          "counts": [
+            1.5,
+            3.5,
+            5.5
+          ],
+          "time": [
+            1719792001,
+            1719792003,
+            1719792005
+          ]
+        },
+        "3": {
+          "counts": [
+            2,
+            5
+          ],
+          "time": [
+            1719792001.5,
+            1719792004.5
+          ]
+        }
+      }
+    }
+  },
+  "tools_archive": {
+    "bytes": 19730838,
+    "path": "data/raw/aditya/documentation/pradan-official/solexs_tools-1.1.tar.gz",
+    "sha256": "348014aefa50ade556ec4a160a3cfe0b08095bde84b4650a27d6b5d3bf7fa2d3"
+  },
+  "tools_release": {
+    "archive_identity_source": "Phase D.1 reviewed supplied official PRADAN TAR; acquisition is user-reported",
+    "caldb_version": "1",
+    "mission_policy_accepted": false,
+    "tools_version": "1.1"
+  }
+}
