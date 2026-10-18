@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "experiment_id": "v1-full-20261009",
+  "executed_commit": "4a3f88227ce28dea0e885e68987282285963f38e",
+  "seed": 17,
+  "partition": {
+    "start_utc": "2024-08-01T00:00:00Z",
+    "end_exclusive_utc": "2024-09-01T00:00:00Z"
+  },
+  "dataset_fingerprint": "d21b81b42643777f68855d8e02fc17cb7fb326805763117f8e5863233d68ba12",
+  "spec_fingerprint": "094df46d625380c4c812bb26c9320cff10e40a2de185cfcebfa5dfff04674d94",
+  "normalization_fingerprint": "848623009ce048a14e32c50b7c70d9c9728cdd77391f10115ec1c8fd46d039a9",
+  "default_issue_utc": "2024-08-01T02:00:00Z",
+  "benchmark_origins": 1436,
+  "forecast_spec": {
+    "availability_mode": "retrospective_bin_end",
+    "cadence_seconds": 60,
+    "context_steps": 120,
+    "eligibility_policy": "complete",
+    "feature_lookback_steps": 0,
+    "feature_names": [
+      "xrsa_flux",
+      "xrsb_flux"
+    ],
+    "feature_reference": [
+      1.0,
+      1.0
+    ],
+    "feature_units": [
+      "W/m2",
+      "W/m2"
+    ],
+    "horizon_steps": 30,
+    "label_maturity_steps": 0,
+    "stride_steps": 30,
+    "target_minimum": [
+      0.0,
+      0.0
+    ],
+    "target_names": [
+      "xrsa_flux",
+      "xrsb_flux"
+    ],
+    "target_reference": [
+      1.0,
+      1.0
+    ],
+    "target_units": [
+      "W/m2",
+      "W/m2"
+    ],
+    "transform": "log10"
+  },
+  "artifacts": {
+    "august_manifest": {
+      "path": "data/manifests/goes_v1_202408.json",
+      "sha256": "50164744c036e2c3776486a6657cf1c60bef4e9e81b0c27a154be9bdbd12faff"
+    },
+    "august_config": {
+      "path": "configs/data/v1_goes_202408.json",
+      "sha256": "cb8504689d2091dd31571403cc89e1c38cb86471db5d36960cb8ac757ce579e4"
+    },
+    "forecast_config": {
+      "path": "configs/experiments/v1_goes_2024.json",
+      "sha256": "230a3037910d995e8113ae90e69dc8e71c0ad8e26e89ecc4628c4dd8c31daccb"
+    },
+    "jepa_checkpoint": {
+      "path": "results/experiments/v1-full-20261009/jepa_finetune_seed17.pt",
+      "sha256": "3d18e1067b7eeaf2b64ea572ff48831559f5171b82e765bf56841f2903fdaf48"
+    },
+    "supervised_checkpoint": {
+      "path": "results/experiments/v1-full-20261009/supervised_seed17.pt",
+      "sha256": "973f784e2adecd5183bd11bd3f6d47f49c5a8786e603cac82c15e2854858273b"
+    },
+    "replay_archive": {
+      "path": "results/experiments/v1-full-20261009/test_predictions.npz",
+      "sha256": "59bcd596fefd6b10edeec93a69d7172343d4ffb7dc120f98a5185c1e35a3da82"
+    },
+    "replay_summary": {
+      "path": "results/experiments/v1-full-20261009/summary.json",
+      "sha256": "80eae588a706e4b4d84df0daa7e03dcfc54c53ee408d2d6aed30e4bcb9988daf"
+    },
+    "inference": {
+      "path": "src/solar_flare_jepa/training/jepa.py",
+      "sha256": "ef7cd2222317367fcf2dc05b1ca474c1560f35c8941efcb0ed92c6d6aa69a8bc",
+      "module": "solar_flare_jepa.training.jepa"
+    },
+    "training_core": {
+      "path": "src/solar_flare_jepa/training/core.py",
+      "sha256": "4e2e036d4b773bb7fee6a65c36b78180733cb5167cc42f61225f47b0bba438e0",
+      "module": "solar_flare_jepa.training.core"
+    },
+    "normalization": {
+      "path": "src/solar_flare_jepa/training/normalization.py",
+      "sha256": "1911f257604a6d076be226ac9341e34cc49dbebb6de62091d06db09c5f373f54",
+      "module": "solar_flare_jepa.training.normalization"
+    },
+    "contracts": {
+      "path": "src/solar_flare_jepa/forecasting/contracts.py",
+      "sha256": "cd3eebf40b0768f893dd65fc623b6037e4952105a67db92ec8b7bc05f5a85115",
+      "module": "solar_flare_jepa.forecasting.contracts"
+    },
+    "windows": {
+      "path": "src/solar_flare_jepa/forecasting/windows.py",
+      "sha256": "0e84e41b9b991f56f685c61a7f7ae9dd5e5b3397e56da7a314d332de99dc57b1",
+      "module": "solar_flare_jepa.forecasting.windows"
+    },
+    "goes_adapter": {
+      "path": "src/solar_flare_jepa/data/goes.py",
+      "sha256": "a8ad4f8fd4626cf0cfa0fefee226a05281d3d6b927e4ed6dffff93009b018d26",
+      "module": "solar_flare_jepa.data.goes"
+    },
+    "goes_foundation": {
+      "path": "src/solar_flare_jepa/data/foundation.py",
+      "sha256": "a9df01720d285204b0d49f1f0279a599f6de690395ee023121d3f5a021a50c4d",
+      "module": "solar_flare_jepa.data.foundation"
+    },
+    "goes_verification": {
+      "path": "src/solar_flare_jepa/data/goes_acquisition.py",
+      "sha256": "40d47db938d7b55bead2a2d44096e4dccab4e210045184e831fc077ba4a281ec",
+      "module": "solar_flare_jepa.data.goes_acquisition"
+    },
+    "data_storage": {
+      "path": "src/solar_flare_jepa/data/storage.py",
+      "sha256": "78e1aacf693e7d5b40a46aef0b30dd1aff452570fd82746bac6f8021d7ec5b59",
+      "module": "solar_flare_jepa.data.storage"
+    },
+    "data_download": {
+      "path": "src/solar_flare_jepa/data/download.py",
+      "sha256": "da8df6ddf12f2212f2de8782217638188b6cbf6d6cd2ebf51b4884962fb6a909",
+      "module": "solar_flare_jepa.data.download"
+    },
+    "experiment_config": {
+      "path": "src/solar_flare_jepa/experiments/config.py",
+      "sha256": "d8177fae8de49d33411f5627767d9b9fa0bc81b3dc7d8631480ca8ca70e3b417",
+      "module": "solar_flare_jepa.experiments.config"
+    },
+    "source_capture": {
+      "path": "src/solar_flare_jepa/_executed_source.py",
+      "sha256": "99d188129c823d1c0f016bad3ddb6d9c506f8bdc46b1aef37ec79ed7ff1e531f",
+      "module": "solar_flare_jepa._executed_source"
+    },
+    "package": {
+      "path": "src/solar_flare_jepa/__init__.py",
+      "sha256": "c652bd746b9fb9df146ba2d8702d86efc4d19dd00455aab5d5db5a39f244fae2",
+      "module": "solar_flare_jepa"
+    }
+  }
+}

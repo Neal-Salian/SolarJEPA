@@ -1,0 +1,48 @@
+{
+  "snapshot_utc": "2026-10-11",
+  "evidence_class": "OBSERVED source audit; historical milestone status",
+  "items": [
+    {
+      "label": "GOES EDA completed",
+      "evidence": "June diagnostic replay exactly matches stored arrays and statistics; May/June native hashes verified",
+      "commit": "660f469683557a0f3134f72ec69b174a5bcdd917",
+      "source_path": "docs/presentation/eda_evidence.json",
+      "source_sha256": "bc222c9b037f39efaebb1571ced2129ea3de8a0b096e7807ce4d09f8092e2893"
+    },
+    {
+      "label": "V1 model evaluation completed",
+      "evidence": "Published v1-full-20261009 aggregate table and comparison evidence; historical retrospective benchmark",
+      "commit": "660f469683557a0f3134f72ec69b174a5bcdd917",
+      "source_path": "docs/presentation/model_evidence.json",
+      "source_sha256": "76c6e18fe5b3cefaf0e76ad032908a0d19ffa21281441004f40bb500ccdf9fa7"
+    },
+    {
+      "label": "V2 infrastructure implemented",
+      "evidence": "M4B DevelopmentRun/evaluation interfaces; no validated replacement inference",
+      "commit": "2e3f87111ab7c3a881064aaad9dbd6d6298c69cd",
+      "source_path": "src/solar_flare_jepa/experiments/v2_evaluation_safety.py",
+      "source_sha256": "906a8b2db3718ca0db6bf7aa50cef551cd1cab3b852726aaa9a75760f4a3dfb7"
+    },
+    {
+      "label": "V2 real-data pilot not yet authorized",
+      "evidence": "M5_0_PREFLIGHT_ONLY approval register; pilot approvals null; D10 requires approval",
+      "commit": "60718686f016485cf7efadef5772b1d5813d1a43",
+      "source_path": "configs/v2_proposed/m5_0_approval_register.json",
+      "source_sha256": "c72ce1f7d7c1a071015eab83e3b73e50d3983e77a575136c5ca1ce52c8b7883d"
+    },
+    {
+      "label": "Statistical inference remains unvalidated",
+      "evidence": "M4B DESCRIPTIVE_ONLY / INFERENCE_UNAVAILABLE and no validated replacement inference",
+      "commit": "2e3f87111ab7c3a881064aaad9dbd6d6298c69cd",
+      "source_path": "src/solar_flare_jepa/experiments/v2_descriptive.py",
+      "source_sha256": "5c3c00cacbb36960127e017d9484630578d98d2b7199bb87c80d499cffc7fe35"
+    },
+    {
+      "label": "SoLEXS scientific integration pending",
+      "evidence": "Native source retains missing UTC/calibration semantics and rejects training clearance",
+      "commit": "660f469683557a0f3134f72ec69b174a5bcdd917",
+      "source_path": "src/solar_flare_jepa/data/solexs_exploration.py",
+      "source_sha256": "1032aed054e1e8e44ab6569b47197fcc08105a3be7b4503e6c77ec570fb8f11b"
+    }
+  ]
+}

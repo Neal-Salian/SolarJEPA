@@ -1,0 +1,11 @@
+{
+  "overview_first_seconds": 6.416,
+  "Data Explorer": 0.487,
+  "Time-Series Analysis": 0.431,
+  "Model Results": 0.089,
+  "Overview": 0.195,
+  "process_peak_rss_mib": 227.2,
+  "server_boot_health_seconds": 0.535,
+  "health_status": 200,
+  "server_rss_at_health_mib": 73.9
+}

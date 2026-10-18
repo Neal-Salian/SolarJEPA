@@ -1,0 +1,6 @@
+# Hash-pinned configs, manifests and sources must keep LF bytes on every OS;
+# CRLF checkouts change their SHA-256 identities and break pinned provenance.
+* text=auto eol=lf
+*.nc binary
+*.zip binary
+*.png binary

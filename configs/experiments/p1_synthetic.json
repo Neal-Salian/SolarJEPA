@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "dataset": {"kind": "synthetic_fixture", "rows": 240, "start_utc": "2024-01-01T00:00:00Z", "fixture_seed": 17},
+  "forecast": {
+    "cadence_seconds": 60, "context_steps": 6, "horizon_steps": 3,
+    "stride_steps": 1, "feature_names": ["artificial_x", "artificial_y"],
+    "target_names": ["artificial_x", "artificial_y"],
+    "feature_units": ["synthetic_unit", "synthetic_unit"],
+    "target_units": ["synthetic_unit", "synthetic_unit"],
+    "availability_mode": "operational", "eligibility_policy": "complete", "transform": "identity"
+  },
+  "splits": [
+    {"name": "train", "start_utc": "2024-01-01T00:00:00Z", "end_utc": "2024-01-01T02:00:00Z"},
+    {"name": "validation", "start_utc": "2024-01-01T02:00:00Z", "end_utc": "2024-01-01T03:00:00Z"},
+    {"name": "test", "start_utc": "2024-01-01T03:00:00Z", "end_utc": "2024-01-01T04:00:00Z"}
+  ],
+  "baselines": [
+    {"name": "persistence", "parameters": {}},
+    {"name": "training_mean", "parameters": {}},
+    {"name": "trailing_mean", "parameters": {"lookback_steps": 3}},
+    {"name": "drift", "parameters": {"lookback_steps": 3}},
+    {"name": "ar1", "parameters": {}},
+    {"name": "direct_ridge", "parameters": {"lag_steps": 3, "alpha": 0.1}}
+  ],
+  "metrics": {"lead_weights": [1, 1, 1], "target_weights": [1, 1]},
+  "seeds": [17, 29, 43]
+}

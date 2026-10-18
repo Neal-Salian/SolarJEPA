@@ -1,0 +1,10 @@
+# Extension of the existing dashboard lock, observed with CPython 3.13 / macOS arm64.
+# PyTorch platform wheels and accelerator dependencies differ across platforms.
+-r requirements-dashboard-lock.txt
+torch==2.6.0
+filelock==4.2.1
+fsspec==2026.9.0
+networkx==3.7
+sympy==1.13.1
+mpmath==1.3.0
+setuptools==84.0.0
