@@ -119,8 +119,11 @@ data preparation. `scripts/` contains command-line entry points; `configs/`
 contains data and proposed experiment configurations. `data/manifests/` keeps
 small provenance records. Raw/interim/processed data and generated `results/`
 are ignored. Notebooks are reserved for exploration, never the sole pipeline.
-Model/training/evaluation packages will be added only after design approval;
-there are deliberately no misleading train/evaluate stubs.
+`src/solar_flare_jepa/events/` adds the approved retrospective flare-event layer:
+catalog labels, chronological support checks, deterministic matching, imbalance
+metrics and descriptive block uncertainty over pinned frozen forecasts. See the
+[scientific protocol and exploratory results](docs/FLARE_EVENT_FORECASTING.md).
+It performs no training or model inference and establishes no operational skill.
 
 MIT applies to original code and documentation. Mission data retain their own
 terms. Milestone branches are published to origin. Main integration and the next
