@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "specification_id": "onset-development-gates-v1",
+  "status": "BLOCKED_NOT_A_FROZEN_ALARM_RULE",
+  "checkpoint": "16b975fa945daaf4ce2601af444f923f311878d8",
+  "decision_parameters": null,
+  "selected_model": null,
+  "development_artifact_identities": [],
+  "jan2025_selection_permitted": false,
+  "aug2024_confirmatory_use_permitted": false,
+  "blockers": [
+    "No verified retained development forecast-and-event-label bundle was located in the bounded repository/worktree audit.",
+    "Existing model split artifacts do not establish event-disjoint training and checkpoint selection.",
+    "No independent onset calibration split or justified event-dependence uncertainty design is frozen.",
+    "A historical unseen cohort and operational delivery causality are not established."
+  ],
+  "next_milestone": "Recover or separately authorize materialization of immutable development-only forecasts and authoritative labels; audit full event support and exposure before selecting or freezing an onset rule.",
+  "prospective_unseen_candidate_utc": ["2026-11-01T00:00:00Z", "2026-12-01T00:00:00Z"],
+  "prospective_candidate_status": "FUTURE_OUTCOMES_ONLY_NOT_ACQUIRED_OR_SOURCE_VERIFIED",
+  "rules_may_be_executed_from_this_file": false
+}
