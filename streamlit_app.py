@@ -1,4 +1,4 @@
-"""SolarJEPA's offline presentation layer; no acquisition, fitting, or inference."""
+"""Offline research dashboard with an isolated retrospective inference page."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -32,15 +32,18 @@ h2, h3 { letter-spacing: -.02em; }
 </style>
 """, unsafe_allow_html=True)
 
-PAGES = ("Overview", "Data Explorer", "Time-Series Analysis", "Model Results")
+PAGES = ("Overview", "Data Explorer", "Time-Series Analysis", "Model Results", "Solar Flux Prediction")
 with st.sidebar:
     st.markdown("### SolarJEPA")
     st.caption("SOLAR X-RAY RESEARCH")
     page = st.radio("Navigate", PAGES, label_visibility="collapsed")
     st.divider()
-    st.caption("INTERACTIVE OBSERVATIONS")
+    st.caption("RETROSPECTIVE INFERENCE" if page == "Solar Flux Prediction" else "INTERACTIVE OBSERVATIONS")
     st.markdown("**GOES-16 · XRS**")
-    st.caption("01 May – 30 June 2024 · UTC\n\nOne-minute science observations")
+    if page == "Solar Flux Prediction":
+        st.caption("01–31 August 2024 · UTC\n\nHistorical held-out observations · seed 17")
+    else:
+        st.caption("01 May – 30 June 2024 · UTC\n\nOne-minute science observations")
     st.divider()
     st.caption("Presentation snapshot · 11 October 2026\n\nLocal evidence · offline operation")
 
@@ -260,8 +263,12 @@ def models(registry: dict) -> None:
 
 
 try:
-    registry = data.load_registry(ROOT)
-    {"Overview": overview, "Data Explorer": explorer,
-     "Time-Series Analysis": analysis, "Model Results": models}[page](registry)
+    if page == "Solar Flux Prediction":
+        from solar_flare_jepa.dashboard.prediction_page import render
+        render(ROOT)
+    else:
+        registry = data.load_registry(ROOT)
+        {"Overview": overview, "Data Explorer": explorer,
+         "Time-Series Analysis": analysis, "Model Results": models}[page](registry)
 except (OSError, ValueError, KeyError, TypeError, RuntimeError) as error:
     unavailable(error)

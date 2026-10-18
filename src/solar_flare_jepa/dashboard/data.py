@@ -3,9 +3,14 @@ import hashlib
 import json
 import re
 from pathlib import Path
+from threading import RLock
 
 import numpy as np
 import pandas as pd
+
+# NetCDF open/metadata/read/close can overlap across Streamlit rerun threads.
+# Share this lock with the isolated prediction loader for the full native lifetime.
+_NATIVE_IO_LOCK = RLock()
 
 REGISTRY_PATH = 'src/solar_flare_jepa/dashboard/registry.json'
 DATASETS = {
@@ -168,7 +173,8 @@ def load_observations(root, registry):
                 _path(root,row['path'])
             paths.extend(verify_history(_path(root,relative),Path(root).resolve()))
         if len(paths)!=61: raise DashboardUnavailable('Incomplete selected dataset')
-        frame,_=validate_goes_files(paths,start_utc='2024-05-01T00:00:00Z',end_utc='2024-07-01T00:00:00Z')
+        with _NATIVE_IO_LOCK:
+            frame,_=validate_goes_files(paths,start_utc='2024-05-01T00:00:00Z',end_utc='2024-07-01T00:00:00Z')
         cols=['xrsa_flux','xrsb_flux','observed','xrsa_valid','xrsb_valid']
         frame=frame[cols].copy()
         for ch in ('xrsa','xrsb'): frame[ch+'_flux']=valid_flux(frame,ch).astype(float)

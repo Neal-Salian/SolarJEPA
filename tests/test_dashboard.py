@@ -90,39 +90,19 @@ def test_comparison_refuses_incompatible_support_or_metrics():
     with pytest.raises(DashboardUnavailable): validate_comparison(json.loads((ROOT/'docs/presentation/model_evidence.json').read_text()),bad)
 
 
-def test_production_works_offline_without_training_or_test_release(monkeypatch):
-    import socket, builtins, io, sys, xarray
-    def denied(*args,**kwargs): raise AssertionError('Network forbidden')
-    monkeypatch.setattr(socket.socket,'connect',denied)
-    opened=[]; original=builtins.open
-    def guarded(file,*args,**kwargs):
-        name=str(file); opened.append(name)
-        assert not any(x in name for x in ['2024/08/','test_predictions','results/experiments','test_release'])
-        return original(file,*args,**kwargs)
-    monkeypatch.setattr(builtins,'open',guarded)
-    original_io=io.open
-    def guarded_io(file,*args,**kwargs):
-        name=str(file); opened.append(name)
-        assert not any(x in name for x in ['2024/08/','test_predictions','results/experiments','test_release'])
-        return original_io(file,*args,**kwargs)
-    monkeypatch.setattr(io,'open',guarded_io)
-    allowed=set()
-    for name in ['goes_v1_202405.json','goes_v1_202406.json']:
-        allowed.update((ROOT/row['path']).resolve() for row in json.loads((ROOT/'data/manifests'/name).read_text())['files'])
-    original_dataset=xarray.open_dataset
-    native_opened=[]
-    def guarded_dataset(file,*args,**kwargs):
-        assert Path(file).resolve() in allowed
-        native_opened.append(Path(file).resolve())
-        return original_dataset(file,*args,**kwargs)
-    monkeypatch.setattr(xarray,'open_dataset',guarded_dataset)
-    r=load_registry(ROOT); f=load_observations(ROOT,r)
-    assert len(f)==87840 and f.index.max()<pd.Timestamp('2024-07-01',tz='UTC')
-    assert dataset_summary(f)['observed_rows']==87840
-    load_diagnostics(ROOT,r); load_model_comparison(ROOT,r)
-    assert not any(n.startswith('solar_flare_jepa.training') for n in sys.modules)
-    assert not any('test_predictions' in n for n in opened)
-    assert set(native_opened)==allowed
+def test_production_works_offline_without_training_or_test_release():
+    # Collection may legitimately import training for other tests. A fresh process
+    # proves this production path's imports and file access independently.
+    import os, subprocess, sys
+    result=subprocess.run([sys.executable,str(ROOT/'scripts/verify_dashboard.py')],
+        cwd=ROOT,capture_output=True,text=True,timeout=90,
+        env={**os.environ,'PYTHONPATH':str(ROOT/'src')})
+    assert result.returncode==0,result.stdout+result.stderr
+    evidence=json.loads(result.stdout)
+    assert evidence['status']=='PASS'
+    assert evidence['native_files_verified']==61
+    assert evidence['summary']['observed_rows']==87840
+    assert evidence['training_imports_blocked'] and evidence['offline_sockets_blocked']
 
 
 def test_missing_comparison_contract_fails_closed(tmp_path):
