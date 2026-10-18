@@ -29,11 +29,11 @@ Files: create `src/solar_flare_jepa/data/goes_nrt.py`, `tests/test_goes_nrt.py`.
 Interfaces: `Snapshot(payload, provenance)`, `fetch_snapshot`, `load_snapshot`,
 `assess_snapshot`; return JSONable assessment with `model_input_ready=false`.
 
-- [ ] Write offline tests for persistence/hash/receipt provenance, continuity/freshness,
+- [x] Write offline tests for persistence/hash/receipt provenance, continuity/freshness,
   paired channels, satellite switches, invalid flux/contamination, transport failures and bounds.
-- [ ] Run tests to observe missing-feature failures before implementation.
-- [ ] Implement bounded allowlisted transport, immutable cache and conservative assessment.
-- [ ] Run targeted tests; self-review and independent review before completion.
+- [x] Run tests to observe missing-feature failures before implementation.
+- [x] Implement bounded allowlisted transport, immutable cache and conservative assessment.
+- [x] Run targeted tests; self-review and independent review before completion.
 
 ### Task 2: Bounded inference adapter (implementation subagent)
 
@@ -41,19 +41,19 @@ Files: create `src/solar_flare_jepa/forecasting/nrt.py`, `tests/test_nrt_forecas
 Interfaces: explicit `forecast_snapshot` rejects SWPC before model access;
 `replay_v1(root, issue_utc)` returns forecast with timing/lineage and unvalidated status.
 
-- [ ] Write failing tests for SWPC denial and deterministic pinned science replay,
+- [x] Write failing tests for SWPC denial and deterministic pinned science replay,
   complete context and checkpoint/source identity failures.
-- [ ] Reuse existing pinned science preparation and inference; do not generalize the
+- [x] Reuse existing pinned science preparation and inference; do not generalize the
   historical page's contract or assert NRT availability in the retrospective spec.
-- [ ] Run targeted tests against saved real observations and saved forecasts, network blocked.
+- [x] Run targeted tests against saved real observations and saved forecasts, network blocked.
 
 ### Task 3: CLI, evidence and operational docs (controller)
 
 Files: create `scripts/goes_nrt.py`, `tests/test_goes_nrt_cli.py`,
 `docs/GOES_NEAR_REAL_TIME.md`, verification report.
 
-- [ ] Test CLI explicit fetch, offline assessment, live-inference refusal and offline science replay.
-- [ ] Implement JSON status/exit codes, explicit UTC inputs and distinct timing fields.
-- [ ] Document official sources, UNKNOWN semantics, bounded operation and failure handling.
-- [ ] Run full suite, installed imports/CLI, five-page regressions and independent review.
-- [ ] Resolve review findings; verify diff/ignore/index; focused Conventional Commits and branch-only push.
+- [x] Test CLI explicit fetch, offline assessment, live-inference refusal and offline science replay.
+- [x] Implement JSON status/exit codes, explicit UTC inputs and distinct timing fields.
+- [x] Document official sources, UNKNOWN semantics, bounded operation and failure handling.
+- [x] Run full suite, installed imports/CLI, five-page regressions and independent review.
+- [x] Resolve review findings; verify diff/ignore/index; focused Conventional Commits and branch-only push.
