@@ -120,3 +120,35 @@ completed without a native fault. The displayed additional-minute support was
 00:01–02:01 context and 02:01–02:31 forecast, with both supervised medians. This
 browser evidence is attributed to the controller; the implementer independently
 ran the automated Streamlit and native concurrency tests above.
+
+## Independent review and final preservation checks
+
+Two independent read-only reviews of implementation commit `4dab5c1` passed:
+the task review found the approved specification and code quality satisfied;
+the final whole-branch scientific/integration review found no Critical or
+Important issues. Reviewers inspected the changed code and relevant unchanged
+inference, quality, time-grid and provenance contracts without repeating the
+already passing full suite.
+
+Two nonblocking follow-ups remain: issue-time validation currently follows the
+31-file August load, making invalid requests slower; at the captured 831-pixel
+viewport, the persistent plot toolbar can overlap the XRS-A subplot subtitle.
+The channel identity remains present in the captions and legend. These do not
+change forecast values, quality eligibility, temporal boundaries or uncertainty
+semantics.
+
+The controller independently ran the explicit verifier for the next saved
+origin, `2024-08-01T02:30:00Z`. Raw context, masks, future grid and actual future
+matched exactly; both seed-17 point forecasts and quantiles passed the same
+`rtol=1e-6`, `atol=1e-15 W/m²` comparison. The maximum relative quantile
+difference was approximately `9.46e-7` for each model. This is numerical replay
+evidence, not a new accuracy or coverage estimate.
+
+Final preservation checks compared 134 original data/checkpoint/pre-existing
+untracked-file SHA-256 identities and all unrelated local/remote branch refs
+with the pre-implementation snapshot: none changed. The feature diff contains
+no raw data, checkpoint or saved prediction arrays and no changes to model,
+normalization, forecasting contracts, experiment configurations, scientific
+manifests, V2 or G4 authorization artifacts. Ignore checks, clean Git status,
+`git diff --check` and `pip check` passed before feature publication. Publication
+is restricted to the new feature branch; no PR or merge is part of this task.
