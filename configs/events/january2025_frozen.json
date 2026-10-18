@@ -1,0 +1,63 @@
+{
+  "block_seconds": 86400,
+  "calibration": "GOES_science_quality_W_m2_no_legacy_scaling",
+  "minimum_lead_seconds": 60,
+  "partition": [
+    1735689600000000000,
+    1738368000000000000
+  ],
+  "policy": "xrsb_point_max_native_threshold_v1",
+  "replicates": 1000,
+  "resources": {
+    "events": {
+      "bytes": 14212544,
+      "path": "event_alignment.json",
+      "root": "preparation",
+      "sha256": "a4c38304857f79b5cb6d38ad4802da1231a163b72ea0742c37e2ff420b03ee59"
+    },
+    "inputs": {
+      "bytes": 18867383,
+      "path": "inputs.json",
+      "root": "forecasts",
+      "sha256": "9e16c11828281fa78bb8ccdcb264cbe05a68b482cc68802df765d68d99558d31"
+    },
+    "labels_C": {
+      "bytes": 801871,
+      "path": "onset_labels_C.json",
+      "root": "preparation",
+      "sha256": "8fca3a372751d6f18a348ffdf18540f6fc7806abe30a39be0b2748dfedef0fd3"
+    },
+    "labels_M": {
+      "bytes": 752124,
+      "path": "onset_labels_M.json",
+      "root": "preparation",
+      "sha256": "803213ffa36e4536a30cd2a836b04a1e522dd4423f75639700cba0849d1a3dec"
+    },
+    "labels_X": {
+      "bytes": 741145,
+      "path": "onset_labels_X.json",
+      "root": "preparation",
+      "sha256": "2a08af64732480364261e07708e26f2e886b1fa22cca0502b133971d4bf3425e"
+    },
+    "predictions": {
+      "bytes": 142602898,
+      "path": "predictions.json",
+      "root": "forecasts",
+      "sha256": "4610b818cd2ff89e258b7cf51eef2426d2bf6f235c024acbe0f4d39678596e78"
+    },
+    "protocol": {
+      "bytes": 5318,
+      "path": "resolved_protocol.json",
+      "root": "forecasts",
+      "sha256": "8724f54e64a5974d20390bf421b3764ebbf75befa9f93fb6a6806071eda86e9e"
+    },
+    "summary": {
+      "bytes": 6480915,
+      "path": "summary.json",
+      "root": "forecasts",
+      "sha256": "f87c2825829763ad250e574806165d4f2ac778c0108e7dc786bfde6e5cab2917"
+    }
+  },
+  "schema_version": 1,
+  "seed": 17
+}
