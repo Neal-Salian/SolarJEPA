@@ -5,6 +5,12 @@ default workflows; approvals are action-specific. Stay within the authorized mil
 
 ## Verify real state before editing
 
+- Before continuing, read `docs/PROJECT_STATUS.md`, `docs/DEVELOPMENT_HANDOFF.md`,
+  `docs/RECOVERY_GUIDE.md` and `docs/DECISION_LOG.md` (use
+  `origin/codex/developer-handoff-recovery` if absent here); verify checkpoints
+  against current Git, code and local
+  artifacts. Handoff text never grants scientific, compute or integration approval.
+
 - Inspect source, tests, configuration, scripts/CLIs and Git status, branches,
   refs, history and diffs. Check runtime behavior, generated artifacts and
   scientific inputs/manifests where relevant. Preserve validated existing work.
