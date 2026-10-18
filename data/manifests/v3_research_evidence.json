@@ -1,0 +1,333 @@
+{
+  "actions": {
+    "new_data_acquisition": false,
+    "new_evaluation_scoring": false,
+    "raw_scientific_decode": false,
+    "scientific_model_inference": false,
+    "scientific_training": false,
+    "v1_v2_protocol_changes": false
+  },
+  "aggregate_scope": "two channels,30 leads; three fitted seeds for neural families; stored metric extraction only, not new prediction scoring",
+  "base_commit": "1a4991da4dda9676caeb1d7e35a03408528c3188",
+  "branch": "codex/v3-research-design",
+  "date_client": "2026-10-18",
+  "evidence_classes": {
+    "DOCUMENTED": "authoritative documentation",
+    "INFERRED": "derived arithmetic or interpretation",
+    "OBSERVED": "source or saved execution artifact inspected",
+    "UNKNOWN": "not established"
+  },
+  "host_observed": {
+    "hw.memsize_bytes": 8589934592,
+    "hw.model": "Mac14,2",
+    "machdep.cpu.brand_string": "Apple M2",
+    "v3_training_feasibility": "UNKNOWN"
+  },
+  "kind": "solarjepa_v3_research_evidence_not_runtime_protocol",
+  "original_untracked_preservation_identities": {
+    ".agents": {
+      "files": 1,
+      "identity_sha256": "e9083fa57c7d1b5f95d9760caec7936b3c12c9d9a154534d75f6c7f346b0e0ba"
+    },
+    "docs/P1_FINAL_INTEGRATION_REAUDIT.md": {
+      "files": 1,
+      "identity_sha256": "bcfebe22c07395f13ac208a76c922a287197867c76ca062720296f22256caa37"
+    }
+  },
+  "publication": {
+    "merge_requested": false,
+    "pr_requested": false,
+    "scope": "research branch only"
+  },
+  "reference_commits": {
+    "codex/v2-experimental-validation-readiness": "8e9ce06407d5fab50ca5766fc061b45a3fb277a8",
+    "feat/v2-m0-m1-validation-foundation": "fd7203bf9a2e1e3dd78d9750a948b823ab100d36",
+    "feat/v2-model-evaluation-integration": "2e3f87111ab7c3a881064aaad9dbd6d6298c69cd",
+    "feat/v2-training-protocol-feasibility": "ac3428f910b36b7f10cc0fbb0740ce6de62df5a7",
+    "main": "1a4991da4dda9676caeb1d7e35a03408528c3188",
+    "origin/main": "1a4991da4dda9676caeb1d7e35a03408528c3188",
+    "research/goes-external-model-evaluation": "a502d3fbf65f57c795b087491d216cc37922071f",
+    "research/v2-independent-validation": "90571dfe144434bbbd681c410dcdf2c389eab409",
+    "research/v2-m2-statistical-validation": "94cae59398e52a65074ec66c73ad94bd47ca8867",
+    "research/v2-m3-inference-remediation": "5e88f3a7109296c9475378b77be0257a4f9363ab",
+    "v1": "644648f7d555fcbcb3eed4495d37fecffdd1863a"
+  },
+  "retrospective_v1_seed_mean_aggregates": {
+    "direct_ridge": {
+      "all": {
+        "log_mae": 0.12431180581620566,
+        "mean_pinball": null,
+        "origins": 1436
+      },
+      "flaring_m_plus": {
+        "log_mae": 0.26073108263005706,
+        "mean_pinball": null,
+        "origins": 193
+      },
+      "rising_x2": {
+        "log_mae": 0.33525695064622163,
+        "mean_pinball": null,
+        "origins": 112
+      }
+    },
+    "jepa_finetune": {
+      "all": {
+        "log_mae": 0.11659322813632873,
+        "mean_pinball": 0.03924509272163081,
+        "origins": 1436
+      },
+      "flaring_m_plus": {
+        "log_mae": 0.2611506519144827,
+        "mean_pinball": 0.0910252991536752,
+        "origins": 193
+      },
+      "quiet_below_c": {
+        "log_mae": null,
+        "mean_pinball": null,
+        "origins": 0
+      },
+      "rising_x2": {
+        "log_mae": 0.359234544955122,
+        "mean_pinball": 0.12700599489039138,
+        "origins": 112
+      }
+    },
+    "persistence": {
+      "all": {
+        "log_mae": 0.13385545890071981,
+        "mean_pinball": null,
+        "origins": 1436
+      },
+      "flaring_m_plus": {
+        "log_mae": 0.30166073213869654,
+        "mean_pinball": null,
+        "origins": 193
+      },
+      "rising_x2": {
+        "log_mae": 0.3480411532355307,
+        "mean_pinball": null,
+        "origins": 112
+      }
+    },
+    "supervised": {
+      "all": {
+        "log_mae": 0.11798546004268894,
+        "mean_pinball": 0.039500217777394556,
+        "origins": 1436
+      },
+      "flaring_m_plus": {
+        "log_mae": 0.2591092147007645,
+        "mean_pinball": 0.08992262361700253,
+        "origins": 193
+      },
+      "quiet_below_c": {
+        "log_mae": null,
+        "mean_pinball": null,
+        "origins": 0
+      },
+      "rising_x2": {
+        "log_mae": 0.36327942517960254,
+        "mean_pinball": 0.12768568207973754,
+        "origins": 112
+      }
+    }
+  },
+  "saved_summary_identities": [
+    {
+      "bytes": 15674689,
+      "dataset_fingerprint": "d21b81b42643777f68855d8e02fc17cb7fb326805763117f8e5863233d68ba12",
+      "path": "results/experiments/v1-full-20261009/summary.json",
+      "scientific_execution_commit": "4a3f88227ce28dea0e885e68987282285963f38e",
+      "sha256": "80eae588a706e4b4d84df0daa7e03dcfc54c53ee408d2d6aed30e4bcb9988daf",
+      "status": "complete",
+      "storage_role": "original_workspace"
+    },
+    {
+      "bytes": 6480915,
+      "confirmatory_status": "UNAVAILABLE",
+      "dataset_fingerprint": "b4ff51eff9d8a3d85f30375c07b7623915cd09be9c8f82e26ca17dca13dfcd7c",
+      "fit_performed": false,
+      "path": "results/experiments/goes-v1-external-january2025-approved-run/summary.json",
+      "retained_origin_count": 1007,
+      "sha256": "f87c2825829763ad250e574806165d4f2ac778c0108e7dc786bfde6e5cab2917",
+      "status": "complete",
+      "storage_role": "goes_external_model_evaluation_worktree"
+    }
+  ],
+  "schema_version": 1,
+  "source_file_identities": [
+    {
+      "bytes": 38197,
+      "commit": "644648f7d555fcbcb3eed4495d37fecffdd1863a",
+      "path": "src/solar_flare_jepa/training/jepa.py",
+      "ref": "v1",
+      "sha256": "ef7cd2222317367fcf2dc05b1ca474c1560f35c8941efcb0ed92c6d6aa69a8bc"
+    },
+    {
+      "bytes": 7621,
+      "commit": "644648f7d555fcbcb3eed4495d37fecffdd1863a",
+      "path": "src/solar_flare_jepa/training/normalization.py",
+      "ref": "v1",
+      "sha256": "1911f257604a6d076be226ac9341e34cc49dbebb6de62091d06db09c5f373f54"
+    },
+    {
+      "bytes": 15371,
+      "commit": "644648f7d555fcbcb3eed4495d37fecffdd1863a",
+      "path": "src/solar_flare_jepa/experiments/v1.py",
+      "ref": "v1",
+      "sha256": "283fc06b2784db3f2003fcecfd2902b395cacd20ea88a5644e427f0f7ddaa1c1"
+    },
+    {
+      "bytes": 5745,
+      "commit": "644648f7d555fcbcb3eed4495d37fecffdd1863a",
+      "path": "src/solar_flare_jepa/evaluation/probabilistic.py",
+      "ref": "v1",
+      "sha256": "ee83c3561d4c442a957e0afeb5a88465efa878aaa25bc8e2ab23a7b95bb3f2ae"
+    },
+    {
+      "bytes": 88182,
+      "commit": "644648f7d555fcbcb3eed4495d37fecffdd1863a",
+      "path": "docs/V1_RESULTS.md",
+      "ref": "v1",
+      "sha256": "967fdb75649b14cd009533b1d4e3b4e9a06db905757c3d6fffefc23d1222773f"
+    },
+    {
+      "bytes": 43095,
+      "commit": "8e9ce06407d5fab50ca5766fc061b45a3fb277a8",
+      "path": "src/solar_flare_jepa/training/controlled.py",
+      "ref": "codex/v2-experimental-validation-readiness",
+      "sha256": "20f3c0fef176f75bc1dd59e06ab143ba3dfed4e883bf6ecc997cb15a875c7b1d"
+    },
+    {
+      "bytes": 5567,
+      "commit": "8e9ce06407d5fab50ca5766fc061b45a3fb277a8",
+      "path": "src/solar_flare_jepa/training/losses.py",
+      "ref": "codex/v2-experimental-validation-readiness",
+      "sha256": "de8507e5dd297f44bd79ed3e03eb3bc7350dc52b196c5bd2842763c243b11c52"
+    },
+    {
+      "bytes": 21655,
+      "commit": "8e9ce06407d5fab50ca5766fc061b45a3fb277a8",
+      "path": "src/solar_flare_jepa/training/comparators.py",
+      "ref": "codex/v2-experimental-validation-readiness",
+      "sha256": "39b36160b3b403256fc4e08a7898ffc06099507d9d3c6517351daca780398b83"
+    },
+    {
+      "bytes": 14790,
+      "commit": "8e9ce06407d5fab50ca5766fc061b45a3fb277a8",
+      "path": "src/solar_flare_jepa/forecasting/windows.py",
+      "ref": "codex/v2-experimental-validation-readiness",
+      "sha256": "0e84e41b9b991f56f685c61a7f7ae9dd5e5b3397e56da7a314d332de99dc57b1"
+    },
+    {
+      "bytes": 22215,
+      "commit": "8e9ce06407d5fab50ca5766fc061b45a3fb277a8",
+      "path": "src/solar_flare_jepa/forecasting/statistical.py",
+      "ref": "codex/v2-experimental-validation-readiness",
+      "sha256": "7f928277494078bfba74f591e206f515283a99d4fc4fadbf945dd92258b13eb1"
+    },
+    {
+      "bytes": 14140,
+      "commit": "8e9ce06407d5fab50ca5766fc061b45a3fb277a8",
+      "path": "src/solar_flare_jepa/evaluation/records.py",
+      "ref": "codex/v2-experimental-validation-readiness",
+      "sha256": "c759ffc3e7dee6b5006fc2276bddc709fc7dd1082494053441a397fca88457f5"
+    },
+    {
+      "bytes": 6707,
+      "commit": "8e9ce06407d5fab50ca5766fc061b45a3fb277a8",
+      "path": "src/solar_flare_jepa/evaluation/events.py",
+      "ref": "codex/v2-experimental-validation-readiness",
+      "sha256": "aebbb111b26c0fa1358fee9e226493ff7e21ad6413ceaf024e9a6476eb1e272e"
+    },
+    {
+      "bytes": 6228,
+      "commit": "8e9ce06407d5fab50ca5766fc061b45a3fb277a8",
+      "path": "src/solar_flare_jepa/evaluation/diagnostics.py",
+      "ref": "codex/v2-experimental-validation-readiness",
+      "sha256": "5aaa921163a73b9917f4db94bf8d03ad9acbc695881fcb88c167dcc7ef67681c"
+    },
+    {
+      "bytes": 9263,
+      "commit": "8e9ce06407d5fab50ca5766fc061b45a3fb277a8",
+      "path": "src/solar_flare_jepa/experiments/v2_descriptive.py",
+      "ref": "codex/v2-experimental-validation-readiness",
+      "sha256": "5c3c00cacbb36960127e017d9484630578d98d2b7199bb87c80d499cffc7fe35"
+    },
+    {
+      "bytes": 31668,
+      "commit": "8e9ce06407d5fab50ca5766fc061b45a3fb277a8",
+      "path": "src/solar_flare_jepa/experiments/v2_pilot.py",
+      "ref": "codex/v2-experimental-validation-readiness",
+      "sha256": "2ae5dee1aa486ff829f8048ae8f796b38b13b240c381fff307b15b5ba0f37878"
+    },
+    {
+      "bytes": 27637,
+      "commit": "8e9ce06407d5fab50ca5766fc061b45a3fb277a8",
+      "path": "src/solar_flare_jepa/experiments/v2_resource_controls.py",
+      "ref": "codex/v2-experimental-validation-readiness",
+      "sha256": "b93e87fc9aacbb741143a8ff5f54efa5a21857bfd5326d5f7d4968dc329379b8"
+    },
+    {
+      "bytes": 76988,
+      "commit": "8e9ce06407d5fab50ca5766fc061b45a3fb277a8",
+      "path": "docs/protocols/phase2_v2_development_v1.json",
+      "ref": "codex/v2-experimental-validation-readiness",
+      "sha256": "d9276409c7428bfc3c987fcdbc6ba9348291a8c1321f69eb62037a5aca487c83"
+    },
+    {
+      "bytes": 27772,
+      "commit": "8e9ce06407d5fab50ca5766fc061b45a3fb277a8",
+      "path": "docs/evidence/phase2_v2_g4_lifecycle_verification.json",
+      "ref": "codex/v2-experimental-validation-readiness",
+      "sha256": "f221a8a38675fb70821e8ee21b7a175512c59367fe9c08c03df788a8ac84e260"
+    },
+    {
+      "bytes": 6556,
+      "commit": "8e9ce06407d5fab50ca5766fc061b45a3fb277a8",
+      "path": "docs/evidence/v2_m4a_compute_benchmark_apple_m4_quiet_rerun.json",
+      "ref": "codex/v2-experimental-validation-readiness",
+      "sha256": "d7652dec300de3d90b10c9704a3543cc48b6ea7ae36ad9c3a51388eee3c824d9"
+    },
+    {
+      "bytes": 322422,
+      "commit": "5e88f3a7109296c9475378b77be0257a4f9363ab",
+      "path": "docs/evidence/v2_m3_inference_summary.json",
+      "ref": "research/v2-m3-inference-remediation",
+      "sha256": "f4ed208cad6e83d2e24fcf2a2d41dcf47e30a44ca50a4f1691e7fd080b38d71a"
+    },
+    {
+      "bytes": 203741,
+      "commit": "a502d3fbf65f57c795b087491d216cc37922071f",
+      "path": "data/manifests/phase1_goes_external_execution.json",
+      "ref": "research/goes-external-model-evaluation",
+      "sha256": "928ccf8a315c4b4ad99239c50d3309022e090a6917eab0128c8713c31af19475"
+    },
+    {
+      "bytes": 7141,
+      "commit": "a502d3fbf65f57c795b087491d216cc37922071f",
+      "path": "configs/evaluation/goes_v1_external_january2025.json",
+      "ref": "research/goes-external-model-evaluation",
+      "sha256": "2285ecd6858ca8c8500f300204c009ceb1d900d1808625be39119447bffb3caa"
+    }
+  ],
+  "v1_json_pointers": [
+    "/models_config/jepa/config",
+    "/scores/test/{model}/strata/{stratum}/{origins,log_mae,mean_pinball}",
+    "/provenance/git_commit"
+  ],
+  "verification": {
+    "baseline_seconds": 35.79,
+    "coordinator_identity_checks": 45,
+    "final_passed": 166,
+    "final_seconds": 35.19,
+    "independent_literature_scientific_review": "PASS_FOR_RESEARCH_ONLY_PUBLICATION",
+    "independent_protocol_review": "PASS_FOR_RESEARCH_BRANCH_PUBLICATION",
+    "passed": 166,
+    "pytest_command": "/Users/nealsalian/Desktop/SolarJEPA/.venv/bin/python -m pytest -q",
+    "scope": "unchanged main-based data foundation; no V1/V2 training fixtures",
+    "source_imports_verified": true,
+    "warnings": 1,
+    "worktree_src_used": true
+  }
+}
