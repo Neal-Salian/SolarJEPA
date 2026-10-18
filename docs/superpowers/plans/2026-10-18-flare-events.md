@@ -36,7 +36,7 @@ coverage; scarce/undefined class metrics and correlated origins.
 - [x] 4. Independent scientific/code review, remedy defects, rerun covering tests,
   full main-based suite, isolated installation/import and CLI smoke, source/data
   identity and ignore/index checks; document executed evidence and readiness.
-- [ ] 5. Focused Conventional Commits and push only this feature branch; verify
+- [x] 5. Focused Conventional Commits and push only this feature branch; verify
   clean status and remote equality. Preserve source branch refs and artifacts.
 
 ## Progress
@@ -54,3 +54,7 @@ coverage; scarce/undefined class metrics and correlated origins.
   candidate coverage, source/semantic fingerprints and lineage, cohort selection,
   missing peak flux, mixed booleans and exhausted event generators. Regressions
   cover these; final review and execution evidence is in FLARE_EVENT_VERIFICATION.md.
+- Publication verified: implementation `3d246f8` and scientific report `9c98585`
+  pushed only to `origin/codex/solar-flare-event-forecasting`; local and upstream
+  hashes matched with clean status. No raw/model/report files entered the 16-file
+  milestone history. Main/V1 and inspected V2 refs remained at their audited heads.
