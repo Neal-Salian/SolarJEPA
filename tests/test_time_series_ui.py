@@ -121,7 +121,8 @@ def test_unavailable_new_evidence_preserves_existing_explorer_charts(monkeypatch
     charts()
     evidence = import_module("solar_flare_jepa.presentation.time_series")
     def unavailable(*args, **kwargs):
-        raise ValueError("Time-series evidence identity mismatch")
+        raise ValueError("Verified time-series evidence unavailable: Scientific payload identity mismatch. "
+                         "Restore pinned local data and run scripts/build_time_series_presentation.py.")
     monkeypatch.setattr(evidence, "load_evidence", unavailable)
     app = AppTest.from_file(str(ROOT / "streamlit_app.py"), default_timeout=60).run()
     app.sidebar.radio[0].set_value("Data Explorer").run()
@@ -129,6 +130,10 @@ def test_unavailable_new_evidence_preserves_existing_explorer_charts(monkeypatch
     assert len(app.get("plotly_chart")) == 2
     assert any("Verified result unavailable" in item.value for item in app.error)
     assert any("identity mismatch" in item.value for item in app.caption)
+    recovery = " ".join(item.value for item in app.caption)
+    assert "build_time_series_presentation.py" not in recovery
+    assert "Restore the original pinned payload and sources" in recovery
+    assert "docs/STABLE_BASELINE_V0_1_RUN.md" in recovery
 
 
 def test_failed_candidate_remains_visible_in_likelihood_and_forecast_tables(monkeypatch):

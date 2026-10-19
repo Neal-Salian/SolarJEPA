@@ -136,7 +136,13 @@ def _plot(figure: go.Figure, key: str) -> None:
 
 def _evidence(root: Path) -> dict:
     from solar_flare_jepa.presentation.time_series import load_evidence
-    return load_evidence(root)
+    try:
+        return load_evidence(root)
+    except ValueError as error:
+        reason = str(error).removesuffix(
+            '. Restore pinned local data and run scripts/build_time_series_presentation.py.')
+        raise ValueError(reason + '. Restore the original pinned payload and sources; '
+                         'see docs/STABLE_BASELINE_V0_1_RUN.md.') from error
 
 
 def _provenance(evidence: dict) -> None:

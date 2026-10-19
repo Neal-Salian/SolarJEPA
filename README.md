@@ -1,5 +1,18 @@
 # solar-flare-jepa
 
+**SolarJEPA Stable Baseline v0.1 — controlled retrospective research baseline.**
+The integration branch combines historical GOES ingestion/QC, the original trained
+V1 JEPA and baselines, and all five Streamlit pages, including 120-minute context
+to 30-minute flux forecasting. Start with the [setup and launch guide](docs/STABLE_BASELINE_V0_1_RUN.md),
+[integration audit and dependency map](docs/STABLE_BASELINE_V0_1_AUDIT.md), and
+[release-readiness report](docs/STABLE_BASELINE_V0_1_RELEASE.md).
+Data/checkpoints remain outside Git and must be restored and verified.
+V2 pilot, V3 research, live inference and scientifically blocked SoLEXS forecasting
+are excluded. This branch has not been merged into `main`.
+
+The dated development narrative below is retained as historical context; its
+earlier status statements do not describe the integrated baseline.
+
 Research feasibility and data foundation for **Physics-Informed Joint-Embedding
 Generative Forecasting of Solar Flare Dynamics Using Aditya-L1 Telemetry**.
 The title is provisional: JEPA is a representation-learning method, not by

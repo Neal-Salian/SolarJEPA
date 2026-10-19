@@ -23,6 +23,9 @@ dashboard-prediction = ["streamlit==1.50.0", "plotly==6.3.1", "torch==2.6.0"]
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+"solar_flare_jepa.dashboard" = ["*.json"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]

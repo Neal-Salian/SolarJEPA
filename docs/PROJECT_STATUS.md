@@ -1,5 +1,22 @@
 # SolarJEPA project status — canonical tracker
 
+## Stable Baseline v0.1 integration — 2026-10-18 (Asia/Kolkata)
+
+`codex/stable-baseline-v0.1` is the controlled integration branch from verified
+`main` at `1a4991da4dda9676caeb1d7e35a03408528c3188`. Its scope is the existing
+historical GOES/V1 pipeline and complete five-page Streamlit dashboard, composed
+with the existing time-series diagnostics. No scientific model, normalization,
+saved output or checkpoint is replaced. The [release report](STABLE_BASELINE_V0_1_RELEASE.md)
+records fresh verification, limitations, review results and remaining merge gates;
+the [audit](STABLE_BASELINE_V0_1_AUDIT.md) records component selection and exclusions.
+Use the [baseline guide](STABLE_BASELINE_V0_1_RUN.md) for this branch.
+
+V2 pilot, V3 research, unvalidated live inference and SoLEXS physical forecasting
+remain outside the release. Main integration and any push to main require
+separate explicit authorization. The dated checkpoint below is preserved history.
+
+## Historical checkpoint
+
 Current checkpoint: **2026-10-07** (Asia/Kolkata). Git refs verify D.1 merged
 on synchronized main `1a4991da4dda9676caeb1d7e35a03408528c3188` (PR #4).
 `research/experiment-evaluation-foundation` was created and published from that
