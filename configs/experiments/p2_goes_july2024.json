@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "dataset": {
+    "kind": "goes_historical",
+    "manifest": "data/manifests/goes_p2_july2024.json"
+  },
+  "forecast": {
+    "cadence_seconds": 60,
+    "context_steps": 120,
+    "horizon_steps": 30,
+    "stride_steps": 30,
+    "feature_names": [
+      "xrsa_flux",
+      "xrsb_flux"
+    ],
+    "target_names": [
+      "xrsa_flux",
+      "xrsb_flux"
+    ],
+    "feature_units": [
+      "W/m2",
+      "W/m2"
+    ],
+    "target_units": [
+      "W/m2",
+      "W/m2"
+    ],
+    "availability_mode": "retrospective_bin_end",
+    "eligibility_policy": "complete",
+    "transform": "log10",
+    "feature_reference": [
+      1.0,
+      1.0
+    ],
+    "target_reference": [
+      1.0,
+      1.0
+    ],
+    "target_minimum": [
+      0.0,
+      0.0
+    ]
+  },
+  "splits": [
+    {
+      "name": "train",
+      "start_utc": "2024-07-01T00:00:00Z",
+      "end_utc": "2024-07-22T00:00:00Z"
+    },
+    {
+      "name": "validation",
+      "start_utc": "2024-07-22T00:00:00Z",
+      "end_utc": "2024-07-27T00:00:00Z"
+    },
+    {
+      "name": "test",
+      "start_utc": "2024-07-27T00:00:00Z",
+      "end_utc": "2024-08-01T00:00:00Z"
+    }
+  ],
+  "baselines": [
+    {
+      "name": "persistence",
+      "parameters": {}
+    },
+    {
+      "name": "training_mean",
+      "parameters": {}
+    },
+    {
+      "name": "trailing_mean",
+      "parameters": {
+        "lookback_steps": 30
+      }
+    },
+    {
+      "name": "drift",
+      "parameters": {
+        "lookback_steps": 30
+      }
+    },
+    {
+      "name": "ar1",
+      "parameters": {}
+    },
+    {
+      "name": "direct_ridge",
+      "parameters": {
+        "lag_steps": 10,
+        "alpha": 0.1
+      }
+    }
+  ],
+  "metrics": {
+    "lead_weights": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "target_weights": [
+      1,
+      1
+    ]
+  },
+  "seeds": [
+    17
+  ]
+}

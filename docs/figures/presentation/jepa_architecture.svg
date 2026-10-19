@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="851.4pt" height="457.92pt" viewBox="0 0 851.4 457.92" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 457.92
+L 851.4 457.92
+L 851.4 0
+L 0 0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 18.36 169.0848
+L 185.76 169.0848
+Q 192.456 169.0848 192.456 162.432
+L 192.456 84.816
+Q 192.456 78.1632 185.76 78.1632
+L 18.36 78.1632
+Q 11.664 78.1632 11.664 84.816
+L 11.664 162.432
+Q 11.664 169.0848 18.36 169.0848
+z
+" clip-path="url(#p98cece31fe)" style="fill: #edf5f9; stroke: #aec1cc; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 235.98 169.0848
+L 408.96 169.0848
+Q 415.656 169.0848 415.656 162.432
+L 415.656 84.816
+Q 415.656 78.1632 408.96 78.1632
+L 235.98 78.1632
+Q 229.284 78.1632 229.284 84.816
+L 229.284 162.432
+Q 229.284 169.0848 235.98 169.0848
+z
+" clip-path="url(#p98cece31fe)" style="fill: #e7f2ee; stroke: #aec1cc; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 470.34 169.0848
+L 621 169.0848
+Q 627.696 169.0848 627.696 162.432
+L 627.696 84.816
+Q 627.696 78.1632 621 78.1632
+L 470.34 78.1632
+Q 463.644 78.1632 463.644 84.816
+L 463.644 162.432
+Q 463.644 169.0848 470.34 169.0848
+z
+" clip-path="url(#p98cece31fe)" style="fill: #f3edf8; stroke: #aec1cc; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 676.8 169.0848
+L 821.88 169.0848
+Q 828.576 169.0848 828.576 162.432
+L 828.576 84.816
+Q 828.576 78.1632 821.88 78.1632
+L 676.8 78.1632
+Q 670.104 78.1632 670.104 84.816
+L 670.104 162.432
+Q 670.104 169.0848 676.8 169.0848
+z
+" clip-path="url(#p98cece31fe)" style="fill: #fcf0e5; stroke: #aec1cc; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 18.36 296.5968
+L 157.86 296.5968
+Q 164.556 296.5968 164.556 289.944
+L 164.556 215.1
+Q 164.556 208.4472 157.86 208.4472
+L 18.36 208.4472
+Q 11.664 208.4472 11.664 215.1
+L 11.664 289.944
+Q 11.664 296.5968 18.36 296.5968
+z
+" clip-path="url(#p98cece31fe)" style="fill: #edf5f9; stroke: #aec1cc; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 191.34 296.5968
+L 330.84 296.5968
+Q 337.536 296.5968 337.536 289.944
+L 337.536 215.1
+Q 337.536 208.4472 330.84 208.4472
+L 191.34 208.4472
+Q 184.644 208.4472 184.644 215.1
+L 184.644 289.944
+Q 184.644 296.5968 191.34 296.5968
+z
+" clip-path="url(#p98cece31fe)" style="fill: #e7f2ee; stroke: #aec1cc; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 364.32 296.5968
+L 503.82 296.5968
+Q 510.516 296.5968 510.516 289.944
+L 510.516 215.1
+Q 510.516 208.4472 503.82 208.4472
+L 364.32 208.4472
+Q 357.624 208.4472 357.624 215.1
+L 357.624 289.944
+Q 357.624 296.5968 364.32 296.5968
+z
+" clip-path="url(#p98cece31fe)" style="fill: #e7f2ee; stroke: #aec1cc; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 537.3 296.5968
+L 665.64 296.5968
+Q 672.336 296.5968 672.336 289.944
+L 672.336 215.1
+Q 672.336 208.4472 665.64 208.4472
+L 537.3 208.4472
+Q 530.604 208.4472 530.604 215.1
+L 530.604 289.944
+Q 530.604 296.5968 537.3 296.5968
+z
+" clip-path="url(#p98cece31fe)" style="fill: #fcf0e5; stroke: #aec1cc; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 699.12 296.5968
+L 821.88 296.5968
+Q 828.576 296.5968 828.576 289.944
+L 828.576 215.1
+Q 828.576 208.4472 821.88 208.4472
+L 699.12 208.4472
+Q 692.424 208.4472 692.424 215.1
+L 692.424 289.944
+Q 692.424 296.5968 699.12 296.5968
+z
+" clip-path="url(#p98cece31fe)" style="fill: #edf5f9; stroke: #aec1cc; stroke-linejoin: miter"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 319.68 169.0848
+L 319.68 180.1728
+L 749.34 180.1728
+" clip-path="url(#p98cece31fe)" style="fill: none; stroke: #152b3c; stroke-width: 1.4; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 96.48 78.1632
+L 96.48 68.184
+L 545.67 68.184
+L 545.67 78.1632
+" clip-path="url(#p98cece31fe)" style="fill: none; stroke: #536879; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_3">
+    <path d="M 261.09 297.1512
+L 261.09 314.892
+L 601.47 314.892
+L 601.47 297.1512
+" clip-path="url(#p98cece31fe)" style="fill: none; stroke: #536879; stroke-linecap: square"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 19px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #152b3c" x="15.57" y="32.148" transform="rotate(-0 15.57 32.148)">Temporal JEPA in V1: learn representations, then forecast quantiles</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #536879" x="15.57" y="57.096" transform="rotate(-0 15.57 57.096)">PRETRAINING · training partition only</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; fill: #152b3c" transform="translate(42.137109 105.228804)">Training window</text>
+    <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; fill: #152b3c" transform="translate(56.589453 120.832358)">150 minutes</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #152b3c" transform="translate(23.525156 134.627388)">120 context + 30 future min</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #152b3c" transform="translate(15.442734 147.830395)">5-min patches; values + masks</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; fill: #152b3c" transform="translate(261.375078 105.228804)">Student encoder</text>
+    <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; fill: #152b3c" transform="translate(280.981719 120.832358)">+ predictor</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #152b3c" transform="translate(252.264219 134.627388)">Hide 4 context + 6 future</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #152b3c" transform="translate(247.192187 147.830395)">Predict hidden embeddings</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #152b3c" x="545.67" y="113.030581" transform="rotate(-0 545.67 113.030581)">EMA target encoder</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #152b3c" transform="translate(476.253125 134.627817)">All 150 min; no gradients</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #152b3c" transform="translate(508.088672 147.829966)">EMA .996 → 1</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #152b3c" x="749.34" y="113.030581" transform="rotate(-0 749.34 113.030581)">Latent training loss</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #152b3c" transform="translate(689.370234 134.627388)">Smooth-L1 latent loss</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #152b3c" transform="translate(692.915156 147.830395)">Hidden patches only</text>
+   </g>
+   <g id="patch_11">
+    <path d="M 194.460018 123.624
+Q 210.033469 123.624 223.818064 123.624
+" style="fill: none; stroke: #152b3c; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 219.018064 121.224
+L 223.818064 123.624
+L 219.018064 126.024
+" style="fill: none; stroke: #152b3c; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 749.34 178.172304
+Q 749.34 174.629154 749.34 172.874858
+" style="fill: none; stroke: #152b3c; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 746.94 177.674858
+L 749.34 172.874858
+L 751.74 177.674858
+" style="fill: none; stroke: #152b3c; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 629.699882 106.992
+Q 648.065012 106.992 664.641287 106.992
+" style="fill: none; stroke: #152b3c; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 659.841287 104.592
+L 664.641287 106.992
+L 659.841287 109.392
+" style="fill: none; stroke: #152b3c; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 419.332588 115.308
+Q 439.650678 115.308 458.515325 115.308
+" style="fill: none; stroke-dasharray: 4.81,2.08; stroke-dashoffset: 0; stroke: #536879; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 453.715325 112.908
+L 458.515325 115.308
+L 453.715325 117.708
+" style="fill: none; stroke-dasharray: 4.81,2.08; stroke-dashoffset: 0; stroke: #536879; stroke-width: 1.3; stroke-linecap: round"/>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #152b3c" x="439.65" y="102.5568" transform="rotate(-0 439.65 102.5568)">EMA</text>
+   </g>
+   <g id="text_12">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #536879" x="15.57" y="198.468" transform="rotate(-0 15.57 198.468)">DOWNSTREAM FORECASTING · observed context only at inference</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #152b3c" x="88.11" y="242.427541" transform="rotate(-0 88.11 242.427541)">Observed context</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #152b3c" transform="translate(15.620859 262.998708)">120 minutes × 2 channels</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #152b3c" transform="translate(20.282109 276.201715)">Train-normalized log flux</text>
+   </g>
+   <g id="text_15">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #152b3c" x="261.09" y="242.427541" transform="rotate(-0 261.09 242.427541)">Context encoder</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #152b3c" transform="translate(201.415859 262.998708)">24 patches · width 32</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #152b3c" transform="translate(212.090156 276.201715)">3 layers · 4 heads</text>
+   </g>
+   <g id="text_17">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #152b3c" x="434.07" y="242.427541" transform="rotate(-0 434.07 242.427541)">Latent predictor</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #152b3c" transform="translate(377.408828 262.998708)">2 Transformer layers</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #152b3c" transform="translate(373.561406 276.201715)">6 future mask queries</text>
+   </g>
+   <g id="text_19">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #152b3c" x="601.47" y="242.427541" transform="rotate(-0 601.47 242.427541)">Quantile head</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #152b3c" transform="translate(539.313125 262.998708)">Mean context + future</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #152b3c" transform="translate(555.088672 276.201715)">128 hidden units</text>
+   </g>
+   <g id="text_21">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #152b3c" x="760.5" y="242.427541" transform="rotate(-0 760.5 242.427541)">Direct forecasts</text>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #152b3c" transform="translate(703.401406 262.998708)">30 min × 2 channels</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #152b3c" transform="translate(706.788203 276.201715)">5 ordered quantiles</text>
+   </g>
+   <g id="patch_15">
+    <path d="M 166.556544 252.7992
+Q 173.763478 252.7992 179.181557 252.7992
+" style="fill: none; stroke: #152b3c; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 174.381557 250.3992
+L 179.181557 252.7992
+L 174.381557 255.1992
+" style="fill: none; stroke: #152b3c; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 339.536544 252.7992
+Q 346.743478 252.7992 352.161557 252.7992
+" style="fill: none; stroke: #152b3c; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 347.361557 250.3992
+L 352.161557 252.7992
+L 347.361557 255.1992
+" style="fill: none; stroke: #152b3c; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_17">
+    <path d="M 512.516544 252.7992
+Q 519.723478 252.7992 525.141557 252.7992
+" style="fill: none; stroke: #152b3c; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 520.341557 250.3992
+L 525.141557 252.7992
+L 520.341557 255.1992
+" style="fill: none; stroke: #152b3c; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_18">
+    <path d="M 674.336544 252.7992
+Q 681.543478 252.7992 686.961557 252.7992
+" style="fill: none; stroke: #152b3c; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 682.161557 250.3992
+L 686.961557 252.7992
+L 682.161557 255.1992
+" style="fill: none; stroke: #152b3c; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="text_23">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #152b3c" x="431.28" y="325.98" transform="rotate(-0 431.28 325.98)">Head also receives the mean observed-context embedding</text>
+   </g>
+   <g id="text_24">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #1976a3" x="23.94" y="363.1248" transform="rotate(-0 23.94 363.1248)">Supervised control: same architecture; skip pretraining</text>
+   </g>
+   <g id="text_25">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #8362a9" x="23.94" y="388.6272" transform="rotate(-0 23.94 388.6272)">Frozen JEPA: freeze encoder + predictor; train head only</text>
+   </g>
+   <g id="text_26">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #258778" x="23.94" y="414.1296" transform="rotate(-0 23.94 414.1296)">Fine-tuned JEPA: train encoder + predictor + head with pinball loss</text>
+   </g>
+   <g id="text_27">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #152b3c" transform="translate(487.077891 355.013984)">Quantiles: .05 / .25 / .50 / .75 / .95</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #152b3c" transform="translate(505.255391 368.216992)">Median is the point forecast</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #152b3c" transform="translate(497.743594 381.42)">Teacher is unused at inference</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p98cece31fe">
+   <rect x="7.2" y="7.2" width="837" height="443.52"/>
+  </clipPath>
+ </defs>
+</svg>

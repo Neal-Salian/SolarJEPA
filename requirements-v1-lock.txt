@@ -1,0 +1,6 @@
+# v1 comparison environment: CPython 3.13.11, Windows 11 x86_64, CPU; 2026-10-09.
+-r requirements-training-lock.txt
+statsmodels==0.14.5
+arch==7.2.0
+scipy==1.18.1
+patsy==1.0.3
