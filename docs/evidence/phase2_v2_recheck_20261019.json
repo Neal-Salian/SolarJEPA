@@ -1,0 +1,490 @@
+{
+  "branch": "codex/v2-experimental-validation-readiness",
+  "configuration_fingerprint": "a7ce71194dac05c7ac14e5a5fc09f478b7b6d88ad0744a97bc7c3c7af02a641b",
+  "date_client": "2026-10-19",
+  "design_fingerprint": "ec104daac15f45fe1c0cee9de44b72e2ed67e2bc42de1bc69edb99ffbec55624",
+  "independent_reviews": {
+    "scientific": {
+      "fresh_native_record_consistency_checks": 14,
+      "new_must_fix_findings": [],
+      "raw_decode_repeated": false,
+      "verdict": "PASS_FOR_PREPARATION;G3_G4_BLOCKED"
+    },
+    "statistical": {
+      "checkpoint_hashes_rechecked": 9,
+      "new_must_fix_findings": [],
+      "protocol_pins_and_seed_derivation_recomputed": true,
+      "pure_synthetic_checks_passed": 7,
+      "torch_imported": false,
+      "verdict": "NO_CONFIRMED_BLOCKING_STATISTICAL_DEFECT_WITHIN_RATIFIED_SCOPE"
+    },
+    "technical": {
+      "new_must_fix_findings": [],
+      "pending_approval_refused": true,
+      "procedural_limit": "Exact18field schema has no structured window/expiry; owner must activate an immediate window and resources/bindings must be rechecked before launch.",
+      "publication_review": "PASS after scoped docs correction; all15 verification artifact pins and both protocol pins rechecked; no remaining issue.",
+      "report_correction_resolved": "Label frozen design-time resource annotations as historical; separately record observed implemented storage gate and no-resume controls. No protocol or executable code changed.",
+      "runtime_independently_matched": true,
+      "verdict": "CONDITIONAL;G3_G4_BLOCKED"
+    }
+  },
+  "inspected_branches": {
+    "refs/heads/codex/stable-baseline-v0.1": "238f7f71286a7985d45b28e14379587744b24b37",
+    "refs/heads/codex/v2-experimental-validation-readiness": "8e9ce06407d5fab50ca5766fc061b45a3fb277a8",
+    "refs/heads/feat/v2-m0-m1-validation-foundation": "fd7203bf9a2e1e3dd78d9750a948b823ab100d36",
+    "refs/heads/feat/v2-m5-pilot-readiness": "60718686f016485cf7efadef5772b1d5813d1a43",
+    "refs/heads/feat/v2-model-evaluation-integration": "2e3f87111ab7c3a881064aaad9dbd6d6298c69cd",
+    "refs/heads/feat/v2-training-protocol-feasibility": "ac3428f910b36b7f10cc0fbb0740ce6de62df5a7",
+    "refs/heads/main": "94a99cb60a6729c7358a3d8e553d154330d95601",
+    "refs/heads/research/v2-independent-validation": "90571dfe144434bbbd681c410dcdf2c389eab409",
+    "refs/heads/research/v2-m2-statistical-validation": "94cae59398e52a65074ec66c73ad94bd47ca8867",
+    "refs/heads/research/v2-m3-inference-remediation": "5e88f3a7109296c9475378b77be0257a4f9363ab"
+  },
+  "interfaces": {
+    "explicit_lock_requirements_matched": 42,
+    "help_exit": 0,
+    "installed_modules_matched": 64,
+    "metadata_exit": 0,
+    "missing_approval_exit": 2,
+    "ordinary_import_exit": 0,
+    "pending_approval_exit": 2,
+    "repeated_outside_checkout_runtime_byte_identical": true,
+    "strict_netcdf_import_exit": 1,
+    "torch_and_science_access_forbidden": true,
+    "warning": "numpy.ndarray size changed, may indicate binary incompatibility. Expected 16 from C header, got 96 from PyObject"
+  },
+  "kind": "solarjepa_v2_controlled_validation_recheck",
+  "native": {
+    "all_native_identity_checks_passed": true,
+    "coverage": {
+      "duplicate_timestamps": 0,
+      "grid_rows": 132480,
+      "missing_bins": 0,
+      "observed_end_utc": "2024-08-01T00:00:00+00:00",
+      "observed_start_utc": "2024-05-01T00:00:00+00:00"
+    },
+    "data_identity": {
+      "dataset_fingerprint": "080d6128a398259e2112ce812b13d599b2131f9992bccced9720fe215e05cb72",
+      "forecast_fingerprint": "094df46d625380c4c812bb26c9320cff10e40a2de185cfcebfa5dfff04674d94",
+      "normalization_fingerprint": "848623009ce048a14e32c50b7c70d9c9728cdd77391f10115ec1c8fd46d039a9",
+      "split_fingerprint": "69fac8443c0740b7504acbca31720ec5c52cd39a678999e0024debf6344987a4",
+      "split_fingerprints": {
+        "train": "e79a5074c3323f771a8cc40c3dde7a1c8f61747f5ed90f827c450fbb9b6f0c9d",
+        "validation": "707588906ec567b711d60f53fcd7ec81934755a3cb3df24d9df6837e67a68677"
+      },
+      "train_windows": {
+        "cap": 20000,
+        "eligible": 108199,
+        "fingerprint": "55d8eb706cb39b89c8ef3c778890dd47612e5a8c5457429a9bf3a19e683d2fe2",
+        "policy": "complete_consecutive_raw_training_rows",
+        "stride": 1,
+        "subsample": "evenly_spaced_chronological",
+        "used": 20000
+      },
+      "training_fingerprint": "8e5f200f701c73d37191009d66246cd3bd50b5c3da7bb290d4fc28612fff38fb",
+      "validation_content_fingerprint": "bd0fbf759460b2392b0812ff825b215f3e020f9271cdfe20881cf5fa4e5c0870"
+    },
+    "exact_scientific_paths_audited": true,
+    "independent_checks": {
+      "support": {
+        "train": {
+          "complete_masks": true,
+          "context_and_targets_inside_partition": true,
+          "excluded": 327,
+          "retained": 3609
+        },
+        "validation": {
+          "complete_masks": true,
+          "context_and_targets_inside_partition": true,
+          "excluded": 68,
+          "retained": 412
+        }
+      },
+      "unique_raw_training_normalization_matches": true
+    },
+    "measurement": {
+      "elapsed_seconds": 15.457085624999308,
+      "exit_code": 0,
+      "poll_seconds": 0.05,
+      "sampled_group_peak_rss_bytes": 452493312,
+      "samples": 222,
+      "scope": "native preparation only; no fitting or pilot",
+      "torch_import_blocked": true
+    },
+    "native_bytes": 27280082,
+    "normalization": {
+      "feature_counts": [
+        113926,
+        116125
+      ],
+      "feature_mean": [
+        -6.975172762067082,
+        -5.475295794509493
+      ],
+      "feature_scale": [
+        0.5742480619158656,
+        0.34159742190236464
+      ],
+      "fitting_scope": "UNIQUE_RAW_TRAINING_PARTITION",
+      "raw_support_fingerprint": "c64ecca1b7a1ee6965f8a337a0ea5fe04a1f68ca05d7c421823b0d4bf6145d64",
+      "schema_version": 1,
+      "spec": {
+        "availability_mode": "retrospective_bin_end",
+        "cadence_seconds": 60,
+        "context_steps": 120,
+        "eligibility_policy": "complete",
+        "feature_lookback_steps": 0,
+        "feature_names": [
+          "xrsa_flux",
+          "xrsb_flux"
+        ],
+        "feature_reference": [
+          1.0,
+          1.0
+        ],
+        "feature_units": [
+          "W/m2",
+          "W/m2"
+        ],
+        "horizon_steps": 30,
+        "label_maturity_steps": 0,
+        "stride_steps": 30,
+        "target_minimum": [
+          0.0,
+          0.0
+        ],
+        "target_names": [
+          "xrsa_flux",
+          "xrsb_flux"
+        ],
+        "target_reference": [
+          1.0,
+          1.0
+        ],
+        "target_units": [
+          "W/m2",
+          "W/m2"
+        ],
+        "transform": "log10"
+      },
+      "spec_fingerprint": "094df46d625380c4c812bb26c9320cff10e40a2de185cfcebfa5dfff04674d94",
+      "target_counts": [
+        113926,
+        116125
+      ],
+      "target_mean": [
+        -6.975172762067082,
+        -5.475295794509493
+      ],
+      "target_scale": [
+        0.5742480619158656,
+        0.34159742190236464
+      ]
+    },
+    "source_count": 92,
+    "torch_import_blocked": true
+  },
+  "new_external_handoff": "/Users/nealsalian/Desktop/SolarJEPA/results/v2-g4-mba-m2-20261019/",
+  "observed_controls": {
+    "automatic_resume_permitted": false,
+    "cpu_float32": true,
+    "max_retries": 0,
+    "max_sampled_worker_plus_descendant_rss_bytes": 2147483648,
+    "minimum_free_output_bytes": 1073741824,
+    "storage_checked_before_launch_and_each_attempt": true,
+    "storage_gate_implemented": true,
+    "threads": 4,
+    "total_wall_includes_preparation_and_finalization": true,
+    "total_wall_seconds": 7200
+  },
+  "pilot_executed": false,
+  "preservation": {
+    "all_inspected_refs_unchanged_before_publication": 72,
+    "checkpoint_hashes_unchanged": 9,
+    "other_worktree_states_unchanged": 15,
+    "protocol_files": [
+      {
+        "bytes": 76988,
+        "path": "/Users/nealsalian/.codex/worktrees/v2-experimental-validation-readiness/SolarJEPA/docs/protocols/phase2_v2_development_v1.json",
+        "sha256": "d9276409c7428bfc3c987fcdbc6ba9348291a8c1321f69eb62037a5aca487c83"
+      },
+      {
+        "bytes": 23039,
+        "path": "/Users/nealsalian/.codex/worktrees/v2-experimental-validation-readiness/SolarJEPA/docs/protocols/PHASE2_V2_DEVELOPMENT_PROTOCOL_V1.md",
+        "sha256": "ab10451b08dd711b7ceb70718f0438f9d7039d1fa1114c2f0c77d8bbd74527e7"
+      }
+    ],
+    "raw_files_unchanged": 92,
+    "stable_reference_artifacts_matched": 12,
+    "storage_policy": {
+      "actual_ignore_log": "results/phase2_v2_readiness_20261019/ignore_actual_paths.log",
+      "actual_protected_paths_ignored": 104,
+      "all_ref_history_prohibited_paths": [],
+      "current_results_ignored": true,
+      "index_prohibited_paths": []
+    }
+  },
+  "protocol": {
+    "alternate_models": 4,
+    "both_ratified_files_preserved": true,
+    "decisions": 17,
+    "jobs": 20,
+    "nested_linear_candidates": 14,
+    "primary_models": 14,
+    "ratified_resource_bookkeeping_interpretation": "Frozen design-time bookkeeping, not current observed implementation state: storage_gate_implemented=false and total_includes resume are historical. Ratified bytes are unchanged.",
+    "ratified_resource_bookkeeping_verbatim": {
+      "feasibility_measured_for_this_protocol": false,
+      "free_space_check_before_each_job": true,
+      "host_reference_observed": {
+        "architecture": "arm64",
+        "model": "Mac14,2",
+        "physical_memory_bytes": 8589934592
+      },
+      "host_reserved": false,
+      "max_retries": 0,
+      "max_rss_bytes": 2147483648,
+      "minimum_free_output_bytes": 1073741824,
+      "per_job_timeout_seconds": {
+        "neural_downstream": 600,
+        "quantile_linear": 600,
+        "ssl_phase": 300,
+        "tcn": 1800
+      },
+      "poll_interval_seconds": 0.05,
+      "processes": "serial fresh subprocess session per attempt",
+      "rss_semantics": "sampled live worker+descendant RSS,not hard OS allocation cap",
+      "storage_gate_implemented": false,
+      "sum_first_attempt_timeout_seconds": 13800,
+      "sum_is_not_total_budget_or_completion_guarantee": true,
+      "thread_environment": [
+        "OMP_NUM_THREADS",
+        "OPENBLAS_NUM_THREADS",
+        "MKL_NUM_THREADS",
+        "NUMEXPR_NUM_THREADS",
+        "VECLIB_MAXIMUM_THREADS",
+        "BLIS_NUM_THREADS"
+      ],
+      "threads": 4,
+      "total_includes": "preparation,monitoring,all attempts,validation,sealing,resume active time and conservatively charged crash downtime",
+      "total_wall_seconds": 7200
+    },
+    "seeds": [
+      1261866429,
+      1291916211
+    ],
+    "selected_models": 18,
+    "shared_ssl_jobs": 2,
+    "source_pins_matched": 24
+  },
+  "protocol_modified": false,
+  "real_data_model_constructed": false,
+  "real_data_optimizer_steps": 0,
+  "real_data_validation_predictions": false,
+  "remaining_gates": [
+    {
+      "action": "Owner activates exact host/source/data/output immediate window and accepts feasibility/resource risks.",
+      "end_utc": null,
+      "id": "G3",
+      "reservation_id": "SolarJEPA-G4-MBA-M2-20261017-01",
+      "start_utc": null,
+      "status": "PREPARED_PENDING_OWNER_ACTIVATION"
+    },
+    {
+      "action": "Separate explicit approval for one unchanged20job pilot against final published runtime/source/design/configuration/data identity; test release false.",
+      "id": "G4",
+      "status": "NOT_AUTHORIZED"
+    }
+  ],
+  "remaining_limitations": [
+    "UNKNOWN actual fitting/optimizer/reload/prediction/report/output cost and complete-pilot feasibility",
+    "Known reproducible NetCDF4 warning; ordinary decode success does not establish binary correctness",
+    "RSS sampling is not hard OS enforcement; threads are library settings; wall/termination overhead not hard realtime",
+    "SIGKILL/host loss/ambiguous ownership require explicit investigation or stop-only recovery; no resume",
+    "Only exposed-development descriptive post-selection comparisons; two seeds and zero embargo do not establish independence",
+    "Operational delivery/upstream causality/unrecorded exposure UNKNOWN; August/January not certified untouched; no SoLEXS physical/model readiness"
+  ],
+  "resources_snapshot": {
+    "disk_usage": {
+      "free": 3799490560,
+      "total": 245107195904,
+      "used": 241307705344
+    },
+    "hardware": "Mac14,2\n8589934592\n8\nApple M2\n",
+    "host": {
+      "hostname": "Neals-MacBook-Air.local",
+      "logical_cpus": 8,
+      "machine": "arm64",
+      "physical_memory_bytes": 8589934592,
+      "platform": "macOS-26.3-arm64-arm-64bit-Mach-O",
+      "processor": "arm"
+    },
+    "host_fingerprint": "58c5a228d2cc695f0bba3ae9917b61c041556a10a44261ec6a6d4b465dbe77dd",
+    "memory_pressure": "The system has 8589934592 (524288 pages with a page size of 16384).\nSystem-wide memory free percentage: 38%\n",
+    "observed_utc": "2026-10-19T07:16:18.940672+00:00",
+    "output_absent": true,
+    "output_root": "/Users/nealsalian/.codex/worktrees/v2-experimental-validation-readiness/SolarJEPA/results/v2-development-v1-first-pilot",
+    "parent": "/Users/nealsalian/.codex/worktrees/v2-experimental-validation-readiness/SolarJEPA/results",
+    "physical_available_allocation_guarantee": false,
+    "swapusage": "vm.swapusage: total = 1024.00M  used = 548.81M  free = 475.19M  (encrypted)\n",
+    "vm_stat": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                4015.\nPages active:                             91856.\nPages inactive:                           87429.\nPages speculative:                         3865.\nPages throttled:                              0.\nPages wired down:                        102271.\nPages purgeable:                             34.\n\"Translation faults\":                 399590890.\nPages copy-on-write:                   14707826.\nPages zero filled:                    190395364.\nPages reactivated:                     71245703.\nPages purged:                          18102504.\nFile-backed pages:                        65774.\nAnonymous pages:                         117376.\nPages stored in compressor:              501712.\nPages occupied by compressor:            198039.\nDecompressions:                        54710469.\nCompressions:                          64266428.\nPageins:                               23902441.\nPageouts:                                596903.\nSwapins:                                 203521.\nSwapouts:                                463056.\n"
+  },
+  "reviewed_starting_runtime_fingerprint": "08e6f763ff8aa88d96a18ffcd076e996646b6546fcb5d69964d566b803c57ae4",
+  "runtime_publication_policy": "Refresh outside Git after final clean published commit; starting runtime becomes historical when this report is committed.",
+  "schema_version": 1,
+  "scope": "NONFITTING_REVALIDATION_ONLY",
+  "source_fingerprint": "fbb17789683545fae55b8aa5c19085bd4dadf9cdb0d72922bdad37e8b6c567ee",
+  "source_modified": false,
+  "stable_reference": {
+    "artifacts": {
+      "results/experiments/v1-full-20261009/jepa_finetune_seed17.pt": {
+        "bytes": 750082,
+        "sha256": "3d18e1067b7eeaf2b64ea572ff48831559f5171b82e765bf56841f2903fdaf48"
+      },
+      "results/experiments/v1-full-20261009/jepa_finetune_seed29.pt": {
+        "bytes": 751362,
+        "sha256": "e1b97d4cc8587fd9fa9ff02da2cda2165e2bf5b8febb825b4b820af4ddf1540f"
+      },
+      "results/experiments/v1-full-20261009/jepa_finetune_seed43.pt": {
+        "bytes": 752258,
+        "sha256": "6e36849378836f83847ae275561c65460fe4eb129eb1703302bbead7b342e4d5"
+      },
+      "results/experiments/v1-full-20261009/jepa_frozen_seed17.pt": {
+        "bytes": 752258,
+        "sha256": "84772e256b7796978ca53154e4e5088b5b38e98f78a903b5cc33e51e76272c54"
+      },
+      "results/experiments/v1-full-20261009/jepa_frozen_seed29.pt": {
+        "bytes": 749442,
+        "sha256": "1da1e6f474e7cf0e96522e3e391f7f1dc2998974c436e143b2920b488159fe33"
+      },
+      "results/experiments/v1-full-20261009/jepa_frozen_seed43.pt": {
+        "bytes": 752258,
+        "sha256": "98ba8d6379100b2687b075754c15551d9960c8de175957bb6891fdd01ceaea4a"
+      },
+      "results/experiments/v1-full-20261009/per_origin.json": {
+        "bytes": 1594482,
+        "sha256": "133025c6921bcd575b727287b504550ff15e6e1d3ade8bcc39a5ff432056aa7f"
+      },
+      "results/experiments/v1-full-20261009/summary.json": {
+        "bytes": 15674689,
+        "sha256": "80eae588a706e4b4d84df0daa7e03dcfc54c53ee408d2d6aed30e4bcb9988daf"
+      },
+      "results/experiments/v1-full-20261009/supervised_seed17.pt": {
+        "bytes": 748674,
+        "sha256": "973f784e2adecd5183bd11bd3f6d47f49c5a8786e603cac82c15e2854858273b"
+      },
+      "results/experiments/v1-full-20261009/supervised_seed29.pt": {
+        "bytes": 747970,
+        "sha256": "0e77f5fd68a6972ca7f3335733fc873b109527a90e8e7758ab644ad3584c2585"
+      },
+      "results/experiments/v1-full-20261009/supervised_seed43.pt": {
+        "bytes": 747714,
+        "sha256": "6ef24954846756544957363433c1fe000101154e6c9c814aaedd5c8bc3c3a550"
+      },
+      "results/experiments/v1-full-20261009/test_predictions.npz": {
+        "bytes": 64965489,
+        "sha256": "59bcd596fefd6b10edeec93a69d7172343d4ffb7dc120f98a5185c1e35a3da82"
+      }
+    },
+    "checkpoint_count": 9,
+    "no_checkpoint_loaded": true,
+    "no_prediction_archive_decoded": true,
+    "original_and_stable_copy_match": true,
+    "original_jepa_normalization_contract_windows_configs_and_locks_equal": true,
+    "peeled_commit": "94a99cb60a6729c7358a3d8e553d154330d95601",
+    "reference_tag": "v0.1.0",
+    "tag_object": "d648e3c3d2f4d7fed758c2bcfdf07c0ba0ff9c55",
+    "verified_equal_source_paths": [
+      "src/solar_flare_jepa/training/jepa.py",
+      "src/solar_flare_jepa/training/normalization.py",
+      "src/solar_flare_jepa/forecasting/contracts.py",
+      "src/solar_flare_jepa/forecasting/windows.py",
+      "configs/experiments/v1_goes_2024.json",
+      "configs/experiments/v1_models.json",
+      "requirements-lock.txt",
+      "requirements-training-lock.txt",
+      "requirements-v1-lock.txt"
+    ]
+  },
+  "starting_checkpoint": "8e9ce06407d5fab50ca5766fc061b45a3fb277a8",
+  "test_release": false,
+  "tests": {
+    "full_project_suite_run": false,
+    "pilot": {
+      "command": "OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4 VECLIB_MAXIMUM_THREADS=4 BLIS_NUM_THREADS=4 .venv/bin/python -m pytest -q tests/test_v2_pilot_protocol.py tests/test_v2_pilot_worker.py tests/test_v2_pilot_driver.py tests/test_v2_pilot_reporting.py tests/test_v2_pilot_guard_bridge.py tests/test_v2_resource_controls.py tests/test_goes_v2_development.py tests/test_v2_descriptive.py tests/test_v2_pilot_lifecycle.py tests/test_v2_pilot_lifecycle_safety.py",
+      "passed": 257,
+      "seconds": 117.71,
+      "warnings": 0
+    },
+    "reason": "Contains fitting/experiment tests outside this preparation scope",
+    "science_provenance": {
+      "command": "OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 MKL_NUM_THREADS=4 NUMEXPR_NUM_THREADS=4 VECLIB_MAXIMUM_THREADS=4 BLIS_NUM_THREADS=4 .venv/bin/python -m pytest -q tests/test_goes.py tests/test_goes_development_validation.py tests/test_forecasting_contract.py tests/test_forecasting_splits.py tests/test_forecasting_windows.py tests/test_independent_integrity.py tests/test_experiment_provenance.py tests/test_storage.py",
+      "passed": 176,
+      "seconds": 4.94,
+      "warnings": 1
+    }
+  },
+  "timezone": "Asia/Kolkata",
+  "verdict": "BLOCKED",
+  "verification_artifacts": {
+    "results/phase2_v2_readiness_20261019/after_checks.json": {
+      "bytes": 69480,
+      "sha256": "7543c9372d0211badbff5cf59459b9b8c6dff4ef865ee3bd57cab24afb84bf82"
+    },
+    "results/phase2_v2_readiness_20261019/before.json": {
+      "bytes": 69400,
+      "sha256": "4b9c84c88c17918546d6e63d90710bce8f9bf56d64e91f3c307c76fb4291c6bd"
+    },
+    "results/phase2_v2_readiness_20261019/ignore_actual_paths.log": {
+      "bytes": 16963,
+      "sha256": "0fb8e64037e1a6b20d9e11ec1613f61b9fe166bc4d193b0613eff0d28c0cb3d6"
+    },
+    "results/phase2_v2_readiness_20261019/interface_checks.json": {
+      "bytes": 2846,
+      "sha256": "718bd3c9ae2b5a215d181ed72de3485e89a7261e812f3c09563a08fc5d9ba9e8"
+    },
+    "results/phase2_v2_readiness_20261019/interface_checks.py": {
+      "bytes": 3064,
+      "sha256": "900b9aea43302cb3806cb5d4abd4959e207555f82856f9f12f9f38dcf38be540"
+    },
+    "results/phase2_v2_readiness_20261019/monitor_native.py": {
+      "bytes": 1634,
+      "sha256": "5da78b02507b8cd5a43d9cd75ce324297dea9c5f35c709d7a09d4e8870e93b7c"
+    },
+    "results/phase2_v2_readiness_20261019/native_check.py": {
+      "bytes": 1361,
+      "sha256": "99307f293a4345847320a8ce86d2e93fa72dbcce122ce08c0342354a40423102"
+    },
+    "results/phase2_v2_readiness_20261019/native_measurement.json": {
+      "bytes": 240,
+      "sha256": "70df7a6cc66dfaf48edde1bab436bde26e65404109f1359e3153e1c9a0fcf294"
+    },
+    "results/phase2_v2_readiness_20261019/native_preflight.json": {
+      "bytes": 117408,
+      "sha256": "95c3e585239d2e4e6e1a48bcae0c660e4f2c6eb2e1d42f38a5b5c0e2653a4971"
+    },
+    "results/phase2_v2_readiness_20261019/runtime_before.json": {
+      "bytes": 19397,
+      "sha256": "75bb3c88a8d0eba26b6b2e859c3fad3ebf784c0d4ea88b6e82b7afc114acc988"
+    },
+    "results/phase2_v2_readiness_20261019/snapshot.py": {
+      "bytes": 4509,
+      "sha256": "935a1677ae6197acd3e5bef35f7a2d08f48ebfdc51ed003308fda36d77eb0ca2"
+    },
+    "results/phase2_v2_readiness_20261019/stable_reference.json": {
+      "bytes": 2988,
+      "sha256": "385df569d0bd236ed14a10432b4ae3c7299e6efa1cdcfb7f7cfdc45ec8b37ac5"
+    },
+    "results/phase2_v2_readiness_20261019/storage_policy.json": {
+      "bytes": 240,
+      "sha256": "1f2635bd6a59b7431c5f82a700cbfd543918558f8d696112af94a8e8872fd357"
+    },
+    "results/phase2_v2_readiness_20261019/tests_pilot.log": {
+      "bytes": 352,
+      "sha256": "68c9f5d12e9844f68c1211d8ab3ae34d2cadacfb39f317d0191b4797b47b8bb8"
+    },
+    "results/phase2_v2_readiness_20261019/tests_science_provenance.log": {
+      "bytes": 662,
+      "sha256": "5ea373860e24bc7b62a6fd26c4b534976f0dca651d01b43f65df3394630a12d4"
+    }
+  }
+}
