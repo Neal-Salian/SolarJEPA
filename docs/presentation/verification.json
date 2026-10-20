@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "manifest_identities": 52,
+  "native_files": 123,
+  "stationarity_independent_statistics": 12,
+  "max_stationarity_absolute_discrepancy": 2.2815527245256817e-11,
+  "score_checks": 422,
+  "max_score_absolute_discrepancy": 0.0,
+  "native_context_target_alignment": true,
+  "executed_notebook_cells": 8,
+  "v1_audited_artifact_hashes_unchanged": true
+}

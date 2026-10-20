@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "note": "Fixed before observing any v1 result. ARIMA order is selected by validation log mean pinball; every volatility variant is tested. SARIMA(1,1,1)(1,0,0,60) is supported by the code but excluded from this run: train-period ACF of log differences shows no 60-min or 1-day periodicity, and a fit did not finish within 28 min on this CPU.",
+  "statistical": [
+    {
+      "name": "persistence_empirical",
+      "parameters": {},
+      "family": "persistence_empirical"
+    },
+    {
+      "name": "arima",
+      "parameters": {
+        "order": [
+          1,
+          1,
+          0
+        ]
+      },
+      "family": "arima",
+      "selection_group": "arima"
+    },
+    {
+      "name": "arima",
+      "parameters": {
+        "order": [
+          2,
+          1,
+          0
+        ]
+      },
+      "family": "arima",
+      "selection_group": "arima"
+    },
+    {
+      "name": "arima",
+      "parameters": {
+        "order": [
+          1,
+          1,
+          1
+        ]
+      },
+      "family": "arima",
+      "selection_group": "arima"
+    },
+    {
+      "name": "arima",
+      "parameters": {
+        "order": [
+          2,
+          1,
+          1
+        ]
+      },
+      "family": "arima",
+      "selection_group": "arima"
+    },
+    {
+      "name": "volatility",
+      "parameters": {
+        "vol": "constant",
+        "dist": "normal",
+        "simulations": 1000,
+        "sim_seed": 0
+      },
+      "family": "volatility"
+    },
+    {
+      "name": "volatility",
+      "parameters": {
+        "vol": "arch",
+        "dist": "normal",
+        "simulations": 1000,
+        "sim_seed": 0
+      },
+      "family": "volatility"
+    },
+    {
+      "name": "volatility",
+      "parameters": {
+        "vol": "garch",
+        "dist": "normal",
+        "simulations": 1000,
+        "sim_seed": 0
+      },
+      "family": "volatility"
+    },
+    {
+      "name": "volatility",
+      "parameters": {
+        "vol": "garch",
+        "dist": "t",
+        "simulations": 1000,
+        "sim_seed": 0
+      },
+      "family": "volatility"
+    },
+    {
+      "name": "volatility",
+      "parameters": {
+        "vol": "gjr",
+        "dist": "t",
+        "simulations": 1000,
+        "sim_seed": 0
+      },
+      "family": "volatility"
+    }
+  ],
+  "jepa": {
+    "variants": [
+      "jepa_finetune",
+      "jepa_frozen",
+      "supervised"
+    ],
+    "seeds": [
+      17,
+      29,
+      43
+    ],
+    "config": {
+      "patch_steps": 5,
+      "width": 32,
+      "depth": 3,
+      "heads": 4,
+      "predictor_depth": 2,
+      "mlp_ratio": 4,
+      "head_hidden": 128,
+      "dropout": 0.0,
+      "ema_start": 0.996,
+      "ema_end": 1.0,
+      "quantiles": [
+        0.05,
+        0.25,
+        0.5,
+        0.75,
+        0.95
+      ],
+      "pretrain_epochs": 8,
+      "finetune_epochs": 15,
+      "batch_size": 256,
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "gradient_clip": 1.0,
+      "patience": 3,
+      "max_train_windows": 20000,
+      "threads": 4,
+      "jepa_weight_during_finetune": 0.0,
+      "jepa_loss": "smooth_l1",
+      "context_block_mask": true,
+      "context_mask_patches": 4,
+      "monitor_windows": 2048
+    },
+    "quick_overrides": {
+      "pretrain_epochs": 1,
+      "finetune_epochs": 2,
+      "max_train_windows": 2048
+    }
+  }
+}

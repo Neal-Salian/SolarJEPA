@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "dataset": {"kind": "goes_reference", "manifest": "configs/data/noaa_sample.json", "prepared_config": "configs/data/noaa_eda.json", "sidecar": "data/processed/noaa_reference.metadata.json"},
+  "forecast": {
+    "cadence_seconds": 60, "context_steps": 360, "horizon_steps": 60, "stride_steps": 10,
+    "feature_names": ["xrsb_flux"], "target_names": ["xrsb_flux"],
+    "feature_units": ["W/m2"], "target_units": ["W/m2"],
+    "availability_mode": "retrospective_bin_end", "eligibility_policy": "complete",
+    "transform": "log10", "feature_reference": [1.0], "target_reference": [1.0], "target_minimum": [0.0]
+  },
+  "splits": [
+    {"name": "train", "start_utc": "2024-07-01T00:00:00Z", "end_utc": "2024-07-02T00:00:00Z"},
+    {"name": "validation", "start_utc": "2024-07-02T00:00:00Z", "end_utc": "2024-07-03T00:00:00Z"},
+    {"name": "test", "start_utc": "2024-07-03T00:00:00Z", "end_utc": "2024-07-04T00:00:00Z"}
+  ],
+  "baselines": [
+    {"name": "persistence", "parameters": {}},
+    {"name": "training_mean", "parameters": {}},
+    {"name": "trailing_mean", "parameters": {"lookback_steps": 30}},
+    {"name": "drift", "parameters": {"lookback_steps": 30}},
+    {"name": "ar1", "parameters": {}},
+    {"name": "direct_ridge", "parameters": {"lag_steps": 10, "alpha": 0.1}}
+  ],
+  "metrics": {"lead_weights": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1], "target_weights": [1]},
+  "seeds": [17, 29, 43]
+}
