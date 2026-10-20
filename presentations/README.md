@@ -1,12 +1,12 @@
 # SolarJEPA final time-series presentation
 
-The 20-slide, 16:9 deck uses a dark navy theme, orange/cyan channel colors,
+The 21-slide, 16:9 deck (20 original slides plus a V2 pilot research update, slide 21) uses a dark navy theme, orange/cyan channel colors,
 nine actual scientific figures, two actual Streamlit captures, seven editable
 tables, and explanatory speaker notes with pinned source references on every slide.
 
 - `SolarJEPA_Final_Time_Series_Presentation.pptx`: editable slide text/tables and
   embedded scientific figures. Open the Notes pane for explanations and sources.
-- `SolarJEPA_Final_Time_Series_Presentation.pdf`: a 20-page facsimile using the
+- `SolarJEPA_Final_Time_Series_Presentation.pdf`: **STALE 20-page facsimile that predates slide 21** (see "Slide 21" below); a 20-page facsimile using the
   inspected 2560×1440 slide images at 192 dpi. Text in this PDF is flattened.
   The PPTX remains the editable master.
 - `slide_evidence.json`: compact verified values, without scientific arrays.
@@ -125,3 +125,17 @@ Git safety: only this new presentation branch is committed and pushed. Existing
 branches, original untracked files, raw products and research worktrees remain
 preserved. No PR, merge, force-push, branch deletion or push to `main` is part of
 this task.
+
+## Slide 21: V2 pilot research update (20 October 2026)
+
+Slide 21 was added after the original build by `scripts/presentation/add_v2_update_slide.py`. It reads only
+`docs/evidence/phase2_v2_m4_pilot_results_20261019.json` (pilot evidence commit `76dc0fa`), asserts the values it
+shows, and relabels slides 1–20 as `NN / 21` (slides 1–20 are otherwise byte-identical, as are notes and media).
+It reports the completed 20/20-job V2 development pilot descriptively: fine-tuned JEPA did not beat the matched
+supervised controls, a frozen JEPA encoder beat a frozen random encoder, with two seeds and one previously used
+10-day validation window. It makes no significance or generalization claim.
+
+**Not verified:** after the final edit, slide 21 was checked by package validation, text/geometry checks and an
+earlier render of a first layout, but not by a final rendered image, because PowerPoint/Keynote automation timed out
+on the review host. The committed PDF is still the 20-page version. Open the PPTX, look at slide 21, and export a
+fresh PDF before presenting from the PDF. `build_deck.mjs` still generates only the original 20 slides.

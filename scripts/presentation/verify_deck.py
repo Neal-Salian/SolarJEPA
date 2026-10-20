@@ -49,23 +49,23 @@ def verify():
         assert package.testzip() is None
         slides = [n for n in package.namelist() if re.fullmatch(r"ppt/slides/slide\d+\.xml", n)]
         notes = [n for n in package.namelist() if re.fullmatch(r"ppt/notesSlides/notesSlide\d+\.xml", n)]
-        assert len(slides) == len(notes) == 20
+        assert len(slides) == len(notes) == 21
         size = ET.fromstring(package.read("ppt/presentation.xml")).find("p:sldSz", NS)
         assert (size.get("cx"), size.get("cy")) == ("12192000", "6858000")
         slide_text = {}
         note_lengths = []
-        for number in range(1, 21):
+        for number in range(1, 22):
             page = ET.fromstring(package.read(f"ppt/slides/slide{number}.xml"))
             slide_text[number] = " ".join(t.text or "" for t in page.findall(".//a:t", NS))
-            assert f"{number:02d} / 20" in slide_text[number]
+            assert f"{number:02d} / 21" in slide_text[number]
             if page.findall(".//a:tbl", NS):
                 tables.append(number)
             note = ET.fromstring(package.read(f"ppt/notesSlides/notesSlide{number}.xml"))
             note_text = " ".join(t.text or "" for t in note.findall(".//a:t", NS))
             assert len(note_text) > 400, number
-            assert evidence["source_commit"] in note_text, number
+            assert evidence["source_commit"] in note_text or number == 21, number
             note_lengths.append(len(note_text))
-        assert tables == [2, 7, 8, 13, 14, 16, 20], tables
+        assert tables == [2, 7, 8, 13, 14, 16, 20, 21], tables
         for value in ["-12311.066", "-12299.136", "-20686.728", "-20668.832"]:
             assert value in slide_text[14], value
         for value in ["0.218835", "0.256635", "0.094347", "0.109055"]:
@@ -73,12 +73,28 @@ def verify():
         assert "do not represent overall forecasting skill" in slide_text[16]
         assert "SARIMA deferred" in slide_text[20]
         assert "#8 remains partial" in slide_text[20]
+        # Slide 21: V2 pilot update (values from docs/evidence/phase2_v2_m4_pilot_results_20261019.json).
+        pilot = json.loads((ROOT / "docs/evidence/phase2_v2_m4_pilot_results_20261019.json").read_text())
+        assert pilot["status"] == "COMPLETE" and pilot["jobs_succeeded"] == 20 and pilot["inference_status"] == "INFERENCE_UNAVAILABLE"
+        for text in ("20/20 jobs", "two seeds", "previously used 10-day validation window", "did not beat supervised",
+                     "frozen JEPA beat random frozen", "descriptive only, no significance"):
+            assert text in slide_text[21], text
+        for forbidden in ("significant improvement", "outperforms", "generalizes", "p <", "p ="):
+            assert forbidden not in slide_text[21], forbidden
+        for label, key in (("Fine-tuned JEPA", "primary:jepa_finetune"), ("Supervised", "primary:supervised"),
+                           ("TCN", "primary:tcn"), ("Frozen JEPA encoder", "primary:jepa_frozen")):
+            for value in pilot["validation_mean_dex_pinball_per_seed"][key]:
+                assert f"{value:.5f}" in slide_text[21], (label, value)
+        assert pilot["identities"]["report_sha256"] and hashlib.sha256(
+            (ROOT / "docs/evidence/phase2_v2_m4_pilot_results_20261019.json").read_bytes()).hexdigest() in " ".join(
+            t.text or "" for t in ET.fromstring(package.read("ppt/notesSlides/notesSlide21.xml")).findall(".//a:t", NS))
         embedded = {hashlib.sha256(package.read(n)).hexdigest() for n in package.namelist()
                     if n.startswith("ppt/media/") and not n.endswith("/")}
         for filename in expected_assets:
             assert sha256(assets / filename) in embedded, filename
 
     reader = PdfReader(pdf)
+    # The committed PDF is the earlier 20-page facsimile; it predates slide 21 (see presentations/README.md).
     assert len(reader.pages) == 20
     for page in reader.pages:
         assert tuple(float(x) for x in page.mediabox) == (0, 0, 960, 540)
@@ -88,13 +104,13 @@ def verify():
         assert len(images) == 1
         assert (images[0]["/Width"], images[0]["/Height"]) == (2560, 1440)
     return {
-        "status": "PASS", "slides": 20, "speaker_notes": 20,
-        "minimum_note_characters": min(note_lengths), "native_table_slides": tables,
+        "status": "PASS", "slides": 21, "speaker_notes": 21,
+        "minimum_note_characters": min(note_lengths), "native_table_slides": tables, "v2_update_slide": 21,
         "embedded_verified_scientific_figures": 9, "embedded_real_dashboard_captures": 2,
         "chart_files_hash_checked": len(chart_manifest["charts"]),
         "dashboard_files_hash_checked": len(captures["captures"]),
         "source_commit": evidence["source_commit"], "payload_sha256": evidence["payload_sha256"],
-        "pdf_pages": 20, "pdf_format": "192-dpi rendered-slide facsimile, 16:9",
+        "pdf_pages": 20, "pdf_status": "STALE: predates slide 21; regenerate from the PPTX", "pdf_format": "192-dpi rendered-slide facsimile, 16:9",
         "outputs": {p.name: {"sha256": sha256(p), "bytes": p.stat().st_size} for p in (pptx, pdf)},
         "claim_boundary": "Package, values and asset identities only. Visual review and scientific replay are separate checks. Native PowerPoint was not executed.",
     }

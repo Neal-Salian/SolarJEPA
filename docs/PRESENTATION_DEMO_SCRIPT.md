@@ -8,7 +8,7 @@ Click **Overview**. “SolarJEPA studies short-horizon forecasting of solar X-ra
 
 Point to GOES-16 XRS, 87,840 observed minute records and 60-second cadence. “The interactive period is May and June 2024. This counts timestamps before quality rejection, not flare events.”
 
-Point to both channels and the W/m² log axis. “Flux spans orders of magnitude. We retain the original timestamps and quality gaps. Display sampling keeps peaks rather than replacing them with averages.” Briefly follow the pipeline underneath. Do not imply that V2 training or an operational forecasting service has run.
+Point to both channels and the W/m² log axis. “Flux spans orders of magnitude. We retain the original timestamps and quality gaps. Display sampling keeps peaks rather than replacing them with averages.” Briefly follow the pipeline underneath. Do not imply that an operational forecasting service exists; the V2 pilot is mentioned only at Research status.
 
 ## 1:30–2:45 — Data Explorer
 
@@ -30,6 +30,6 @@ Click **Model Results**. “These are archived V1 log-space MAE values, in dex; 
 
 Point out the descriptive ordering. “Fine-tuned JEPA and the supervised control are close in this retrospective benchmark. This does not establish general pretraining superiority or validated statistical significance.” Open **Exact displayed metrics** only if useful.
 
-Finish at **Research status**. “GOES EDA and the historical V1 comparison are available. V2 infrastructure exists, but its real-data pilot is not authorized. Inference remains unvalidated and SoLEXS integration is pending. Infrastructure tests are not forecasting accuracy evidence.”
+Finish at **Research status**. The bulleted list is the 11 October snapshot; read the dated update line beneath it. “GOES EDA and the historical V1 comparison are available. On 19 October the V2 two-seed development pilot completed all 20 jobs. Fine-tuned JEPA did not beat the matched supervised controls; a frozen JEPA encoder did beat a frozen random encoder. That is two seeds on one previously used 10-day validation window, so it is descriptive only: no significance or generalization claim. Inference remains unvalidated and SoLEXS integration is pending.”
 
 If a graph is unavailable during rehearsal, restore its exact local source using the guide. During the presentation, state the limitation and continue to a page with verified evidence; do not regenerate experiments or substitute synthetic data.
