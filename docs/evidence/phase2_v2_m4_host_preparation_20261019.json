@@ -1,0 +1,147 @@
+{
+ "base": {
+  "branch": "codex/v2-experimental-validation-readiness",
+  "checkpoint_8e9ce06": "ancestor of 1c5b699 (verified)",
+  "commit": "1c5b699f8d0cbe39eafa3b768e31749d9466af6a",
+  "stable_baseline_tag": "v0.1.0 -> main 94a99cb (not an ancestor of the V2 branch; V2 base is V1 audit 644648f)"
+ },
+ "bindings": {
+  "configuration": "a7ce71194dac05c7ac14e5a5fc09f478b7b6d88ad0744a97bc7c3c7af02a641b",
+  "design": "ec104daac15f45fe1c0cee9de44b72e2ed67e2bc42de1bc69edb99ffbec55624",
+  "m4_host": "7911860b4ed675d28475a21b274811113b835a66b84d2262effa202d459deeeb",
+  "m4_runtime": "df97838628e521bd51a8c39b801fb371d34bcf1e36027de451a64f424514f6b5",
+  "runtime_recomputed_twice_byte_identical": true,
+  "source": "fbb17789683545fae55b8aa5c19085bd4dadf9cdb0d72922bdad37e8b6c567ee"
+ },
+ "blockers": [
+  "G3 reservation not activated by the owner for the M4 host",
+  "G4 execution not authorized for the changed environment",
+  "AC power / continuous session required",
+  "owner must accept Python/OS/host differences"
+ ],
+ "data": {
+  "bytes": 27280082,
+  "duplicates": 0,
+  "files": 92,
+  "grid_rows": 132480,
+  "identity": {
+   "dataset_fingerprint": "080d6128a398259e2112ce812b13d599b2131f9992bccced9720fe215e05cb72",
+   "forecast_fingerprint": "094df46d625380c4c812bb26c9320cff10e40a2de185cfcebfa5dfff04674d94",
+   "normalization_fingerprint": "848623009ce048a14e32c50b7c70d9c9728cdd77391f10115ec1c8fd46d039a9",
+   "split_fingerprint": "69fac8443c0740b7504acbca31720ec5c52cd39a678999e0024debf6344987a4",
+   "split_fingerprints": {
+    "train": "e79a5074c3323f771a8cc40c3dde7a1c8f61747f5ed90f827c450fbb9b6f0c9d",
+    "validation": "707588906ec567b711d60f53fcd7ec81934755a3cb3df24d9df6837e67a68677"
+   },
+   "train_windows": {
+    "cap": 20000,
+    "eligible": 108199,
+    "fingerprint": "55d8eb706cb39b89c8ef3c778890dd47612e5a8c5457429a9bf3a19e683d2fe2",
+    "policy": "complete_consecutive_raw_training_rows",
+    "stride": 1,
+    "subsample": "evenly_spaced_chronological",
+    "used": 20000
+   },
+   "training_fingerprint": "8e5f200f701c73d37191009d66246cd3bd50b5c3da7bb290d4fc28612fff38fb",
+   "validation_content_fingerprint": "bd0fbf759460b2392b0812ff825b215f3e020f9271cdfe20881cf5fa4e5c0870"
+  },
+  "identity_matches_m2_evidence": true,
+  "missing_bins": 0,
+  "native_identity_passed": 92,
+  "native_preflight_peak_rss_bytes": 511983616,
+  "native_preflight_seconds": 9.69,
+  "origins": {
+   "train": [
+    3609,
+    327
+   ],
+   "validation": [
+    412,
+    68
+   ]
+  }
+ },
+ "date": "2026-10-19",
+ "execution_authorized": false,
+ "gate_checks": {
+  "cli_metadata_ok": true,
+  "cli_missing_approval_status": "BLOCKED",
+  "dry_run_persisted_or_used_to_launch": false,
+  "m2_runtime_host_binding_denied": true,
+  "m4_binding_consistent_in_memory_dry_run": true,
+  "m4_runtime_with_m2_host_denied": true,
+  "missing_approval_denied": true,
+  "output_root_absent": true,
+  "pending_file_denied": true
+ },
+ "host": {
+  "chip": "Apple M4",
+  "efficiency_cores": 6,
+  "free_output_bytes": 15919099904,
+  "host_fingerprint": "7911860b4ed675d28475a21b274811113b835a66b84d2262effa202d459deeeb",
+  "logical_cpus": 10,
+  "memory_bytes": 17179869184,
+  "model": "Mac16,12",
+  "netcdf4": "1.7.2",
+  "numpy": "2.2.6",
+  "os": "macOS 27.0.1 (26A434)",
+  "performance_cores": 4,
+  "power_at_check": "battery 31%, discharging (AC required for a run)",
+  "python": "3.13.7",
+  "torch": "2.6.0"
+ },
+ "kind": "solarjepa_v2_m4_host_preparation",
+ "m2_reference": {
+  "chip": "Apple M2",
+  "host_fingerprint": "58c5a228d2cc695f0bba3ae9917b61c041556a10a44261ec6a6d4b465dbe77dd",
+  "logical_cpus": 8,
+  "memory_bytes": 8589934592,
+  "model": "Mac14,2",
+  "os": "macOS 26.3",
+  "python": "3.13.3",
+  "runtime_at_1c5b699": "08e6f763ff8aa88d96a18ffcd076e996646b6546fcb5d69964d566b803c57ae4"
+ },
+ "model_fit_executed": false,
+ "observed_differences_from_m2": [
+  "host and CPU (M4, 10 cpus, 16 GiB)",
+  "macOS 27.0.1 vs 26.3",
+  "Python 3.13.7 vs 3.13.3",
+  "strict NumPy-first NetCDF4 import exits 0 here (warning not reproduced; cause unknown)",
+  "results are not expected to be bitwise equal to any M2 result (thread count and CPU affect JEPA-family weights)"
+ ],
+ "packages": {
+  "absent_note": "Jupyter/dev/UI tooling and psutil; never imported by source or scripts (grep)",
+  "absent_vs_m2": 50,
+  "relevant_installed": 43,
+  "version_differences_vs_m2_snapshot": 0
+ },
+ "reservation_active": false,
+ "runtime_estimate_minutes": {
+  "basis": "INFERRED from synthetic benchmarks on this Mac (macOS 26.3.1) and committed real-data preparation timings; no real-data fitting benchmark; macOS 27 not benchmarked",
+  "conservative": 81,
+  "excludes": "timeout kills, reload parity, guarded publication and report finalization overhead (unmeasured)",
+  "expected": 32,
+  "optimistic": 26,
+  "plausible_range": [
+   25,
+   90
+  ],
+  "total_budget": 120
+ },
+ "schema_version": 1,
+ "status": "PREPARED_NOT_AUTHORIZED",
+ "test_partition_constructed": false,
+ "tests": {
+  "full_project_suite_run": false,
+  "pilot_loader_guard_suite": {
+   "passed": 301,
+   "seconds": 88.9
+  },
+  "resource_goes_contract_suite": {
+   "passed": 357,
+   "seconds": 33.9,
+   "warnings": 1
+  }
+ },
+ "torch_imported_in_native_preflight": false
+}

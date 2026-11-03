@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "slides": 21,
+  "speaker_notes": 21,
+  "minimum_note_characters": 1038,
+  "native_table_slides": [
+    2,
+    7,
+    8,
+    13,
+    14,
+    16,
+    20,
+    21
+  ],
+  "embedded_verified_scientific_figures": 9,
+  "embedded_real_dashboard_captures": 2,
+  "chart_files_hash_checked": 10,
+  "dashboard_files_hash_checked": 4,
+  "source_commit": "abe4b79d2fe7549552b0a1f467be1cd949b652a7",
+  "payload_sha256": "69935892e311ef4aacd00a7e9e6ccb055aac8abb1cda7ee988195d6f2fcc5675",
+  "pdf_pages": 20,
+  "pdf_format": "192-dpi rendered-slide facsimile, 16:9",
+  "outputs": {
+    "SolarJEPA_Final_Time_Series_Presentation.pptx": {
+      "sha256": "9e201bec89d1d45af3216651eb6656f5653db541629b6e5ac862b32f00a33481",
+      "bytes": 2305545
+    },
+    "SolarJEPA_Final_Time_Series_Presentation.pdf": {
+      "sha256": "2798754f70a5be4bff863cc9becebb237186bdd91570e85aa90e632715281f89",
+      "bytes": 5753228
+    }
+  },
+  "claim_boundary": "Package, values and asset identities only. Slide 21 was not visually rendered after its final layout edit; the PDF predates slide 21. Native PowerPoint rendering was not completed. Scientific replay is a separate check.",
+  "v2_update_slide": 21,
+  "pdf_status": "STALE: predates slide 21; regenerate from the PPTX"
+}

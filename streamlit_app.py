@@ -5,6 +5,9 @@ from pathlib import Path
 import sys
 
 ROOT = Path(__file__).resolve().parent
+# Dated update outside the pinned 11 Oct status snapshot (keeps the Stable Baseline registry unchanged).
+V2_PILOT_EVIDENCE = ("docs/evidence/phase2_v2_m4_pilot_results_20261019.json",
+                     "381a09de84c4487d5a68d4007d6d866203ded86f280b3c7b8f23ce2036e68bc1")
 sys.path.insert(0, str(ROOT / "src"))
 
 import pandas as pd
@@ -142,7 +145,8 @@ def overview(registry: dict) -> None:
     st.markdown("**GOES observations → quality control → time-series preparation → forecasting models → evaluation**")
     data.verify_sources(ROOT, registry, "research_status")
     st.write("The presentation combines verified GOES exploratory analysis and archived V1 evaluation. "
-             "V2 infrastructure is implemented; a V2 real-data pilot has not been authorized.")
+             "V2 infrastructure is implemented. Update, 20 October 2026: one two-seed V2 development pilot "
+             "completed on 19 October (descriptive only; see Model Results → Research status).")
     provenance(registry, "research_status")
 
 
@@ -262,6 +266,15 @@ def models(registry: dict) -> None:
         st.markdown("- " + item["label"])
     st.caption("Status snapshot: " + status["snapshot_utc"] + ". Infrastructure checks are not forecasting accuracy evidence. "
                "A matched timestamp-level prediction display is omitted from the archived V1 comparison.")
+    pilot = ROOT / V2_PILOT_EVIDENCE[0]
+    if pilot.is_file() and data._sha(pilot) == V2_PILOT_EVIDENCE[1]:
+        st.markdown("**Update, 20 October 2026 (supersedes the snapshot's pilot line):** the V2 two-seed development "
+                    "pilot completed all 20 jobs on 19 October. Fine-tuned JEPA did not beat the matched supervised "
+                    "controls; a frozen JEPA encoder beat a frozen random encoder. Two seeds and one previously used "
+                    "10-day validation window: descriptive only, with no significance or generalization claim.")
+        st.caption("Source: " + V2_PILOT_EVIDENCE[0] + " (SHA-256 verified; commit 76dc0fa). No V2 scores are plotted here.")
+    else:
+        st.caption("V2 pilot update unavailable: its evidence file is missing or changed.")
     provenance(registry, "research_status")
     time_series.render_models(ROOT)
 

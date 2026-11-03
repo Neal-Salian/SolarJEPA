@@ -1,0 +1,416 @@
+{
+  "schema_version": 1,
+  "source_commit": "abe4b79d2fe7549552b0a1f467be1cd949b652a7",
+  "payload_sha256": "69935892e311ef4aacd00a7e9e6ccb055aac8abb1cda7ee988195d6f2fcc5675",
+  "dataset": {
+    "absent_bins": 0,
+    "channels": [
+      "xrsa",
+      "xrsb"
+    ],
+    "end_exclusive_utc": "2024-09-01T00:00:00+00:00",
+    "manifests": [
+      {
+        "bytes": 9169020,
+        "files": 31,
+        "path": "data/manifests/goes_v1_202405.json",
+        "sha256": "9828b714ecb4545af2711f2760d110b9d0dd963a67e1f3d1d1f711af0aeb2240"
+      },
+      {
+        "bytes": 8910715,
+        "files": 30,
+        "path": "data/manifests/goes_v1_202406.json",
+        "sha256": "91e45449c61918c52786c4d4f45d4d9311ef313bbc8baace314a40bf135ecc79"
+      },
+      {
+        "bytes": 9200347,
+        "files": 31,
+        "path": "data/manifests/goes_p2_july2024.json",
+        "sha256": "581a3c4b8cfba6b9b21ed1fdb0b2277e728e9bf329a8da1ddcc0bd49c3cc4b3d"
+      },
+      {
+        "bytes": 9255392,
+        "files": 31,
+        "path": "data/manifests/goes_v1_202408.json",
+        "sha256": "50164744c036e2c3776486a6657cf1c60bef4e9e81b0c27a154be9bdbd12faff"
+      }
+    ],
+    "quality_policy": "strict status zero and channel-specific electron bits; no imputation",
+    "rows": 177120,
+    "source_bytes": 36535474,
+    "source_files": 123,
+    "splits": [
+      {
+        "end_utc": "2024-07-22T00:00:00Z",
+        "name": "train",
+        "start_utc": "2024-05-01T00:00:00Z"
+      },
+      {
+        "end_utc": "2024-08-01T00:00:00Z",
+        "name": "validation",
+        "start_utc": "2024-07-22T00:00:00Z"
+      },
+      {
+        "end_utc": "2024-09-01T00:00:00Z",
+        "name": "test",
+        "start_utc": "2024-08-01T00:00:00Z"
+      }
+    ],
+    "start_utc": "2024-05-01T00:00:00+00:00",
+    "time_policy": "UTC minute bin starts; retrospective bin-end availability; actual delivery unknown",
+    "units": "W/m2"
+  },
+  "statistics": [
+    {
+      "absent_bins": 0,
+      "channel": "xrsa",
+      "count": 172646,
+      "max": 0.0004364582127891481,
+      "mean": 5.245293949523722e-07,
+      "median": 8.461841005669157e-08,
+      "min": 1.1770801222610316e-08,
+      "nonfinite_raw_bins": 2153,
+      "q25": 4.65987284314906e-08,
+      "q75": 2.0105822784444172e-07,
+      "rejected_present_bins": 4474,
+      "std": 4.177892129789244e-06,
+      "transform": "raw",
+      "units": "W/m2"
+    },
+    {
+      "absent_bins": 0,
+      "channel": "xrsa",
+      "count": 172646,
+      "max": -3.360057330019847,
+      "mean": -6.951984176163278,
+      "median": -7.07253513913345,
+      "min": -7.929193974309041,
+      "nonfinite_raw_bins": 2153,
+      "q25": -7.331625934018858,
+      "q75": -6.696678150556833,
+      "rejected_present_bins": 4474,
+      "std": 0.5462315465195464,
+      "transform": "log10",
+      "units": "log10(F / (1 W/m2))"
+    },
+    {
+      "absent_bins": 0,
+      "channel": "xrsb",
+      "count": 174845,
+      "max": 0.000868848932441324,
+      "mean": 5.662793577333057e-06,
+      "median": 3.252227770644822e-06,
+      "min": 8.121963332996529e-07,
+      "nonfinite_raw_bins": 2153,
+      "q25": 2.237904709545546e-06,
+      "q75": 5.015107035433175e-06,
+      "rejected_present_bins": 2275,
+      "std": 1.4156613419165975e-05,
+      "transform": "raw",
+      "units": "W/m2"
+    },
+    {
+      "absent_bins": 0,
+      "channel": "xrsb",
+      "count": 174845,
+      "max": -3.0610557281663415,
+      "mean": -5.439995351324805,
+      "median": -5.48781904608222,
+      "min": -6.090338975485383,
+      "nonfinite_raw_bins": 2153,
+      "q25": -5.650158409764598,
+      "q75": -5.299719793570395,
+      "rejected_present_bins": 2275,
+      "std": 0.32124537076052045,
+      "transform": "log10",
+      "units": "log10(F / (1 W/m2))"
+    }
+  ],
+  "scatter_correlation": 0.963905768093713,
+  "stationarity": [
+    {
+      "channel": "xrsa",
+      "transform": "raw_scaled",
+      "input_rows": "10149",
+      "adf_statistic": "-12.428811656456398",
+      "adf_p_value": "3.982895042519253e-23",
+      "adf_lags": "30",
+      "adf_nobs": "10118",
+      "kpss_statistic": "0.13755441921533745",
+      "kpss_p_relation": ">",
+      "kpss_p_value": "0.1",
+      "kpss_lags": "55"
+    },
+    {
+      "channel": "xrsa",
+      "transform": "log_level",
+      "input_rows": "10149",
+      "adf_statistic": "-8.763015779505968",
+      "adf_p_value": "2.642787772819857e-14",
+      "adf_lags": "30",
+      "adf_nobs": "10118",
+      "kpss_statistic": "0.554284949113674",
+      "kpss_p_relation": "=",
+      "kpss_p_value": "0.02944032677619955",
+      "kpss_lags": "58"
+    },
+    {
+      "channel": "xrsa",
+      "transform": "log_difference",
+      "input_rows": "10148",
+      "adf_statistic": "-22.394735844448775",
+      "adf_p_value": "0.0",
+      "adf_lags": "30",
+      "adf_nobs": "10117",
+      "kpss_statistic": "0.0024504306565681535",
+      "kpss_p_relation": ">",
+      "kpss_p_value": "0.1",
+      "kpss_lags": "15"
+    },
+    {
+      "channel": "xrsb",
+      "transform": "raw_scaled",
+      "input_rows": "10149",
+      "adf_statistic": "-10.06396778024377",
+      "adf_p_value": "1.3110664874229859e-17",
+      "adf_lags": "30",
+      "adf_nobs": "10118",
+      "kpss_statistic": "0.26549188615689157",
+      "kpss_p_relation": ">",
+      "kpss_p_value": "0.1",
+      "kpss_lags": "57"
+    },
+    {
+      "channel": "xrsb",
+      "transform": "log_level",
+      "input_rows": "10149",
+      "adf_statistic": "-8.223894896963444",
+      "adf_p_value": "6.321840862383001e-13",
+      "adf_lags": "30",
+      "adf_nobs": "10118",
+      "kpss_statistic": "0.6582122665710446",
+      "kpss_p_relation": "=",
+      "kpss_p_value": "0.01734433940263231",
+      "kpss_lags": "58"
+    },
+    {
+      "channel": "xrsb",
+      "transform": "log_difference",
+      "input_rows": "10148",
+      "adf_statistic": "-21.19063726991392",
+      "adf_p_value": "0.0",
+      "adf_lags": "30",
+      "adf_nobs": "10117",
+      "kpss_statistic": "0.0027345245615413836",
+      "kpss_p_relation": ">",
+      "kpss_p_value": "0.1",
+      "kpss_lags": "13"
+    }
+  ],
+  "diagnostic_block": {
+    "start_utc": "2024-06-11T16:38:00+00:00",
+    "end_exclusive_utc": "2024-06-18T17:47:00+00:00",
+    "rows": 10149,
+    "daily_acf": {
+      "xrsa": 0.01421248555854344,
+      "xrsb": 0.008161395685846265
+    }
+  },
+  "training": {
+    "end_exclusive_utc": "2024-06-13T16:38:00+00:00",
+    "rows": 2880,
+    "start_utc": "2024-06-11T16:38:00+00:00"
+  },
+  "candidates": [
+    {
+      "channel": "xrsa",
+      "family": "AR",
+      "order": [
+        1,
+        0,
+        0
+      ],
+      "aic": -11554.924475277527,
+      "bic": -11537.027838558137
+    },
+    {
+      "channel": "xrsa",
+      "family": "AR",
+      "order": [
+        2,
+        0,
+        0
+      ],
+      "aic": -12320.020685367697,
+      "bic": -12296.158503075178
+    },
+    {
+      "channel": "xrsa",
+      "family": "MA",
+      "order": [
+        0,
+        0,
+        1
+      ],
+      "aic": -1178.9537905615468,
+      "bic": -1161.0571538421568
+    },
+    {
+      "channel": "xrsa",
+      "family": "MA",
+      "order": [
+        0,
+        0,
+        2
+      ],
+      "aic": -4197.274086677448,
+      "bic": -4173.411904384929
+    },
+    {
+      "channel": "xrsa",
+      "family": "ARMA",
+      "order": [
+        1,
+        0,
+        1
+      ],
+      "aic": -12152.194577264818,
+      "bic": -12128.332394972298
+    },
+    {
+      "channel": "xrsa",
+      "family": "ARIMA",
+      "order": [
+        1,
+        1,
+        0
+      ],
+      "aic": -12311.066341415908,
+      "bic": -12299.135944834683
+    },
+    {
+      "channel": "xrsa",
+      "family": "ARIMA",
+      "order": [
+        2,
+        1,
+        0
+      ],
+      "aic": -12310.261032589626,
+      "bic": -12292.36543771779
+    },
+    {
+      "channel": "xrsb",
+      "family": "AR",
+      "order": [
+        1,
+        0,
+        0
+      ],
+      "aic": -18383.117795262762,
+      "bic": -18365.221158543372
+    },
+    {
+      "channel": "xrsb",
+      "family": "AR",
+      "order": [
+        2,
+        0,
+        0
+      ],
+      "aic": -20627.23279147937,
+      "bic": -20603.37060918685
+    },
+    {
+      "channel": "xrsb",
+      "family": "MA",
+      "order": [
+        0,
+        0,
+        1
+      ],
+      "aic": -5803.767512894934,
+      "bic": -5785.870876175544
+    },
+    {
+      "channel": "xrsb",
+      "family": "MA",
+      "order": [
+        0,
+        0,
+        2
+      ],
+      "aic": -9261.275451372101,
+      "bic": -9237.413269079581
+    },
+    {
+      "channel": "xrsb",
+      "family": "ARMA",
+      "order": [
+        1,
+        0,
+        1
+      ],
+      "aic": -20038.528706876292,
+      "bic": -20014.666524583772
+    },
+    {
+      "channel": "xrsb",
+      "family": "ARIMA",
+      "order": [
+        1,
+        1,
+        0
+      ],
+      "aic": -20616.47640191977,
+      "bic": -20604.546005338543
+    },
+    {
+      "channel": "xrsb",
+      "family": "ARIMA",
+      "order": [
+        2,
+        1,
+        0
+      ],
+      "aic": -20686.72778048391,
+      "bic": -20668.832185612075
+    }
+  ],
+  "selected": {
+    "xrsa": {
+      "order": [
+        1,
+        1,
+        0
+      ],
+      "aic": -12311.066341415908,
+      "bic": -12299.135944834683
+    },
+    "xrsb": {
+      "order": [
+        2,
+        1,
+        0
+      ],
+      "aic": -20686.72778048391,
+      "bic": -20668.832185612075
+    }
+  },
+  "deployment": {
+    "issue_utc": "2024-08-01T02:00:00+00:00",
+    "context_steps": 120,
+    "horizon_steps": 30,
+    "metrics": {
+      "xrsa": {
+        "log_mae": 0.21883529572062846,
+        "log_rmse": 0.25663548513798795
+      },
+      "xrsb": {
+        "log_mae": 0.09434742383206549,
+        "log_rmse": 0.10905534882056377
+      }
+    }
+  },
+  "metric_scope": "One retrospective complete-case held-out 30-minute example, not overall forecasting skill"
+}

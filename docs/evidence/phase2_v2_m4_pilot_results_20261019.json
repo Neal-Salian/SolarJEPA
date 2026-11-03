@@ -1,0 +1,270 @@
+{
+ "attempts": 20,
+ "budget_seconds": 7200,
+ "comparisons": {
+  "alternate_loss:jepa_finetune-supervised": {
+   "interval": null,
+   "mean_a": 0.04725,
+   "mean_b": 0.04663,
+   "mean_difference": 0.00062,
+   "per_seed": [
+    0.00114,
+    0.0001
+   ]
+  },
+  "loss_recipe:jepa_finetune:dex-normalized": {
+   "interval": null,
+   "mean_a": 0.04721,
+   "mean_b": 0.04725,
+   "mean_difference": -3e-05,
+   "per_seed": [
+    -0.00014,
+    8e-05
+   ]
+  },
+  "loss_recipe:supervised:dex-normalized": {
+   "interval": null,
+   "mean_a": 0.04685,
+   "mean_b": 0.04663,
+   "mean_difference": 0.00023,
+   "per_seed": [
+    0.00015,
+    0.00031
+   ]
+  },
+  "primary:jepa_finetune-jepa_frozen": {
+   "interval": null,
+   "mean_a": 0.04721,
+   "mean_b": 0.05017,
+   "mean_difference": -0.00296,
+   "per_seed": [
+    -0.00346,
+    -0.00246
+   ]
+  },
+  "primary:jepa_finetune-quantile_linear": {
+   "interval": null,
+   "mean_a": 0.04721,
+   "mean_b": 0.05252,
+   "mean_difference": -0.0053,
+   "per_seed": [
+    -0.0039,
+    -0.00671
+   ]
+  },
+  "primary:jepa_finetune-supervised": {
+   "interval": null,
+   "mean_a": 0.04721,
+   "mean_b": 0.04685,
+   "mean_difference": 0.00036,
+   "per_seed": [
+    0.00085,
+    -0.00013
+   ]
+  },
+  "primary:jepa_finetune-supervised_extra_updates": {
+   "interval": null,
+   "mean_a": 0.04721,
+   "mean_b": 0.04634,
+   "mean_difference": 0.00087,
+   "per_seed": [
+    0.00141,
+    0.00034
+   ]
+  },
+  "primary:jepa_finetune-tcn": {
+   "interval": null,
+   "mean_a": 0.04721,
+   "mean_b": 0.04707,
+   "mean_difference": 0.00014,
+   "per_seed": [
+    0.00077,
+    -0.00048
+   ]
+  },
+  "primary:jepa_frozen-random_frozen": {
+   "interval": null,
+   "mean_a": 0.05017,
+   "mean_b": 0.06802,
+   "mean_difference": -0.01784,
+   "per_seed": [
+    -0.01649,
+    -0.0192
+   ]
+  },
+  "primary:supervised_extra_updates-supervised": {
+   "interval": null,
+   "mean_a": 0.04634,
+   "mean_b": 0.04685,
+   "mean_difference": -0.00051,
+   "per_seed": [
+    -0.00056,
+    -0.00046
+   ]
+  }
+ },
+ "header": "DEVELOPMENT FEASIBILITY ONLY \u2014 EXPOSED MAY\u2013JULY2024 \u2014 POST-SELECTION VALIDATION \u2014 ONE FOLD/TWO SEEDS \u2014 DESCRIPTIVE_ONLY \u2014 INFERENCE_UNAVAILABLE \u2014 NO_VALIDATED_REPLACEMENT",
+ "host": "Mac16,12 Apple M4 16 GiB macOS 27.0.1 Python 3.13.7 (approved by Veer Shetty, reservation SolarJEPA-G4-M4-20261019-01)",
+ "identities": {
+  "binding": "37ee71f4e2594be40ca4348e6154054f5afdbed51fbb4e9f32f024e39cba5713",
+  "design": "ec104daac15f45fe1c0cee9de44b72e2ed67e2bc42de1bc69edb99ffbec55624",
+  "development_locks": {
+   "alternate_loss": "ac4123f67de6d55bf6ef31d48ac8b9d6d69d1f7d8efdec768c22d79f7d83a081",
+   "primary": "6c19836276d1902ada16107ad20a0bba2199dececfe6f01aa1a83617ba550c6a"
+  },
+  "report_sha256": "52c6d3127e2597fc216fa28b7d48fc9291c6056b0c8ac29c8d9989bdda444a67",
+  "supervisor_plan": "e111c23d3de8609f9becd862c0dd2c18db8c79da9c4bf25fa972e6673a22dd5f"
+ },
+ "inference_reason": "NO_VALIDATED_REPLACEMENT",
+ "inference_status": "INFERENCE_UNAVAILABLE",
+ "jobs_planned": 20,
+ "jobs_succeeded": 20,
+ "kind": "solarjepa_v2_m4_pilot_results",
+ "max_sampled_rss_bytes": 935575552,
+ "per_job": [
+  {
+   "job": "00-1261866429-shared_ssl-ssl",
+   "peak_sampled_rss_bytes": 882212864,
+   "wall_seconds": 43.1
+  },
+  {
+   "job": "01-1261866429-primary-jepa_finetune",
+   "peak_sampled_rss_bytes": 897253376,
+   "wall_seconds": 62.6
+  },
+  {
+   "job": "02-1261866429-primary-supervised",
+   "peak_sampled_rss_bytes": 856473600,
+   "wall_seconds": 62.4
+  },
+  {
+   "job": "03-1261866429-primary-supervised_extra_updates",
+   "peak_sampled_rss_bytes": 860651520,
+   "wall_seconds": 87.2
+  },
+  {
+   "job": "04-1261866429-primary-jepa_frozen",
+   "peak_sampled_rss_bytes": 865107968,
+   "wall_seconds": 38.9
+  },
+  {
+   "job": "05-1261866429-primary-random_frozen",
+   "peak_sampled_rss_bytes": 831913984,
+   "wall_seconds": 36.9
+  },
+  {
+   "job": "06-1261866429-baseline-tcn",
+   "peak_sampled_rss_bytes": 887799808,
+   "wall_seconds": 303.6
+  },
+  {
+   "job": "07-1261866429-baseline-quantile_linear",
+   "peak_sampled_rss_bytes": 801472512,
+   "wall_seconds": 113.5
+  },
+  {
+   "job": "08-1261866429-normalized_pinball_v1-jepa_finetune",
+   "peak_sampled_rss_bytes": 900939776,
+   "wall_seconds": 81.3
+  },
+  {
+   "job": "09-1261866429-normalized_pinball_v1-supervised",
+   "peak_sampled_rss_bytes": 857964544,
+   "wall_seconds": 73.8
+  },
+  {
+   "job": "10-1291916211-shared_ssl-ssl",
+   "peak_sampled_rss_bytes": 931790848,
+   "wall_seconds": 48.5
+  },
+  {
+   "job": "11-1291916211-primary-jepa_finetune",
+   "peak_sampled_rss_bytes": 935575552,
+   "wall_seconds": 80.4
+  },
+  {
+   "job": "12-1291916211-primary-supervised",
+   "peak_sampled_rss_bytes": 855998464,
+   "wall_seconds": 82.3
+  },
+  {
+   "job": "13-1291916211-primary-supervised_extra_updates",
+   "peak_sampled_rss_bytes": 856440832,
+   "wall_seconds": 115.2
+  },
+  {
+   "job": "14-1291916211-primary-jepa_frozen",
+   "peak_sampled_rss_bytes": 876625920,
+   "wall_seconds": 48.0
+  },
+  {
+   "job": "15-1291916211-primary-random_frozen",
+   "peak_sampled_rss_bytes": 906657792,
+   "wall_seconds": 40.6
+  },
+  {
+   "job": "16-1291916211-baseline-tcn",
+   "peak_sampled_rss_bytes": 886931456,
+   "wall_seconds": 420.7
+  },
+  {
+   "job": "17-1291916211-baseline-quantile_linear",
+   "peak_sampled_rss_bytes": 789118976,
+   "wall_seconds": 267.6
+  },
+  {
+   "job": "18-1291916211-normalized_pinball_v1-jepa_finetune",
+   "peak_sampled_rss_bytes": 906166272,
+   "wall_seconds": 211.5
+  },
+  {
+   "job": "19-1291916211-normalized_pinball_v1-supervised",
+   "peak_sampled_rss_bytes": 860798976,
+   "wall_seconds": 209.9
+  }
+ ],
+ "report_status": "DESCRIPTIVE_ONLY",
+ "retries": 0,
+ "schema_version": 1,
+ "status": "COMPLETE",
+ "test_released": false,
+ "total_wall_seconds": 3014.8,
+ "validation_mean_dex_pinball_per_seed": {
+  "alternate_loss:jepa_finetune": [
+   0.04781,
+   0.04668
+  ],
+  "alternate_loss:supervised": [
+   0.04667,
+   0.04658
+  ],
+  "primary:jepa_finetune": [
+   0.04767,
+   0.04676
+  ],
+  "primary:jepa_frozen": [
+   0.05113,
+   0.04922
+  ],
+  "primary:quantile_linear": [
+   0.05157,
+   0.05347
+  ],
+  "primary:random_frozen": [
+   0.06762,
+   0.06842
+  ],
+  "primary:supervised": [
+   0.04682,
+   0.04689
+  ],
+  "primary:supervised_extra_updates": [
+   0.04626,
+   0.04642
+  ],
+  "primary:tcn": [
+   0.0469,
+   0.04724
+  ]
+ }
+}
